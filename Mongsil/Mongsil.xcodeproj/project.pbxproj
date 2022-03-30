@@ -11,6 +11,11 @@
 		126EF42B27F2AC2400102FA9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126EF42A27F2AC2400102FA9 /* ContentView.swift */; };
 		126EF42D27F2AC2400102FA9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 126EF42C27F2AC2400102FA9 /* Assets.xcassets */; };
 		126EF43027F2AC2400102FA9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 126EF42F27F2AC2400102FA9 /* Preview Assets.xcassets */; };
+		12F1DBD827F4119A0063A84D /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 12F1DBD727F4119A0063A84D /* ComposableArchitecture */; };
+		12F1DBDB27F411A80063A84D /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 12F1DBDA27F411A80063A84D /* Alamofire */; };
+		12F1DBDE27F411C00063A84D /* CombineExt in Frameworks */ = {isa = PBXBuildFile; productRef = 12F1DBDD27F411C00063A84D /* CombineExt */; };
+		12F1DBE127F411CC0063A84D /* PureSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 12F1DBE027F411CC0063A84D /* PureSwiftUI */; };
+		12F1DBE427F411DE0063A84D /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = 12F1DBE327F411DE0063A84D /* Nuke */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +31,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				12F1DBD827F4119A0063A84D /* ComposableArchitecture in Frameworks */,
+				12F1DBDE27F411C00063A84D /* CombineExt in Frameworks */,
+				12F1DBE127F411CC0063A84D /* PureSwiftUI in Frameworks */,
+				12F1DBDB27F411A80063A84D /* Alamofire in Frameworks */,
+				12F1DBE427F411DE0063A84D /* Nuke in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +93,13 @@
 			dependencies = (
 			);
 			name = Mongsil;
+			packageProductDependencies = (
+				12F1DBD727F4119A0063A84D /* ComposableArchitecture */,
+				12F1DBDA27F411A80063A84D /* Alamofire */,
+				12F1DBDD27F411C00063A84D /* CombineExt */,
+				12F1DBE027F411CC0063A84D /* PureSwiftUI */,
+				12F1DBE327F411DE0063A84D /* Nuke */,
+			);
 			productName = Mongsil;
 			productReference = 126EF42527F2AC2400102FA9 /* Mongsil.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +128,13 @@
 				Base,
 			);
 			mainGroup = 126EF41C27F2AC2400102FA9;
+			packageReferences = (
+				12F1DBD627F4119A0063A84D /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+				12F1DBD927F411A80063A84D /* XCRemoteSwiftPackageReference "Alamofire" */,
+				12F1DBDC27F411C00063A84D /* XCRemoteSwiftPackageReference "CombineExt" */,
+				12F1DBDF27F411CC0063A84D /* XCRemoteSwiftPackageReference "pure-swift-ui" */,
+				12F1DBE227F411DE0063A84D /* XCRemoteSwiftPackageReference "Nuke" */,
+			);
 			productRefGroup = 126EF42627F2AC2400102FA9 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -345,6 +369,77 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		12F1DBD627F4119A0063A84D /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.0;
+			};
+		};
+		12F1DBD927F411A80063A84D /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		12F1DBDC27F411C00063A84D /* XCRemoteSwiftPackageReference "CombineExt" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/CombineCommunity/CombineExt";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+		12F1DBDF27F411CC0063A84D /* XCRemoteSwiftPackageReference "pure-swift-ui" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/CodeSlicing/pure-swift-ui";
+			requirement = {
+				branch = develop;
+				kind = branch;
+			};
+		};
+		12F1DBE227F411DE0063A84D /* XCRemoteSwiftPackageReference "Nuke" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kean/Nuke";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		12F1DBD727F4119A0063A84D /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 12F1DBD627F4119A0063A84D /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
+		};
+		12F1DBDA27F411A80063A84D /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 12F1DBD927F411A80063A84D /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		12F1DBDD27F411C00063A84D /* CombineExt */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 12F1DBDC27F411C00063A84D /* XCRemoteSwiftPackageReference "CombineExt" */;
+			productName = CombineExt;
+		};
+		12F1DBE027F411CC0063A84D /* PureSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 12F1DBDF27F411CC0063A84D /* XCRemoteSwiftPackageReference "pure-swift-ui" */;
+			productName = PureSwiftUI;
+		};
+		12F1DBE327F411DE0063A84D /* Nuke */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 12F1DBE227F411DE0063A84D /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = Nuke;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 126EF41D27F2AC2400102FA9 /* Project object */;
 }
