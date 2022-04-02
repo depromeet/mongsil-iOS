@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		12273EF027F91076007624C1 /* AppTrackingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12273EEF27F91076007624C1 /* AppTrackingService.swift */; };
 		126EF42D27F2AC2400102FA9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 126EF42C27F2AC2400102FA9 /* Assets.xcassets */; };
 		126EF43027F2AC2400102FA9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 126EF42F27F2AC2400102FA9 /* Preview Assets.xcassets */; };
 		1291296527F812D80017E087 /* Effect+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1291296427F812D80017E087 /* Effect+extensions.swift */; };
@@ -28,6 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		12273EEF27F91076007624C1 /* AppTrackingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTrackingService.swift; sourceTree = "<group>"; };
 		126EF42527F2AC2400102FA9 /* Mongsil.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mongsil.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		126EF42C27F2AC2400102FA9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		126EF42F27F2AC2400102FA9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 		12457C0727F822D300F2DBF2 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				12273EEF27F91076007624C1 /* AppTrackingService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -282,6 +285,7 @@
 				12A2245227F7E0F900617C10 /* AppCore.swift in Sources */,
 				12A2245827F7E77700617C10 /* HomeCore.swift in Sources */,
 				1291296D27F814CD0017E087 /* ForEachWithIndex.swift in Sources */,
+				12273EF027F91076007624C1 /* AppTrackingService.swift in Sources */,
 				12A2244B27F7DFED00617C10 /* AppDelegate.swift in Sources */,
 				1291296F27F815460017E087 /* SharedState.swift in Sources */,
 				12A2245027F7E0F000617C10 /* AppView.swift in Sources */,
