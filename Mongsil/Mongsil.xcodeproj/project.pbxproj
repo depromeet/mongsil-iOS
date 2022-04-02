@@ -61,6 +61,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		12457C0627F822CE00F2DBF2 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		12457C0727F822D300F2DBF2 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		126EF41C27F2AC2400102FA9 = {
 			isa = PBXGroup;
 			children = (
@@ -171,27 +185,13 @@
 		12A2245B27F7E7D000617C10 /* Component */ = {
 			isa = PBXGroup;
 			children = (
-				12A2245C27F7E7F200617C10 /* Models */,
+				12457C0727F822D300F2DBF2 /* Services */,
+				12457C0627F822CE00F2DBF2 /* Models */,
 				1291297027F816570017E087 /* SharedState */,
 				1291296327F8129C0017E087 /* Extensions */,
 				1291296B27F814920017E087 /* Views */,
-				12A2245D27F7E7FE00617C10 /* Services */,
 			);
 			path = Component;
-			sourceTree = "<group>";
-		};
-		12A2245C27F7E7F200617C10 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		12A2245D27F7E7FE00617C10 /* Services */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
