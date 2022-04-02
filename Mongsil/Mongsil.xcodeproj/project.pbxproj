@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		126EF42D27F2AC2400102FA9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 126EF42C27F2AC2400102FA9 /* Assets.xcassets */; };
 		126EF43027F2AC2400102FA9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 126EF42F27F2AC2400102FA9 /* Preview Assets.xcassets */; };
+		1291296527F812D80017E087 /* Effect+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1291296427F812D80017E087 /* Effect+extensions.swift */; };
+		1291296727F812FE0017E087 /* Reducer+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1291296627F812FE0017E087 /* Reducer+extensions.swift */; };
+		1291296A27F813660017E087 /* Combine+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1291296927F813660017E087 /* Combine+extensions.swift */; };
+		1291296D27F814CD0017E087 /* ForEachWithIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1291296C27F814CD0017E087 /* ForEachWithIndex.swift */; };
+		1291296F27F815460017E087 /* SharedState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1291296E27F815460017E087 /* SharedState.swift */; };
 		12A2244B27F7DFED00617C10 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A2244A27F7DFED00617C10 /* AppDelegate.swift */; };
 		12A2244D27F7E04A00617C10 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A2244C27F7E04A00617C10 /* SceneDelegate.swift */; };
 		12A2245027F7E0F000617C10 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A2244F27F7E0F000617C10 /* AppView.swift */; };
@@ -26,6 +31,11 @@
 		126EF42527F2AC2400102FA9 /* Mongsil.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mongsil.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		126EF42C27F2AC2400102FA9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		126EF42F27F2AC2400102FA9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		1291296427F812D80017E087 /* Effect+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Effect+extensions.swift"; sourceTree = "<group>"; };
+		1291296627F812FE0017E087 /* Reducer+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reducer+extensions.swift"; sourceTree = "<group>"; };
+		1291296927F813660017E087 /* Combine+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Combine+extensions.swift"; sourceTree = "<group>"; };
+		1291296C27F814CD0017E087 /* ForEachWithIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForEachWithIndex.swift; sourceTree = "<group>"; };
+		1291296E27F815460017E087 /* SharedState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedState.swift; sourceTree = "<group>"; };
 		12A2244A27F7DFED00617C10 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		12A2244C27F7E04A00617C10 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		12A2244F27F7E0F000617C10 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
@@ -87,6 +97,40 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		1291296327F8129C0017E087 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				1291296827F813340017E087 /* ComposableArchitecture */,
+				1291296927F813660017E087 /* Combine+extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		1291296827F813340017E087 /* ComposableArchitecture */ = {
+			isa = PBXGroup;
+			children = (
+				1291296427F812D80017E087 /* Effect+extensions.swift */,
+				1291296627F812FE0017E087 /* Reducer+extensions.swift */,
+			);
+			path = ComposableArchitecture;
+			sourceTree = "<group>";
+		};
+		1291296B27F814920017E087 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1291296C27F814CD0017E087 /* ForEachWithIndex.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		1291297027F816570017E087 /* SharedState */ = {
+			isa = PBXGroup;
+			children = (
+				1291296E27F815460017E087 /* SharedState.swift */,
+			);
+			path = SharedState;
+			sourceTree = "<group>";
+		};
 		12A2244E27F7E0D500617C10 /* Application */ = {
 			isa = PBXGroup;
 			children = (
@@ -128,6 +172,9 @@
 			isa = PBXGroup;
 			children = (
 				12A2245C27F7E7F200617C10 /* Models */,
+				1291297027F816570017E087 /* SharedState */,
+				1291296327F8129C0017E087 /* Extensions */,
+				1291296B27F814920017E087 /* Views */,
 				12A2245D27F7E7FE00617C10 /* Services */,
 			);
 			path = Component;
@@ -231,11 +278,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1291296727F812FE0017E087 /* Reducer+extensions.swift in Sources */,
 				12A2245227F7E0F900617C10 /* AppCore.swift in Sources */,
 				12A2245827F7E77700617C10 /* HomeCore.swift in Sources */,
+				1291296D27F814CD0017E087 /* ForEachWithIndex.swift in Sources */,
 				12A2244B27F7DFED00617C10 /* AppDelegate.swift in Sources */,
+				1291296F27F815460017E087 /* SharedState.swift in Sources */,
 				12A2245027F7E0F000617C10 /* AppView.swift in Sources */,
 				12A2245627F7E76F00617C10 /* HomeView.swift in Sources */,
+				1291296A27F813660017E087 /* Combine+extensions.swift in Sources */,
+				1291296527F812D80017E087 /* Effect+extensions.swift in Sources */,
 				12A2244D27F7E04A00617C10 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
