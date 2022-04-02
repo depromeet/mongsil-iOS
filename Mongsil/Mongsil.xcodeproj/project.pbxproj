@@ -7,10 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		126EF42927F2AC2400102FA9 /* MongsilApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126EF42827F2AC2400102FA9 /* MongsilApp.swift */; };
-		126EF42B27F2AC2400102FA9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126EF42A27F2AC2400102FA9 /* ContentView.swift */; };
 		126EF42D27F2AC2400102FA9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 126EF42C27F2AC2400102FA9 /* Assets.xcassets */; };
 		126EF43027F2AC2400102FA9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 126EF42F27F2AC2400102FA9 /* Preview Assets.xcassets */; };
+		12A2244B27F7DFED00617C10 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A2244A27F7DFED00617C10 /* AppDelegate.swift */; };
+		12A2244D27F7E04A00617C10 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A2244C27F7E04A00617C10 /* SceneDelegate.swift */; };
+		12A2245027F7E0F000617C10 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A2244F27F7E0F000617C10 /* AppView.swift */; };
+		12A2245227F7E0F900617C10 /* AppCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A2245127F7E0F900617C10 /* AppCore.swift */; };
+		12A2245627F7E76F00617C10 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A2245527F7E76F00617C10 /* HomeView.swift */; };
+		12A2245827F7E77700617C10 /* HomeCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A2245727F7E77700617C10 /* HomeCore.swift */; };
 		12F1DBD827F4119A0063A84D /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 12F1DBD727F4119A0063A84D /* ComposableArchitecture */; };
 		12F1DBDB27F411A80063A84D /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 12F1DBDA27F411A80063A84D /* Alamofire */; };
 		12F1DBDE27F411C00063A84D /* CombineExt in Frameworks */ = {isa = PBXBuildFile; productRef = 12F1DBDD27F411C00063A84D /* CombineExt */; };
@@ -20,10 +24,15 @@
 
 /* Begin PBXFileReference section */
 		126EF42527F2AC2400102FA9 /* Mongsil.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mongsil.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		126EF42827F2AC2400102FA9 /* MongsilApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MongsilApp.swift; sourceTree = "<group>"; };
-		126EF42A27F2AC2400102FA9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		126EF42C27F2AC2400102FA9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		126EF42F27F2AC2400102FA9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		12A2244A27F7DFED00617C10 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		12A2244C27F7E04A00617C10 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		12A2244F27F7E0F000617C10 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
+		12A2245127F7E0F900617C10 /* AppCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCore.swift; sourceTree = "<group>"; };
+		12A2245327F7E5D300617C10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		12A2245527F7E76F00617C10 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		12A2245727F7E77700617C10 /* HomeCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,8 +70,9 @@
 		126EF42727F2AC2400102FA9 /* Mongsil */ = {
 			isa = PBXGroup;
 			children = (
-				126EF42827F2AC2400102FA9 /* MongsilApp.swift */,
-				126EF42A27F2AC2400102FA9 /* ContentView.swift */,
+				12A2245327F7E5D300617C10 /* Info.plist */,
+				12A2244E27F7E0D500617C10 /* Application */,
+				12A2245427F7E6FD00617C10 /* Module */,
 				126EF42C27F2AC2400102FA9 /* Assets.xcassets */,
 				126EF42E27F2AC2400102FA9 /* Preview Content */,
 			);
@@ -75,6 +85,66 @@
 				126EF42F27F2AC2400102FA9 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		12A2244E27F7E0D500617C10 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				12A2244A27F7DFED00617C10 /* AppDelegate.swift */,
+				12A2244C27F7E04A00617C10 /* SceneDelegate.swift */,
+				12A2244F27F7E0F000617C10 /* AppView.swift */,
+				12A2245127F7E0F900617C10 /* AppCore.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		12A2245427F7E6FD00617C10 /* Module */ = {
+			isa = PBXGroup;
+			children = (
+				12A2245B27F7E7D000617C10 /* Component */,
+				12A2245927F7E78500617C10 /* Feature */,
+			);
+			path = Module;
+			sourceTree = "<group>";
+		};
+		12A2245927F7E78500617C10 /* Feature */ = {
+			isa = PBXGroup;
+			children = (
+				12A2245A27F7E79900617C10 /* Home */,
+			);
+			path = Feature;
+			sourceTree = "<group>";
+		};
+		12A2245A27F7E79900617C10 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				12A2245527F7E76F00617C10 /* HomeView.swift */,
+				12A2245727F7E77700617C10 /* HomeCore.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		12A2245B27F7E7D000617C10 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				12A2245C27F7E7F200617C10 /* Models */,
+				12A2245D27F7E7FE00617C10 /* Services */,
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
+		12A2245C27F7E7F200617C10 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		12A2245D27F7E7FE00617C10 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -161,8 +231,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				126EF42B27F2AC2400102FA9 /* ContentView.swift in Sources */,
-				126EF42927F2AC2400102FA9 /* MongsilApp.swift in Sources */,
+				12A2245227F7E0F900617C10 /* AppCore.swift in Sources */,
+				12A2245827F7E77700617C10 /* HomeCore.swift in Sources */,
+				12A2244B27F7DFED00617C10 /* AppDelegate.swift in Sources */,
+				12A2245027F7E0F000617C10 /* AppView.swift in Sources */,
+				12A2245627F7E76F00617C10 /* HomeView.swift in Sources */,
+				12A2244D27F7E04A00617C10 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,7 +370,7 @@
 				DEVELOPMENT_TEAM = JJPXPHW2TN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_FILE = Mongsil/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -327,7 +401,7 @@
 				DEVELOPMENT_TEAM = JJPXPHW2TN;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_FILE = Mongsil/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
