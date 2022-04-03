@@ -16,7 +16,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   private lazy var appStore = Store<AppState, AppAction>(
     initialState: AppState.init(),
     reducer: appReducer,
-    environment: AppEnvironment.init()
+    environment: AppEnvironment.init(
+      appTrackingService: .init()
+    )
   )
   
   func scene(
