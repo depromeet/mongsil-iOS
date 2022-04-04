@@ -9,29 +9,33 @@ import ComposableArchitecture
 import SwiftUI
 
 struct AppView: View {
-  private let store: Store<AppState, AppAction>
+  private let store: Store<WithSharedState<AppState>, AppAction>
   private let shouldDisplayRequestAppTrackingAlertViewStore: ViewStore<Bool, AppAction>
   
-  init(store: Store<AppState, AppAction>) {
+  init(store: Store<WithSharedState<AppState>, AppAction>) {
     self.store = store
     self.shouldDisplayRequestAppTrackingAlertViewStore = ViewStore(
-      store.scope(state: \.shouldDisplayRequestAppTrackingAlert)
+      store.scope(state: \.local.shouldDisplayRequestAppTrackingAlert)
     )
   }
   
   var body: some View {
     VStack {
-      Text("Mongsil")
-        .padding()
+      HomeView(
+        store: self.store.scope(
+          state: { $0.home },
+          action: AppAction.home
+        )
+      )
+        .onReceive(
+          shouldDisplayRequestAppTrackingAlertViewStore.publisher,
+          perform: { display in
+            if display {
+              ViewStore(store).send(.displayRequestAppTrackingAlert)
+            }
+          }
+        )
     }
-    .onReceive(
-      shouldDisplayRequestAppTrackingAlertViewStore.publisher,
-      perform: { display in
-        if display {
-          ViewStore(store).send(.displayRequestAppTrackingAlert)
-        }
-      }
-    )
     .onAppear(perform: { ViewStore(store).send(.onAppear) })
   }
 }
