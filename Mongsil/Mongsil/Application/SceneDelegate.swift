@@ -13,10 +13,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   
   var window: UIWindow?
   
-  private lazy var appStore = Store<AppState, AppAction>(
-    initialState: AppState.init(),
+  private lazy var appStore = Store<WithSharedState<AppState>, AppAction>(
+    initialState: WithSharedState<AppState>(local: AppState(), shared: .init()),
     reducer: appReducer,
-    environment: AppEnvironment.init()
+    environment: AppEnvironment.init(
+      mainQueue: DispatchQueue.main.eraseToAnyScheduler(),
+      appTrackingService: .init()
+    )
   )
   
   func scene(
