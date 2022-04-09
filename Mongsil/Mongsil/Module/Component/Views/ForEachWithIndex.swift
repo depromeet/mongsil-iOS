@@ -69,4 +69,3 @@ private struct IndexInfo<Index, Element, ID: Hashable>: Hashable {
     self.elementID.hash(into: &hasher)
   }
 }
-

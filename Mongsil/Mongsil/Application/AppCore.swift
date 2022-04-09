@@ -17,7 +17,7 @@ enum AppAction {
   case onAppear
   case setShouldDisplayRequestAppTrackingAlert(Bool)
   case displayRequestAppTrackingAlert
-  
+
   // Child Action
   case home(HomeAction)
 }
@@ -25,11 +25,11 @@ enum AppAction {
 struct AppEnvironment {
   var mainQueue: AnySchedulerOf<DispatchQueue>
   var appTrackingService: AppTrackingService
-  
+
   init(
     mainQueue: AnySchedulerOf<DispatchQueue>,
     appTrackingService: AppTrackingService
-  ){
+  ) {
     self.mainQueue = mainQueue
     self.appTrackingService = appTrackingService
   }
@@ -53,17 +53,17 @@ let appReducer = Reducer.combine([
         })
         .delay(for: .milliseconds(100), scheduler: env.mainQueue)
         .eraseToEffect()
-      
+
     case let .setShouldDisplayRequestAppTrackingAlert(status):
       state.local.shouldDisplayRequestAppTrackingAlert = status
       return .none
-      
+
     case .displayRequestAppTrackingAlert:
       return env.appTrackingService.requestAppTrackingAuthorization()
         .fireAndForget()
-      
+
     case .home:
       return .none
     }
-  },
+  }
 ])
