@@ -1,0 +1,50 @@
+disabled_rules:
+  - trailing_whitespace
+  - nesting
+  - vertical_whitespace
+  - redundant_optional_initialization
+  - unused_closure_parameter
+  - syntactic_sugar
+  - cyclomatic_complexity
+  - type_body_length
+  - file_length
+  - unused_optional_binding
+  - function_parameter_count
+  - function_body_length
+  - large_tuple
+  - unused_control_flow_label
+  - trailing_comma
+  - opening_brace
+  - closure_parameter_position
+  - for_where
+  - inclusive_language
+
+type_name:
+  min_length:
+    warning: 1
+  max_length:
+    warning: 120
+  allowed_symbols:
+    - _
+
+identifier_name:
+  min_length:
+    warning: 0
+    error: 0
+  max_length:
+    warning: 120
+    error: 120
+  allowed_symbols:
+    - $
+    - _
+
+colon:
+  apply_to_dictionaries: false
+
+line_length:
+  ignores_urls: true
+  ignores_comments: true
+  ignores_interpolated_strings: true
+
+excluded:
+  - Pods

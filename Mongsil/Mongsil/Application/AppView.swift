@@ -11,14 +11,14 @@ import SwiftUI
 struct AppView: View {
   private let store: Store<WithSharedState<AppState>, AppAction>
   private let shouldDisplayRequestAppTrackingAlertViewStore: ViewStore<Bool, AppAction>
-  
+
   init(store: Store<WithSharedState<AppState>, AppAction>) {
     self.store = store
     self.shouldDisplayRequestAppTrackingAlertViewStore = ViewStore(
       store.scope(state: \.local.shouldDisplayRequestAppTrackingAlert)
     )
   }
-  
+
   var body: some View {
     VStack {
       HomeView(

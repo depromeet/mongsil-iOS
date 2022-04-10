@@ -45,4 +45,3 @@ public struct WithSharedState<LocalState: Equatable>: Equatable {
 public struct SharedState: Equatable {
   public init() {}
 }
-
