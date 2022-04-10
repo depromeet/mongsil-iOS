@@ -11,22 +11,31 @@ import SwiftUI
 struct AppView: View {
   private let store: Store<WithSharedState<AppState>, AppAction>
   private let shouldDisplayRequestAppTrackingAlertViewStore: ViewStore<Bool, AppAction>
+  private let colorScheme: ColorScheme
 
-  init(store: Store<WithSharedState<AppState>, AppAction>) {
+  init(
+    store: Store<WithSharedState<AppState>, AppAction>,
+    colorScheme: ColorScheme
+  ) {
     self.store = store
     self.shouldDisplayRequestAppTrackingAlertViewStore = ViewStore(
       store.scope(state: \.local.shouldDisplayRequestAppTrackingAlert)
     )
+    self.colorScheme = colorScheme
   }
 
   var body: some View {
-    VStack {
-      HomeView(
-        store: self.store.scope(
-          state: { $0.home },
-          action: AppAction.home
+    ZStack {
+      Theme.backgroundColor(scheme: colorScheme)
+        .edgesIgnoringSafeArea(.all)
+
+      VStack {
+        HomeView(
+          store: self.store.scope(
+            state: { $0.home },
+            action: AppAction.home
+          )
         )
-      )
         .onReceive(
           shouldDisplayRequestAppTrackingAlertViewStore.publisher,
           perform: { display in
@@ -35,7 +44,9 @@ struct AppView: View {
             }
           }
         )
+      }
+      .onAppear(perform: { ViewStore(store).send(.onAppear) })
     }
-    .onAppear(perform: { ViewStore(store).send(.onAppear) })
+    .preferredColorScheme(.dark)
   }
 }

@@ -7,7 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		120BBCA82802552600AD44B5 /* NotoSansKR-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 120BBCA52802552600AD44B5 /* NotoSansKR-Regular.otf */; };
+		120BBCA92802552600AD44B5 /* NotoSansKR-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 120BBCA62802552600AD44B5 /* NotoSansKR-Bold.otf */; };
+		120BBCAA2802552600AD44B5 /* NotoSansKR-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 120BBCA72802552600AD44B5 /* NotoSansKR-Medium.otf */; };
+		120BBCAE28025CE800AD44B5 /* UIColor+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120BBCAD28025CE800AD44B5 /* UIColor+extensions.swift */; };
+		120BBCB028025DA500AD44B5 /* Colors+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120BBCAF28025DA500AD44B5 /* Colors+Generated.swift */; };
+		120BBCB228025E3200AD44B5 /* Color+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120BBCB128025E3200AD44B5 /* Color+extensions.swift */; };
+		122236F028024DF1009D5C66 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122236EF28024DF1009D5C66 /* R.generated.swift */; };
 		12273EF027F91076007624C1 /* AppTrackingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12273EEF27F91076007624C1 /* AppTrackingService.swift */; };
+		1229909428026001009BF616 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1229909328026001009BF616 /* Assets.xcassets */; };
+		123DD564280283410020440E /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123DD563280283410020440E /* Theme.swift */; };
+		123DD5662802889D0020440E /* Image+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123DD5652802889D0020440E /* Image+Generated.swift */; };
+		123DD56928028A130020440E /* UIImage+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123DD56828028A130020440E /* UIImage+extensions.swift */; };
 		126EF42D27F2AC2400102FA9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 126EF42C27F2AC2400102FA9 /* Assets.xcassets */; };
 		126EF43027F2AC2400102FA9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 126EF42F27F2AC2400102FA9 /* Preview Assets.xcassets */; };
 		1291296527F812D80017E087 /* Effect+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1291296427F812D80017E087 /* Effect+extensions.swift */; };
@@ -15,12 +26,16 @@
 		1291296A27F813660017E087 /* Combine+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1291296927F813660017E087 /* Combine+extensions.swift */; };
 		1291296D27F814CD0017E087 /* ForEachWithIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1291296C27F814CD0017E087 /* ForEachWithIndex.swift */; };
 		1291296F27F815460017E087 /* SharedState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1291296E27F815460017E087 /* SharedState.swift */; };
+		12952A61280250A300C89DD7 /* Font+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12952A60280250A300C89DD7 /* Font+extensions.swift */; };
+		12952A63280250D700C89DD7 /* UIFont+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12952A62280250D700C89DD7 /* UIFont+extensions.swift */; };
+		12952A65280251D600C89DD7 /* Fonts+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12952A64280251D600C89DD7 /* Fonts+Generated.swift */; };
 		12A2244B27F7DFED00617C10 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A2244A27F7DFED00617C10 /* AppDelegate.swift */; };
 		12A2244D27F7E04A00617C10 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A2244C27F7E04A00617C10 /* SceneDelegate.swift */; };
 		12A2245027F7E0F000617C10 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A2244F27F7E0F000617C10 /* AppView.swift */; };
 		12A2245227F7E0F900617C10 /* AppCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A2245127F7E0F900617C10 /* AppCore.swift */; };
 		12A2245627F7E76F00617C10 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A2245527F7E76F00617C10 /* HomeView.swift */; };
 		12A2245827F7E77700617C10 /* HomeCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A2245727F7E77700617C10 /* HomeCore.swift */; };
+		12D775DB28024B8C00CD0CFD /* Rswift in Frameworks */ = {isa = PBXBuildFile; productRef = 12D775DA28024B8C00CD0CFD /* Rswift */; };
 		12F1DBD827F4119A0063A84D /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 12F1DBD727F4119A0063A84D /* ComposableArchitecture */; };
 		12F1DBDB27F411A80063A84D /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 12F1DBDA27F411A80063A84D /* Alamofire */; };
 		12F1DBDE27F411C00063A84D /* CombineExt in Frameworks */ = {isa = PBXBuildFile; productRef = 12F1DBDD27F411C00063A84D /* CombineExt */; };
@@ -29,7 +44,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		120BBCA52802552600AD44B5 /* NotoSansKR-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Regular.otf"; sourceTree = "<group>"; };
+		120BBCA62802552600AD44B5 /* NotoSansKR-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Bold.otf"; sourceTree = "<group>"; };
+		120BBCA72802552600AD44B5 /* NotoSansKR-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Medium.otf"; sourceTree = "<group>"; };
+		120BBCAD28025CE800AD44B5 /* UIColor+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+extensions.swift"; sourceTree = "<group>"; };
+		120BBCAF28025DA500AD44B5 /* Colors+Generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+Generated.swift"; sourceTree = "<group>"; };
+		120BBCB128025E3200AD44B5 /* Color+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+extensions.swift"; sourceTree = "<group>"; };
+		122236EF28024DF1009D5C66 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = R.generated.swift; path = generated/R.generated.swift; sourceTree = SOURCE_ROOT; };
 		12273EEF27F91076007624C1 /* AppTrackingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTrackingService.swift; sourceTree = "<group>"; };
+		1229909328026001009BF616 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		123DD563280283410020440E /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		123DD5652802889D0020440E /* Image+Generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+Generated.swift"; sourceTree = "<group>"; };
+		123DD56828028A130020440E /* UIImage+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+extensions.swift"; sourceTree = "<group>"; };
 		126EF42527F2AC2400102FA9 /* Mongsil.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mongsil.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		126EF42C27F2AC2400102FA9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		126EF42F27F2AC2400102FA9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -38,6 +64,9 @@
 		1291296927F813660017E087 /* Combine+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Combine+extensions.swift"; sourceTree = "<group>"; };
 		1291296C27F814CD0017E087 /* ForEachWithIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForEachWithIndex.swift; sourceTree = "<group>"; };
 		1291296E27F815460017E087 /* SharedState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedState.swift; sourceTree = "<group>"; };
+		12952A60280250A300C89DD7 /* Font+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+extensions.swift"; sourceTree = "<group>"; };
+		12952A62280250D700C89DD7 /* UIFont+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+extensions.swift"; sourceTree = "<group>"; };
+		12952A64280251D600C89DD7 /* Fonts+Generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Fonts+Generated.swift"; sourceTree = "<group>"; };
 		12A2244A27F7DFED00617C10 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		12A2244C27F7E04A00617C10 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		12A2244F27F7E0F000617C10 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
@@ -55,6 +84,7 @@
 				12F1DBD827F4119A0063A84D /* ComposableArchitecture in Frameworks */,
 				12F1DBDE27F411C00063A84D /* CombineExt in Frameworks */,
 				12F1DBE127F411CC0063A84D /* PureSwiftUI in Frameworks */,
+				12D775DB28024B8C00CD0CFD /* Rswift in Frameworks */,
 				12F1DBDB27F411A80063A84D /* Alamofire in Frameworks */,
 				12F1DBE427F411DE0063A84D /* Nuke in Frameworks */,
 			);
@@ -63,6 +93,59 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		120BBCAB2802565900AD44B5 /* NotoSansKR */ = {
+			isa = PBXGroup;
+			children = (
+				120BBCA52802552600AD44B5 /* NotoSansKR-Regular.otf */,
+				120BBCA72802552600AD44B5 /* NotoSansKR-Medium.otf */,
+				120BBCA62802552600AD44B5 /* NotoSansKR-Bold.otf */,
+			);
+			path = NotoSansKR;
+			sourceTree = "<group>";
+		};
+		120BBCAC28025CCF00AD44B5 /* Colors */ = {
+			isa = PBXGroup;
+			children = (
+				120BBCAF28025DA500AD44B5 /* Colors+Generated.swift */,
+				120BBCB128025E3200AD44B5 /* Color+extensions.swift */,
+				120BBCAD28025CE800AD44B5 /* UIColor+extensions.swift */,
+				123DD563280283410020440E /* Theme.swift */,
+			);
+			path = Colors;
+			sourceTree = "<group>";
+		};
+		122236EE28024DD8009D5C66 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				122236EF28024DF1009D5C66 /* R.generated.swift */,
+				122236F928024EB0009D5C66 /* Fonts */,
+				120BBCAC28025CCF00AD44B5 /* Colors */,
+				123DD567280288A10020440E /* Images */,
+				1229909328026001009BF616 /* Assets.xcassets */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		122236F928024EB0009D5C66 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				12952A64280251D600C89DD7 /* Fonts+Generated.swift */,
+				12952A60280250A300C89DD7 /* Font+extensions.swift */,
+				12952A62280250D700C89DD7 /* UIFont+extensions.swift */,
+				120BBCAB2802565900AD44B5 /* NotoSansKR */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		123DD567280288A10020440E /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				123DD5652802889D0020440E /* Image+Generated.swift */,
+				123DD56828028A130020440E /* UIImage+extensions.swift */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
 		12457C0627F822CE00F2DBF2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -188,6 +271,7 @@
 		12A2245B27F7E7D000617C10 /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				122236EE28024DD8009D5C66 /* Assets */,
 				12457C0727F822D300F2DBF2 /* Services */,
 				12457C0627F822CE00F2DBF2 /* Models */,
 				1291297027F816570017E087 /* SharedState */,
@@ -204,6 +288,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 126EF43327F2AC2400102FA9 /* Build configuration list for PBXNativeTarget "Mongsil" */;
 			buildPhases = (
+				12D775D828024A6200CD0CFD /* R.swift */,
 				1218EA742801AA53009C5BF1 /* SwiftLint */,
 				126EF42127F2AC2400102FA9 /* Sources */,
 				126EF42227F2AC2400102FA9 /* Frameworks */,
@@ -220,6 +305,7 @@
 				12F1DBDD27F411C00063A84D /* CombineExt */,
 				12F1DBE027F411CC0063A84D /* PureSwiftUI */,
 				12F1DBE327F411DE0063A84D /* Nuke */,
+				12D775DA28024B8C00CD0CFD /* Rswift */,
 			);
 			productName = Mongsil;
 			productReference = 126EF42527F2AC2400102FA9 /* Mongsil.app */;
@@ -255,6 +341,7 @@
 				12F1DBDC27F411C00063A84D /* XCRemoteSwiftPackageReference "CombineExt" */,
 				12F1DBDF27F411CC0063A84D /* XCRemoteSwiftPackageReference "pure-swift-ui" */,
 				12F1DBE227F411DE0063A84D /* XCRemoteSwiftPackageReference "Nuke" */,
+				12D775D928024B8C00CD0CFD /* XCRemoteSwiftPackageReference "R.swift" */,
 			);
 			productRefGroup = 126EF42627F2AC2400102FA9 /* Products */;
 			projectDirPath = "";
@@ -271,7 +358,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				126EF43027F2AC2400102FA9 /* Preview Assets.xcassets in Resources */,
+				120BBCA92802552600AD44B5 /* NotoSansKR-Bold.otf in Resources */,
+				120BBCAA2802552600AD44B5 /* NotoSansKR-Medium.otf in Resources */,
 				126EF42D27F2AC2400102FA9 /* Assets.xcassets in Resources */,
+				1229909428026001009BF616 /* Assets.xcassets in Resources */,
+				120BBCA82802552600AD44B5 /* NotoSansKR-Regular.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,6 +387,27 @@
 			shellPath = /bin/sh;
 			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint >/dev/null; then\n  swiftlint autocorrect\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
+		12D775D828024A6200CD0CFD /* R.swift */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$TEMP_DIR/rswift-lastrun",
+			);
+			name = R.swift;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				$SRCROOT/generated/R.generated.swift,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which rswift >/dev/null; then\n  rswift generate \"$SRCROOT/generated/R.generated.swift\"\nelse\n  echo \"warning: rswift not installed\"\nfi\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -307,13 +419,23 @@
 				12A2245227F7E0F900617C10 /* AppCore.swift in Sources */,
 				12A2245827F7E77700617C10 /* HomeCore.swift in Sources */,
 				1291296D27F814CD0017E087 /* ForEachWithIndex.swift in Sources */,
+				12952A65280251D600C89DD7 /* Fonts+Generated.swift in Sources */,
+				120BBCB028025DA500AD44B5 /* Colors+Generated.swift in Sources */,
 				12273EF027F91076007624C1 /* AppTrackingService.swift in Sources */,
+				120BBCAE28025CE800AD44B5 /* UIColor+extensions.swift in Sources */,
 				12A2244B27F7DFED00617C10 /* AppDelegate.swift in Sources */,
+				122236F028024DF1009D5C66 /* R.generated.swift in Sources */,
+				12952A63280250D700C89DD7 /* UIFont+extensions.swift in Sources */,
 				1291296F27F815460017E087 /* SharedState.swift in Sources */,
 				12A2245027F7E0F000617C10 /* AppView.swift in Sources */,
 				12A2245627F7E76F00617C10 /* HomeView.swift in Sources */,
 				1291296A27F813660017E087 /* Combine+extensions.swift in Sources */,
+				123DD56928028A130020440E /* UIImage+extensions.swift in Sources */,
 				1291296527F812D80017E087 /* Effect+extensions.swift in Sources */,
+				12952A61280250A300C89DD7 /* Font+extensions.swift in Sources */,
+				123DD564280283410020440E /* Theme.swift in Sources */,
+				123DD5662802889D0020440E /* Image+Generated.swift in Sources */,
+				120BBCB228025E3200AD44B5 /* Color+extensions.swift in Sources */,
 				12A2244D27F7E04A00617C10 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -523,6 +645,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		12D775D928024B8C00CD0CFD /* XCRemoteSwiftPackageReference "R.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mac-cain13/R.swift.Library";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		12F1DBD627F4119A0063A84D /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
@@ -566,6 +696,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		12D775DA28024B8C00CD0CFD /* Rswift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 12D775D928024B8C00CD0CFD /* XCRemoteSwiftPackageReference "R.swift" */;
+			productName = Rswift;
+		};
 		12F1DBD727F4119A0063A84D /* ComposableArchitecture */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 12F1DBD627F4119A0063A84D /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
