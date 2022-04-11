@@ -17,6 +17,8 @@ struct HomeView: View {
 
   var body: some View {
     Text("Mongsil")
+      .font(.largeTitle)
+      .foregroundColor(.milleYellow)
       .padding()
   }
 }

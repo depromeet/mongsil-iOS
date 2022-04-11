@@ -21,5 +21,11 @@
 	</dict>
 	<key>NSUserTrackingUsageDescription</key>
 	<string>&quot;귀하의 데이터는 개인화 광고를 제공하기 위해 사용됩니다.&quot;</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>NotoSansKR-Regular.otf</string>
+		<string>NotoSansKR-Medium.otf</string>
+		<string>NotoSansKR-Bold.otf</string>
+	</array>
 </dict>
 </plist>
