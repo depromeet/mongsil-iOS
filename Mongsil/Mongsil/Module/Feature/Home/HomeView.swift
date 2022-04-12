@@ -20,5 +20,6 @@ struct HomeView: View {
       .font(.largeTitle)
       .foregroundColor(.milleYellow)
       .padding()
+      .navigationBarHidden(true)
   }
 }

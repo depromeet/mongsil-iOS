@@ -29,23 +29,26 @@ struct AppView: View {
       Theme.backgroundColor(scheme: colorScheme)
         .edgesIgnoringSafeArea(.all)
 
-      VStack {
-        HomeView(
-          store: self.store.scope(
-            state: { $0.home },
-            action: AppAction.home
+      NavigationView {
+        VStack {
+          HomeView(
+            store: self.store.scope(
+              state: { $0.home },
+              action: AppAction.home
+            )
           )
-        )
-        .onReceive(
-          shouldDisplayRequestAppTrackingAlertViewStore.publisher,
-          perform: { display in
-            if display {
-              ViewStore(store).send(.displayRequestAppTrackingAlert)
+          .onReceive(
+            shouldDisplayRequestAppTrackingAlertViewStore.publisher,
+            perform: { display in
+              if display {
+                ViewStore(store).send(.displayRequestAppTrackingAlert)
+              }
             }
-          }
-        )
+          )
+        }
+        .onAppear(perform: { ViewStore(store).send(.onAppear) })
       }
-      .onAppear(perform: { ViewStore(store).send(.onAppear) })
+      .navigationViewStyle(StackNavigationViewStyle())
     }
     .preferredColorScheme(.dark)
   }
