@@ -31,12 +31,12 @@ struct AppView: View {
 
       NavigationView {
         VStack {
-          HomeView(
-            store: self.store.scope(
-              state: { $0.home },
-              action: AppAction.home
+            MainTabView(
+              store: self.store.scope(
+                state: { $0.mainTab },
+                action: AppAction.tab
+              )
             )
-          )
           .onReceive(
             shouldDisplayRequestAppTrackingAlertViewStore.publisher,
             perform: { display in

@@ -10,7 +10,7 @@ import ComposableArchitecture
 
 struct AppState: Equatable {
   var shouldDisplayRequestAppTrackingAlert: Bool = false
-  var home: HomeState = .init()
+    var mainTab: TabState = .init()
 }
 
 enum AppAction {
@@ -19,7 +19,7 @@ enum AppAction {
   case displayRequestAppTrackingAlert
 
   // Child Action
-  case home(HomeAction)
+  case tab(TabAction)
 }
 
 struct AppEnvironment {
@@ -36,12 +36,12 @@ struct AppEnvironment {
 }
 
 let appReducer = Reducer.combine([
-  homeReducer.pullback(
-    state: \.local.home,
-    action: /AppAction.home,
-    environment: { _ in
-      HomeEnvironment()
-    }
+    tabReducer.pullback(
+        state: \.local.mainTab,
+        action: /AppAction.tab,
+        environment: { _ in
+            TabEnvironment()
+        }
   ) as Reducer<WithSharedState<AppState>, AppAction, AppEnvironment>,
   Reducer<WithSharedState<AppState>, AppAction, AppEnvironment> {
     state, action, env in
@@ -62,7 +62,7 @@ let appReducer = Reducer.combine([
       return env.appTrackingService.requestAppTrackingAuthorization()
         .fireAndForget()
 
-    case .home:
+    case .tab:
       return .none
     }
   }
