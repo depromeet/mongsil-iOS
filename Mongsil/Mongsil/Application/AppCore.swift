@@ -25,13 +25,18 @@ enum AppAction {
 struct AppEnvironment {
   var mainQueue: AnySchedulerOf<DispatchQueue>
   var appTrackingService: AppTrackingService
-
+  var kakaoLoginService: KakaoLoginService
+  var appleLoginService: AppleLoginService
   init(
     mainQueue: AnySchedulerOf<DispatchQueue>,
-    appTrackingService: AppTrackingService
+    appTrackingService: AppTrackingService,
+    kakaoLoginService: KakaoLoginService,
+    appleLoginService: AppleLoginService
   ) {
     self.mainQueue = mainQueue
     self.appTrackingService = appTrackingService
+    self.kakaoLoginService = kakaoLoginService
+    self.appleLoginService = appleLoginService
   }
 }
 
@@ -39,8 +44,11 @@ let appReducer = Reducer.combine([
   homeReducer.pullback(
     state: \.local.home,
     action: /AppAction.home,
-    environment: { _ in
-      HomeEnvironment()
+    environment: {
+      HomeEnvironment(
+        kakaoLoginService: $0.kakaoLoginService,
+        appleLoginService: $0.appleLoginService
+      )
     }
   ) as Reducer<WithSharedState<AppState>, AppAction, AppEnvironment>,
   Reducer<WithSharedState<AppState>, AppAction, AppEnvironment> {

@@ -16,10 +16,24 @@ struct HomeView: View {
   }
 
   var body: some View {
-    Text("Mongsil")
-      .font(.largeTitle)
-      .foregroundColor(.milleYellow)
-      .padding()
-      .navigationBarHidden(true)
+    WithViewStore(store){ viewStore in
+      VStack{
+        Button {
+          viewStore.send(.kakaoLoginButtonTapped)
+        } label: {
+          Text("Kakao Login")
+        }
+        Button {
+          viewStore.send(.appleLoginButtonTapped)
+        } label: {
+          Text("Apple Login")
+        }
+        Text("Mongsil")
+          .font(.largeTitle)
+          .foregroundColor(.milleYellow)
+          .padding()
+          .navigationBarHidden(true)
+      }
+    }
   }
 }
