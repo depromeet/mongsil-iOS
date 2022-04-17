@@ -15,18 +15,26 @@ class KakaoLoginService{
   func getKakaoUserInfo() -> AnyPublisher<Void, Never> {
     return Publishers.Create<Void, Never>(factory: { subscriber -> Cancellable in
       subscriber.send(
-        UserApi.shared.me { user, error in
-          if let error = error {
-            print(error)
-          }else{
-            if let nickname = user?.kakaoAccount?.profile?.nickname {
-              print(nickname)
+        UserApi.shared.loginWithKakaoAccount {(_, error) in
+                if let error = error {
+                    print(error)
+                }
+                else {
+                    print("loginWithKakaoAccount() success.")
+                  UserApi.shared.me { user, error in
+                    if let error = error {
+                      print(error)
+                    }else{
+                      if let nickname = user?.kakaoAccount?.profile?.nickname {
+                        print(nickname)
+                      }
+                      if let mail = user?.kakaoAccount?.email {
+                        print(mail)
+                      }
+                    }
+                  }
+                }
             }
-            if let mail = user?.kakaoAccount?.email {
-              print(mail)
-            }
-          }
-        }
       )
       subscriber.send(completion: .finished)
       return AnyCancellable({})

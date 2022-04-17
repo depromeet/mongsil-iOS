@@ -37,7 +37,7 @@ let homeReducer = Reducer<HomeState, HomeAction, HomeEnvironment> {
   switch action {
   case .kakaoLoginButtonTapped:
     return env.kakaoLoginService.getKakaoUserInfo()
-    
+      .fireAndForget()
   case .appleLoginButtonTapped:
     return .none
   }

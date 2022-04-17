@@ -21,8 +21,15 @@ struct HomeView: View {
         Button {
           viewStore.send(.kakaoLoginButtonTapped)
         } label: {
-          Text("Kakao Login")
+          Text("카카오로 시작하기")
+            .foregroundColor(Color.gray11)
+            .padding()
+            .frame(maxWidth: .infinity)
+            .frame(height:50)
+            .background(Color.milleYellow)
+            .cornerRadius(10)
         }
+        .padding()
         Button {
           viewStore.send(.appleLoginButtonTapped)
         } label: {
