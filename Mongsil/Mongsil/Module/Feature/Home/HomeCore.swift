@@ -22,13 +22,10 @@ enum HomeAction {
 
 struct HomeEnvironment {
   var kakaoLoginService: KakaoLoginService
-  var appleLoginService: AppleLoginService
   init(
-    kakaoLoginService: KakaoLoginService,
-    appleLoginService: AppleLoginService
+    kakaoLoginService: KakaoLoginService
   ){
     self.kakaoLoginService = kakaoLoginService
-    self.appleLoginService = appleLoginService
   }
 }
 

@@ -1,6 +1,6 @@
 //
-//  ContentView.swift
-//  KaKaoLogin
+//  KakaoLoginService.swift
+//  Mongsil
 //
 //  Created by Chuljin Hwang on 2022/04/09.
 //
@@ -14,28 +14,45 @@ class KakaoLoginService{
   
   func getKakaoUserInfo() -> AnyPublisher<Void, Never> {
     return Publishers.Create<Void, Never>(factory: { subscriber -> Cancellable in
-      subscriber.send(
-        UserApi.shared.loginWithKakaoAccount {(_, error) in
-                if let error = error {
-                    print(error)
-                }
-                else {
-                    print("loginWithKakaoAccount() success.")
-                  UserApi.shared.me { user, error in
-                    if let error = error {
-                      print(error)
-                    }else{
-                      if let nickname = user?.kakaoAccount?.profile?.nickname {
-                        print(nickname)
-                      }
-                      if let mail = user?.kakaoAccount?.email {
-                        print(mail)
-                      }
-                    }
+      if (UserApi.isKakaoTalkLoginAvailable()){
+        subscriber.send(
+          UserApi.shared.loginWithKakaoTalk { (_, error) in
+            if error != nil {
+            }
+            else {
+              print("loginWithKakaoAccount() success.")
+              UserApi.shared.me { user, error in
+                if error != nil {
+                } else {
+                  if let nickname = user?.kakaoAccount?.profile?.nickname {
+                  }
+                  if let mail = user?.kakaoAccount?.email {
                   }
                 }
+              }
             }
-      )
+          }
+        )
+      } else {
+        subscriber.send(
+          UserApi.shared.loginWithKakaoAccount { (_, error) in
+            if error != nil {
+            }
+            else {
+              print("loginWithKakaoAccount() success.")
+              UserApi.shared.me { user, error in
+                if error != nil {
+                } else {
+                  if let nickname = user?.kakaoAccount?.profile?.nickname {
+                  }
+                  if let mail = user?.kakaoAccount?.email {
+                  }
+                }
+              }
+            }
+          }
+        )
+      }
       subscriber.send(completion: .finished)
       return AnyCancellable({})
     })

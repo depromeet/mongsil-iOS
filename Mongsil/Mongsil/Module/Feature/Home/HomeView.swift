@@ -30,11 +30,6 @@ struct HomeView: View {
             .cornerRadius(10)
         }
         .padding()
-        Button {
-          viewStore.send(.appleLoginButtonTapped)
-        } label: {
-          Text("Apple Login")
-        }
         Text("Mongsil")
           .font(.largeTitle)
           .foregroundColor(.milleYellow)

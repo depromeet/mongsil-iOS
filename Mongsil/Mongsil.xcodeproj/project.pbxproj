@@ -61,7 +61,6 @@
 		12F1DBDE27F411C00063A84D /* CombineExt in Frameworks */ = {isa = PBXBuildFile; productRef = 12F1DBDD27F411C00063A84D /* CombineExt */; };
 		12F1DBE127F411CC0063A84D /* PureSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 12F1DBE027F411CC0063A84D /* PureSwiftUI */; };
 		12F1DBE427F411DE0063A84D /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = 12F1DBE327F411DE0063A84D /* Nuke */; };
-		F03FF6C928099B5500E83570 /* AppleLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03FF6C828099B5500E83570 /* AppleLoginService.swift */; };
 		F03FF6CB28099B7900E83570 /* KakaoLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03FF6CA28099B7900E83570 /* KakaoLoginService.swift */; };
 		F0E7345D280A9C260052A7E2 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = F0E7345C280A9C260052A7E2 /* KakaoSDKAuth */; };
 		F0E7345F280A9C260052A7E2 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = F0E7345E280A9C260052A7E2 /* KakaoSDKCommon */; };
@@ -119,7 +118,6 @@
 		12A2245327F7E5D300617C10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		12A2245527F7E76F00617C10 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		12A2245727F7E77700617C10 /* HomeCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCore.swift; sourceTree = "<group>"; };
-		F03FF6C828099B5500E83570 /* AppleLoginService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppleLoginService.swift; sourceTree = "<group>"; };
 		F03FF6CA28099B7900E83570 /* KakaoLoginService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KakaoLoginService.swift; sourceTree = "<group>"; };
 		F03FF6D328099F0E00E83570 /* Mongsil.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Mongsil.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -311,7 +309,6 @@
 			isa = PBXGroup;
 			children = (
 				F03FF6CA28099B7900E83570 /* KakaoLoginService.swift */,
-				F03FF6C828099B5500E83570 /* AppleLoginService.swift */,
 				12273EEF27F91076007624C1 /* AppTrackingService.swift */,
 			);
 			path = Services;
@@ -585,7 +582,6 @@
 				1291296727F812FE0017E087 /* Reducer+extensions.swift in Sources */,
 				12A2245227F7E0F900617C10 /* AppCore.swift in Sources */,
 				12A2245827F7E77700617C10 /* HomeCore.swift in Sources */,
-				F03FF6C928099B5500E83570 /* AppleLoginService.swift in Sources */,
 				1291296D27F814CD0017E087 /* ForEachWithIndex.swift in Sources */,
 				123EE075280452BE00D34B93 /* ListItemWithTextIcon.swift in Sources */,
 				12952A65280251D600C89DD7 /* Fonts+Generated.swift in Sources */,
