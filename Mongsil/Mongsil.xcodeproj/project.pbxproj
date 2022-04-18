@@ -39,6 +39,12 @@
 		123EE0A028045F5700D34B93 /* PersonalInfoPolicyCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123EE09F28045F5700D34B93 /* PersonalInfoPolicyCore.swift */; };
 		123EE0A328045F7A00D34B93 /* OpenSourceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123EE0A228045F7A00D34B93 /* OpenSourceView.swift */; };
 		123EE0A528045F8300D34B93 /* OpenSourceCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123EE0A428045F8300D34B93 /* OpenSourceCore.swift */; };
+		125F84AC280D122500279C42 /* AlertSingleButtonCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125F84AB280D122500279C42 /* AlertSingleButtonCore.swift */; };
+		125F84AE280D123D00279C42 /* AlertDoubleButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125F84AD280D123D00279C42 /* AlertDoubleButtonView.swift */; };
+		125F84B0280D124700279C42 /* AlertSingleButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125F84AF280D124700279C42 /* AlertSingleButtonView.swift */; };
+		125F84B2280D124F00279C42 /* AlertDoubleButtonCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125F84B1280D124F00279C42 /* AlertDoubleButtonCore.swift */; };
+		125F84B7280D14AB00279C42 /* AlertButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125F84B6280D14AB00279C42 /* AlertButton.swift */; };
+		125F84B9280D151800279C42 /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125F84B8280D151800279C42 /* LoadingIndicator.swift */; };
 		126EF42D27F2AC2400102FA9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 126EF42C27F2AC2400102FA9 /* Assets.xcassets */; };
 		126EF43027F2AC2400102FA9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 126EF42F27F2AC2400102FA9 /* Preview Assets.xcassets */; };
 		1291296527F812D80017E087 /* Effect+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1291296427F812D80017E087 /* Effect+extensions.swift */; };
@@ -96,6 +102,12 @@
 		123EE09F28045F5700D34B93 /* PersonalInfoPolicyCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoPolicyCore.swift; sourceTree = "<group>"; };
 		123EE0A228045F7A00D34B93 /* OpenSourceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenSourceView.swift; sourceTree = "<group>"; };
 		123EE0A428045F8300D34B93 /* OpenSourceCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenSourceCore.swift; sourceTree = "<group>"; };
+		125F84AB280D122500279C42 /* AlertSingleButtonCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertSingleButtonCore.swift; sourceTree = "<group>"; };
+		125F84AD280D123D00279C42 /* AlertDoubleButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertDoubleButtonView.swift; sourceTree = "<group>"; };
+		125F84AF280D124700279C42 /* AlertSingleButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertSingleButtonView.swift; sourceTree = "<group>"; };
+		125F84B1280D124F00279C42 /* AlertDoubleButtonCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertDoubleButtonCore.swift; sourceTree = "<group>"; };
+		125F84B6280D14AB00279C42 /* AlertButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertButton.swift; sourceTree = "<group>"; };
+		125F84B8280D151800279C42 /* LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
 		126EF42527F2AC2400102FA9 /* Mongsil.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mongsil.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		126EF42C27F2AC2400102FA9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		126EF42F27F2AC2400102FA9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -233,6 +245,7 @@
 			children = (
 				123EE0822804536800D34B93 /* BackButton.swift */,
 				123EE0842804537B00D34B93 /* RightButton.swift */,
+				125F84B6280D14AB00279C42 /* AlertButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -304,6 +317,41 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		125F84A8280D11D800279C42 /* AlertModal */ = {
+			isa = PBXGroup;
+			children = (
+				125F84B4280D125C00279C42 /* AlertSingleButton */,
+				125F84B3280D125100279C42 /* AlertDoubleButton */,
+			);
+			path = AlertModal;
+			sourceTree = "<group>";
+		};
+		125F84B3280D125100279C42 /* AlertDoubleButton */ = {
+			isa = PBXGroup;
+			children = (
+				125F84AD280D123D00279C42 /* AlertDoubleButtonView.swift */,
+				125F84B1280D124F00279C42 /* AlertDoubleButtonCore.swift */,
+			);
+			path = AlertDoubleButton;
+			sourceTree = "<group>";
+		};
+		125F84B4280D125C00279C42 /* AlertSingleButton */ = {
+			isa = PBXGroup;
+			children = (
+				125F84AF280D124700279C42 /* AlertSingleButtonView.swift */,
+				125F84AB280D122500279C42 /* AlertSingleButtonCore.swift */,
+			);
+			path = AlertSingleButton;
+			sourceTree = "<group>";
+		};
+		125F84BA280D152600279C42 /* Indicators */ = {
+			isa = PBXGroup;
+			children = (
+				125F84B8280D151800279C42 /* LoadingIndicator.swift */,
+			);
+			path = Indicators;
+			sourceTree = "<group>";
+		};
 		126EF41C27F2AC2400102FA9 = {
 			isa = PBXGroup;
 			children = (
@@ -366,6 +414,8 @@
 				123EE078280452CE00D34B93 /* List */,
 				123EE0812804534700D34B93 /* NavigationBar */,
 				123EE0862804538300D34B93 /* Buttons */,
+				125F84A8280D11D800279C42 /* AlertModal */,
+				125F84BA280D152600279C42 /* Indicators */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -575,6 +625,8 @@
 				123EE0A528045F8300D34B93 /* OpenSourceCore.swift in Sources */,
 				12273EF027F91076007624C1 /* AppTrackingService.swift in Sources */,
 				120BBCAE28025CE800AD44B5 /* UIColor+extensions.swift in Sources */,
+				125F84B9280D151800279C42 /* LoadingIndicator.swift in Sources */,
+				125F84AE280D123D00279C42 /* AlertDoubleButtonView.swift in Sources */,
 				123EE09E28045F4400D34B93 /* PersonalInfoPolicyView.swift in Sources */,
 				12A2244B27F7DFED00617C10 /* AppDelegate.swift in Sources */,
 				122236F028024DF1009D5C66 /* R.generated.swift in Sources */,
@@ -585,14 +637,18 @@
 				123EE091280453E300D34B93 /* AppInfoView.swift in Sources */,
 				12A2245027F7E0F000617C10 /* AppView.swift in Sources */,
 				123EE0A328045F7A00D34B93 /* OpenSourceView.swift in Sources */,
+				125F84B7280D14AB00279C42 /* AlertButton.swift in Sources */,
 				12A2245627F7E76F00617C10 /* HomeView.swift in Sources */,
 				1291296A27F813660017E087 /* Combine+extensions.swift in Sources */,
 				123EE09928045F0C00D34B93 /* TermsView.swift in Sources */,
 				123DD56928028A130020440E /* UIImage+extensions.swift in Sources */,
+				125F84B0280D124700279C42 /* AlertSingleButtonView.swift in Sources */,
 				123EE08A280453B300D34B93 /* SettingCore.swift in Sources */,
 				123EE09728045B3600D34B93 /* ListButtonItemWithText.swift in Sources */,
 				1291296527F812D80017E087 /* Effect+extensions.swift in Sources */,
+				125F84B2280D124F00279C42 /* AlertDoubleButtonCore.swift in Sources */,
 				123EE088280453AB00D34B93 /* SettingView.swift in Sources */,
+				125F84AC280D122500279C42 /* AlertSingleButtonCore.swift in Sources */,
 				12952A61280250A300C89DD7 /* Font+extensions.swift in Sources */,
 				123EE08D280453D200D34B93 /* ProfileView.swift in Sources */,
 				123DD564280283410020440E /* Theme.swift in Sources */,
