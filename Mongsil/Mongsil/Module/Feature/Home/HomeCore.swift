@@ -9,20 +9,19 @@ import Combine
 import ComposableArchitecture
 
 struct HomeState: Equatable {
-    public var isBackToHomePushed: Bool = false
 }
 
-enum HomeAction: Equatable {
+enum HomeAction {
   
 }
 
 struct HomeEnvironment {
-    
+  
 }
 
-let homeReducer = Reducer<HomeState, HomeAction, HomeEnvironment> {
-    state, action, env in
-    switch action {
-        
-    }
+let homeReducer = Reducer<WithSharedState<HomeState>, HomeAction, HomeEnvironment> {
+  state, action, env in
+  switch action {
+    
+  }
 }

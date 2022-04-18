@@ -9,14 +9,14 @@ import ComposableArchitecture
 import SwiftUI
 
 struct HomeView: View {
-    private let store: Store<WithSharedState<HomeState>, HomeAction>
-    
-    init(store: Store<WithSharedState<HomeState>, HomeAction>) {
-        self.store = store
-    }
-    var body: some View {
-        WithViewStore(store.scope(state: \.local.isBackToHomePushed)) { isBackToHomeViewPushed in
-                Text("homeView")
-        }
-    }
+  private let store: Store<WithSharedState<HomeState>, HomeAction>
+  
+  init(store: Store<WithSharedState<HomeState>, HomeAction>) {
+    self.store = store
+  }
+  var body: some View {
+    Text("homeView")
+      .navigationTitle("")
+      .navigationBarHidden(true)
+  }
 }

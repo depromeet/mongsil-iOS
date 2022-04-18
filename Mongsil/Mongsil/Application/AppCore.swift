@@ -10,22 +10,22 @@ import ComposableArchitecture
 
 struct AppState: Equatable {
   var shouldDisplayRequestAppTrackingAlert: Bool = false
-    var mainTab: TabState = .init()
+  var mainTab: MainTabState = .init()
 }
 
 enum AppAction {
   case onAppear
   case setShouldDisplayRequestAppTrackingAlert(Bool)
   case displayRequestAppTrackingAlert
-
+  
   // Child Action
-  case tab(TabAction)
+  case tab(MainTabAction)
 }
 
 struct AppEnvironment {
   var mainQueue: AnySchedulerOf<DispatchQueue>
   var appTrackingService: AppTrackingService
-
+  
   init(
     mainQueue: AnySchedulerOf<DispatchQueue>,
     appTrackingService: AppTrackingService
@@ -36,12 +36,12 @@ struct AppEnvironment {
 }
 
 let appReducer = Reducer.combine([
-    tabReducer.pullback(
-        state: \.local.mainTab,
-        action: /AppAction.tab,
-        environment: { _ in
-            TabEnvironment()
-        }
+  tabReducer.pullback(
+    state: \.mainTab,
+    action: /AppAction.tab,
+    environment: { _ in
+      MainTabEnvironment()
+    }
   ) as Reducer<WithSharedState<AppState>, AppAction, AppEnvironment>,
   Reducer<WithSharedState<AppState>, AppAction, AppEnvironment> {
     state, action, env in
@@ -53,15 +53,15 @@ let appReducer = Reducer.combine([
         })
         .delay(for: .milliseconds(100), scheduler: env.mainQueue)
         .eraseToEffect()
-
+      
     case let .setShouldDisplayRequestAppTrackingAlert(status):
       state.local.shouldDisplayRequestAppTrackingAlert = status
       return .none
-
+      
     case .displayRequestAppTrackingAlert:
       return env.appTrackingService.requestAppTrackingAuthorization()
         .fireAndForget()
-
+      
     case .tab:
       return .none
     }

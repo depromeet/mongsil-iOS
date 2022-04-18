@@ -12,17 +12,20 @@ public struct MSNavigationBar: View {
   public var backButtonAction: () -> Void = {}
   public var rightButtonText: String?
   public var rightButtonAction: () -> Void = {}
+//  public var rightButtonImageText: String?
 
   public init(
     titleText: String? = nil,
     backButtonAction: @escaping () -> Void = {},
     rightButtonText: String? = nil,
     rightButtonAction: @escaping () -> Void = {}
+//    rightButtonImageText: String? = nil
   ) {
     self.titleText = titleText
     self.backButtonAction = backButtonAction
     self.rightButtonText = rightButtonText
     self.rightButtonAction = rightButtonAction
+//    self.rightButtonImageText = rightButtonImageText
   }
 
   public var body: some View {
@@ -41,6 +44,7 @@ public struct MSNavigationBar: View {
           RightButton(
             titleText: rightButtonText,
             action: rightButtonAction
+//            rightButtonImageText: rightButtonImageText ?? ""
           )
           .frame(height: 40)
           .padding(.trailing, 16)

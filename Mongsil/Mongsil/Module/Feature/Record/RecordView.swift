@@ -9,21 +9,22 @@ import SwiftUI
 import ComposableArchitecture
 
 struct RecordView: View {
-    private let store: Store<WithSharedState<RecordState>, RecordAction>
-    
-    init(store: Store<WithSharedState<RecordState>, RecordAction>) {
-        self.store = store
+  private let store: Store<WithSharedState<RecordState>, RecordAction>
+  
+  init(store: Store<WithSharedState<RecordState>, RecordAction>) {
+    self.store = store
+  }
+  var body: some View {
+    VStack{
+      MSNavigationBar(
+        titleText: "기록",
+        backButtonAction: { ViewStore(store).send(.backButtonTapped) }
+      )
+      Spacer()
+      Text("recordView")
+      Spacer()
     }
-    var body: some View {
-        WithViewStore(store) { viewStore in
-                MSNavigationBar(
-                    titleText: "기록",
-                    backButtonAction: { ViewStore(store).send(.backButtonTapped) }
-                )
-                NavigationView{
-                    Text("recordView")
-                }
-                .navigationBarHidden(true)
-            }
-        }
-    }
+    .navigationTitle("")
+    .navigationBarHidden(true)
+  }
+}
