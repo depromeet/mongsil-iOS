@@ -41,6 +41,7 @@
 		123EE0A528045F8300D34B93 /* OpenSourceCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123EE0A428045F8300D34B93 /* OpenSourceCore.swift */; };
 		126EF42D27F2AC2400102FA9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 126EF42C27F2AC2400102FA9 /* Assets.xcassets */; };
 		126EF43027F2AC2400102FA9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 126EF42F27F2AC2400102FA9 /* Preview Assets.xcassets */; };
+		127EBD78280A65960011C556 /* UINavigationController+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EBD77280A65960011C556 /* UINavigationController+extensions.swift */; };
 		1291296527F812D80017E087 /* Effect+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1291296427F812D80017E087 /* Effect+extensions.swift */; };
 		1291296727F812FE0017E087 /* Reducer+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1291296627F812FE0017E087 /* Reducer+extensions.swift */; };
 		1291296A27F813660017E087 /* Combine+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1291296927F813660017E087 /* Combine+extensions.swift */; };
@@ -99,6 +100,7 @@
 		126EF42527F2AC2400102FA9 /* Mongsil.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mongsil.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		126EF42C27F2AC2400102FA9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		126EF42F27F2AC2400102FA9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		127EBD77280A65960011C556 /* UINavigationController+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+extensions.swift"; sourceTree = "<group>"; };
 		1291296427F812D80017E087 /* Effect+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Effect+extensions.swift"; sourceTree = "<group>"; };
 		1291296627F812FE0017E087 /* Reducer+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reducer+extensions.swift"; sourceTree = "<group>"; };
 		1291296927F813660017E087 /* Combine+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Combine+extensions.swift"; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 			isa = PBXGroup;
 			children = (
 				123EE07B2804530000D34B93 /* View+extensions.swift */,
+				127EBD77280A65960011C556 /* UINavigationController+extensions.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -566,6 +569,7 @@
 				123EE0852804537B00D34B93 /* RightButton.swift in Sources */,
 				1291296727F812FE0017E087 /* Reducer+extensions.swift in Sources */,
 				12A2245227F7E0F900617C10 /* AppCore.swift in Sources */,
+				127EBD78280A65960011C556 /* UINavigationController+extensions.swift in Sources */,
 				12A2245827F7E77700617C10 /* HomeCore.swift in Sources */,
 				1291296D27F814CD0017E087 /* ForEachWithIndex.swift in Sources */,
 				123EE075280452BE00D34B93 /* ListItemWithTextIcon.swift in Sources */,
