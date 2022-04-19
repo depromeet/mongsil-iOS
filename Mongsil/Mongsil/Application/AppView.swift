@@ -28,13 +28,12 @@ struct AppView: View {
     ZStack {
       Theme.backgroundColor(scheme: colorScheme)
         .edgesIgnoringSafeArea(.all)
-
       NavigationView {
         VStack {
-          HomeView(
+          MainTabView(
             store: self.store.scope(
-              state: { $0.home },
-              action: AppAction.home
+              state: { $0.mainTab },
+              action: AppAction.mainTab
             )
           )
           .onReceive(
