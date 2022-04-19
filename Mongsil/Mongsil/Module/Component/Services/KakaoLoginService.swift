@@ -20,7 +20,6 @@ class KakaoLoginService{
             if error != nil {
             }
             else {
-              print("loginWithKakaoAccount() success.")
               UserApi.shared.me { user, error in
                 if error != nil {
                 } else {
