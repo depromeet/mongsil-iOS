@@ -51,8 +51,7 @@ struct R: Rswift.Validatable {
     // Note: key might not exist in chosen language (in that case, key will be shown)
     for language in languages {
       if let lproj = hostingBundle.url(forResource: language, withExtension: "lproj"),
-         let lbundle = Bundle(url: lproj)
-      {
+         let lbundle = Bundle(url: lproj) {
         let strings = lbundle.url(forResource: tableName, withExtension: "strings")
         let stringsdict = lbundle.url(forResource: tableName, withExtension: "stringsdict")
 
@@ -435,16 +434,18 @@ struct R: Rswift.Validatable {
     }
 
     static func validate() throws {
-      if R.font.notoSansKRBold(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'NotoSansKR-Bold' could not be loaded, is 'NotoSansKR-Bold.otf' added to the UIAppFonts array in this targets Info.plist?") }
-      if R.font.notoSansKRMedium(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'NotoSansKR-Medium' could not be loaded, is 'NotoSansKR-Medium.otf' added to the UIAppFonts array in this targets Info.plist?") }
-      if R.font.notoSansKRRegular(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'NotoSansKR-Regular' could not be loaded, is 'NotoSansKR-Regular.otf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.notoSansKRBold(size: 42) == nil { throw Rswift.ValidationError(description: "[R.swift] Font 'NotoSansKR-Bold' could not be loaded, is 'NotoSansKR-Bold.otf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.notoSansKRMedium(size: 42) == nil { throw Rswift.ValidationError(description: "[R.swift] Font 'NotoSansKR-Medium' could not be loaded, is 'NotoSansKR-Medium.otf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.notoSansKRRegular(size: 42) == nil { throw Rswift.ValidationError(description: "[R.swift] Font 'NotoSansKR-Regular' could not be loaded, is 'NotoSansKR-Regular.otf' added to the UIAppFonts array in this targets Info.plist?") }
     }
 
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 12 images.
+  /// This `R.image` struct is generated, and contains static references to 14 images.
   struct image {
+    /// Image `AppleLoginButton`.
+    static let appleLoginButton = Rswift.ImageResource(bundle: R.hostingBundle, name: "AppleLoginButton")
     /// Image `ArrowLeftIcon`.
     static let arrowLeftIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "ArrowLeftIcon")
     /// Image `ArrowRightIcon`.
@@ -459,6 +460,8 @@ struct R: Rswift.Validatable {
     static let checkIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "CheckIcon")
     /// Image `DeleteIcon`.
     static let deleteIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "DeleteIcon")
+    /// Image `KakaoLoginButton`.
+    static let kakaoLoginButton = Rswift.ImageResource(bundle: R.hostingBundle, name: "KakaoLoginButton")
     /// Image `PlusIcon`.
     static let plusIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "PlusIcon")
     /// Image `SaveIcon`.
@@ -469,6 +472,13 @@ struct R: Rswift.Validatable {
     static let settingIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "SettingIcon")
     /// Image `ShareIcon`.
     static let shareIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "ShareIcon")
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "AppleLoginButton", bundle: ..., traitCollection: ...)`
+    static func appleLoginButton(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.appleLoginButton, compatibleWith: traitCollection)
+    }
+    #endif
 
     #if os(iOS) || os(tvOS)
     /// `UIImage(named: "ArrowLeftIcon", bundle: ..., traitCollection: ...)`
@@ -516,6 +526,13 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "DeleteIcon", bundle: ..., traitCollection: ...)`
     static func deleteIcon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.deleteIcon, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "KakaoLoginButton", bundle: ..., traitCollection: ...)`
+    static func kakaoLoginButton(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.kakaoLoginButton, compatibleWith: traitCollection)
     }
     #endif
 

@@ -13,6 +13,9 @@
 		120BBCAE28025CE800AD44B5 /* UIColor+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120BBCAD28025CE800AD44B5 /* UIColor+extensions.swift */; };
 		120BBCB028025DA500AD44B5 /* Colors+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120BBCAF28025DA500AD44B5 /* Colors+Generated.swift */; };
 		120BBCB228025E3200AD44B5 /* Color+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120BBCB128025E3200AD44B5 /* Color+extensions.swift */; };
+		1214C0E3280E7A37002D2C4C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1214C0E2280E7A37002D2C4C /* LoginView.swift */; };
+		1214C0E5280E7A42002D2C4C /* LoginCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1214C0E4280E7A42002D2C4C /* LoginCore.swift */; };
+		1214C0E8280E8A7E002D2C4C /* OnboardingImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1214C0E7280E8A7E002D2C4C /* OnboardingImage.swift */; };
 		122236F028024DF1009D5C66 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122236EF28024DF1009D5C66 /* R.generated.swift */; };
 		12273EF027F91076007624C1 /* AppTrackingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12273EEF27F91076007624C1 /* AppTrackingService.swift */; };
 		1229909428026001009BF616 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1229909328026001009BF616 /* Assets.xcassets */; };
@@ -77,6 +80,9 @@
 		120BBCAD28025CE800AD44B5 /* UIColor+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+extensions.swift"; sourceTree = "<group>"; };
 		120BBCAF28025DA500AD44B5 /* Colors+Generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Colors+Generated.swift"; sourceTree = "<group>"; };
 		120BBCB128025E3200AD44B5 /* Color+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+extensions.swift"; sourceTree = "<group>"; };
+		1214C0E2280E7A37002D2C4C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		1214C0E4280E7A42002D2C4C /* LoginCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCore.swift; sourceTree = "<group>"; };
+		1214C0E7280E8A7E002D2C4C /* OnboardingImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingImage.swift; sourceTree = "<group>"; };
 		122236EF28024DF1009D5C66 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = R.generated.swift; path = generated/R.generated.swift; sourceTree = SOURCE_ROOT; };
 		12273EEF27F91076007624C1 /* AppTrackingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTrackingService.swift; sourceTree = "<group>"; };
 		1229909328026001009BF616 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -166,6 +172,16 @@
 				123DD563280283410020440E /* Theme.swift */,
 			);
 			path = Colors;
+			sourceTree = "<group>";
+		};
+		1214C0E6280E7A45002D2C4C /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				1214C0E2280E7A37002D2C4C /* LoginView.swift */,
+				1214C0E4280E7A42002D2C4C /* LoginCore.swift */,
+				1214C0E7280E8A7E002D2C4C /* OnboardingImage.swift */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 		122236EE28024DD8009D5C66 /* Assets */ = {
@@ -455,6 +471,7 @@
 			isa = PBXGroup;
 			children = (
 				12A2245A27F7E79900617C10 /* Home */,
+				1214C0E6280E7A45002D2C4C /* Login */,
 				123EE08B280453B500D34B93 /* Setting */,
 			);
 			path = Feature;
@@ -634,6 +651,7 @@
 				123EE09E28045F4400D34B93 /* PersonalInfoPolicyView.swift in Sources */,
 				12A2244B27F7DFED00617C10 /* AppDelegate.swift in Sources */,
 				122236F028024DF1009D5C66 /* R.generated.swift in Sources */,
+				1214C0E8280E8A7E002D2C4C /* OnboardingImage.swift in Sources */,
 				12952A63280250D700C89DD7 /* UIFont+extensions.swift in Sources */,
 				123EE0832804536800D34B93 /* BackButton.swift in Sources */,
 				1291296F27F815460017E087 /* SharedState.swift in Sources */,
@@ -654,6 +672,8 @@
 				123EE088280453AB00D34B93 /* SettingView.swift in Sources */,
 				125F84AC280D122500279C42 /* AlertSingleButtonCore.swift in Sources */,
 				12952A61280250A300C89DD7 /* Font+extensions.swift in Sources */,
+				1214C0E3280E7A37002D2C4C /* LoginView.swift in Sources */,
+				1214C0E5280E7A42002D2C4C /* LoginCore.swift in Sources */,
 				123EE08D280453D200D34B93 /* ProfileView.swift in Sources */,
 				123DD564280283410020440E /* Theme.swift in Sources */,
 				123DD5662802889D0020440E /* Image+Generated.swift in Sources */,
@@ -795,7 +815,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Mongsil/Preview Content\"";
-				DEVELOPMENT_TEAM = JJPXPHW2TN;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Mongsil/Info.plist;
