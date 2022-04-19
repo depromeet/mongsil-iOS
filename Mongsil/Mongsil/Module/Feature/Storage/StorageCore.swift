@@ -1,5 +1,5 @@
 //
-//  storageCore.swift
+//  StorageCore.swift
 //  Mongsil
 //
 //  Created by 이승후 on 2022/04/08.
@@ -20,7 +20,7 @@ struct StorageEnvironment {
 }
 
 let storageReducer = Reducer<WithSharedState<StorageState>, StorageAction, StorageEnvironment> {
-  state, action, env in
+  _, action, _ in
   switch action {
   }
 }

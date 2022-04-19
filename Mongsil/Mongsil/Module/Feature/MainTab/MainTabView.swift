@@ -9,29 +9,31 @@ import ComposableArchitecture
 
 struct MainTabView: View {
   private let store: Store<WithSharedState<MainTabState>, MainTabAction>
+
   init(store: Store<WithSharedState<MainTabState>, MainTabAction>) {
     self.store = store
     UITabBar.appearance().scrollEdgeAppearance = .init()
   }
+
   var body: some View {
-    VStack{
-      GeometryReader { metrics in
-        TabView{
-          HomeTabView(store: store)
-          StoreTabView(store: store)
-        }
-        RecordButtonView(store: store)
-          .offset(x: metrics.size.width/2.3, y: metrics.size.height/1.105)
+    GeometryReader { metrics in
+      TabView {
+        HomeTabView(store: store)
+        StoreTabView(store: store)
       }
+      RecordButtonView(store: store)
+        .offset(x: metrics.size.width/2.3, y: metrics.size.height/1.105)
     }
   }
 }
+
 private struct HomeTabView: View {
   private let store: Store<WithSharedState<MainTabState>, MainTabAction>
 
   init(store: Store<WithSharedState<MainTabState>, MainTabAction>) {
     self.store = store
   }
+
   var body: some View {
     HomeView(
       store: store.scope(
@@ -49,10 +51,11 @@ private struct HomeTabView: View {
 
 private struct StoreTabView: View {
   private let store: Store<WithSharedState<MainTabState>, MainTabAction>
-  
+
   init(store: Store<WithSharedState<MainTabState>, MainTabAction>) {
     self.store = store
   }
+
   var body: some View {
     StorageView(
       store: store.scope(
@@ -70,20 +73,23 @@ private struct StoreTabView: View {
 
 private struct RecordButtonView: View {
   private let store: Store<WithSharedState<MainTabState>, MainTabAction>
+
   init(store: Store<WithSharedState<MainTabState>, MainTabAction>) {
     self.store = store
   }
+
   var body: some View {
-    WithViewStore(store.scope(state: \.local.isRecordButtonTapped)) {isRecordViewPushedViewStore in
+    WithViewStore(store.scope(state: \.local.isRecordPushed)) { isRecordPushedViewStore in
       NavigationLink(
         destination: IfLetStore(
           store.scope(
             state: \.record,
-            action: MainTabAction.record),
+            action: MainTabAction.record
+          ),
           then: RecordView.init(store: )
         ),
-        isActive: isRecordViewPushedViewStore.binding(
-          send: MainTabAction.moveToRecordViewButtonTapped
+        isActive: isRecordPushedViewStore.binding(
+          send: MainTabAction.setRecordPushed
         ),
         label: {
           Image(systemName: "circle.fill")
@@ -91,11 +97,6 @@ private struct RecordButtonView: View {
             .frame(width: 48, height: 48, alignment: .center)
             .cornerRadius(28)
             .foregroundColor(.gray)
-          Button(
-            action: { isRecordViewPushedViewStore.send(.moveToRecordViewButtonTapped(true))},
-            label: {
-            }
-          )
         }
       )
       .isDetailLink(true)

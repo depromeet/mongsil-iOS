@@ -17,15 +17,15 @@ enum AppAction {
   case onAppear
   case setShouldDisplayRequestAppTrackingAlert(Bool)
   case displayRequestAppTrackingAlert
-  
+
   // Child Action
-  case tab(MainTabAction)
+  case mainTab(MainTabAction)
 }
 
 struct AppEnvironment {
   var mainQueue: AnySchedulerOf<DispatchQueue>
   var appTrackingService: AppTrackingService
-  
+
   init(
     mainQueue: AnySchedulerOf<DispatchQueue>,
     appTrackingService: AppTrackingService
@@ -38,7 +38,7 @@ struct AppEnvironment {
 let appReducer = Reducer.combine([
   tabReducer.pullback(
     state: \.mainTab,
-    action: /AppAction.tab,
+    action: /AppAction.mainTab,
     environment: { _ in
       MainTabEnvironment()
     }
@@ -53,16 +53,16 @@ let appReducer = Reducer.combine([
         })
         .delay(for: .milliseconds(100), scheduler: env.mainQueue)
         .eraseToEffect()
-      
+
     case let .setShouldDisplayRequestAppTrackingAlert(status):
       state.local.shouldDisplayRequestAppTrackingAlert = status
       return .none
-      
+
     case .displayRequestAppTrackingAlert:
       return env.appTrackingService.requestAppTrackingAuthorization()
         .fireAndForget()
-      
-    case .tab:
+
+    case .mainTab:
       return .none
     }
   }

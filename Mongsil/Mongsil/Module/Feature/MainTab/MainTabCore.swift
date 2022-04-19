@@ -9,22 +9,23 @@ import Combine
 import ComposableArchitecture
 
 struct MainTabState: Equatable {
-  public var isRecordButtonTapped: Bool = false
-  //Child state
-  public  var home: HomeState = .init()
+  public var isRecordPushed: Bool = false
+
+  // Child State
+  public var home: HomeState = .init()
   public var record: RecordState?
   public var store: StorageState = .init()
-  
+
   init(
-    isRecordButtonTapped: Bool = false
+    isRecordPushed: Bool = false
   ) {
-    self.isRecordButtonTapped = isRecordButtonTapped
+    self.isRecordPushed = isRecordPushed
   }
 }
 
 enum MainTabAction {
-  case setBackToHome(Bool)
-  case moveToRecordViewButtonTapped(Bool)
+  case setRecordPushed(Bool)
+
   // Child Action
   case home(HomeAction)
   case record(RecordAction)
@@ -43,35 +44,28 @@ Reducer.combine([
       state: \.record,
       action: /MainTabAction.record,
       environment: { _ in
-        RecordEnvironment ()
+        RecordEnvironment()
       }
     ) as Reducer<WithSharedState<MainTabState>, MainTabAction, MainTabEnvironment>,
   Reducer<WithSharedState<MainTabState>, MainTabAction, MainTabEnvironment> {
-    state, action, env in
+    state, action, _ in
     switch action {
-    case let .moveToRecordViewButtonTapped(isTapped):
-      state.local.isRecordButtonTapped = isTapped
-      if isTapped {
+    case let .setRecordPushed(isPushed):
+      state.local.isRecordPushed = isPushed
+      if isPushed {
         state.local.record = .init()
       }
       return .none
-      
-    case let .setBackToHome(pushed):
-      state.local.isRecordButtonTapped = pushed
-      if pushed {
-        state.local.record = .init()
-      }
-      return .none
-      
-    case .record(.backButtonTapped):
-      return Effect(value: .setBackToHome(false))
-      
+
     case .home:
       return .none
-      
+
+    case .record(.backButtonTapped):
+      return Effect(value: .setRecordPushed(false))
+
     case .record:
       return .none
-      
+
     case .store:
       return .none
     }

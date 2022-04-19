@@ -19,7 +19,7 @@ struct RecordEnvironment {
 }
 
 let recordReducer = Reducer<WithSharedState<RecordState>, RecordAction, RecordEnvironment> {
-  state, action, env in
+  _, action, _ in
   switch action {
   case .backButtonTapped:
     return .none

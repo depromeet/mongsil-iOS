@@ -8,27 +8,72 @@
 import SwiftUI
 
 public struct RightButton: View {
-  public var titleText: String
-//  public var rightButtonImageText: String
+  public var text: String?
+  public var image: Image?
   public var action: () -> Void
-  
+
   public init(
-    titleText: String,
+    text: String? = nil,
+    image: Image? = nil,
     action: @escaping () -> Void
-//    rightButtonImageText: String
-  ){
-    self.titleText = titleText
+  ) {
+    self.text = text
+    self.image = image
     self.action = action
-//    self.rightButtonImageText = rightButtonImageText
   }
-  
+
   public var body: some View {
-    Button(action: action) {
-      Text(titleText)
-        .font(.title1)
-        .foregroundColor(.gray1)
-//      Image(systemName: rightButtonImageText)
+    if let text = text {
+      RightButtonWithText(
+        text: text,
+        action: action
+      )
+    }
+    if let image = image {
+      RightButtonWithImage(
+        image: image,
+        action: action
+      )
     }
   }
 }
 
+private struct RightButtonWithText: View {
+  var text: String
+  var action: () -> Void
+
+  init(
+    text: String,
+    action: @escaping () -> Void
+  ) {
+    self.text = text
+    self.action = action
+  }
+
+  var body: some View {
+    Button(action: action) {
+      Text(text)
+        .font(.title1)
+        .foregroundColor(.gray1)
+    }
+  }
+}
+
+private struct RightButtonWithImage: View {
+  var image: Image
+  var action: () -> Void
+
+  init(
+    image: Image,
+    action: @escaping () -> Void
+  ) {
+    self.image = image
+    self.action = action
+  }
+
+  var body: some View {
+    Button(action: action) {
+      image
+    }
+  }
+}

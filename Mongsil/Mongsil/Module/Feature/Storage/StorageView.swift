@@ -10,15 +10,16 @@ import ComposableArchitecture
 
 struct StorageView: View {
   private let store: Store<WithSharedState<StorageState>, StorageAction>
-  
+
   init(store: Store<WithSharedState<StorageState>, StorageAction>) {
     self.store = store
   }
   var body: some View {
-    VStack{
+    VStack {
       MSNavigationBar(
-        titleText: "보관함"
-//        rightButtonImageText: "circle.fill"
+        titleText: "보관함",
+        isUseBackButton: false,
+        rightButtonImage: R.CustomImage.settingIcon.image
       )
       Spacer()
       Text("StoreView")

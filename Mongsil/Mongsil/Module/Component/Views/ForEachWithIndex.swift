@@ -12,7 +12,7 @@ public struct ForEachWithIndex<Data: RandomAccessCollection, ID: Hashable, Conte
   public var data: Data
   public var content: (_ index: Data.Index, _ element: Data.Element, _ isLast: Bool) -> Content
   var id: KeyPath<Data.Element, ID>
-  
+
   public init(
     _ data: Data,
     id: KeyPath<Data.Element, ID>,
@@ -22,7 +22,7 @@ public struct ForEachWithIndex<Data: RandomAccessCollection, ID: Hashable, Conte
     self.id = id
     self.content = content
   }
-  
+
   public var body: some View {
     ForEach(
       zip(self.data.indices, self.data).map { index, element in
@@ -56,15 +56,15 @@ private struct IndexInfo<Index, Element, ID: Hashable>: Hashable {
   let id: KeyPath<Element, ID>
   let element: Element
   let isLast: Bool
-  
+
   var elementID: ID {
     self.element[keyPath: self.id]
   }
-  
+
   static func == (_ lhs: IndexInfo, _ rhs: IndexInfo) -> Bool {
     lhs.elementID == rhs.elementID
   }
-  
+
   func hash(into hasher: inout Hasher) {
     self.elementID.hash(into: &hasher)
   }

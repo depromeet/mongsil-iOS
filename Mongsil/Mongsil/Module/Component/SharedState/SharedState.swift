@@ -11,7 +11,7 @@ import Foundation
 public struct WithSharedState<LocalState: Equatable>: Equatable {
   public var local: LocalState
   public var shared: SharedState
-  
+
   public init(
     local: LocalState,
     shared: SharedState
@@ -19,12 +19,12 @@ public struct WithSharedState<LocalState: Equatable>: Equatable {
     self.local = local
     self.shared = shared
   }
-  
+
   public subscript<T>(dynamicMember keyPath: WritableKeyPath<LocalState, T>) -> WithSharedState<T> {
     get { .init(local: local[keyPath: keyPath], shared: shared) }
     set { local[keyPath: keyPath] = newValue.local }
   }
-  
+
   public subscript<T>(dynamicMember keyPath: WritableKeyPath<LocalState, T?>) -> WithSharedState<T>? {
     get {
       if let local = local[keyPath: keyPath] {
