@@ -51,7 +51,8 @@ struct R: Rswift.Validatable {
     // Note: key might not exist in chosen language (in that case, key will be shown)
     for language in languages {
       if let lproj = hostingBundle.url(forResource: language, withExtension: "lproj"),
-         let lbundle = Bundle(url: lproj) {
+         let lbundle = Bundle(url: lproj)
+      {
         let strings = lbundle.url(forResource: tableName, withExtension: "strings")
         let stringsdict = lbundle.url(forResource: tableName, withExtension: "stringsdict")
 
@@ -434,9 +435,9 @@ struct R: Rswift.Validatable {
     }
 
     static func validate() throws {
-      if R.font.notoSansKRBold(size: 42) == nil { throw Rswift.ValidationError(description: "[R.swift] Font 'NotoSansKR-Bold' could not be loaded, is 'NotoSansKR-Bold.otf' added to the UIAppFonts array in this targets Info.plist?") }
-      if R.font.notoSansKRMedium(size: 42) == nil { throw Rswift.ValidationError(description: "[R.swift] Font 'NotoSansKR-Medium' could not be loaded, is 'NotoSansKR-Medium.otf' added to the UIAppFonts array in this targets Info.plist?") }
-      if R.font.notoSansKRRegular(size: 42) == nil { throw Rswift.ValidationError(description: "[R.swift] Font 'NotoSansKR-Regular' could not be loaded, is 'NotoSansKR-Regular.otf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.notoSansKRBold(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'NotoSansKR-Bold' could not be loaded, is 'NotoSansKR-Bold.otf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.notoSansKRMedium(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'NotoSansKR-Medium' could not be loaded, is 'NotoSansKR-Medium.otf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.notoSansKRRegular(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'NotoSansKR-Regular' could not be loaded, is 'NotoSansKR-Regular.otf' added to the UIAppFonts array in this targets Info.plist?") }
     }
 
     fileprivate init() {}

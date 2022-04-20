@@ -11,12 +11,10 @@ import ComposableArchitecture
 struct StorageState: Equatable {
 }
 
-enum StorageAction: Equatable {
-  
+enum StorageAction {
 }
 
 struct StorageEnvironment {
-  
 }
 
 let storageReducer = Reducer<WithSharedState<StorageState>, StorageAction, StorageEnvironment> {

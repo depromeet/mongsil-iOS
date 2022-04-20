@@ -867,11 +867,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Mongsil/Info.plist;
-<<<<<<< HEAD
-				INFOPLIST_KEY_NSUserTrackingUsageDescription = "귀하의 데이터는 개인화 광고를 제공하기 위해 사용됩니다.";
-=======
+				INFOPLIST_KEY_CFBundleDisplayName = "몽실";
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "\"귀하의 데이터는 개인화 광고를 제공하기 위해 사용됩니다.\"";
->>>>>>> main
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -903,7 +900,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Mongsil/Info.plist;
-				INFOPLIST_KEY_NSUserTrackingUsageDescription = "귀하의 데이터는 개인화 광고를 제공하기 위해 사용됩니다.";
+				INFOPLIST_KEY_CFBundleDisplayName = "몽실";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "\"귀하의 데이터는 개인화 광고를 제공하기 위해 사용됩니다.\"";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
