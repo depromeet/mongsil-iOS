@@ -14,6 +14,7 @@ struct StorageView: View {
   init(store: Store<WithSharedState<StorageState>, StorageAction>) {
     self.store = store
   }
+
   var body: some View {
     VStack {
       MSNavigationBar(

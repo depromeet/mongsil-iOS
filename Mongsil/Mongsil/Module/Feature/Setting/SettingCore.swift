@@ -11,6 +11,8 @@ import ComposableArchitecture
 struct SettingState: Equatable {
   public var isProfilePushed: Bool = false
   public var isAppInfoPushed: Bool = false
+
+  // Child State
   public var profile: ProfileState?
   public var appInfo: AppInfoState?
 

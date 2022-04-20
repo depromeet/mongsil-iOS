@@ -50,9 +50,9 @@ Reducer.combine([
   Reducer<WithSharedState<MainTabState>, MainTabAction, MainTabEnvironment> {
     state, action, _ in
     switch action {
-    case let .setRecordPushed(isPushed):
-      state.local.isRecordPushed = isPushed
-      if isPushed {
+    case let .setRecordPushed(pushed):
+      state.local.isRecordPushed = pushed
+      if pushed {
         state.local.record = .init()
       }
       return .none
