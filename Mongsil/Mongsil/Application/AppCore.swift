@@ -42,7 +42,10 @@ let appReducer = Reducer.combine([
     state: \.mainTab,
     action: /AppAction.mainTab,
     environment: {
-      MainTabEnvironment(mainQueue: $0.mainQueue)
+      MainTabEnvironment(
+        mainQueue: $0.mainQueue,
+        kakaoLoginService: $0.kakaoLoginService
+      )
     }
   ) as Reducer<WithSharedState<AppState>, AppAction, AppEnvironment>,
   Reducer<WithSharedState<AppState>, AppAction, AppEnvironment> {

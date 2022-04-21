@@ -45,15 +45,18 @@ enum MainTabAction {
 
 struct MainTabEnvironment {
   var mainQueue: AnySchedulerOf<DispatchQueue>
+  var kakaoLoginService: KakaoLoginService
 
   init(
-    mainQueue: AnySchedulerOf<DispatchQueue>
+    mainQueue: AnySchedulerOf<DispatchQueue>,
+    kakaoLoginService: KakaoLoginService
   ) {
     self.mainQueue = mainQueue
+    self.kakaoLoginService = kakaoLoginService
   }
 }
 
-let tabReducer:
+let mainTabReducer:
 Reducer<WithSharedState<MainTabState>, MainTabAction, MainTabEnvironment> =
 Reducer.combine([
   homeReducer
@@ -86,8 +89,8 @@ Reducer.combine([
     .pullback(
       state: \.login,
       action: /MainTabAction.login,
-      environment: { _ in
-        LoginEnvironment()
+      environment: {
+        LoginEnvironment(kakaoLoginService: $0.kakaoLoginService)
       }
     ) as Reducer<WithSharedState<MainTabState>, MainTabAction, MainTabEnvironment>,
   alertDoubleButtonReducer
