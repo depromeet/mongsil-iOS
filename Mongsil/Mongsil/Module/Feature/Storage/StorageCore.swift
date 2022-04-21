@@ -10,10 +10,10 @@ import ComposableArchitecture
 
 struct StorageState: Equatable {
   public var isSettingPushed: Bool = false
-  
+
   // Child State
   public var setting: SettingState?
-  
+
   init(
     isSettingPushed: Bool = false
   ) {
@@ -23,7 +23,7 @@ struct StorageState: Equatable {
 
 enum StorageAction {
   case setSettingPushed(Bool)
-  
+
   // Child Action
   case setting(SettingAction)
 }
@@ -51,10 +51,10 @@ Reducer.combine([
         state.local.setting = .init()
       }
       return .none
-      
+
     case .setting(.backButtonTapped):
       return Effect(value: .setSettingPushed(false))
-      
+
     case .setting:
       return .none
     }

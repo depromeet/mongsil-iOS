@@ -39,8 +39,8 @@ let appReducer = Reducer.combine([
   tabReducer.pullback(
     state: \.mainTab,
     action: /AppAction.mainTab,
-    environment: { _ in
-      MainTabEnvironment()
+    environment: {
+      MainTabEnvironment(mainQueue: $0.mainQueue)
     }
   ) as Reducer<WithSharedState<AppState>, AppAction, AppEnvironment>,
   Reducer<WithSharedState<AppState>, AppAction, AppEnvironment> {
