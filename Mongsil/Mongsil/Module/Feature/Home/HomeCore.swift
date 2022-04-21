@@ -9,10 +9,6 @@ import Combine
 import ComposableArchitecture
 
 struct HomeState: Equatable {
-  var kakaoUserNickname: String = "Kakao nickname initial value"
-  var kakaoUserMail: String = "Kakao email initial value"
-  var appleUserNickname: String = "Apple nickname initial value"
-  var appleUserMail: String = "Apple email initial value"
 }
 
 enum HomeAction {
@@ -29,8 +25,8 @@ struct HomeEnvironment {
   }
 }
 
-let homeReducer = Reducer<HomeState, HomeAction, HomeEnvironment> {
-  state, action, env in
+let homeReducer = Reducer<WithSharedState<HomeState>, HomeAction, HomeEnvironment> {
+  _, action, env in
   switch action {
   case .kakaoLoginButtonTapped:
     return env.kakaoLoginService.getKakaoUserInfo()

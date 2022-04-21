@@ -16,26 +16,8 @@ struct HomeView: View {
   }
 
   var body: some View {
-    WithViewStore(store) { viewStore in
-      VStack {
-        Button {
-          viewStore.send(.kakaoLoginButtonTapped)
-        } label: {
-          Text("카카오로 시작하기")
-            .foregroundColor(Color.gray11)
-            .padding()
-            .frame(maxWidth: .infinity)
-            .frame(height: 50)
-            .background(Color.milleYellow)
-            .cornerRadius(10)
-        }
-        .padding()
-        Text("Mongsil")
-          .font(.largeTitle)
-          .foregroundColor(.milleYellow)
-          .padding()
-          .navigationBarHidden(true)
-      }
-    }
+    Text("homeView")
+      .navigationTitle("")
+      .navigationBarHidden(true)
   }
 }

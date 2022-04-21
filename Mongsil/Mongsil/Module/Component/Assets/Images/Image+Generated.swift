@@ -29,6 +29,8 @@ extension R {
     public static let deleteIcon = ImageAsset(name: "DeleteIcon")
     public static let plusIcon = ImageAsset(name: "PlusIcon")
     public static let bookmarkIcon = ImageAsset(name: "BookmarkIcon")
+    public static let kakaoLoginButton = ImageAsset(name: "KakaoLoginButton")
+    public static let appleLoginButton = ImageAsset(name: "AppleLoginButton")
   }
 }
 

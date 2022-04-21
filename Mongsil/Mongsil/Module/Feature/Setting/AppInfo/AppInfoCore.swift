@@ -12,6 +12,8 @@ struct AppInfoState: Equatable {
   public var isTermsPushed: Bool = false
   public var isPersonalInfoPolicyPushed: Bool = false
   public var isOpenSourcePushed: Bool = false
+
+  // Child State
   public var terms: TermsState?
   public var personalInfoPolicy: PersonalInfoPolicyState?
   public var openSource: OpenSourceState?
