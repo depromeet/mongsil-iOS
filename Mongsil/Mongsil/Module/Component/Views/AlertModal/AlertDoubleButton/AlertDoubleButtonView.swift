@@ -62,8 +62,7 @@ private struct TitleView: View {
           .font(.title2)
           .fontWeight(.bold)
           .foregroundColor(.white)
-          .multilineTextAlignment(.leading)
-
+          .multilineTextAlignment(.center)
         Spacer().height(16)
       }
     }
@@ -82,7 +81,7 @@ private struct BodyView: View {
       Text(bodyTextViewStore.state)
         .font(.title3)
         .foregroundColor(.gray4)
-        .multilineTextAlignment(.leading)
+        .multilineTextAlignment(.center)
     }
   }
 }
@@ -120,7 +119,7 @@ private struct SecondaryButtonView: View {
 }
 
 extension View {
-  public func AlertDoubleButton(store: Store<AlertDoubleButtonState?, AlertDoubleButtonAction>) -> some View {
+  public func alertDoubleButton(store: Store<AlertDoubleButtonState?, AlertDoubleButtonAction>) -> some View {
     return self.overlay(
       IfLetStore(
         store,

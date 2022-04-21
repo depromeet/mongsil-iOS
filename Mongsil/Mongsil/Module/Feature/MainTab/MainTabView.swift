@@ -24,6 +24,12 @@ struct MainTabView: View {
       RecordButtonView(store: store)
         .offset(x: metrics.size.width/2.3, y: metrics.size.height/1.105)
     }
+    .alertDoubleButton(
+      store: store.scope(
+        state: \.local.requestLoginAlertModal,
+        action: MainTabAction.requestLoginAlertModal
+      )
+    )
   }
 }
 
@@ -79,6 +85,19 @@ private struct RecordButtonView: View {
   }
 
   var body: some View {
+    RecordLink(store: store)
+    LoginLink(store: store)
+  }
+}
+
+private struct RecordLink: View {
+  private let store: Store<WithSharedState<MainTabState>, MainTabAction>
+
+  init(store: Store<WithSharedState<MainTabState>, MainTabAction>) {
+    self.store = store
+  }
+
+  var body: some View {
     WithViewStore(store.scope(state: \.local.isRecordPushed)) { isRecordPushedViewStore in
       NavigationLink(
         destination: IfLetStore(
@@ -90,6 +109,35 @@ private struct RecordButtonView: View {
         ),
         isActive: isRecordPushedViewStore.binding(
           send: MainTabAction.setRecordPushed
+        ),
+        label: {
+          EmptyView()
+        }
+      )
+      .isDetailLink(true)
+    }
+  }
+}
+
+private struct LoginLink: View {
+  private let store: Store<WithSharedState<MainTabState>, MainTabAction>
+
+  init(store: Store<WithSharedState<MainTabState>, MainTabAction>) {
+    self.store = store
+  }
+
+  var body: some View {
+    WithViewStore(store.scope(state: \.local.isLoginPushed)) { isLoginPushedViewStore in
+      NavigationLink(
+        destination: IfLetStore(
+          store.scope(
+            state: \.login,
+            action: MainTabAction.login
+          ),
+          then: LoginView.init(store: )
+        ),
+        isActive: isLoginPushedViewStore.binding(
+          send: MainTabAction.verifyUserLogined
         ),
         label: {
           Image(systemName: "circle.fill")

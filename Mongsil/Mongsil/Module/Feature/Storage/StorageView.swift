@@ -10,11 +10,11 @@ import ComposableArchitecture
 
 struct StorageView: View {
   private let store: Store<WithSharedState<StorageState>, StorageAction>
-  
+
   init(store: Store<WithSharedState<StorageState>, StorageAction>) {
     self.store = store
   }
-  
+
   var body: some View {
     VStack {
       StorageNavigationView(store: store)
@@ -29,11 +29,11 @@ struct StorageView: View {
 
 private struct StorageNavigationView: View {
   private let store: Store<WithSharedState<StorageState>, StorageAction>
-  
+
   init(store: Store<WithSharedState<StorageState>, StorageAction>) {
     self.store = store
   }
-  
+
   var body: some View {
     ZStack {
       MSNavigationBar(
