@@ -19,7 +19,7 @@ struct LoginView: View {
     VStack(alignment: .leading, spacing: 10) {
       MSNavigationBar(
         titleText: "로그인",
-        backButtonAction: { }
+        backButtonAction: { ViewStore(store).send(.backButtonTapped) }
       )
       WelcomeTitleView()
         .padding(.bottom, 10)
