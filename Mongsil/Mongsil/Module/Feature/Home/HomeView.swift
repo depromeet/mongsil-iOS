@@ -16,8 +16,8 @@ struct HomeView: View {
   }
 
   var body: some View {
-    WithViewStore(store){ viewStore in
-      VStack{
+    WithViewStore(store) { viewStore in
+      VStack {
         Button {
           viewStore.send(.kakaoLoginButtonTapped)
         } label: {
@@ -25,7 +25,7 @@ struct HomeView: View {
             .foregroundColor(Color.gray11)
             .padding()
             .frame(maxWidth: .infinity)
-            .frame(height:50)
+            .frame(height: 50)
             .background(Color.milleYellow)
             .cornerRadius(10)
         }

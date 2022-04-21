@@ -8,55 +8,70 @@
 import Combine
 import KakaoSDKUser
 
-class KakaoLoginService{
-  
-  init() {}
-  
-  func getKakaoUserInfo() -> AnyPublisher<Void, Never> {
-    return Publishers.Create<Void, Never>(factory: { subscriber -> Cancellable in
-      if (UserApi.isKakaoTalkLoginAvailable()){
-        subscriber.send(
-          UserApi.shared.loginWithKakaoTalk { (_, error) in
-            if error != nil {
-            }
-            else {
-              UserApi.shared.me { user, error in
-                if error != nil {
-                } else {
-                  if let nickname = user?.kakaoAccount?.profile?.nickname {
-                  }
-                  if let mail = user?.kakaoAccount?.email {
-                  }
-                }
-              }
-            }
+public class KakaoLoginService {
+  public init() {}
+
+  public func getKakaoUserInfo() -> AnyPublisher<[String: String], Error> {
+    return Publishers.Create<[String: String], Error>(factory: { [unowned self] subscribers -> Cancellable in
+      if UserApi.isKakaoTalkLoginAvailable() {
+        self.loginWithKakaoTalk { result in
+          switch result {
+          case let .success(info):
+            subscribers.send(info)
+          case let .failure(error):
+            subscribers.send(completion: .failure(error))
           }
-        )
+          subscribers.send(completion: .finished)
+        }
       } else {
-        subscriber.send(
-          UserApi.shared.loginWithKakaoAccount { (_, error) in
-            if error != nil {
-            }
-            else {
-              print("loginWithKakaoAccount() success.")
-              UserApi.shared.me { user, error in
-                if error != nil {
-                } else {
-                  if let nickname = user?.kakaoAccount?.profile?.nickname {
-                  }
-                  if let mail = user?.kakaoAccount?.email {
-                  }
-                }
-              }
-            }
+        self.loginWithKakaoAccont { result in
+          switch result {
+          case let .success(info):
+            subscribers.send(info)
+          case let .failure(error):
+            subscribers.send(completion: .failure(error))
           }
-        )
+          subscribers.send(completion: .finished)
+        }
       }
-      subscriber.send(completion: .finished)
       return AnyCancellable({})
     })
     .eraseToAnyPublisher()
   }
+
+  private func loginWithKakaoTalk(completion: @escaping (Result<[String: String], Error>) -> Void) {
+    UserApi.shared.loginWithKakaoTalk { _, error in
+      if let error = error {
+        completion(.failure(error))
+      }
+      UserApi.shared.me { user, error in
+        if let error = error {
+          completion(.failure(error))
+        }
+        if let user = user {
+          let nickName = user.kakaoAccount?.profile?.nickname ?? ""
+          let email = user.kakaoAccount?.email ?? ""
+          completion(.success(["nickName": nickName, "email": email]))
+        }
+      }
+    }
+  }
+
+  private func loginWithKakaoAccont(completion: @escaping (Result<[String: String], Error>) -> Void) {
+    UserApi.shared.loginWithKakaoAccount { _, error in
+      if let error = error {
+        completion(.failure(error))
+      }
+      UserApi.shared.me { user, error in
+        if let error = error {
+          completion(.failure(error))
+        }
+        if let user = user {
+          let nickName = user.kakaoAccount?.profile?.nickname ?? ""
+          let email = user.kakaoAccount?.email ?? ""
+          completion(.success(["nickName": nickName, "email": email]))
+        }
+      }
+    }
+  }
 }
-
-
