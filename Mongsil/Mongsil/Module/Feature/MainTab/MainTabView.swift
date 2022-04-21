@@ -19,7 +19,7 @@ struct MainTabView: View {
     GeometryReader { metrics in
       TabView {
         HomeTabView(store: store)
-        StoreTabView(store: store)
+        StorageTabView(store: store)
       }
       RecordButtonView(store: store)
         .offset(x: metrics.size.width/2.3, y: metrics.size.height/1.105)
@@ -49,7 +49,7 @@ private struct HomeTabView: View {
   }
 }
 
-private struct StoreTabView: View {
+private struct StorageTabView: View {
   private let store: Store<WithSharedState<MainTabState>, MainTabAction>
 
   init(store: Store<WithSharedState<MainTabState>, MainTabAction>) {
@@ -59,8 +59,8 @@ private struct StoreTabView: View {
   var body: some View {
     StorageView(
       store: store.scope(
-        state: \.store,
-        action: MainTabAction.store
+        state: \.storage,
+        action: MainTabAction.storage
       )
     )
     .tabItem {
