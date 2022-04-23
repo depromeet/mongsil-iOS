@@ -12,16 +12,13 @@ struct HomeState: Equatable {
 }
 
 enum HomeAction {
-
 }
 
 struct HomeEnvironment {
-
 }
 
 let homeReducer = Reducer<WithSharedState<HomeState>, HomeAction, HomeEnvironment> {
   _, action, _ in
   switch action {
-
   }
 }

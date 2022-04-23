@@ -25,22 +25,27 @@ enum AppAction {
 struct AppEnvironment {
   var mainQueue: AnySchedulerOf<DispatchQueue>
   var appTrackingService: AppTrackingService
-
+  var kakaoLoginService: KakaoLoginService
   init(
     mainQueue: AnySchedulerOf<DispatchQueue>,
-    appTrackingService: AppTrackingService
+    appTrackingService: AppTrackingService,
+    kakaoLoginService: KakaoLoginService
   ) {
     self.mainQueue = mainQueue
     self.appTrackingService = appTrackingService
+    self.kakaoLoginService = kakaoLoginService
   }
 }
 
 let appReducer = Reducer.combine([
-  tabReducer.pullback(
+  mainTabReducer.pullback(
     state: \.mainTab,
     action: /AppAction.mainTab,
     environment: {
-      MainTabEnvironment(mainQueue: $0.mainQueue)
+      MainTabEnvironment(
+        mainQueue: $0.mainQueue,
+        kakaoLoginService: $0.kakaoLoginService
+      )
     }
   ) as Reducer<WithSharedState<AppState>, AppAction, AppEnvironment>,
   Reducer<WithSharedState<AppState>, AppAction, AppEnvironment> {

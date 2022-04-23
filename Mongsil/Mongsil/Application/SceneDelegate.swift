@@ -8,6 +8,7 @@
 import ComposableArchitecture
 import SwiftUI
 import UIKit
+import KakaoSDKAuth
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -18,7 +19,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     reducer: appReducer,
     environment: AppEnvironment.init(
       mainQueue: DispatchQueue.main.eraseToAnyScheduler(),
-      appTrackingService: .init()
+      appTrackingService: .init(),
+      kakaoLoginService: .init()
     )
   )
 
@@ -42,6 +44,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
       )
       self.window = window
       window.makeKeyAndVisible()
+    }
+  }
+
+  func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+    if let url = URLContexts.first?.url {
+      if AuthApi.isKakaoTalkLoginUrl(url) {
+        _ = AuthController.handleOpenUrl(url: url)
+      }
     }
   }
 
