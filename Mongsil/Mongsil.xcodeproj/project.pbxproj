@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		12083C97281636700020E20E /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12083C96281636700020E20E /* Toast.swift */; };
 		120BBCA82802552600AD44B5 /* NotoSansKR-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 120BBCA52802552600AD44B5 /* NotoSansKR-Regular.otf */; };
 		120BBCA92802552600AD44B5 /* NotoSansKR-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 120BBCA62802552600AD44B5 /* NotoSansKR-Bold.otf */; };
 		120BBCAA2802552600AD44B5 /* NotoSansKR-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 120BBCA72802552600AD44B5 /* NotoSansKR-Medium.otf */; };
@@ -84,6 +85,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		12083C96281636700020E20E /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		120BBCA52802552600AD44B5 /* NotoSansKR-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Regular.otf"; sourceTree = "<group>"; };
 		120BBCA62802552600AD44B5 /* NotoSansKR-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Bold.otf"; sourceTree = "<group>"; };
 		120BBCA72802552600AD44B5 /* NotoSansKR-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Medium.otf"; sourceTree = "<group>"; };
@@ -174,6 +176,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		12083C982816367C0020E20E /* Toast */ = {
+			isa = PBXGroup;
+			children = (
+				12083C96281636700020E20E /* Toast.swift */,
+			);
+			path = Toast;
+			sourceTree = "<group>";
+		};
 		120BBCAB2802565900AD44B5 /* NotoSansKR */ = {
 			isa = PBXGroup;
 			children = (
@@ -458,6 +468,7 @@
 				123EE0862804538300D34B93 /* Buttons */,
 				125F84A8280D11D800279C42 /* AlertModal */,
 				125F84BA280D152600279C42 /* Indicators */,
+				12083C982816367C0020E20E /* Toast */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -727,6 +738,7 @@
 				125F84B0280D124700279C42 /* AlertSingleButtonView.swift in Sources */,
 				123EE08A280453B300D34B93 /* SettingCore.swift in Sources */,
 				123EE09728045B3600D34B93 /* ListButtonItemWithText.swift in Sources */,
+				12083C97281636700020E20E /* Toast.swift in Sources */,
 				773AE2AA280723F7006861FC /* RecordView.swift in Sources */,
 				1291296527F812D80017E087 /* Effect+extensions.swift in Sources */,
 				773AE2A8280723E6006861FC /* MainTabCore.swift in Sources */,

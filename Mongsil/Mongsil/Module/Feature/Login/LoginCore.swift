@@ -12,10 +12,11 @@ struct LoginState: Equatable {
   var onboardingImage = OnboardingImage.allCases
 }
 
-enum LoginAction {
+enum LoginAction: ToastPresentableAction {
   case backButtonTapped
   case kakaoLoginButtonTapped
   case appleLoginButtonTapped
+  case presentToast(String)
 }
 
 struct LoginEnvironment {
@@ -40,8 +41,7 @@ let loginReducer = Reducer<WithSharedState<LoginState>, LoginAction, LoginEnviro
       .flatMapLatest({ result -> Effect<LoginAction, Never> in
         switch result {
         case .failure:
-          // 토스트 메시지, 얼럿 노출
-          return .none
+          return Effect(value: .presentToast("카카오 로그인에 실패했습니다."))
         case let .success(userInfo):
           // 다음 액션 역할 (회원가입)
           return .none
@@ -50,6 +50,9 @@ let loginReducer = Reducer<WithSharedState<LoginState>, LoginAction, LoginEnviro
       .eraseToEffect()
 
   case .appleLoginButtonTapped:
+    return .none
+
+  case .presentToast:
     return .none
   }
 }
