@@ -380,41 +380,30 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.entitlements` struct is generated, and contains static references to 1 properties.
-  struct entitlements {
-    struct comAppleDeveloperApplesignin {
-      static let `default` = infoPlistString(path: ["com.apple.developer.applesignin"], key: "Default") ?? "Default"
-
-      fileprivate init() {}
-    }
-
-    fileprivate init() {}
-  }
-
   /// This `R.file` struct is generated, and contains static references to 3 files.
   struct file {
-    /// Resource file `NotoSansKR-Bold.otf`.
-    static let notoSansKRBoldOtf = Rswift.FileResource(bundle: R.hostingBundle, name: "NotoSansKR-Bold", pathExtension: "otf")
-    /// Resource file `NotoSansKR-Medium.otf`.
-    static let notoSansKRMediumOtf = Rswift.FileResource(bundle: R.hostingBundle, name: "NotoSansKR-Medium", pathExtension: "otf")
-    /// Resource file `NotoSansKR-Regular.otf`.
-    static let notoSansKRRegularOtf = Rswift.FileResource(bundle: R.hostingBundle, name: "NotoSansKR-Regular", pathExtension: "otf")
+    /// Resource file `Pretendard-Medium.ttf`.
+    static let pretendardMediumTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "Pretendard-Medium", pathExtension: "ttf")
+    /// Resource file `Pretendard-Regular.ttf`.
+    static let pretendardRegularTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "Pretendard-Regular", pathExtension: "ttf")
+    /// Resource file `Pretendard-SemiBold.ttf`.
+    static let pretendardSemiBoldTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "Pretendard-SemiBold", pathExtension: "ttf")
 
-    /// `bundle.url(forResource: "NotoSansKR-Bold", withExtension: "otf")`
-    static func notoSansKRBoldOtf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.notoSansKRBoldOtf
+    /// `bundle.url(forResource: "Pretendard-Medium", withExtension: "ttf")`
+    static func pretendardMediumTtf(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.pretendardMediumTtf
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "NotoSansKR-Medium", withExtension: "otf")`
-    static func notoSansKRMediumOtf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.notoSansKRMediumOtf
+    /// `bundle.url(forResource: "Pretendard-Regular", withExtension: "ttf")`
+    static func pretendardRegularTtf(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.pretendardRegularTtf
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "NotoSansKR-Regular", withExtension: "otf")`
-    static func notoSansKRRegularOtf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.notoSansKRRegularOtf
+    /// `bundle.url(forResource: "Pretendard-SemiBold", withExtension: "ttf")`
+    static func pretendardSemiBoldTtf(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.pretendardSemiBoldTtf
       return fileResource.bundle.url(forResource: fileResource)
     }
 
@@ -423,32 +412,32 @@ struct R: Rswift.Validatable {
 
   /// This `R.font` struct is generated, and contains static references to 3 fonts.
   struct font: Rswift.Validatable {
-    /// Font `NotoSansKR-Bold`.
-    static let notoSansKRBold = Rswift.FontResource(fontName: "NotoSansKR-Bold")
-    /// Font `NotoSansKR-Medium`.
-    static let notoSansKRMedium = Rswift.FontResource(fontName: "NotoSansKR-Medium")
-    /// Font `NotoSansKR-Regular`.
-    static let notoSansKRRegular = Rswift.FontResource(fontName: "NotoSansKR-Regular")
+    /// Font `Pretendard-Medium`.
+    static let pretendardMedium = Rswift.FontResource(fontName: "Pretendard-Medium")
+    /// Font `Pretendard-Regular`.
+    static let pretendardRegular = Rswift.FontResource(fontName: "Pretendard-Regular")
+    /// Font `Pretendard-SemiBold`.
+    static let pretendardSemiBold = Rswift.FontResource(fontName: "Pretendard-SemiBold")
 
-    /// `UIFont(name: "NotoSansKR-Bold", size: ...)`
-    static func notoSansKRBold(size: CGFloat) -> UIKit.UIFont? {
-      return UIKit.UIFont(resource: notoSansKRBold, size: size)
+    /// `UIFont(name: "Pretendard-Medium", size: ...)`
+    static func pretendardMedium(size: CGFloat) -> UIKit.UIFont? {
+      return UIKit.UIFont(resource: pretendardMedium, size: size)
     }
 
-    /// `UIFont(name: "NotoSansKR-Medium", size: ...)`
-    static func notoSansKRMedium(size: CGFloat) -> UIKit.UIFont? {
-      return UIKit.UIFont(resource: notoSansKRMedium, size: size)
+    /// `UIFont(name: "Pretendard-Regular", size: ...)`
+    static func pretendardRegular(size: CGFloat) -> UIKit.UIFont? {
+      return UIKit.UIFont(resource: pretendardRegular, size: size)
     }
 
-    /// `UIFont(name: "NotoSansKR-Regular", size: ...)`
-    static func notoSansKRRegular(size: CGFloat) -> UIKit.UIFont? {
-      return UIKit.UIFont(resource: notoSansKRRegular, size: size)
+    /// `UIFont(name: "Pretendard-SemiBold", size: ...)`
+    static func pretendardSemiBold(size: CGFloat) -> UIKit.UIFont? {
+      return UIKit.UIFont(resource: pretendardSemiBold, size: size)
     }
 
     static func validate() throws {
-      if R.font.notoSansKRBold(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'NotoSansKR-Bold' could not be loaded, is 'NotoSansKR-Bold.otf' added to the UIAppFonts array in this targets Info.plist?") }
-      if R.font.notoSansKRMedium(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'NotoSansKR-Medium' could not be loaded, is 'NotoSansKR-Medium.otf' added to the UIAppFonts array in this targets Info.plist?") }
-      if R.font.notoSansKRRegular(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'NotoSansKR-Regular' could not be loaded, is 'NotoSansKR-Regular.otf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.pretendardMedium(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Pretendard-Medium' could not be loaded, is 'Pretendard-Medium.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.pretendardRegular(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Pretendard-Regular' could not be loaded, is 'Pretendard-Regular.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.pretendardSemiBold(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Pretendard-SemiBold' could not be loaded, is 'Pretendard-SemiBold.ttf' added to the UIAppFonts array in this targets Info.plist?") }
     }
 
     fileprivate init() {}

@@ -14,20 +14,18 @@ extension UIFont {
 }
 
 extension UIFont {
-  private static var regular = R.font.notoSansKRRegular.fontName
-  private static var medium = R.font.notoSansKRMedium.fontName
-  private static var bold = R.font.notoSansKRBold.fontName
+  private static var regular = R.font.pretendardRegular.fontName
+  private static var medium = R.font.pretendardMedium.fontName
+  private static var semiBold = R.font.pretendardSemiBold.fontName
 
-  public static var largeTitle = UIFont(name: medium, size: 32)!
-  public static var title1 = UIFont(name: medium, size: 25)!
-  public static var title2 = UIFont(name: medium, size: 20)!
-  public static var title3 = UIFont(name: medium, size: 19)!
-  public static var headline = UIFont(name: medium, size: 16)!
-  public static var button = UIFont(name: medium, size: 15)!
-
+  public static var largeTitle = UIFont(name: semiBold, size: 32)!
+  public static var title1 = UIFont(name: semiBold, size: 28)!
+  public static var title2 = UIFont(name: semiBold, size: 22)!
+  public static var title3 = UIFont(name: medium, size: 20)!
+  public static var subTitle = UIFont(name: medium, size: 17)!
   public static var body = UIFont(name: regular, size: 16)!
-  public static var subheadline = UIFont(name: regular, size: 14)!
+  public static var body2 = UIFont(name: regular, size: 15)!
+  public static var button = UIFont(name: medium, size: 15)!
   public static var caption1 = UIFont(name: regular, size: 13)!
   public static var caption2 = UIFont(name: regular, size: 12)!
-  public static var caption3 = UIFont(name: regular, size: 10)!
 }
