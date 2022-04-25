@@ -29,11 +29,11 @@ extension R {
     public static let gray9 = ColorAsset(name: "Gray9")
     public static let gray10 = ColorAsset(name: "Gray10")
     public static let gray11 = ColorAsset(name: "Gray11")
-    public static let msBlue = ColorAsset(name: "Blue")
-    public static let msGreen = ColorAsset(name: "Green")
-    public static let msRed = ColorAsset(name: "Red")
-    public static let msWhite = ColorAsset(name: "White")
-    public static let msYellow = ColorAsset(name: "Yellow")
+    public static let msBlue = ColorAsset(name: "MSBlue")
+    public static let msGreen = ColorAsset(name: "MSGreen")
+    public static let msRed = ColorAsset(name: "MSRed")
+    public static let msWhite = ColorAsset(name: "MSWhite")
+    public static let msYellow = ColorAsset(name: "MSYellow")
   }
 }
 
