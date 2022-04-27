@@ -176,7 +176,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-<<<<<<< HEAD
 		120BBCAB2802565900AD44B5 /* Pretendard */ = {
 			isa = PBXGroup;
 			children = (
