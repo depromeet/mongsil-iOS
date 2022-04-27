@@ -83,6 +83,9 @@ extension UIColor {
   static var gray10: UIColor { R.CustomColor.gray10.uiColor }
   static var gray11: UIColor { R.CustomColor.gray11.uiColor }
 
-  static var milleYellow: UIColor { R.CustomColor.milleYellow.uiColor }
-  static var white: UIColor { R.CustomColor.white.uiColor }
+  static var msBlue: UIColor { R.CustomColor.msBlue.uiColor }
+  static var msGreen: UIColor { R.CustomColor.msGreen.uiColor }
+  static var msRed: UIColor { R.CustomColor.msRed.uiColor }
+  static var msWhite: UIColor { R.CustomColor.msWhite.uiColor }
+  static var msYellow: UIColor { R.CustomColor.msYellow.uiColor }
 }

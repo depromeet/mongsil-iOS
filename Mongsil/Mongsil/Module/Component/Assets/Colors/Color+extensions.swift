@@ -49,8 +49,11 @@ extension Color {
   public static var gray10: Color { Color(UIColor.gray10) }
   public static var gray11: Color { Color(UIColor.gray11) }
 
-  public static var milleYellow: Color { Color(UIColor.milleYellow) }
-  public static var white: Color { Color(UIColor.white) }
+  public static var msBlue: Color { Color(UIColor.msBlue) }
+  public static var msGreen: Color { Color(UIColor.msGreen) }
+  public static var msRed: Color { Color(UIColor.msRed) }
+  public static var msWhite: Color { Color(UIColor.msWhite) }
+  public static var msYellow: Color { Color(UIColor.msYellow) }
 }
 
 // MARK: - Helpers

@@ -15,13 +15,13 @@ import UIKit.UIFont
 
 extension R {
   public enum CustomFont {
-    public enum NotoSansKR {
-      public static let regular = FontConvertible(name: "NotoSansKR-Regular", family: "NotoSansKR", path: "NotoSansKR-Regular.otf")
-      public static let medium = FontConvertible(name: "NotoSansKR-Medium", family: "NotoSansKR", path: "NotoSansKR-Medium.otf")
-      public static let bold = FontConvertible(name: "NotoSansKR-Bold", family: "NotoSansKR", path: "NotoSansKR-Bold.otf")
-      public static let all: [FontConvertible] = [regular, medium, bold]
+    public enum Pretendard {
+      public static let regular = FontConvertible(name: "Pretendard-Regular", family: "Pretendard", path: "Pretendard-Regular.otf")
+      public static let medium = FontConvertible(name: "Pretendard-Medium", family: "Pretendard", path: "Pretendard-Medium.otf")
+      public static let semiBold = FontConvertible(name: "Pretendard-SemiBold", family: "Pretendard", path: "Pretendard-SemiBold.otf")
+      public static let all: [FontConvertible] = [regular, medium, semiBold]
     }
-    public static let allCustomFonts: [FontConvertible] = [NotoSansKR.all].flatMap { $0 }
+    public static let allCustomFonts: [FontConvertible] = [Pretendard.all].flatMap { $0 }
     public static func registerAllCustomFonts() {
       allCustomFonts.forEach { $0.register() }
     }

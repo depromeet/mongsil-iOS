@@ -89,7 +89,7 @@ struct R: Rswift.Validatable {
     try intern.validate()
   }
 
-  /// This `R.color` struct is generated, and contains static references to 15 colors.
+  /// This `R.color` struct is generated, and contains static references to 18 colors.
   struct color {
     /// Color `AccentColor`.
     static let accentColor = Rswift.ColorResource(bundle: R.hostingBundle, name: "AccentColor")
@@ -117,10 +117,16 @@ struct R: Rswift.Validatable {
     static let gray8 = Rswift.ColorResource(bundle: R.hostingBundle, name: "Gray8")
     /// Color `Gray9`.
     static let gray9 = Rswift.ColorResource(bundle: R.hostingBundle, name: "Gray9")
-    /// Color `MilleYellow`.
-    static let milleYellow = Rswift.ColorResource(bundle: R.hostingBundle, name: "MilleYellow")
-    /// Color `White`.
-    static let white = Rswift.ColorResource(bundle: R.hostingBundle, name: "White")
+    /// Color `MSBlue`.
+    static let msBlue = Rswift.ColorResource(bundle: R.hostingBundle, name: "MSBlue")
+    /// Color `MSGreen`.
+    static let msGreen = Rswift.ColorResource(bundle: R.hostingBundle, name: "MSGreen")
+    /// Color `MSWhite`.
+    static let msWhite = Rswift.ColorResource(bundle: R.hostingBundle, name: "MSWhite")
+    /// Color `MSYellow`.
+    static let msYellow = Rswift.ColorResource(bundle: R.hostingBundle, name: "MSYellow")
+    /// Color `MsRed`.
+    static let msRed = Rswift.ColorResource(bundle: R.hostingBundle, name: "MsRed")
 
     #if os(iOS) || os(tvOS)
     /// `UIColor(named: "AccentColor", bundle: ..., traitCollection: ...)`
@@ -240,20 +246,47 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
-    /// `UIColor(named: "MilleYellow", bundle: ..., traitCollection: ...)`
+    /// `UIColor(named: "MSBlue", bundle: ..., traitCollection: ...)`
     @available(tvOS 11.0, *)
     @available(iOS 11.0, *)
-    static func milleYellow(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
-      return UIKit.UIColor(resource: R.color.milleYellow, compatibleWith: traitCollection)
+    static func msBlue(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
+      return UIKit.UIColor(resource: R.color.msBlue, compatibleWith: traitCollection)
     }
     #endif
 
     #if os(iOS) || os(tvOS)
-    /// `UIColor(named: "White", bundle: ..., traitCollection: ...)`
+    /// `UIColor(named: "MSGreen", bundle: ..., traitCollection: ...)`
     @available(tvOS 11.0, *)
     @available(iOS 11.0, *)
-    static func white(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
-      return UIKit.UIColor(resource: R.color.white, compatibleWith: traitCollection)
+    static func msGreen(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
+      return UIKit.UIColor(resource: R.color.msGreen, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIColor(named: "MSWhite", bundle: ..., traitCollection: ...)`
+    @available(tvOS 11.0, *)
+    @available(iOS 11.0, *)
+    static func msWhite(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
+      return UIKit.UIColor(resource: R.color.msWhite, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIColor(named: "MSYellow", bundle: ..., traitCollection: ...)`
+    @available(tvOS 11.0, *)
+    @available(iOS 11.0, *)
+    static func msYellow(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
+      return UIKit.UIColor(resource: R.color.msYellow, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIColor(named: "MsRed", bundle: ..., traitCollection: ...)`
+    @available(tvOS 11.0, *)
+    @available(iOS 11.0, *)
+    static func msRed(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
+      return UIKit.UIColor(resource: R.color.msRed, compatibleWith: traitCollection)
     }
     #endif
 
@@ -362,18 +395,42 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(watchOS)
-    /// `UIColor(named: "MilleYellow", bundle: ..., traitCollection: ...)`
+    /// `UIColor(named: "MSBlue", bundle: ..., traitCollection: ...)`
     @available(watchOSApplicationExtension 4.0, *)
-    static func milleYellow(_: Void = ()) -> UIKit.UIColor? {
-      return UIKit.UIColor(named: R.color.milleYellow.name)
+    static func msBlue(_: Void = ()) -> UIKit.UIColor? {
+      return UIKit.UIColor(named: R.color.msBlue.name)
     }
     #endif
 
     #if os(watchOS)
-    /// `UIColor(named: "White", bundle: ..., traitCollection: ...)`
+    /// `UIColor(named: "MSGreen", bundle: ..., traitCollection: ...)`
     @available(watchOSApplicationExtension 4.0, *)
-    static func white(_: Void = ()) -> UIKit.UIColor? {
-      return UIKit.UIColor(named: R.color.white.name)
+    static func msGreen(_: Void = ()) -> UIKit.UIColor? {
+      return UIKit.UIColor(named: R.color.msGreen.name)
+    }
+    #endif
+
+    #if os(watchOS)
+    /// `UIColor(named: "MSWhite", bundle: ..., traitCollection: ...)`
+    @available(watchOSApplicationExtension 4.0, *)
+    static func msWhite(_: Void = ()) -> UIKit.UIColor? {
+      return UIKit.UIColor(named: R.color.msWhite.name)
+    }
+    #endif
+
+    #if os(watchOS)
+    /// `UIColor(named: "MSYellow", bundle: ..., traitCollection: ...)`
+    @available(watchOSApplicationExtension 4.0, *)
+    static func msYellow(_: Void = ()) -> UIKit.UIColor? {
+      return UIKit.UIColor(named: R.color.msYellow.name)
+    }
+    #endif
+
+    #if os(watchOS)
+    /// `UIColor(named: "MsRed", bundle: ..., traitCollection: ...)`
+    @available(watchOSApplicationExtension 4.0, *)
+    static func msRed(_: Void = ()) -> UIKit.UIColor? {
+      return UIKit.UIColor(named: R.color.msRed.name)
     }
     #endif
 
@@ -382,28 +439,28 @@ struct R: Rswift.Validatable {
 
   /// This `R.file` struct is generated, and contains static references to 3 files.
   struct file {
-    /// Resource file `NotoSansKR-Bold.otf`.
-    static let notoSansKRBoldOtf = Rswift.FileResource(bundle: R.hostingBundle, name: "NotoSansKR-Bold", pathExtension: "otf")
-    /// Resource file `NotoSansKR-Medium.otf`.
-    static let notoSansKRMediumOtf = Rswift.FileResource(bundle: R.hostingBundle, name: "NotoSansKR-Medium", pathExtension: "otf")
-    /// Resource file `NotoSansKR-Regular.otf`.
-    static let notoSansKRRegularOtf = Rswift.FileResource(bundle: R.hostingBundle, name: "NotoSansKR-Regular", pathExtension: "otf")
+    /// Resource file `Pretendard-Medium.ttf`.
+    static let pretendardMediumTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "Pretendard-Medium", pathExtension: "ttf")
+    /// Resource file `Pretendard-Regular.ttf`.
+    static let pretendardRegularTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "Pretendard-Regular", pathExtension: "ttf")
+    /// Resource file `Pretendard-SemiBold.ttf`.
+    static let pretendardSemiBoldTtf = Rswift.FileResource(bundle: R.hostingBundle, name: "Pretendard-SemiBold", pathExtension: "ttf")
 
-    /// `bundle.url(forResource: "NotoSansKR-Bold", withExtension: "otf")`
-    static func notoSansKRBoldOtf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.notoSansKRBoldOtf
+    /// `bundle.url(forResource: "Pretendard-Medium", withExtension: "ttf")`
+    static func pretendardMediumTtf(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.pretendardMediumTtf
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "NotoSansKR-Medium", withExtension: "otf")`
-    static func notoSansKRMediumOtf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.notoSansKRMediumOtf
+    /// `bundle.url(forResource: "Pretendard-Regular", withExtension: "ttf")`
+    static func pretendardRegularTtf(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.pretendardRegularTtf
       return fileResource.bundle.url(forResource: fileResource)
     }
 
-    /// `bundle.url(forResource: "NotoSansKR-Regular", withExtension: "otf")`
-    static func notoSansKRRegularOtf(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.notoSansKRRegularOtf
+    /// `bundle.url(forResource: "Pretendard-SemiBold", withExtension: "ttf")`
+    static func pretendardSemiBoldTtf(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.pretendardSemiBoldTtf
       return fileResource.bundle.url(forResource: fileResource)
     }
 
@@ -412,32 +469,32 @@ struct R: Rswift.Validatable {
 
   /// This `R.font` struct is generated, and contains static references to 3 fonts.
   struct font: Rswift.Validatable {
-    /// Font `NotoSansKR-Bold`.
-    static let notoSansKRBold = Rswift.FontResource(fontName: "NotoSansKR-Bold")
-    /// Font `NotoSansKR-Medium`.
-    static let notoSansKRMedium = Rswift.FontResource(fontName: "NotoSansKR-Medium")
-    /// Font `NotoSansKR-Regular`.
-    static let notoSansKRRegular = Rswift.FontResource(fontName: "NotoSansKR-Regular")
+    /// Font `Pretendard-Medium`.
+    static let pretendardMedium = Rswift.FontResource(fontName: "Pretendard-Medium")
+    /// Font `Pretendard-Regular`.
+    static let pretendardRegular = Rswift.FontResource(fontName: "Pretendard-Regular")
+    /// Font `Pretendard-SemiBold`.
+    static let pretendardSemiBold = Rswift.FontResource(fontName: "Pretendard-SemiBold")
 
-    /// `UIFont(name: "NotoSansKR-Bold", size: ...)`
-    static func notoSansKRBold(size: CGFloat) -> UIKit.UIFont? {
-      return UIKit.UIFont(resource: notoSansKRBold, size: size)
+    /// `UIFont(name: "Pretendard-Medium", size: ...)`
+    static func pretendardMedium(size: CGFloat) -> UIKit.UIFont? {
+      return UIKit.UIFont(resource: pretendardMedium, size: size)
     }
 
-    /// `UIFont(name: "NotoSansKR-Medium", size: ...)`
-    static func notoSansKRMedium(size: CGFloat) -> UIKit.UIFont? {
-      return UIKit.UIFont(resource: notoSansKRMedium, size: size)
+    /// `UIFont(name: "Pretendard-Regular", size: ...)`
+    static func pretendardRegular(size: CGFloat) -> UIKit.UIFont? {
+      return UIKit.UIFont(resource: pretendardRegular, size: size)
     }
 
-    /// `UIFont(name: "NotoSansKR-Regular", size: ...)`
-    static func notoSansKRRegular(size: CGFloat) -> UIKit.UIFont? {
-      return UIKit.UIFont(resource: notoSansKRRegular, size: size)
+    /// `UIFont(name: "Pretendard-SemiBold", size: ...)`
+    static func pretendardSemiBold(size: CGFloat) -> UIKit.UIFont? {
+      return UIKit.UIFont(resource: pretendardSemiBold, size: size)
     }
 
     static func validate() throws {
-      if R.font.notoSansKRBold(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'NotoSansKR-Bold' could not be loaded, is 'NotoSansKR-Bold.otf' added to the UIAppFonts array in this targets Info.plist?") }
-      if R.font.notoSansKRMedium(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'NotoSansKR-Medium' could not be loaded, is 'NotoSansKR-Medium.otf' added to the UIAppFonts array in this targets Info.plist?") }
-      if R.font.notoSansKRRegular(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'NotoSansKR-Regular' could not be loaded, is 'NotoSansKR-Regular.otf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.pretendardMedium(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Pretendard-Medium' could not be loaded, is 'Pretendard-Medium.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.pretendardRegular(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Pretendard-Regular' could not be loaded, is 'Pretendard-Regular.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.pretendardSemiBold(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Pretendard-SemiBold' could not be loaded, is 'Pretendard-SemiBold.ttf' added to the UIAppFonts array in this targets Info.plist?") }
     }
 
     fileprivate init() {}
