@@ -12,6 +12,8 @@ struct MainTabState: Equatable {
   public var isRecordPushed: Bool = false
   public var isLoginPushed: Bool = false
   public var requestLoginAlertModal: AlertDoubleButtonState?
+  public var selectedTab: Tab = .home
+  public var isRecordButtonTapped: Bool = true
 
   // Child State
   public var home: HomeState = .init()
@@ -22,11 +24,23 @@ struct MainTabState: Equatable {
   init(
     isRecordPushed: Bool = false,
     isLoginPushed: Bool = false,
-    requestLoginAlertModal: AlertDoubleButtonState? = nil
+    requestLoginAlertModal: AlertDoubleButtonState? = nil,
+    selectedTab: Tab = .home,
+    home: HomeState = .init(),
+    record: RecordState? = nil,
+    storage: StorageState = .init(),
+    login: LoginState? = nil,
+    isRecordButtonTapped: Bool = true
   ) {
     self.isRecordPushed = isRecordPushed
     self.isLoginPushed = isLoginPushed
     self.requestLoginAlertModal = requestLoginAlertModal
+    self.selectedTab = selectedTab
+    self.home = home
+    self.record = record
+    self.storage = storage
+    self.login = login
+    self.isRecordButtonTapped = isRecordButtonTapped
   }
 }
 
@@ -34,6 +48,7 @@ enum MainTabAction {
   case verifyUserLogined(Bool)
   case setRecordPushed(Bool)
   case setLoginPushed(Bool)
+  case tabTapped(MainTabState.Tab)
 
   // Child Action
   case home(HomeAction)
@@ -53,6 +68,19 @@ struct MainTabEnvironment {
   ) {
     self.mainQueue = mainQueue
     self.kakaoLoginService = kakaoLoginService
+  }
+}
+
+extension MainTabState {
+  public enum Tab: Int, Comparable, Hashable, Identifiable {
+    public var id: Int { rawValue }
+
+    case home
+    case storage
+
+    public static func < (lhs: Self, rhs: Self) -> Bool {
+      return lhs.rawValue < rhs.rawValue
+    }
   }
 }
 
@@ -103,16 +131,17 @@ Reducer.combine([
       }
     ) as Reducer<WithSharedState<MainTabState>, MainTabAction, MainTabEnvironment>,
   Reducer<WithSharedState<MainTabState>, MainTabAction, MainTabEnvironment> {
-    state, action, _ in
+    state, action, env in
     switch action {
     case let .verifyUserLogined(logined):
+      state.local.isRecordButtonTapped = true
       // 기존 로그인 연동 이력 검증
-      if logined {
+      if logined && !state.shared.isLogined {
         // False
         return setAlertModal(
           state: &state.local.requestLoginAlertModal,
           titleText: "로그인이 필요한 기능이에요!",
-          bodyText: "꿈 일기를 쓰려면\n로그인을 해주세요.",
+          bodyText: "꿈 일기를 쓰려면 로그인을 해주세요.",
           secondaryButtonTitle: "아니요",
           primaryButtonTitle: "로그인하기"
         )
@@ -134,6 +163,20 @@ Reducer.combine([
       }
       return .none
 
+    case let .tabTapped(tab):
+      state.local.isRecordButtonTapped = false
+      if tab == .storage && !state.shared.isLogined {
+        return setAlertModal(
+          state: &state.local.requestLoginAlertModal,
+          titleText: "로그인이 필요한 기능이에요!",
+          bodyText: "보관함을 확인하려면 로그인을 해주세요.",
+          secondaryButtonTitle: "아니요",
+          primaryButtonTitle: "로그인하기"
+        )
+      }
+      state.local.selectedTab = tab
+      return .none
+
     case .home:
       return .none
 
@@ -147,6 +190,18 @@ Reducer.combine([
       return .none
 
     case .login(.backButtonTapped):
+      return Effect(value: .setLoginPushed(false))
+
+    case .login(.loginCompleted):
+      if state.local.isRecordButtonTapped {
+        return Effect.concatenate([
+          Effect(value: .setLoginPushed(false)),
+          Effect(value: .setRecordPushed(true))
+            .delay(for: .milliseconds(800), scheduler: env.mainQueue)
+            .eraseToEffect()
+        ])
+      }
+      state.local.selectedTab = .storage
       return Effect(value: .setLoginPushed(false))
 
     case .login:
