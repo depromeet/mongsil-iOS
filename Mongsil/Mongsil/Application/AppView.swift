@@ -50,5 +50,13 @@ struct AppView: View {
       .navigationViewStyle(StackNavigationViewStyle())
     }
     .preferredColorScheme(.dark)
+    .apply(content: { view in
+      WithViewStore(store.scope(state: \.shared.toastText)) { toastTextViewStore in
+        view.toast(
+          text: toastTextViewStore.state,
+          isBottomPosition: ViewStore(store).shared.isToastBottomPosition
+        )
+      }
+    })
   }
 }

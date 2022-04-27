@@ -17,6 +17,8 @@ enum AppAction {
   case onAppear
   case setShouldDisplayRequestAppTrackingAlert(Bool)
   case displayRequestAppTrackingAlert
+  case presentToast(String, Bool = true)
+  case hideToast
 
   // Child Action
   case mainTab(MainTabAction)
@@ -50,6 +52,8 @@ let appReducer = Reducer.combine([
   ) as Reducer<WithSharedState<AppState>, AppAction, AppEnvironment>,
   Reducer<WithSharedState<AppState>, AppAction, AppEnvironment> {
     state, action, env in
+    struct ToastCancelId: Hashable {}
+
     switch action {
     case .onAppear:
       return env.appTrackingService.getTrackingAuthorizationStatus()
@@ -66,6 +70,24 @@ let appReducer = Reducer.combine([
     case .displayRequestAppTrackingAlert:
       return env.appTrackingService.requestAppTrackingAuthorization()
         .fireAndForget()
+
+    case let .presentToast(toastText, isBottomPosition):
+      state.shared.toastText = toastText
+      state.shared.isToastBottomPosition = isBottomPosition
+      return Effect<AppAction, Never>.concatenate([
+        .cancel(id: ToastCancelId()),
+        Effect<AppAction, Never>(value: .hideToast)
+          .delay(for: 3, scheduler: env.mainQueue)
+          .eraseToEffect()
+          .cancellable(id: ToastCancelId(), cancelInFlight: true)
+      ])
+
+    case .hideToast:
+      state.shared.toastText = nil
+      return .none
+
+    case let .mainTab(.login(.presentToast(text))):
+      return Effect(value: .presentToast(text))
 
     case .mainTab:
       return .none
