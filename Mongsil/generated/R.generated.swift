@@ -121,12 +121,12 @@ struct R: Rswift.Validatable {
     static let msBlue = Rswift.ColorResource(bundle: R.hostingBundle, name: "MSBlue")
     /// Color `MSGreen`.
     static let msGreen = Rswift.ColorResource(bundle: R.hostingBundle, name: "MSGreen")
-    /// Color `MSRed`.
-    static let msRed = Rswift.ColorResource(bundle: R.hostingBundle, name: "MSRed")
     /// Color `MSWhite`.
     static let msWhite = Rswift.ColorResource(bundle: R.hostingBundle, name: "MSWhite")
     /// Color `MSYellow`.
     static let msYellow = Rswift.ColorResource(bundle: R.hostingBundle, name: "MSYellow")
+    /// Color `MsRed`.
+    static let msRed = Rswift.ColorResource(bundle: R.hostingBundle, name: "MsRed")
 
     #if os(iOS) || os(tvOS)
     /// `UIColor(named: "AccentColor", bundle: ..., traitCollection: ...)`
@@ -264,15 +264,6 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
-    /// `UIColor(named: "MSRed", bundle: ..., traitCollection: ...)`
-    @available(tvOS 11.0, *)
-    @available(iOS 11.0, *)
-    static func msRed(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
-      return UIKit.UIColor(resource: R.color.msRed, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
     /// `UIColor(named: "MSWhite", bundle: ..., traitCollection: ...)`
     @available(tvOS 11.0, *)
     @available(iOS 11.0, *)
@@ -287,6 +278,15 @@ struct R: Rswift.Validatable {
     @available(iOS 11.0, *)
     static func msYellow(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
       return UIKit.UIColor(resource: R.color.msYellow, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIColor(named: "MsRed", bundle: ..., traitCollection: ...)`
+    @available(tvOS 11.0, *)
+    @available(iOS 11.0, *)
+    static func msRed(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
+      return UIKit.UIColor(resource: R.color.msRed, compatibleWith: traitCollection)
     }
     #endif
 
@@ -411,14 +411,6 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(watchOS)
-    /// `UIColor(named: "MSRed", bundle: ..., traitCollection: ...)`
-    @available(watchOSApplicationExtension 4.0, *)
-    static func msRed(_: Void = ()) -> UIKit.UIColor? {
-      return UIKit.UIColor(named: R.color.msRed.name)
-    }
-    #endif
-
-    #if os(watchOS)
     /// `UIColor(named: "MSWhite", bundle: ..., traitCollection: ...)`
     @available(watchOSApplicationExtension 4.0, *)
     static func msWhite(_: Void = ()) -> UIKit.UIColor? {
@@ -431,6 +423,14 @@ struct R: Rswift.Validatable {
     @available(watchOSApplicationExtension 4.0, *)
     static func msYellow(_: Void = ()) -> UIKit.UIColor? {
       return UIKit.UIColor(named: R.color.msYellow.name)
+    }
+    #endif
+
+    #if os(watchOS)
+    /// `UIColor(named: "MsRed", bundle: ..., traitCollection: ...)`
+    @available(watchOSApplicationExtension 4.0, *)
+    static func msRed(_: Void = ()) -> UIKit.UIColor? {
+      return UIKit.UIColor(named: R.color.msRed.name)
     }
     #endif
 
