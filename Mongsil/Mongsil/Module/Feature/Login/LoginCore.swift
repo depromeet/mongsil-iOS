@@ -54,7 +54,7 @@ let loginReducer = Reducer<WithSharedState<LoginState>, LoginAction, LoginEnviro
     return .none
 
   case .loginCompleted:
-    return .none
+    return Effect(value: .presentToast("로그인을 완료했어요!"))
 
   case .presentToast:
     return .none
