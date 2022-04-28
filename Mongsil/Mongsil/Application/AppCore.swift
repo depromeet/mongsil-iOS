@@ -86,6 +86,10 @@ let appReducer = Reducer.combine([
       state.shared.toastText = nil
       return .none
 
+    case .mainTab(.login(.loginCompleted)):
+      state.shared.isLogined = true
+      return .none
+
     case let .mainTab(.login(.presentToast(text))):
       return Effect(value: .presentToast(text))
 

@@ -17,9 +17,31 @@ struct MainTabView: View {
 
   var body: some View {
     GeometryReader { metrics in
-      TabView {
-        HomeTabView(store: store)
-        StorageTabView(store: store)
+      WithViewStore(store.scope(state: \.local.selectedTab)) { selectedTabViewStore in
+        MSTabView<MainTabState.Tab>(
+          icons: [
+            .home: Image(systemName: "square.fill")
+              .renderingMode(.template),
+            .storage: Image(systemName: "square.fill")
+            .renderingMode(.template)
+          ],
+          titles: [
+            .home: "홈",
+            .storage: "보관함"
+          ],
+          views: [
+            .home: HomeView(
+              store: store.scope(state: \.home, action: MainTabAction.home)
+            ).eraseToAnyView(),
+            .storage: StorageView(
+              store: store.scope(state: \.storage, action: MainTabAction.storage)
+            ).eraseToAnyView()
+          ],
+          selection: selectedTabViewStore.binding(
+            get: { $0 },
+            send: MainTabAction.tabTapped
+          )
+        )
       }
       RecordButtonView(store: store)
         .offset(x: metrics.size.width/2.3, y: metrics.size.height/1.105)
@@ -30,50 +52,6 @@ struct MainTabView: View {
         action: MainTabAction.requestLoginAlertModal
       )
     )
-  }
-}
-
-private struct HomeTabView: View {
-  private let store: Store<WithSharedState<MainTabState>, MainTabAction>
-
-  init(store: Store<WithSharedState<MainTabState>, MainTabAction>) {
-    self.store = store
-  }
-
-  var body: some View {
-    HomeView(
-      store: store.scope(
-        state: \.home,
-        action: MainTabAction.home
-      )
-    )
-    .tabItem {
-      Image(systemName: "square.fill")
-        .font(.title)
-      Text("홈")
-    }
-  }
-}
-
-private struct StorageTabView: View {
-  private let store: Store<WithSharedState<MainTabState>, MainTabAction>
-
-  init(store: Store<WithSharedState<MainTabState>, MainTabAction>) {
-    self.store = store
-  }
-
-  var body: some View {
-    StorageView(
-      store: store.scope(
-        state: \.storage,
-        action: MainTabAction.storage
-      )
-    )
-    .tabItem {
-      Image(systemName: "square.fill")
-        .font(.title)
-      Text("보관함")
-    }
   }
 }
 

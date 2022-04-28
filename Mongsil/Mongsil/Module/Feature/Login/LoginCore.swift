@@ -16,6 +16,7 @@ enum LoginAction: ToastPresentableAction {
   case backButtonTapped
   case kakaoLoginButtonTapped
   case appleLoginButtonTapped
+  case loginCompleted
   case presentToast(String)
 }
 
@@ -44,13 +45,16 @@ let loginReducer = Reducer<WithSharedState<LoginState>, LoginAction, LoginEnviro
           return Effect(value: .presentToast("카카오 로그인에 실패했습니다."))
         case let .success(userInfo):
           // 다음 액션 역할 (회원가입)
-          return .none
+          return Effect(value: .loginCompleted)
         }
       })
       .eraseToEffect()
 
   case .appleLoginButtonTapped:
     return .none
+
+  case .loginCompleted:
+    return Effect(value: .presentToast("로그인을 완료했어요!"))
 
   case .presentToast:
     return .none

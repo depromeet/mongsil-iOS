@@ -16,8 +16,12 @@ struct HomeView: View {
   }
 
   var body: some View {
-    Text("homeView")
-      .navigationTitle("")
-      .navigationBarHidden(true)
+    VStack {
+      Spacer()
+      Text("homeView")
+      Spacer()
+    }
+    .navigationTitle("")
+    .navigationBarHidden(true)
   }
 }
