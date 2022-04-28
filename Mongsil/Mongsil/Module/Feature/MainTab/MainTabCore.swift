@@ -133,10 +133,10 @@ Reducer.combine([
   Reducer<WithSharedState<MainTabState>, MainTabAction, MainTabEnvironment> {
     state, action, env in
     switch action {
-    case let .verifyUserLogined(logined):
+    case let .verifyUserLogined(pushed):
       state.local.isRecordButtonTapped = true
       // 기존 로그인 연동 이력 검증
-      if logined && !state.shared.isLogined {
+      if pushed && !state.shared.isLogined {
         // False
         return setAlertModal(
           state: &state.local.requestLoginAlertModal,
@@ -147,7 +147,7 @@ Reducer.combine([
         )
       }
       // True
-      return Effect(value: .setRecordPushed(logined))
+      return Effect(value: .setRecordPushed(pushed))
 
     case let .setRecordPushed(pushed):
       state.local.isRecordPushed = pushed
