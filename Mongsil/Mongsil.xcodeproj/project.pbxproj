@@ -79,6 +79,9 @@
 		773AE2AC280723FF006861FC /* RecordCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773AE2AB280723FF006861FC /* RecordCore.swift */; };
 		773AE2AE28072419006861FC /* StorageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773AE2AD28072419006861FC /* StorageView.swift */; };
 		773AE2B028072421006861FC /* StorageCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773AE2AF28072421006861FC /* StorageCore.swift */; };
+		7779D71A281ADE2F00683C1F /* DreamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7779D719281ADE2F00683C1F /* DreamModel.swift */; };
+		7779D71C281ADE3600683C1F /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7779D71B281ADE3600683C1F /* UserModel.swift */; };
+		7779D720281ADE7C00683C1F /* mock.json in Resources */ = {isa = PBXBuildFile; fileRef = 7779D71F281ADE7C00683C1F /* mock.json */; };
 		F03FF6CB28099B7900E83570 /* KakaoLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03FF6CA28099B7900E83570 /* KakaoLoginService.swift */; };
 		F0E7345D280A9C260052A7E2 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = F0E7345C280A9C260052A7E2 /* KakaoSDKAuth */; };
 		F0E7345F280A9C260052A7E2 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = F0E7345E280A9C260052A7E2 /* KakaoSDKCommon */; };
@@ -154,6 +157,9 @@
 		773AE2AB280723FF006861FC /* RecordCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCore.swift; sourceTree = "<group>"; };
 		773AE2AD28072419006861FC /* StorageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageView.swift; sourceTree = "<group>"; };
 		773AE2AF28072421006861FC /* StorageCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageCore.swift; sourceTree = "<group>"; };
+		7779D719281ADE2F00683C1F /* DreamModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamModel.swift; sourceTree = "<group>"; };
+		7779D71B281ADE3600683C1F /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		7779D71F281ADE7C00683C1F /* mock.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mock.json; sourceTree = "<group>"; };
 		F03FF6CA28099B7900E83570 /* KakaoLoginService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KakaoLoginService.swift; sourceTree = "<group>"; };
 		F03FF6D328099F0E00E83570 /* Mongsil.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Mongsil.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -225,6 +231,7 @@
 				120BBCAC28025CCF00AD44B5 /* Colors */,
 				123DD567280288A10020440E /* Images */,
 				1229909328026001009BF616 /* Assets.xcassets */,
+				7779D71F281ADE7C00683C1F /* mock.json */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -247,13 +254,6 @@
 				123DD56828028A130020440E /* UIImage+extensions.swift */,
 			);
 			path = Images;
-			sourceTree = "<group>";
-		};
-		123EE0732804529800D34B93 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		123EE078280452CE00D34B93 /* List */ = {
@@ -529,9 +529,9 @@
 		12A2245B27F7E7D000617C10 /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				7779D718281ADE2400683C1F /* Models */,
 				122236EE28024DD8009D5C66 /* Assets */,
 				12457C0727F822D300F2DBF2 /* Services */,
-				123EE0732804529800D34B93 /* Models */,
 				1291297027F816570017E087 /* SharedState */,
 				1291296327F8129C0017E087 /* Extensions */,
 				1291296B27F814920017E087 /* Views */,
@@ -572,6 +572,15 @@
 				773AE2A7280723E6006861FC /* MainTabCore.swift */,
 			);
 			path = MainTab;
+			sourceTree = "<group>";
+		};
+		7779D718281ADE2400683C1F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				7779D719281ADE2F00683C1F /* DreamModel.swift */,
+				7779D71B281ADE3600683C1F /* UserModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -654,6 +663,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7779D720281ADE7C00683C1F /* mock.json in Resources */,
 				1219757A28163A4200089BED /* Pretendard-SemiBold.ttf in Resources */,
 				1219757928163A4200089BED /* Pretendard-Medium.ttf in Resources */,
 				126EF43027F2AC2400102FA9 /* Preview Assets.xcassets in Resources */,
@@ -747,6 +757,7 @@
 				123EE09928045F0C00D34B93 /* TermsView.swift in Sources */,
 				123DD56928028A130020440E /* UIImage+extensions.swift in Sources */,
 				125F84B0280D124700279C42 /* AlertSingleButtonView.swift in Sources */,
+				7779D71A281ADE2F00683C1F /* DreamModel.swift in Sources */,
 				123EE08A280453B300D34B93 /* SettingCore.swift in Sources */,
 				123EE09728045B3600D34B93 /* ListButtonItemWithText.swift in Sources */,
 				12083C97281636700020E20E /* Toast.swift in Sources */,
@@ -754,6 +765,7 @@
 				1291296527F812D80017E087 /* Effect+extensions.swift in Sources */,
 				773AE2A8280723E6006861FC /* MainTabCore.swift in Sources */,
 				125F84B2280D124F00279C42 /* AlertDoubleButtonCore.swift in Sources */,
+				7779D71C281ADE3600683C1F /* UserModel.swift in Sources */,
 				123EE088280453AB00D34B93 /* SettingView.swift in Sources */,
 				125F84AC280D122500279C42 /* AlertSingleButtonCore.swift in Sources */,
 				12952A61280250A300C89DD7 /* Font+extensions.swift in Sources */,
