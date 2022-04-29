@@ -22,11 +22,13 @@ enum LoginAction: ToastPresentableAction {
 
 struct LoginEnvironment {
   var kakaoLoginService: KakaoLoginService
-
+  var appleLoginService: AppleLoginService
   init(
-    kakaoLoginService: KakaoLoginService
+    kakaoLoginService: KakaoLoginService,
+    appleLoginService: AppleLoginService
   ) {
     self.kakaoLoginService = kakaoLoginService
+    self.appleLoginService = appleLoginService
   }
 }
 
@@ -51,7 +53,18 @@ let loginReducer = Reducer<WithSharedState<LoginState>, LoginAction, LoginEnviro
       .eraseToEffect()
 
   case .appleLoginButtonTapped:
-    return .none
+    return env.appleLoginService.getUserInfo()
+      .catchToEffect()
+      .flatMapLatest({ result -> Effect<LoginAction, Never> in
+        switch result {
+        case .failure:
+          return Effect(value: .presentToast("애플 로그인에 실패했습니다."))
+        case let .success(userInfo):
+          // 다음 액션 역할 (회원가입)
+          return Effect(value: .loginCompleted)
+        }
+      })
+      .eraseToEffect()
 
   case .loginCompleted:
     return Effect(value: .presentToast("로그인을 완료했어요!"))

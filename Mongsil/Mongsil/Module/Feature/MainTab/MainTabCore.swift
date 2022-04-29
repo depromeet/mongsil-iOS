@@ -61,13 +61,15 @@ enum MainTabAction {
 struct MainTabEnvironment {
   var mainQueue: AnySchedulerOf<DispatchQueue>
   var kakaoLoginService: KakaoLoginService
-
+  var appleLoginService: AppleLoginService
   init(
     mainQueue: AnySchedulerOf<DispatchQueue>,
-    kakaoLoginService: KakaoLoginService
+    kakaoLoginService: KakaoLoginService,
+    appleLoginSerice: AppleLoginService
   ) {
     self.mainQueue = mainQueue
     self.kakaoLoginService = kakaoLoginService
+    self.appleLoginService = appleLoginSerice
   }
 }
 
@@ -118,7 +120,10 @@ Reducer.combine([
       state: \.login,
       action: /MainTabAction.login,
       environment: {
-        LoginEnvironment(kakaoLoginService: $0.kakaoLoginService)
+        LoginEnvironment(
+          kakaoLoginService: $0.kakaoLoginService,
+          appleLoginService: $0.appleLoginService
+        )
       }
     ) as Reducer<WithSharedState<MainTabState>, MainTabAction, MainTabEnvironment>,
   alertDoubleButtonReducer

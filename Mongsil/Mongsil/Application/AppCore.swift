@@ -28,14 +28,17 @@ struct AppEnvironment {
   var mainQueue: AnySchedulerOf<DispatchQueue>
   var appTrackingService: AppTrackingService
   var kakaoLoginService: KakaoLoginService
+  var appleLoginService: AppleLoginService
   init(
     mainQueue: AnySchedulerOf<DispatchQueue>,
     appTrackingService: AppTrackingService,
-    kakaoLoginService: KakaoLoginService
+    kakaoLoginService: KakaoLoginService,
+    appleLoginService: AppleLoginService
   ) {
     self.mainQueue = mainQueue
     self.appTrackingService = appTrackingService
     self.kakaoLoginService = kakaoLoginService
+    self.appleLoginService = appleLoginService
   }
 }
 
@@ -46,7 +49,8 @@ let appReducer = Reducer.combine([
     environment: {
       MainTabEnvironment(
         mainQueue: $0.mainQueue,
-        kakaoLoginService: $0.kakaoLoginService
+        kakaoLoginService: $0.kakaoLoginService,
+        appleLoginSerice: $0.appleLoginService
       )
     }
   ) as Reducer<WithSharedState<AppState>, AppAction, AppEnvironment>,

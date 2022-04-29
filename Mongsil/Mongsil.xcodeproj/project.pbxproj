@@ -80,6 +80,7 @@
 		773AE2AE28072419006861FC /* StorageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773AE2AD28072419006861FC /* StorageView.swift */; };
 		773AE2B028072421006861FC /* StorageCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773AE2AF28072421006861FC /* StorageCore.swift */; };
 		F03FF6CB28099B7900E83570 /* KakaoLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03FF6CA28099B7900E83570 /* KakaoLoginService.swift */; };
+		F0CDDD9C281BD7AA0040260C /* AppleLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CDDD9B281BD7AA0040260C /* AppleLoginService.swift */; };
 		F0E7345D280A9C260052A7E2 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = F0E7345C280A9C260052A7E2 /* KakaoSDKAuth */; };
 		F0E7345F280A9C260052A7E2 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = F0E7345E280A9C260052A7E2 /* KakaoSDKCommon */; };
 		F0E73461280A9C260052A7E2 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = F0E73460280A9C260052A7E2 /* KakaoSDKUser */; };
@@ -156,6 +157,7 @@
 		773AE2AF28072421006861FC /* StorageCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageCore.swift; sourceTree = "<group>"; };
 		F03FF6CA28099B7900E83570 /* KakaoLoginService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KakaoLoginService.swift; sourceTree = "<group>"; };
 		F03FF6D328099F0E00E83570 /* Mongsil.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Mongsil.entitlements; sourceTree = "<group>"; };
+		F0CDDD9B281BD7AA0040260C /* AppleLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -366,6 +368,7 @@
 			children = (
 				F03FF6CA28099B7900E83570 /* KakaoLoginService.swift */,
 				12273EEF27F91076007624C1 /* AppTrackingService.swift */,
+				F0CDDD9B281BD7AA0040260C /* AppleLoginService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -754,6 +757,7 @@
 				1291296527F812D80017E087 /* Effect+extensions.swift in Sources */,
 				773AE2A8280723E6006861FC /* MainTabCore.swift in Sources */,
 				125F84B2280D124F00279C42 /* AlertDoubleButtonCore.swift in Sources */,
+				F0CDDD9C281BD7AA0040260C /* AppleLoginService.swift in Sources */,
 				123EE088280453AB00D34B93 /* SettingView.swift in Sources */,
 				125F84AC280D122500279C42 /* AlertSingleButtonCore.swift in Sources */,
 				12952A61280250A300C89DD7 /* Font+extensions.swift in Sources */,
