@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Subcategory: Codable {
+struct Subcategory: Decodable {
   init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
     subcategory = try values.decode([String: [DreamInfo]].self, forKey: .subcategory)

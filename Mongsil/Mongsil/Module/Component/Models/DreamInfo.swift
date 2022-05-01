@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct DreamInfo: Codable {
+struct DreamInfo: Decodable {
   init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
     title = try values.decode(String.self, forKey: .title)
