@@ -79,9 +79,12 @@
 		773AE2AC280723FF006861FC /* RecordCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773AE2AB280723FF006861FC /* RecordCore.swift */; };
 		773AE2AE28072419006861FC /* StorageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773AE2AD28072419006861FC /* StorageView.swift */; };
 		773AE2B028072421006861FC /* StorageCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773AE2AF28072421006861FC /* StorageCore.swift */; };
-		7779D71A281ADE2F00683C1F /* DreamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7779D719281ADE2F00683C1F /* DreamModel.swift */; };
-		7779D71C281ADE3600683C1F /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7779D71B281ADE3600683C1F /* UserModel.swift */; };
+		774F78AF281EB89C00863070 /* PrintMockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774F78AE281EB89C00863070 /* PrintMockView.swift */; };
+		7779D71A281ADE2F00683C1F /* Dream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7779D719281ADE2F00683C1F /* Dream.swift */; };
+		7779D71C281ADE3600683C1F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7779D71B281ADE3600683C1F /* User.swift */; };
 		7779D720281ADE7C00683C1F /* mock.json in Resources */ = {isa = PBXBuildFile; fileRef = 7779D71F281ADE7C00683C1F /* mock.json */; };
+		7779D722281C07BF00683C1F /* Subcategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7779D721281C07BF00683C1F /* Subcategory.swift */; };
+		7779D724281C07C900683C1F /* DreamInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7779D723281C07C900683C1F /* DreamInfo.swift */; };
 		F03FF6CB28099B7900E83570 /* KakaoLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03FF6CA28099B7900E83570 /* KakaoLoginService.swift */; };
 		F0E7345D280A9C260052A7E2 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = F0E7345C280A9C260052A7E2 /* KakaoSDKAuth */; };
 		F0E7345F280A9C260052A7E2 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = F0E7345E280A9C260052A7E2 /* KakaoSDKCommon */; };
@@ -157,9 +160,12 @@
 		773AE2AB280723FF006861FC /* RecordCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCore.swift; sourceTree = "<group>"; };
 		773AE2AD28072419006861FC /* StorageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageView.swift; sourceTree = "<group>"; };
 		773AE2AF28072421006861FC /* StorageCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageCore.swift; sourceTree = "<group>"; };
-		7779D719281ADE2F00683C1F /* DreamModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamModel.swift; sourceTree = "<group>"; };
-		7779D71B281ADE3600683C1F /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		774F78AE281EB89C00863070 /* PrintMockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintMockView.swift; sourceTree = "<group>"; };
+		7779D719281ADE2F00683C1F /* Dream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dream.swift; sourceTree = "<group>"; };
+		7779D71B281ADE3600683C1F /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		7779D71F281ADE7C00683C1F /* mock.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mock.json; sourceTree = "<group>"; };
+		7779D721281C07BF00683C1F /* Subcategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subcategory.swift; sourceTree = "<group>"; };
+		7779D723281C07C900683C1F /* DreamInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamInfo.swift; sourceTree = "<group>"; };
 		F03FF6CA28099B7900E83570 /* KakaoLoginService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KakaoLoginService.swift; sourceTree = "<group>"; };
 		F03FF6D328099F0E00E83570 /* Mongsil.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Mongsil.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -226,12 +232,12 @@
 		122236EE28024DD8009D5C66 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				774F78B0281EB8A600863070 /* Mock */,
 				122236EF28024DF1009D5C66 /* R.generated.swift */,
 				122236F928024EB0009D5C66 /* Fonts */,
 				120BBCAC28025CCF00AD44B5 /* Colors */,
 				123DD567280288A10020440E /* Images */,
 				1229909328026001009BF616 /* Assets.xcassets */,
-				7779D71F281ADE7C00683C1F /* mock.json */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -574,11 +580,22 @@
 			path = MainTab;
 			sourceTree = "<group>";
 		};
+		774F78B0281EB8A600863070 /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				774F78AE281EB89C00863070 /* PrintMockView.swift */,
+				7779D71F281ADE7C00683C1F /* mock.json */,
+			);
+			path = Mock;
+			sourceTree = "<group>";
+		};
 		7779D718281ADE2400683C1F /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				7779D719281ADE2F00683C1F /* DreamModel.swift */,
-				7779D71B281ADE3600683C1F /* UserModel.swift */,
+				7779D719281ADE2F00683C1F /* Dream.swift */,
+				7779D721281C07BF00683C1F /* Subcategory.swift */,
+				7779D723281C07C900683C1F /* DreamInfo.swift */,
+				7779D71B281ADE3600683C1F /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -748,6 +765,7 @@
 				1291296F27F815460017E087 /* SharedState.swift in Sources */,
 				123EE0802804533C00D34B93 /* MSNavigationBar.swift in Sources */,
 				123EE091280453E300D34B93 /* AppInfoView.swift in Sources */,
+				7779D724281C07C900683C1F /* DreamInfo.swift in Sources */,
 				12A2245027F7E0F000617C10 /* AppView.swift in Sources */,
 				123EE0A328045F7A00D34B93 /* OpenSourceView.swift in Sources */,
 				125F84B7280D14AB00279C42 /* AlertButton.swift in Sources */,
@@ -757,7 +775,7 @@
 				123EE09928045F0C00D34B93 /* TermsView.swift in Sources */,
 				123DD56928028A130020440E /* UIImage+extensions.swift in Sources */,
 				125F84B0280D124700279C42 /* AlertSingleButtonView.swift in Sources */,
-				7779D71A281ADE2F00683C1F /* DreamModel.swift in Sources */,
+				7779D71A281ADE2F00683C1F /* Dream.swift in Sources */,
 				123EE08A280453B300D34B93 /* SettingCore.swift in Sources */,
 				123EE09728045B3600D34B93 /* ListButtonItemWithText.swift in Sources */,
 				12083C97281636700020E20E /* Toast.swift in Sources */,
@@ -765,7 +783,7 @@
 				1291296527F812D80017E087 /* Effect+extensions.swift in Sources */,
 				773AE2A8280723E6006861FC /* MainTabCore.swift in Sources */,
 				125F84B2280D124F00279C42 /* AlertDoubleButtonCore.swift in Sources */,
-				7779D71C281ADE3600683C1F /* UserModel.swift in Sources */,
+				7779D71C281ADE3600683C1F /* User.swift in Sources */,
 				123EE088280453AB00D34B93 /* SettingView.swift in Sources */,
 				125F84AC280D122500279C42 /* AlertSingleButtonCore.swift in Sources */,
 				12952A61280250A300C89DD7 /* Font+extensions.swift in Sources */,
@@ -774,12 +792,14 @@
 				123EE08D280453D200D34B93 /* ProfileView.swift in Sources */,
 				12EF96B028195DF2002CEFFA /* MSTabView.swift in Sources */,
 				123DD564280283410020440E /* Theme.swift in Sources */,
+				7779D722281C07BF00683C1F /* Subcategory.swift in Sources */,
 				F03FF6CB28099B7900E83570 /* KakaoLoginService.swift in Sources */,
 				123DD5662802889D0020440E /* Image+Generated.swift in Sources */,
 				123EE0A028045F5700D34B93 /* PersonalInfoPolicyCore.swift in Sources */,
 				123EE08F280453D900D34B93 /* ProfileCore.swift in Sources */,
 				123EE077280452C900D34B93 /* ListItemWithText.swift in Sources */,
 				123EE07A280452E600D34B93 /* Separator.swift in Sources */,
+				774F78AF281EB89C00863070 /* PrintMockView.swift in Sources */,
 				120BBCB228025E3200AD44B5 /* Color+extensions.swift in Sources */,
 				773AE2A6280723DC006861FC /* MainTabView.swift in Sources */,
 				123EE07C2804530000D34B93 /* View+extensions.swift in Sources */,

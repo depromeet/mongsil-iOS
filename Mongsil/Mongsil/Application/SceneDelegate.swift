@@ -42,6 +42,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
           colorScheme: .dark
         )
       )
+//      window.rootViewController = UIHostingController(
+//        rootView: PrintMockView()
+//      )
       self.window = window
       window.makeKeyAndVisible()
     }

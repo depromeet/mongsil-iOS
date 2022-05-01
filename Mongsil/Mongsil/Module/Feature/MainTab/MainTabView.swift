@@ -4,24 +4,25 @@
 //
 //  Created by 이승후 on 2022/04/10.
 //
+
 import SwiftUI
 import ComposableArchitecture
 
 struct MainTabView: View {
   private let store: Store<WithSharedState<MainTabState>, MainTabAction>
-
+  
   init(store: Store<WithSharedState<MainTabState>, MainTabAction>) {
     self.store = store
     UITabBar.appearance().scrollEdgeAppearance = .init()
   }
-
+  
   var body: some View {
     GeometryReader { metrics in
       WithViewStore(store.scope(state: \.local.selectedTab)) { selectedTabViewStore in
         MSTabView<MainTabState.Tab>(
           icons: [
             .home: Image(systemName: "square.fill")
-              .renderingMode(.template),
+            .renderingMode(.template),
             .storage: Image(systemName: "square.fill")
             .renderingMode(.template)
           ],
@@ -57,24 +58,25 @@ struct MainTabView: View {
 
 private struct RecordButtonView: View {
   private let store: Store<WithSharedState<MainTabState>, MainTabAction>
-
+  
   init(store: Store<WithSharedState<MainTabState>, MainTabAction>) {
     self.store = store
   }
-
+  
   var body: some View {
     RecordLink(store: store)
     LoginLink(store: store)
+    
   }
 }
 
 private struct RecordLink: View {
   private let store: Store<WithSharedState<MainTabState>, MainTabAction>
-
+  
   init(store: Store<WithSharedState<MainTabState>, MainTabAction>) {
     self.store = store
   }
-
+  
   var body: some View {
     WithViewStore(store.scope(state: \.local.isRecordPushed)) { isRecordPushedViewStore in
       NavigationLink(
@@ -99,11 +101,11 @@ private struct RecordLink: View {
 
 private struct LoginLink: View {
   private let store: Store<WithSharedState<MainTabState>, MainTabAction>
-
+  
   init(store: Store<WithSharedState<MainTabState>, MainTabAction>) {
     self.store = store
   }
-
+  
   var body: some View {
     WithViewStore(store.scope(state: \.local.isLoginPushed)) { isLoginPushedViewStore in
       NavigationLink(
