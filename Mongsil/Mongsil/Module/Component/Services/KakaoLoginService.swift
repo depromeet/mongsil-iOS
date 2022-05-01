@@ -2,7 +2,7 @@
 //  KakaoLoginService.swift
 //  Mongsil
 //
-//  Created by Chuljin Hwang on 2022/04/09.
+//  Created by Chanwoo Cho on 2022/04/09.
 //
 
 import Combine
