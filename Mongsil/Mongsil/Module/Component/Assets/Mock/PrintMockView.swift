@@ -10,7 +10,7 @@ import SwiftUI
 struct PrintMockView: View {
   var body: some View {
     printMock()
-    return Text("A")
+    return Text("PrintMockView")
   }
 }
 
