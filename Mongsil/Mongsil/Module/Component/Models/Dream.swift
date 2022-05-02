@@ -8,7 +8,7 @@
 import Foundation
 
 public struct Dream: Decodable {
-  private let category: [String: [Subcategory]]
+  public let category: [String: [Subcategory]]
   
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)

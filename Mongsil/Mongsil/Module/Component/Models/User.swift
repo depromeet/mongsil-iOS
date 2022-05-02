@@ -7,17 +7,17 @@
 
 import Foundation
 
-struct User: Decodable {
-  let name: String?
-  let email: String?
+public struct User: Decodable {
+  public let name: String?
+  public let email: String?
   
-  init(from decoder: Decoder) throws {
+  public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
     name = try values.decodeIfPresent(String.self, forKey: .name)
     email = try values.decodeIfPresent(String.self, forKey: .email)
   }
   
-  enum CodingKeys: String, CodingKey {
+  public enum CodingKeys: String, CodingKey {
     case name
     case email
   }
