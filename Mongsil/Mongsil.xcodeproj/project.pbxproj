@@ -79,10 +79,8 @@
 		773AE2AC280723FF006861FC /* RecordCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773AE2AB280723FF006861FC /* RecordCore.swift */; };
 		773AE2AE28072419006861FC /* StorageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773AE2AD28072419006861FC /* StorageView.swift */; };
 		773AE2B028072421006861FC /* StorageCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773AE2AF28072421006861FC /* StorageCore.swift */; };
-		774F78AF281EB89C00863070 /* PrintMockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 774F78AE281EB89C00863070 /* PrintMockView.swift */; };
 		7779D71A281ADE2F00683C1F /* Dream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7779D719281ADE2F00683C1F /* Dream.swift */; };
 		7779D71C281ADE3600683C1F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7779D71B281ADE3600683C1F /* User.swift */; };
-		7779D720281ADE7C00683C1F /* mock.json in Resources */ = {isa = PBXBuildFile; fileRef = 7779D71F281ADE7C00683C1F /* mock.json */; };
 		7779D722281C07BF00683C1F /* Subcategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7779D721281C07BF00683C1F /* Subcategory.swift */; };
 		7779D724281C07C900683C1F /* DreamInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7779D723281C07C900683C1F /* DreamInfo.swift */; };
 		F03FF6CB28099B7900E83570 /* KakaoLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F03FF6CA28099B7900E83570 /* KakaoLoginService.swift */; };
@@ -160,10 +158,8 @@
 		773AE2AB280723FF006861FC /* RecordCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCore.swift; sourceTree = "<group>"; };
 		773AE2AD28072419006861FC /* StorageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageView.swift; sourceTree = "<group>"; };
 		773AE2AF28072421006861FC /* StorageCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageCore.swift; sourceTree = "<group>"; };
-		774F78AE281EB89C00863070 /* PrintMockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintMockView.swift; sourceTree = "<group>"; };
 		7779D719281ADE2F00683C1F /* Dream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dream.swift; sourceTree = "<group>"; };
 		7779D71B281ADE3600683C1F /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		7779D71F281ADE7C00683C1F /* mock.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mock.json; sourceTree = "<group>"; };
 		7779D721281C07BF00683C1F /* Subcategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subcategory.swift; sourceTree = "<group>"; };
 		7779D723281C07C900683C1F /* DreamInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamInfo.swift; sourceTree = "<group>"; };
 		F03FF6CA28099B7900E83570 /* KakaoLoginService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KakaoLoginService.swift; sourceTree = "<group>"; };
@@ -232,7 +228,6 @@
 		122236EE28024DD8009D5C66 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				774F78B0281EB8A600863070 /* Mock */,
 				122236EF28024DF1009D5C66 /* R.generated.swift */,
 				122236F928024EB0009D5C66 /* Fonts */,
 				120BBCAC28025CCF00AD44B5 /* Colors */,
@@ -580,15 +575,6 @@
 			path = MainTab;
 			sourceTree = "<group>";
 		};
-		774F78B0281EB8A600863070 /* Mock */ = {
-			isa = PBXGroup;
-			children = (
-				774F78AE281EB89C00863070 /* PrintMockView.swift */,
-				7779D71F281ADE7C00683C1F /* mock.json */,
-			);
-			path = Mock;
-			sourceTree = "<group>";
-		};
 		7779D718281ADE2400683C1F /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -680,7 +666,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7779D720281ADE7C00683C1F /* mock.json in Resources */,
 				1219757A28163A4200089BED /* Pretendard-SemiBold.ttf in Resources */,
 				1219757928163A4200089BED /* Pretendard-Medium.ttf in Resources */,
 				126EF43027F2AC2400102FA9 /* Preview Assets.xcassets in Resources */,
@@ -799,7 +784,6 @@
 				123EE08F280453D900D34B93 /* ProfileCore.swift in Sources */,
 				123EE077280452C900D34B93 /* ListItemWithText.swift in Sources */,
 				123EE07A280452E600D34B93 /* Separator.swift in Sources */,
-				774F78AF281EB89C00863070 /* PrintMockView.swift in Sources */,
 				120BBCB228025E3200AD44B5 /* Color+extensions.swift in Sources */,
 				773AE2A6280723DC006861FC /* MainTabView.swift in Sources */,
 				123EE07C2804530000D34B93 /* View+extensions.swift in Sources */,
