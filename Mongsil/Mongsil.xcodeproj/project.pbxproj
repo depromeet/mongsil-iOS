@@ -49,6 +49,7 @@
 		125F84B2280D124F00279C42 /* AlertDoubleButtonCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125F84B1280D124F00279C42 /* AlertDoubleButtonCore.swift */; };
 		125F84B7280D14AB00279C42 /* AlertButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125F84B6280D14AB00279C42 /* AlertButton.swift */; };
 		125F84B9280D151800279C42 /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125F84B8280D151800279C42 /* LoadingIndicator.swift */; };
+		126E471028220181008D1554 /* AppleLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126E470F28220181008D1554 /* AppleLoginService.swift */; };
 		126EF42D27F2AC2400102FA9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 126EF42C27F2AC2400102FA9 /* Assets.xcassets */; };
 		126EF43027F2AC2400102FA9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 126EF42F27F2AC2400102FA9 /* Preview Assets.xcassets */; };
 		127EBD78280A65960011C556 /* UINavigationController+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EBD77280A65960011C556 /* UINavigationController+extensions.swift */; };
@@ -67,6 +68,7 @@
 		12A2245627F7E76F00617C10 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A2245527F7E76F00617C10 /* HomeView.swift */; };
 		12A2245827F7E77700617C10 /* HomeCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A2245727F7E77700617C10 /* HomeCore.swift */; };
 		12D775DB28024B8C00CD0CFD /* Rswift in Frameworks */ = {isa = PBXBuildFile; productRef = 12D775DA28024B8C00CD0CFD /* Rswift */; };
+		12D7D3CD281E91EA00B83DDE /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D7D3CC281E91EA00B83DDE /* UserService.swift */; };
 		12EF96B028195DF2002CEFFA /* MSTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EF96AF28195DF2002CEFFA /* MSTabView.swift */; };
 		12F1DBD827F4119A0063A84D /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 12F1DBD727F4119A0063A84D /* ComposableArchitecture */; };
 		12F1DBDB27F411A80063A84D /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 12F1DBDA27F411A80063A84D /* Alamofire */; };
@@ -128,6 +130,7 @@
 		125F84B1280D124F00279C42 /* AlertDoubleButtonCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertDoubleButtonCore.swift; sourceTree = "<group>"; };
 		125F84B6280D14AB00279C42 /* AlertButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertButton.swift; sourceTree = "<group>"; };
 		125F84B8280D151800279C42 /* LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
+		126E470F28220181008D1554 /* AppleLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginService.swift; sourceTree = "<group>"; };
 		126EF42527F2AC2400102FA9 /* Mongsil.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mongsil.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		126EF42C27F2AC2400102FA9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		126EF42F27F2AC2400102FA9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -147,6 +150,7 @@
 		12A2245327F7E5D300617C10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		12A2245527F7E76F00617C10 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		12A2245727F7E77700617C10 /* HomeCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCore.swift; sourceTree = "<group>"; };
+		12D7D3CC281E91EA00B83DDE /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		12EF96AF28195DF2002CEFFA /* MSTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSTabView.swift; sourceTree = "<group>"; };
 		773AE2A5280723DC006861FC /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		773AE2A7280723E6006861FC /* MainTabCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabCore.swift; sourceTree = "<group>"; };
@@ -365,7 +369,9 @@
 			isa = PBXGroup;
 			children = (
 				F03FF6CA28099B7900E83570 /* KakaoLoginService.swift */,
+				126E470F28220181008D1554 /* AppleLoginService.swift */,
 				12273EEF27F91076007624C1 /* AppTrackingService.swift */,
+				12D7D3CC281E91EA00B83DDE /* UserService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -624,9 +630,10 @@
 			};
 			buildConfigurationList = 126EF42027F2AC2400102FA9 /* Build configuration list for PBXProject "Mongsil" */;
 			compatibilityVersion = "Xcode 13.0";
-			developmentRegion = en;
+			developmentRegion = ko;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				ko,
 				en,
 				Base,
 			);
@@ -717,6 +724,7 @@
 				1291296727F812FE0017E087 /* Reducer+extensions.swift in Sources */,
 				12A2245227F7E0F900617C10 /* AppCore.swift in Sources */,
 				127EBD78280A65960011C556 /* UINavigationController+extensions.swift in Sources */,
+				126E471028220181008D1554 /* AppleLoginService.swift in Sources */,
 				12A2245827F7E77700617C10 /* HomeCore.swift in Sources */,
 				1291296D27F814CD0017E087 /* ForEachWithIndex.swift in Sources */,
 				123EE075280452BE00D34B93 /* ListItemWithTextIcon.swift in Sources */,
@@ -756,6 +764,7 @@
 				125F84B2280D124F00279C42 /* AlertDoubleButtonCore.swift in Sources */,
 				123EE088280453AB00D34B93 /* SettingView.swift in Sources */,
 				125F84AC280D122500279C42 /* AlertSingleButtonCore.swift in Sources */,
+				12D7D3CD281E91EA00B83DDE /* UserService.swift in Sources */,
 				12952A61280250A300C89DD7 /* Font+extensions.swift in Sources */,
 				1214C0E3280E7A37002D2C4C /* LoginView.swift in Sources */,
 				1214C0E5280E7A42002D2C4C /* LoginCore.swift in Sources */,
@@ -922,8 +931,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.depromeet.mongsil;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mongsil;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -957,7 +967,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.depromeet.mongsil;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mongsil;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

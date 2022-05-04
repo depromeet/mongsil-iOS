@@ -5,6 +5,7 @@
 //  Created by Chanwoo Cho on 2022/04/19.
 //
 
+import AuthenticationServices
 import ComposableArchitecture
 import SwiftUI
 
@@ -81,14 +82,61 @@ private struct SocialLoginButtonView: View {
     HStack {
       Spacer()
       VStack(spacing: 10) {
-        Button(action: { ViewStore(store).send(.kakaoLoginButtonTapped) }) {
-          R.CustomImage.kakaoLoginButton.image
-        }
-        Button(action: { ViewStore(store).send(.appleLoginButtonTapped) }) {
-          R.CustomImage.appleLoginButton.image
-        }
+        KakaoLoginButtonView(store: store)
+        AppleLoginButtonView(store: store)
       }
       Spacer()
     }
+  }
+}
+
+private struct KakaoLoginButtonView: View {
+  private let store: Store<WithSharedState<LoginState>, LoginAction>
+
+  init(store: Store<WithSharedState<LoginState>, LoginAction>) {
+    self.store = store
+  }
+
+  var body: some View {
+    Button(action: { ViewStore(store).send(.kakaoLoginButtonTapped) }) {
+      R.CustomImage.kakaoLoginButton.image
+        .resizedToFill(335, 55)
+    }
+  }
+}
+
+private struct AppleLoginButtonView: View {
+  private let store: Store<WithSharedState<LoginState>, LoginAction>
+
+  init(store: Store<WithSharedState<LoginState>, LoginAction>) {
+    self.store = store
+  }
+
+  var body: some View {
+    SignInWithAppleButton(
+      .signIn,
+      onRequest: { request in
+        request.requestedScopes = [.fullName, .email]
+      },
+      onCompletion: { result in
+        switch result {
+        case .success(let authorization):
+          if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            let nickName = appleIDCredential.fullName?.nickname
+            let email = appleIDCredential.email
+            let userID = appleIDCredential.user
+            ViewStore(store).send(.appleLoginCompleted(
+              nickName ?? "",
+              email ?? "",
+              userID
+            ))
+          }
+        case .failure:
+          ViewStore(store).send(.appleLoginNotCompleted)
+        }
+      }
+    )
+    .signInWithAppleButtonStyle(.white)
+    .frame(width: 335, height: 55, alignment: .center)
   }
 }
