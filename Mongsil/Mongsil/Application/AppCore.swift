@@ -25,7 +25,7 @@ enum AppAction {
   case presentToast(String, Bool = true)
   case hideToast
   case noop
-  
+
   // Child Action
   case mainTab(MainTabAction)
 }
@@ -67,7 +67,7 @@ let appReducer = Reducer.combine([
   Reducer<WithSharedState<AppState>, AppAction, AppEnvironment> {
     state, action, env in
     struct ToastCancelId: Hashable {}
-    
+
     switch action {
     case .onAppear:
       return Effect.merge([
@@ -82,11 +82,11 @@ let appReducer = Reducer.combine([
         })
         .delay(for: .milliseconds(100), scheduler: env.mainQueue)
         .eraseToEffect()
-      
+
     case let .setShouldDisplayRequestAppTrackingAlert(status):
       state.local.shouldDisplayRequestAppTrackingAlert = status
       return .none
-      
+
     case .displayRequestAppTrackingAlert:
       return env.appTrackingService.requestAppTrackingAuthorization()
         .fireAndForget()
@@ -125,7 +125,7 @@ let appReducer = Reducer.combine([
     case let .setIsLogined(isLogined):
       UserDefaults.standard.set(isLogined, forKey: "isLogined")
       return .none
-      
+
     case let .presentToast(toastText, isBottomPosition):
       state.shared.toastText = toastText
       state.shared.isToastBottomPosition = isBottomPosition
@@ -136,14 +136,14 @@ let appReducer = Reducer.combine([
           .eraseToEffect()
           .cancellable(id: ToastCancelId(), cancelInFlight: true)
       ])
-      
+
     case .hideToast:
       state.shared.toastText = nil
       return .none
-      
+
     case let .mainTab(.login(.presentToast(text))):
       return Effect(value: .presentToast(text))
-      
+
     case .mainTab:
       return .none
 

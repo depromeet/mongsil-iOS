@@ -10,12 +10,12 @@ import ComposableArchitecture
 
 struct MainTabView: View {
   private let store: Store<WithSharedState<MainTabState>, MainTabAction>
-  
+
   init(store: Store<WithSharedState<MainTabState>, MainTabAction>) {
     self.store = store
     UITabBar.appearance().scrollEdgeAppearance = .init()
   }
-  
+
   var body: some View {
     GeometryReader { metrics in
       WithViewStore(store.scope(state: \.local.selectedTab)) { selectedTabViewStore in
@@ -58,25 +58,25 @@ struct MainTabView: View {
 
 private struct RecordButtonView: View {
   private let store: Store<WithSharedState<MainTabState>, MainTabAction>
-  
+
   init(store: Store<WithSharedState<MainTabState>, MainTabAction>) {
     self.store = store
   }
-  
+
   var body: some View {
     RecordLink(store: store)
     LoginLink(store: store)
-    
+
   }
 }
 
 private struct RecordLink: View {
   private let store: Store<WithSharedState<MainTabState>, MainTabAction>
-  
+
   init(store: Store<WithSharedState<MainTabState>, MainTabAction>) {
     self.store = store
   }
-  
+
   var body: some View {
     WithViewStore(store.scope(state: \.local.isRecordPushed)) { isRecordPushedViewStore in
       NavigationLink(
@@ -101,11 +101,11 @@ private struct RecordLink: View {
 
 private struct LoginLink: View {
   private let store: Store<WithSharedState<MainTabState>, MainTabAction>
-  
+
   init(store: Store<WithSharedState<MainTabState>, MainTabAction>) {
     self.store = store
   }
-  
+
   var body: some View {
     WithViewStore(store.scope(state: \.local.isLoginPushed)) { isLoginPushedViewStore in
       NavigationLink(
