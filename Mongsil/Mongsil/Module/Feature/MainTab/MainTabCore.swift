@@ -61,13 +61,16 @@ enum MainTabAction {
 struct MainTabEnvironment {
   var mainQueue: AnySchedulerOf<DispatchQueue>
   var kakaoLoginService: KakaoLoginService
+  var userService: UserService
 
   init(
     mainQueue: AnySchedulerOf<DispatchQueue>,
-    kakaoLoginService: KakaoLoginService
+    kakaoLoginService: KakaoLoginService,
+    userService: UserService
   ) {
     self.mainQueue = mainQueue
     self.kakaoLoginService = kakaoLoginService
+    self.userService = userService
   }
 }
 
@@ -118,7 +121,10 @@ Reducer.combine([
       state: \.login,
       action: /MainTabAction.login,
       environment: {
-        LoginEnvironment(kakaoLoginService: $0.kakaoLoginService)
+        LoginEnvironment(
+          kakaoLoginService: $0.kakaoLoginService,
+          userService: $0.userService
+        )
       }
     ) as Reducer<WithSharedState<MainTabState>, MainTabAction, MainTabEnvironment>,
   alertDoubleButtonReducer
@@ -135,9 +141,9 @@ Reducer.combine([
     switch action {
     case let .verifyUserLogined(pushed):
       state.local.isRecordButtonTapped = true
-      // 기존 로그인 연동 이력 검증
-      if pushed && !state.shared.isLogined {
-        // False
+      let isLogined: Bool = UserDefaults.standard.bool(forKey: "isLogined")
+
+      if pushed && !isLogined {
         return setAlertModal(
           state: &state.local.requestLoginAlertModal,
           titleText: "로그인이 필요한 기능이에요!",
@@ -146,7 +152,6 @@ Reducer.combine([
           primaryButtonTitle: "로그인하기"
         )
       }
-      // True
       return Effect(value: .setRecordPushed(pushed))
 
     case let .setRecordPushed(pushed):
@@ -165,7 +170,9 @@ Reducer.combine([
 
     case let .tabTapped(tab):
       state.local.isRecordButtonTapped = false
-      if tab == .storage && !state.shared.isLogined {
+      let isLogined: Bool = UserDefaults.standard.bool(forKey: "isLogined")
+
+      if tab == .storage && !isLogined {
         return setAlertModal(
           state: &state.local.requestLoginAlertModal,
           titleText: "로그인이 필요한 기능이에요!",

@@ -11,9 +11,9 @@ public struct MSTabView<Selection>: View where Selection: Hashable & Identifiabl
   public var icons: [Selection: Image]
   public var titles: [Selection: String]
   public var views: [Selection: AnyView]
-  
+
   @Binding public var selection: Selection
-  
+
   public init(
     icons: [Selection: Image],
     titles: [Selection: String],
@@ -25,13 +25,13 @@ public struct MSTabView<Selection>: View where Selection: Hashable & Identifiabl
     self.views = views
     self._selection = selection
   }
-  
+
   public var body: some View {
     VStack(spacing: 0) {
       views[selection]
-      
+
       Spacer(minLength: 0)
-      
+
       HStack(spacing: 0) {
         ForEach(
           views.keys.sorted(),
@@ -58,19 +58,19 @@ private struct MSTab: View {
   var title: String
   var selected: Bool
   var action: () -> Void
-  
+
   var backgroundColor: Color {
     selected ? .gray10 : .gray11
   }
   var foregroundColor: Color {
     selected ? .msWhite : .gray1
   }
-  
+
   let keyWindow = UIApplication.shared.connectedScenes
     .compactMap { $0 as? UIWindowScene }
     .flatMap { $0.windows }
     .first { $0.isKeyWindow }
-  
+
   var body: some View {
     Button(action: action) {
       VStack(spacing: 5) {
