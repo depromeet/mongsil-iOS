@@ -22,7 +22,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
       appTrackingService: .init(),
       kakaoLoginService: .init(),
       appleLoginService: .init(defaults: .standard),
-      userService: .init(defaults: .standard)
+      userService: .init(
+        defaults: .standard,
+        alamofireSession: .default
+      ),
+      signUpService: .init(alamofireSession: .default)
     )
   )
 

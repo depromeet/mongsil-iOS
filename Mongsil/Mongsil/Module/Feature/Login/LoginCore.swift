@@ -17,21 +17,27 @@ enum LoginAction: ToastPresentableAction {
   case kakaoLoginButtonTapped
   case appleLoginCompleted(String, String, String)
   case appleLoginNotCompleted
+  case searchUser(String, String)
+  case signUpUser(String, String)
   case setLoginInfo(Bool, Bool, String, String, String? = nil)
   case loginCompleted
+  case noop
   case presentToast(String)
 }
 
 struct LoginEnvironment {
   var kakaoLoginService: KakaoLoginService
   var userService: UserService
+  var signUpService: SignUpService
 
   init(
     kakaoLoginService: KakaoLoginService,
-    userService: UserService
+    userService: UserService,
+    signUpService: SignUpService
   ) {
     self.kakaoLoginService = kakaoLoginService
     self.userService = userService
+    self.signUpService = signUpService
   }
 }
 
@@ -49,31 +55,71 @@ let loginReducer = Reducer<WithSharedState<LoginState>, LoginAction, LoginEnviro
         case .failure:
           return Effect(value: .presentToast("카카오 로그인에 실패했습니다."))
         case let .success(userInfo):
-          // 회원조회 및 가입 연동
-          return Effect(value: .setLoginInfo(
-            true,
-            true,
-            userInfo["nickName"] ?? "",
-            userInfo["email"] ?? ""
-          ))
+          let nickName = userInfo["nickName"] ?? ""
+          let email = userInfo["email"] ?? ""
+
+          return Effect.concatenate([
+            Effect(value: .searchUser(nickName, email)),
+            Effect(value: .setLoginInfo(
+              true,
+              true,
+              nickName,
+              email
+            ))
+          ])
         }
       })
       .eraseToEffect()
 
-  case let .appleLoginCompleted(nickName, email, userID):
-    // 회원조회 및 가입 연동
-    return Effect(value: .setLoginInfo(true, false, nickName, email, userID))
+  case let .appleLoginCompleted(nickName, email, appleUserID):
+    return Effect.concatenate([
+      Effect(value: .searchUser(nickName, email)),
+      Effect(value: .setLoginInfo(true, false, nickName, email, appleUserID))
+    ])
 
   case .appleLoginNotCompleted:
     return Effect(value: .presentToast("애플 로그인에 실패했습니다."))
 
-  case let .setLoginInfo(isLogined, isKakao, name, email, userID):
+  case let .searchUser(name, email):
+    return env.userService.searchUserID(with: email)
+      .catchToEffect()
+      .map({ result in
+        switch result {
+        case let .success(response):
+          if response.checkValue {
+            guard let userID = response.userId else {
+              return LoginAction.presentToast("회원 ID가 없습니다.")
+            }
+            UserDefaults.standard.set(userID, forKey: "userID")
+            return .noop
+          } else {
+            return LoginAction.signUpUser(name, email)
+          }
+        case let .failure(error):
+          return LoginAction.presentToast("회원 조회에 실패하였습니다.")
+        }
+      })
+
+  case let .signUpUser(name, email):
+    return env.signUpService.singUp(name: name, with: email)
+      .catchToEffect()
+      .map({ result in
+        switch result {
+        case let .success(response):
+          UserDefaults.standard.set(response.userId, forKey: "userID")
+          return .noop
+        case let .failure(error):
+          return LoginAction.presentToast("회원 가입에 실패했습니다.")
+        }
+      })
+
+  case let .setLoginInfo(isLogined, isKakao, name, email, appleUserID):
     return env.userService.setLoginInfo(
       isLogined: isLogined,
       isKakao: isKakao,
       name: name,
       email: email,
-      userID: userID
+      appleUserID: appleUserID
     )
     .map({ _ -> LoginAction in
       return .loginCompleted
@@ -82,6 +128,9 @@ let loginReducer = Reducer<WithSharedState<LoginState>, LoginAction, LoginEnviro
 
   case .loginCompleted:
     return Effect(value: .presentToast("로그인을 완료했어요!"))
+
+  case .noop:
+    return .none
 
   case .presentToast:
     return .none

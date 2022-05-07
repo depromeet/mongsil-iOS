@@ -62,15 +62,18 @@ struct MainTabEnvironment {
   var mainQueue: AnySchedulerOf<DispatchQueue>
   var kakaoLoginService: KakaoLoginService
   var userService: UserService
+  var signUpService: SignUpService
 
   init(
     mainQueue: AnySchedulerOf<DispatchQueue>,
     kakaoLoginService: KakaoLoginService,
-    userService: UserService
+    userService: UserService,
+    signUpService: SignUpService
   ) {
     self.mainQueue = mainQueue
     self.kakaoLoginService = kakaoLoginService
     self.userService = userService
+    self.signUpService = signUpService
   }
 }
 
@@ -123,7 +126,8 @@ Reducer.combine([
       environment: {
         LoginEnvironment(
           kakaoLoginService: $0.kakaoLoginService,
-          userService: $0.userService
+          userService: $0.userService,
+          signUpService: $0.signUpService
         )
       }
     ) as Reducer<WithSharedState<MainTabState>, MainTabAction, MainTabEnvironment>,
