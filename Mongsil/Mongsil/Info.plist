@@ -23,6 +23,7 @@
 		<string>Pretendard-SemiBold.ttf</string>
 		<string>Pretendard-Medium.ttf</string>
 		<string>Pretendard-Regular.ttf</string>
+		<string>Pretendard-Light.ttf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>

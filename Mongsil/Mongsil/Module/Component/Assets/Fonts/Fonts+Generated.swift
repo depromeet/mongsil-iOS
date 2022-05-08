@@ -16,9 +16,10 @@ import UIKit.UIFont
 extension R {
   public enum CustomFont {
     public enum Pretendard {
-      public static let regular = FontConvertible(name: "Pretendard-Regular", family: "Pretendard", path: "Pretendard-Regular.otf")
-      public static let medium = FontConvertible(name: "Pretendard-Medium", family: "Pretendard", path: "Pretendard-Medium.otf")
-      public static let semiBold = FontConvertible(name: "Pretendard-SemiBold", family: "Pretendard", path: "Pretendard-SemiBold.otf")
+      public static let regular = FontConvertible(name: "Pretendard-Regular", family: "Pretendard", path: "Pretendard-Regular.ttf")
+      public static let medium = FontConvertible(name: "Pretendard-Medium", family: "Pretendard", path: "Pretendard-Medium.ttf")
+      public static let semiBold = FontConvertible(name: "Pretendard-SemiBold", family: "Pretendard", path: "Pretendard-SemiBold.ttf")
+      public static let light = FontConvertible(name: "Pretendard-Light", family: "Pretendard", path: "Pretendard-Light.ttf")
       public static let all: [FontConvertible] = [regular, medium, semiBold]
     }
     public static let allCustomFonts: [FontConvertible] = [Pretendard.all].flatMap { $0 }

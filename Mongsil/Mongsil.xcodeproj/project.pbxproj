@@ -53,6 +53,7 @@
 		126EF42D27F2AC2400102FA9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 126EF42C27F2AC2400102FA9 /* Assets.xcassets */; };
 		126EF43027F2AC2400102FA9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 126EF42F27F2AC2400102FA9 /* Preview Assets.xcassets */; };
 		127EBD78280A65960011C556 /* UINavigationController+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EBD77280A65960011C556 /* UINavigationController+extensions.swift */; };
+		1287FDC128288A23004B55A9 /* Pretendard-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1287FDC028288A23004B55A9 /* Pretendard-Light.ttf */; };
 		1291296527F812D80017E087 /* Effect+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1291296427F812D80017E087 /* Effect+extensions.swift */; };
 		1291296727F812FE0017E087 /* Reducer+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1291296627F812FE0017E087 /* Reducer+extensions.swift */; };
 		1291296A27F813660017E087 /* Combine+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1291296927F813660017E087 /* Combine+extensions.swift */; };
@@ -150,6 +151,7 @@
 		126EF42C27F2AC2400102FA9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		126EF42F27F2AC2400102FA9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		127EBD77280A65960011C556 /* UINavigationController+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+extensions.swift"; sourceTree = "<group>"; };
+		1287FDC028288A23004B55A9 /* Pretendard-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.ttf"; sourceTree = "<group>"; };
 		1291296427F812D80017E087 /* Effect+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Effect+extensions.swift"; sourceTree = "<group>"; };
 		1291296627F812FE0017E087 /* Reducer+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reducer+extensions.swift"; sourceTree = "<group>"; };
 		1291296927F813660017E087 /* Combine+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Combine+extensions.swift"; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 				1219757628163A4200089BED /* Pretendard-Medium.ttf */,
 				1219757528163A4200089BED /* Pretendard-Regular.ttf */,
 				1219757728163A4200089BED /* Pretendard-SemiBold.ttf */,
+				1287FDC028288A23004B55A9 /* Pretendard-Light.ttf */,
 			);
 			path = Pretendard;
 			sourceTree = "<group>";
@@ -744,6 +747,7 @@
 				1219757828163A4200089BED /* Pretendard-Regular.ttf in Resources */,
 				126EF42D27F2AC2400102FA9 /* Assets.xcassets in Resources */,
 				1229909428026001009BF616 /* Assets.xcassets in Resources */,
+				1287FDC128288A23004B55A9 /* Pretendard-Light.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
