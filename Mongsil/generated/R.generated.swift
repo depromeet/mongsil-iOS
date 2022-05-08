@@ -51,7 +51,8 @@ struct R: Rswift.Validatable {
     // Note: key might not exist in chosen language (in that case, key will be shown)
     for language in languages {
       if let lproj = hostingBundle.url(forResource: language, withExtension: "lproj"),
-         let lbundle = Bundle(url: lproj) {
+         let lbundle = Bundle(url: lproj)
+      {
         let strings = lbundle.url(forResource: tableName, withExtension: "strings")
         let stringsdict = lbundle.url(forResource: tableName, withExtension: "stringsdict")
 
@@ -519,50 +520,69 @@ struct R: Rswift.Validatable {
     }
 
     static func validate() throws {
-      if R.font.pretendardLight(size: 42) == nil { throw Rswift.ValidationError(description: "[R.swift] Font 'Pretendard-Light' could not be loaded, is 'Pretendard-Light.ttf' added to the UIAppFonts array in this targets Info.plist?") }
-      if R.font.pretendardMedium(size: 42) == nil { throw Rswift.ValidationError(description: "[R.swift] Font 'Pretendard-Medium' could not be loaded, is 'Pretendard-Medium.ttf' added to the UIAppFonts array in this targets Info.plist?") }
-      if R.font.pretendardRegular(size: 42) == nil { throw Rswift.ValidationError(description: "[R.swift] Font 'Pretendard-Regular' could not be loaded, is 'Pretendard-Regular.ttf' added to the UIAppFonts array in this targets Info.plist?") }
-      if R.font.pretendardSemiBold(size: 42) == nil { throw Rswift.ValidationError(description: "[R.swift] Font 'Pretendard-SemiBold' could not be loaded, is 'Pretendard-SemiBold.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.pretendardLight(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Pretendard-Light' could not be loaded, is 'Pretendard-Light.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.pretendardMedium(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Pretendard-Medium' could not be loaded, is 'Pretendard-Medium.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.pretendardRegular(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Pretendard-Regular' could not be loaded, is 'Pretendard-Regular.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.pretendardSemiBold(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Pretendard-SemiBold' could not be loaded, is 'Pretendard-SemiBold.ttf' added to the UIAppFonts array in this targets Info.plist?") }
     }
 
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 14 images.
+  /// This `R.image` struct is generated, and contains static references to 20 images.
   struct image {
     /// Image `AppleLoginButton`.
     static let appleLoginButton = Rswift.ImageResource(bundle: R.hostingBundle, name: "AppleLoginButton")
+    /// Image `ArrowDownIcon`.
+    static let arrowDownIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "ArrowDownIcon")
     /// Image `ArrowLeftIcon`.
     static let arrowLeftIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "ArrowLeftIcon")
     /// Image `ArrowRightIcon`.
     static let arrowRightIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "ArrowRightIcon")
+    /// Image `ArrowUpIcon`.
+    static let arrowUpIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "ArrowUpIcon")
     /// Image `BackIcon`.
     static let backIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "BackIcon")
-    /// Image `BookmarkIcon`.
-    static let bookmarkIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "BookmarkIcon")
     /// Image `CancelIcon`.
     static let cancelIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "CancelIcon")
-    /// Image `CheckIcon`.
-    static let checkIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "CheckIcon")
-    /// Image `DeleteIcon`.
-    static let deleteIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "DeleteIcon")
+    /// Image `CancelSmallIcon`.
+    static let cancelSmallIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "CancelSmallIcon")
+    /// Image `FilterIcon`.
+    static let filterIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "FilterIcon")
+    /// Image `HomeActiveIcon`.
+    static let homeActiveIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "HomeActiveIcon")
+    /// Image `HomeDisabledIcon`.
+    static let homeDisabledIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "HomeDisabledIcon")
     /// Image `KakaoLoginButton`.
     static let kakaoLoginButton = Rswift.ImageResource(bundle: R.hostingBundle, name: "KakaoLoginButton")
+    /// Image `MoreIcon`.
+    static let moreIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "MoreIcon")
     /// Image `PlusIcon`.
     static let plusIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "PlusIcon")
-    /// Image `SaveIcon`.
-    static let saveIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "SaveIcon")
+    /// Image `RecordIcon`.
+    static let recordIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "RecordIcon")
     /// Image `SearchIcon`.
     static let searchIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "SearchIcon")
     /// Image `SettingIcon`.
     static let settingIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "SettingIcon")
     /// Image `ShareIcon`.
     static let shareIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "ShareIcon")
+    /// Image `StorageActiveIcon`.
+    static let storageActiveIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "StorageActiveIcon")
+    /// Image `StorageDisabledIcon`.
+    static let storageDisabledIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "StorageDisabledIcon")
 
     #if os(iOS) || os(tvOS)
     /// `UIImage(named: "AppleLoginButton", bundle: ..., traitCollection: ...)`
     static func appleLoginButton(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.appleLoginButton, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "ArrowDownIcon", bundle: ..., traitCollection: ...)`
+    static func arrowDownIcon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.arrowDownIcon, compatibleWith: traitCollection)
     }
     #endif
 
@@ -581,16 +601,16 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "BackIcon", bundle: ..., traitCollection: ...)`
-    static func backIcon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.backIcon, compatibleWith: traitCollection)
+    /// `UIImage(named: "ArrowUpIcon", bundle: ..., traitCollection: ...)`
+    static func arrowUpIcon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.arrowUpIcon, compatibleWith: traitCollection)
     }
     #endif
 
     #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "BookmarkIcon", bundle: ..., traitCollection: ...)`
-    static func bookmarkIcon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.bookmarkIcon, compatibleWith: traitCollection)
+    /// `UIImage(named: "BackIcon", bundle: ..., traitCollection: ...)`
+    static func backIcon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.backIcon, compatibleWith: traitCollection)
     }
     #endif
 
@@ -602,16 +622,30 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "CheckIcon", bundle: ..., traitCollection: ...)`
-    static func checkIcon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.checkIcon, compatibleWith: traitCollection)
+    /// `UIImage(named: "CancelSmallIcon", bundle: ..., traitCollection: ...)`
+    static func cancelSmallIcon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.cancelSmallIcon, compatibleWith: traitCollection)
     }
     #endif
 
     #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "DeleteIcon", bundle: ..., traitCollection: ...)`
-    static func deleteIcon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.deleteIcon, compatibleWith: traitCollection)
+    /// `UIImage(named: "FilterIcon", bundle: ..., traitCollection: ...)`
+    static func filterIcon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.filterIcon, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "HomeActiveIcon", bundle: ..., traitCollection: ...)`
+    static func homeActiveIcon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.homeActiveIcon, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "HomeDisabledIcon", bundle: ..., traitCollection: ...)`
+    static func homeDisabledIcon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.homeDisabledIcon, compatibleWith: traitCollection)
     }
     #endif
 
@@ -623,6 +657,13 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "MoreIcon", bundle: ..., traitCollection: ...)`
+    static func moreIcon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.moreIcon, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
     /// `UIImage(named: "PlusIcon", bundle: ..., traitCollection: ...)`
     static func plusIcon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.plusIcon, compatibleWith: traitCollection)
@@ -630,9 +671,9 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "SaveIcon", bundle: ..., traitCollection: ...)`
-    static func saveIcon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.saveIcon, compatibleWith: traitCollection)
+    /// `UIImage(named: "RecordIcon", bundle: ..., traitCollection: ...)`
+    static func recordIcon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.recordIcon, compatibleWith: traitCollection)
     }
     #endif
 
@@ -654,6 +695,20 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ShareIcon", bundle: ..., traitCollection: ...)`
     static func shareIcon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.shareIcon, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "StorageActiveIcon", bundle: ..., traitCollection: ...)`
+    static func storageActiveIcon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.storageActiveIcon, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "StorageDisabledIcon", bundle: ..., traitCollection: ...)`
+    static func storageDisabledIcon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.storageDisabledIcon, compatibleWith: traitCollection)
     }
     #endif
 
