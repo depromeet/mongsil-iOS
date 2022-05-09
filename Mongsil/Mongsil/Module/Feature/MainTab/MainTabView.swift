@@ -20,15 +20,13 @@ struct MainTabView: View {
     GeometryReader { metrics in
       WithViewStore(store.scope(state: \.local.selectedTab)) { selectedTabViewStore in
         MSTabView<MainTabState.Tab>(
-          icons: [
-            .home: Image(systemName: "square.fill")
-            .renderingMode(.template),
-            .storage: Image(systemName: "square.fill")
-            .renderingMode(.template)
+          activeIcons: [
+            .home: R.CustomImage.homeActiveIcon.image,
+            .storage: R.CustomImage.storageActiveIcon.image
           ],
-          titles: [
-            .home: "홈",
-            .storage: "보관함"
+          disabledIcons: [
+            .home: R.CustomImage.homeDisabledIcon.image,
+            .storage: R.CustomImage.storageDisabledIcon.image
           ],
           views: [
             .home: HomeView(
@@ -45,8 +43,9 @@ struct MainTabView: View {
         )
       }
       RecordButtonView(store: store)
-        .offset(x: metrics.size.width/2.3, y: metrics.size.height/1.105)
+        .offset(x: metrics.size.width/2 - 33, y: metrics.size.height - 123)
     }
+    .ignoresSafeArea(.keyboard)
     .alertDoubleButton(
       store: store.scope(
         state: \.local.requestLoginAlertModal,
@@ -120,11 +119,7 @@ private struct LoginLink: View {
           send: MainTabAction.verifyUserLogined
         ),
         label: {
-          Image(systemName: "circle.fill")
-            .font(.largeTitle)
-            .frame(width: 48, height: 48, alignment: .center)
-            .cornerRadius(28)
-            .foregroundColor(.gray)
+          R.CustomImage.recordIcon.image
         }
       )
       .isDetailLink(true)

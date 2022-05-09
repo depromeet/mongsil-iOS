@@ -34,6 +34,7 @@ extension R {
     public static let msRed = ColorAsset(name: "MSRed")
     public static let msWhite = ColorAsset(name: "MSWhite")
     public static let msYellow = ColorAsset(name: "MSYellow")
+    public static let msTabBar = ColorAsset(name: "MSTabBar")
   }
 }
 

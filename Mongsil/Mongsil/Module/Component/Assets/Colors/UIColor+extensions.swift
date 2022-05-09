@@ -88,4 +88,5 @@ extension UIColor {
   static var msRed: UIColor { R.CustomColor.msRed.uiColor }
   static var msWhite: UIColor { R.CustomColor.msWhite.uiColor }
   static var msYellow: UIColor { R.CustomColor.msYellow.uiColor }
+  static var msTabBar: UIColor { R.CustomColor.msTabBar.uiColor }
 }

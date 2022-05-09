@@ -54,6 +54,7 @@ extension Color {
   public static var msRed: Color { Color(UIColor.msRed) }
   public static var msWhite: Color { Color(UIColor.msWhite) }
   public static var msYellow: Color { Color(UIColor.msYellow) }
+  public static var msTabBar: Color { Color(UIColor.msTabBar) }
 }
 
 // MARK: - Helpers

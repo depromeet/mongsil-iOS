@@ -31,22 +31,22 @@ private struct ToastView: View {
   var foregroundColor: Color {
     switch colorScheme {
     case .light:
-      return .black
+      return .gray10
     case .dark:
-      return .black
+      return .gray10
     @unknown default:
-      return .black
+      return .gray10
     }
   }
 
   var backgroundColor: Color {
     switch colorScheme {
     case .light:
-      return Color.gray.opacity(0.8)
+      return .gray2
     case .dark:
-      return Color.gray.opacity(0.8)
+      return .gray2
     @unknown default:
-      return Color.gray.opacity(0.8)
+      return .gray2
     }
   }
 
@@ -54,12 +54,12 @@ private struct ToastView: View {
     VStack {
       if text != nil {
         Text(text ?? "")
-          .font(.caption1)
-          .padding(.vertical, 8)
+          .font(.body2)
+          .padding(.vertical, 12)
           .padding(.horizontal, 20)
           .foregroundColor(foregroundColor)
           .background(
-            backgroundColor.cornerRadius(21.5)
+            backgroundColor.cornerRadius(24)
           )
       } else {
         EmptyView()
