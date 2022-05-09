@@ -89,7 +89,7 @@ struct R: Rswift.Validatable {
     try intern.validate()
   }
 
-  /// This `R.color` struct is generated, and contains static references to 18 colors.
+  /// This `R.color` struct is generated, and contains static references to 19 colors.
   struct color {
     /// Color `AccentColor`.
     static let accentColor = Rswift.ColorResource(bundle: R.hostingBundle, name: "AccentColor")
@@ -121,6 +121,8 @@ struct R: Rswift.Validatable {
     static let msBlue = Rswift.ColorResource(bundle: R.hostingBundle, name: "MSBlue")
     /// Color `MSGreen`.
     static let msGreen = Rswift.ColorResource(bundle: R.hostingBundle, name: "MSGreen")
+    /// Color `MSTabBar`.
+    static let msTabBar = Rswift.ColorResource(bundle: R.hostingBundle, name: "MSTabBar")
     /// Color `MSWhite`.
     static let msWhite = Rswift.ColorResource(bundle: R.hostingBundle, name: "MSWhite")
     /// Color `MSYellow`.
@@ -260,6 +262,15 @@ struct R: Rswift.Validatable {
     @available(iOS 11.0, *)
     static func msGreen(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
       return UIKit.UIColor(resource: R.color.msGreen, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIColor(named: "MSTabBar", bundle: ..., traitCollection: ...)`
+    @available(tvOS 11.0, *)
+    @available(iOS 11.0, *)
+    static func msTabBar(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
+      return UIKit.UIColor(resource: R.color.msTabBar, compatibleWith: traitCollection)
     }
     #endif
 
@@ -407,6 +418,14 @@ struct R: Rswift.Validatable {
     @available(watchOSApplicationExtension 4.0, *)
     static func msGreen(_: Void = ()) -> UIKit.UIColor? {
       return UIKit.UIColor(named: R.color.msGreen.name)
+    }
+    #endif
+
+    #if os(watchOS)
+    /// `UIColor(named: "MSTabBar", bundle: ..., traitCollection: ...)`
+    @available(watchOSApplicationExtension 4.0, *)
+    static func msTabBar(_: Void = ()) -> UIKit.UIColor? {
+      return UIKit.UIColor(named: R.color.msTabBar.name)
     }
     #endif
 
