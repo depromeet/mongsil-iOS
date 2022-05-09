@@ -45,6 +45,7 @@ struct MainTabView: View {
       RecordButtonView(store: store)
         .offset(x: metrics.size.width/2 - 33, y: metrics.size.height - 123)
     }
+    .ignoresSafeArea(.keyboard)
     .alertDoubleButton(
       store: store.scope(
         state: \.local.requestLoginAlertModal,

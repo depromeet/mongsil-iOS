@@ -62,6 +62,7 @@ public struct MSTabView<Selection>: View where Selection: Hashable & Identifiabl
       }
       .ignoresSafeArea(.container, edges: .bottom)
     }
+    .ignoresSafeArea(.keyboard, edges: .bottom)
   }
 }
 
@@ -70,12 +71,12 @@ private struct MSTab: View {
   var disabledIcon: Image
   var selected: Bool
   var action: () -> Void
-  
+
   let keyWindow = UIApplication.shared.connectedScenes
     .compactMap { $0 as? UIWindowScene }
     .flatMap { $0.windows }
     .first { $0.isKeyWindow }
-  
+
   var body: some View {
     Button(action: action) {
       VStack {
