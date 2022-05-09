@@ -37,6 +37,8 @@ extension R {
     public static let storageDisabledIcon = ImageAsset(name: "StorageDisabledIcon")
     public static let kakaoLoginButton = ImageAsset(name: "KakaoLoginButton")
     public static let appleLoginButton = ImageAsset(name: "AppleLoginButton")
+    public static let backgroundImage = ImageAsset(name: "BackgroundImage")
+    public static let backgroundImage2 = ImageAsset(name: "BackgroundImage2")
   }
 }
 

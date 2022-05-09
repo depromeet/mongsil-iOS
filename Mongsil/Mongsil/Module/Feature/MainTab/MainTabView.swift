@@ -17,8 +17,8 @@ struct MainTabView: View {
   }
 
   var body: some View {
-    GeometryReader { metrics in
-      WithViewStore(store.scope(state: \.local.selectedTab)) { selectedTabViewStore in
+    WithViewStore(store.scope(state: \.local.selectedTab)) { selectedTabViewStore in
+      GeometryReader { metrics in
         MSTabView<MainTabState.Tab>(
           activeIcons: [
             .home: R.CustomImage.homeActiveIcon.image,
@@ -41,9 +41,15 @@ struct MainTabView: View {
             send: MainTabAction.tabTapped
           )
         )
+        RecordButtonView(store: store)
+          .offset(x: metrics.size.width/2 - 33, y: metrics.size.height - 89)
       }
-      RecordButtonView(store: store)
-        .offset(x: metrics.size.width/2 - 33, y: metrics.size.height - 123)
+      .backgroundIf(
+        selectedTabViewStore.state == .home,
+        R.CustomImage.backgroundImage2.image
+          .resizable()
+          .ignoresSafeArea(.all)
+      )
     }
     .ignoresSafeArea(.keyboard)
     .alertDoubleButton(

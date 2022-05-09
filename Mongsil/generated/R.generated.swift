@@ -548,7 +548,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 20 images.
+  /// This `R.image` struct is generated, and contains static references to 22 images.
   struct image {
     /// Image `AppleLoginButton`.
     static let appleLoginButton = Rswift.ImageResource(bundle: R.hostingBundle, name: "AppleLoginButton")
@@ -562,6 +562,10 @@ struct R: Rswift.Validatable {
     static let arrowUpIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "ArrowUpIcon")
     /// Image `BackIcon`.
     static let backIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "BackIcon")
+    /// Image `BackgroundImage2`.
+    static let backgroundImage2 = Rswift.ImageResource(bundle: R.hostingBundle, name: "BackgroundImage2")
+    /// Image `BackgroundImage`.
+    static let backgroundImage = Rswift.ImageResource(bundle: R.hostingBundle, name: "BackgroundImage")
     /// Image `CancelIcon`.
     static let cancelIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "CancelIcon")
     /// Image `CancelSmallIcon`.
@@ -630,6 +634,20 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "BackIcon", bundle: ..., traitCollection: ...)`
     static func backIcon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.backIcon, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "BackgroundImage", bundle: ..., traitCollection: ...)`
+    static func backgroundImage(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.backgroundImage, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "BackgroundImage2", bundle: ..., traitCollection: ...)`
+    static func backgroundImage2(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.backgroundImage2, compatibleWith: traitCollection)
     }
     #endif
 
