@@ -50,6 +50,12 @@ struct MainTabView: View {
           .resizable()
           .ignoresSafeArea(.all)
       )
+      .backgroundIf(
+        selectedTabViewStore.state == .storage,
+        Rectangle()
+          .foregroundColor(.gray11)
+          .ignoresSafeArea(.all)
+      )
     }
     .ignoresSafeArea(.keyboard)
     .alertDoubleButton(

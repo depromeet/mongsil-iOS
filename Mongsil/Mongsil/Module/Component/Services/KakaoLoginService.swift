@@ -53,7 +53,7 @@ public class KakaoLoginService {
         if let user = user {
           let nickName = user.kakaoAccount?.profile?.nickname ?? ""
           let email = user.kakaoAccount?.email ?? ""
-          completion(.success(["nickName": nickName, "email": email]))
+          completion(.success(["name": nickName, "email": email]))
         }
       }
     }
@@ -71,7 +71,7 @@ public class KakaoLoginService {
         if let user = user {
           let nickName = user.kakaoAccount?.profile?.nickname ?? ""
           let email = user.kakaoAccount?.email ?? ""
-          completion(.success(["nickName": nickName, "email": email]))
+          completion(.success(["name": nickName, "email": email]))
         }
       }
     }

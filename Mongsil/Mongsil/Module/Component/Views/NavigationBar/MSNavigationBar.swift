@@ -36,13 +36,14 @@ public struct MSNavigationBar: View {
       HStack(alignment: .center) {
         Spacer()
         Text(titleText ?? "")
-          .font(.title1)
+          .font(.subTitle)
+          .foregroundColor(.gray2)
         Spacer()
       }
       HStack {
         if isUseBackButton {
           BackButton(action: backButtonAction)
-            .frame(height: 40, alignment: .bottom)
+            .frame(height: 44, alignment: .bottom)
         }
         Spacer()
         if let rightButtonText = rightButtonText {
@@ -50,16 +51,16 @@ public struct MSNavigationBar: View {
             text: rightButtonText,
             action: rightButtonAction
           )
-          .frame(height: 40)
-          .padding(.trailing, 16)
+          .frame(height: 44)
+          .padding(.trailing, 20)
         }
         if let rightButtonImage = rightButtonImage {
           RightButton(
             image: rightButtonImage,
             action: rightButtonAction
           )
-          .frame(height: 40)
-          .padding(.trailing, 16)
+          .frame(height: 44)
+          .padding(.trailing, 20)
         }
       }
     }

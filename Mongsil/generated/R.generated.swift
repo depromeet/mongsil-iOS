@@ -89,7 +89,7 @@ struct R: Rswift.Validatable {
     try intern.validate()
   }
 
-  /// This `R.color` struct is generated, and contains static references to 19 colors.
+  /// This `R.color` struct is generated, and contains static references to 20 colors.
   struct color {
     /// Color `AccentColor`.
     static let accentColor = Rswift.ColorResource(bundle: R.hostingBundle, name: "AccentColor")
@@ -129,6 +129,8 @@ struct R: Rswift.Validatable {
     static let msYellow = Rswift.ColorResource(bundle: R.hostingBundle, name: "MSYellow")
     /// Color `MsRed`.
     static let msRed = Rswift.ColorResource(bundle: R.hostingBundle, name: "MsRed")
+    /// Color `StorageBackground`.
+    static let storageBackground = Rswift.ColorResource(bundle: R.hostingBundle, name: "StorageBackground")
 
     #if os(iOS) || os(tvOS)
     /// `UIColor(named: "AccentColor", bundle: ..., traitCollection: ...)`
@@ -301,6 +303,15 @@ struct R: Rswift.Validatable {
     }
     #endif
 
+    #if os(iOS) || os(tvOS)
+    /// `UIColor(named: "StorageBackground", bundle: ..., traitCollection: ...)`
+    @available(tvOS 11.0, *)
+    @available(iOS 11.0, *)
+    static func storageBackground(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
+      return UIKit.UIColor(resource: R.color.storageBackground, compatibleWith: traitCollection)
+    }
+    #endif
+
     #if os(watchOS)
     /// `UIColor(named: "AccentColor", bundle: ..., traitCollection: ...)`
     @available(watchOSApplicationExtension 4.0, *)
@@ -450,6 +461,14 @@ struct R: Rswift.Validatable {
     @available(watchOSApplicationExtension 4.0, *)
     static func msRed(_: Void = ()) -> UIKit.UIColor? {
       return UIKit.UIColor(named: R.color.msRed.name)
+    }
+    #endif
+
+    #if os(watchOS)
+    /// `UIColor(named: "StorageBackground", bundle: ..., traitCollection: ...)`
+    @available(watchOSApplicationExtension 4.0, *)
+    static func storageBackground(_: Void = ()) -> UIKit.UIColor? {
+      return UIKit.UIColor(named: R.color.storageBackground.name)
     }
     #endif
 

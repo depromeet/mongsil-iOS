@@ -55,7 +55,7 @@ let loginReducer = Reducer<WithSharedState<LoginState>, LoginAction, LoginEnviro
         case .failure:
           return Effect(value: .presentToast("카카오 로그인에 실패했습니다."))
         case let .success(userInfo):
-          let nickName = userInfo["nickName"] ?? ""
+          let nickName = userInfo["name"] ?? ""
           let email = userInfo["email"] ?? ""
 
           return Effect.concatenate([
