@@ -165,6 +165,20 @@ private struct DiaryListView: View {
             }
           }
         }
+        .overlay(
+          VStack {
+            Spacer()
+            Rectangle()
+              .foregroundColor(.gray11)
+              .opacity(0.8)
+              .frame(maxWidth: .infinity, maxHeight: 90)
+              .background {
+                Color.gray11
+                  .opacity(0.8)
+                  .blur(radius: 0)
+              }
+          }
+        )
         .frame(maxWidth: .infinity)
       } else {
         EmptyDiaryOrDreamView(description: "아직 기록된 꿈일기가 없어요.")
@@ -266,6 +280,20 @@ private struct DreamListView: View {
             }
             .padding(.horizontal, 20)
           }
+          .overlay(
+            VStack {
+              Spacer()
+              Rectangle()
+                .foregroundColor(.gray11)
+                .opacity(0.8)
+                .frame(maxWidth: .infinity, maxHeight: 90)
+                .background {
+                  Color.gray11
+                    .opacity(0.8)
+                    .blur(radius: 0)
+                }
+            }
+          )
           .frame(maxWidth: .infinity)
         } else {
           EmptyDiaryOrDreamView(description: "아직 저장된 해몽이 없어요.")
