@@ -28,37 +28,40 @@ public struct MSTabView<Selection>: View where Selection: Hashable & Identifiabl
 
   public var body: some View {
     GeometryReader { geometry in
-      VStack(spacing: 0) {
-        views[selection]
-
-        Spacer(minLength: 0)
-
-        HStack(spacing: 0) {
-          ForEach(
-            views.keys.sorted(),
-            content: { key in
-              if let activeIcon = activeIcons[key],
-                 let disabledIcon = disabledIcons[key] {
-                MSTab(
-                  activeIcon: activeIcon,
-                  disabledIcon: disabledIcon,
-                  selected: selection == key,
-                  action: { selection = key }
-                )
+      ZStack {
+        VStack(spacing: 0) {
+          views[selection]
+          Spacer(minLength: 0)
+        }
+        VStack {
+          Spacer()
+          HStack(spacing: 0) {
+            ForEach(
+              views.keys.sorted(),
+              content: { key in
+                if let activeIcon = activeIcons[key],
+                   let disabledIcon = disabledIcons[key] {
+                  MSTab(
+                    activeIcon: activeIcon,
+                    disabledIcon: disabledIcon,
+                    selected: selection == key,
+                    action: { selection = key }
+                  )
+                }
               }
-            }
+            )
+          }
+          .cornerRadius(20)
+          .overlay(
+            RoundedRectangle(20)
+              .stroke(Color.gray8, lineWidth: 1)
+              .frame(
+                width: geometry.width + 1,
+                height: geometry.height + 1
+              ),
+            alignment: .top
           )
         }
-        .cornerRadius(20)
-        .overlay(
-          RoundedRectangle(20)
-            .stroke(Color.gray8, lineWidth: 1)
-            .frame(
-              width: geometry.width + 1,
-              height: geometry.height + 1
-            ),
-          alignment: .top
-        )
       }
       .ignoresSafeArea(.container, edges: .bottom)
     }

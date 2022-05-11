@@ -10,6 +10,8 @@ import ComposableArchitecture
 
 struct StorageState: Equatable {
   public var isSettingPushed: Bool = false
+  public var isDiaryPushed: Bool = false
+  public var isDreamPushed: Bool = false
   public var userName: String = ""
   public var diaryCount: Int = 0
   public var selectedTab: Tab = .diary
@@ -18,13 +20,25 @@ struct StorageState: Equatable {
 
   // Child State
   public var setting: SettingState?
+  public var diary: DiaryState?
+  public var dream: DreamState?
 
   init(
     isSettingPushed: Bool = false,
-    selectedTab: Tab = .diary
+    isDiaryPushed: Bool = false,
+    isDreamPushed: Bool = false,
+    selectedTab: Tab = .diary,
+    setting: SettingState? = nil,
+    diary: DiaryState? = nil,
+    dream: DreamState? = nil
   ) {
     self.isSettingPushed = isSettingPushed
+    self.isDiaryPushed = isDiaryPushed
+    self.isDreamPushed = isDreamPushed
     self.selectedTab = selectedTab
+    self.setting = setting
+    self.diary = diary
+    self.dream = dream
   }
 }
 
@@ -44,12 +58,16 @@ extension StorageState {
 enum StorageAction {
   case onAppear
   case setSettingPushed(Bool)
+  case setDiaryPushed(Bool, Diary? = nil)
+  case setDreamPushed(Bool, DreamInfo? = nil)
   case tabTapped(StorageState.Tab)
-  case diaryTapped
-  case dreamTapped
+  case diaryTapped(Diary)
+  case dreamTapped(DreamInfo)
 
   // Child Action
   case setting(SettingAction)
+  case diary(DiaryAction)
+  case dream(DreamAction)
 }
 
 struct StorageEnvironment {
@@ -64,6 +82,24 @@ Reducer.combine([
       action: /StorageAction.setting,
       environment: { _ in
         SettingEnvironment()
+      }
+    ) as Reducer<WithSharedState<StorageState>, StorageAction, StorageEnvironment>,
+  diaryReducer
+    .optional()
+    .pullback(
+      state: \.diary,
+      action: /StorageAction.diary,
+      environment: { _ in
+        DiaryEnvironment()
+      }
+    ) as Reducer<WithSharedState<StorageState>, StorageAction, StorageEnvironment>,
+  dreamReducer
+    .optional()
+    .pullback(
+      state: \.dream,
+      action: /StorageAction.dream,
+      environment: { _ in
+        DreamEnvironment()
       }
     ) as Reducer<WithSharedState<StorageState>, StorageAction, StorageEnvironment>,
   Reducer<WithSharedState<StorageState>, StorageAction, StorageEnvironment> {
@@ -84,20 +120,52 @@ Reducer.combine([
       }
       return .none
 
+    case let .setDiaryPushed(pushed, diary):
+      state.local.isDiaryPushed = pushed
+      guard let diary = diary else {
+        return .none
+      }
+      if pushed {
+        state.local.diary = .init(diary: diary)
+      }
+      return .none
+
+    case let .setDreamPushed(pushed, dream):
+      state.local.isDreamPushed = pushed
+      guard let dream = dream else {
+        return .none
+      }
+      if pushed {
+        state.local.dream = .init(dream: dream)
+      }
+      return .none
+
     case let .tabTapped(tab):
       state.local.selectedTab = tab
       return .none
 
-    case .diaryTapped:
-      return .none
+    case let .diaryTapped(diary):
+      return Effect(value: .setDiaryPushed(true, diary))
 
-    case .dreamTapped:
-      return .none
+    case let .dreamTapped(dream):
+      return Effect(value: .setDreamPushed(true, dream))
 
     case .setting(.backButtonTapped):
       return Effect(value: .setSettingPushed(false))
 
     case .setting:
+      return .none
+
+    case .diary(.backButtonTapped):
+      return Effect(value: .setDiaryPushed(false))
+
+    case .diary:
+      return .none
+
+    case .dream(.backButtonTapped):
+      return Effect(value: .setDreamPushed(false))
+
+    case .dream:
       return .none
     }
   }
