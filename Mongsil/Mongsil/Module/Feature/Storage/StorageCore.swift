@@ -11,7 +11,7 @@ import ComposableArchitecture
 struct StorageState: Equatable {
   public var isSettingPushed: Bool = false
   public var userName: String = ""
-  public var dreamCount: Int = 0
+  public var diaryCount: Int = 0
   public var selectedTab: Tab = .diary
   public var diaryList: [Diary]?
   public var dreamList: [DreamInfo]?
@@ -74,7 +74,7 @@ Reducer.combine([
         setUserName(state: &state),
         setDiaryList(state: &state),
         setDreamList(state: &state),
-        setDreamCount(state: &state)
+        setDiaryCount(state: &state)
       ])
 
     case let .setSettingPushed(pushed):
@@ -124,8 +124,8 @@ private func setDreamList(state: inout WithSharedState<StorageState>) -> Effect<
   return .none
 }
 
-private func setDreamCount(state: inout WithSharedState<StorageState>) -> Effect<StorageAction, Never> {
-  let dreamCount = state.local.dreamList?.count
-  state.local.dreamCount = dreamCount ?? 0
+private func setDiaryCount(state: inout WithSharedState<StorageState>) -> Effect<StorageAction, Never> {
+  let diaryCount = state.local.diaryList?.count
+  state.local.diaryCount = diaryCount ?? 0
   return .none
 }

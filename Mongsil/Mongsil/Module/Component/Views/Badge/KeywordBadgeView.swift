@@ -20,6 +20,7 @@ public struct KeywordBadgeView: View {
       .foregroundColor(.gray2)
       .padding(.vertical, 8)
       .padding(.horizontal, 14)
+      .frame(minWidth: 51)
       .background(Color.gray10)
       .cornerRadius(17)
       .overlay(

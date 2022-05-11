@@ -21,7 +21,7 @@ struct StorageView: View {
         StorageNavigationView(store: store)
         IntroduceView(store: store)
           .padding(.top, 24)
-        DreamCountView(store: store)
+        DiaryCountView(store: store)
           .padding(.top, 16)
       }
       .padding(.horizontal, 20)
@@ -93,7 +93,7 @@ private struct IntroduceView: View {
   }
 }
 
-private struct DreamCountView: View {
+private struct DiaryCountView: View {
   private let store: Store<WithSharedState<StorageState>, StorageAction>
 
   init(store: Store<WithSharedState<StorageState>, StorageAction>) {
@@ -102,8 +102,8 @@ private struct DreamCountView: View {
 
   var body: some View {
     HStack {
-      WithViewStore(store.scope(state: \.local.dreamCount)) { dreamCountViewStore in
-        Text("이번달에는 꿈을 \(dreamCountViewStore.state)번 꿨어요.")
+      WithViewStore(store.scope(state: \.local.diaryCount)) { diaryCountViewStore in
+        Text("이번달에는 꿈을 \(diaryCountViewStore.state)번 꿨어요.")
           .foregroundColor(.gray6)
           .font(.body2)
       }
@@ -151,7 +151,7 @@ private struct DiaryListView: View {
   var body: some View {
     WithViewStore(store.scope(state: \.local.diaryList)) { diaryListViewStore in
       if let diaryList = diaryListViewStore.state {
-        ScrollView(showsIndicators: false) {
+        ScrollView {
           VStack {
             ForEach(diaryList, id: \.self) { diary in
               DiaryView(
@@ -246,7 +246,7 @@ private struct DreamListView: View {
     GeometryReader { geometry in
       WithViewStore(store.scope(state: \.local.dreamList)) { dreamListViewStore in
         if let dreamList = dreamListViewStore.state {
-          ScrollView(showsIndicators: false) {
+          ScrollView {
             let columns: [GridItem] = [
               GridItem(.fixed((geometry.width / 2) - 24.5)),
               GridItem(.fixed((geometry.width / 2) - 24.5))
