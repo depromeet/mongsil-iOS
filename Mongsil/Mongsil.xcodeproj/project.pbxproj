@@ -20,6 +20,10 @@
 		122236F028024DF1009D5C66 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122236EF28024DF1009D5C66 /* R.generated.swift */; };
 		12273EF027F91076007624C1 /* AppTrackingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12273EEF27F91076007624C1 /* AppTrackingService.swift */; };
 		1229909428026001009BF616 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1229909328026001009BF616 /* Assets.xcassets */; };
+		122E1074282B9B7E0034DF37 /* DiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122E1073282B9B7E0034DF37 /* DiaryView.swift */; };
+		122E1076282B9B830034DF37 /* DiaryCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122E1075282B9B830034DF37 /* DiaryCore.swift */; };
+		122E1079282BA2B20034DF37 /* DreamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122E1078282BA2B20034DF37 /* DreamView.swift */; };
+		122E107C282BA2C40034DF37 /* DreamCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122E107B282BA2C40034DF37 /* DreamCore.swift */; };
 		123DD564280283410020440E /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123DD563280283410020440E /* Theme.swift */; };
 		123DD5662802889D0020440E /* Image+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123DD5652802889D0020440E /* Image+Generated.swift */; };
 		123DD56928028A130020440E /* UIImage+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123DD56828028A130020440E /* UIImage+extensions.swift */; };
@@ -123,6 +127,10 @@
 		122236EF28024DF1009D5C66 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = R.generated.swift; path = generated/R.generated.swift; sourceTree = SOURCE_ROOT; };
 		12273EEF27F91076007624C1 /* AppTrackingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTrackingService.swift; sourceTree = "<group>"; };
 		1229909328026001009BF616 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		122E1073282B9B7E0034DF37 /* DiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryView.swift; sourceTree = "<group>"; };
+		122E1075282B9B830034DF37 /* DiaryCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryCore.swift; sourceTree = "<group>"; };
+		122E1078282BA2B20034DF37 /* DreamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamView.swift; sourceTree = "<group>"; };
+		122E107B282BA2C40034DF37 /* DreamCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamCore.swift; sourceTree = "<group>"; };
 		123DD563280283410020440E /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		123DD5652802889D0020440E /* Image+Generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+Generated.swift"; sourceTree = "<group>"; };
 		123DD56828028A130020440E /* UIImage+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+extensions.swift"; sourceTree = "<group>"; };
@@ -287,6 +295,24 @@
 				120BBCAB2802565900AD44B5 /* Pretendard */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		122E1077282B9B860034DF37 /* Diary */ = {
+			isa = PBXGroup;
+			children = (
+				122E1073282B9B7E0034DF37 /* DiaryView.swift */,
+				122E1075282B9B830034DF37 /* DiaryCore.swift */,
+			);
+			path = Diary;
+			sourceTree = "<group>";
+		};
+		122E107A282BA2B60034DF37 /* Dream */ = {
+			isa = PBXGroup;
+			children = (
+				122E1078282BA2B20034DF37 /* DreamView.swift */,
+				122E107B282BA2C40034DF37 /* DreamCore.swift */,
+			);
+			path = Dream;
 			sourceTree = "<group>";
 		};
 		123DD567280288A10020440E /* Images */ = {
@@ -609,6 +635,7 @@
 				1214C0E6280E7A45002D2C4C /* Login */,
 				773AE2A22807235D006861FC /* Record */,
 				773AE2A328072360006861FC /* Storage */,
+				122E107A282BA2B60034DF37 /* Dream */,
 				123EE08B280453B500D34B93 /* Setting */,
 			);
 			path = Feature;
@@ -677,6 +704,7 @@
 			children = (
 				773AE2AD28072419006861FC /* StorageView.swift */,
 				773AE2AF28072421006861FC /* StorageCore.swift */,
+				122E1077282B9B860034DF37 /* Diary */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -887,15 +915,18 @@
 				123EE09928045F0C00D34B93 /* TermsView.swift in Sources */,
 				123DD56928028A130020440E /* UIImage+extensions.swift in Sources */,
 				125F84B0280D124700279C42 /* AlertSingleButtonView.swift in Sources */,
+				122E1074282B9B7E0034DF37 /* DiaryView.swift in Sources */,
 				12E6EE352828CEFF00504CE3 /* SearchView.swift in Sources */,
 				7779D71A281ADE2F00683C1F /* Dream.swift in Sources */,
 				123EE08A280453B300D34B93 /* SettingCore.swift in Sources */,
 				123EE09728045B3600D34B93 /* ListButtonItemWithText.swift in Sources */,
 				12083C97281636700020E20E /* Toast.swift in Sources */,
 				773AE2AA280723F7006861FC /* RecordView.swift in Sources */,
+				122E107C282BA2C40034DF37 /* DreamCore.swift in Sources */,
 				1291296527F812D80017E087 /* Effect+extensions.swift in Sources */,
 				773AE2A8280723E6006861FC /* MainTabCore.swift in Sources */,
 				125F84B2280D124F00279C42 /* AlertDoubleButtonCore.swift in Sources */,
+				122E1079282BA2B20034DF37 /* DreamView.swift in Sources */,
 				7779D71C281ADE3600683C1F /* User.swift in Sources */,
 				123EE088280453AB00D34B93 /* SettingView.swift in Sources */,
 				125F84AC280D122500279C42 /* AlertSingleButtonCore.swift in Sources */,
@@ -913,6 +944,7 @@
 				123DD5662802889D0020440E /* Image+Generated.swift in Sources */,
 				1292B189282495030050A10D /* SignUpService.swift in Sources */,
 				123EE0A028045F5700D34B93 /* PersonalInfoPolicyCore.swift in Sources */,
+				122E1076282B9B830034DF37 /* DiaryCore.swift in Sources */,
 				123EE08F280453D900D34B93 /* ProfileCore.swift in Sources */,
 				123EE077280452C900D34B93 /* ListItemWithText.swift in Sources */,
 				123EE07A280452E600D34B93 /* Separator.swift in Sources */,

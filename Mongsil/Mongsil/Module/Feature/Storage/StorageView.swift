@@ -154,11 +154,9 @@ private struct DiaryListView: View {
         ScrollView {
           VStack {
             ForEach(diaryList, id: \.self) { diary in
-              DiaryView(
+              DiaryCardView(
                 store: store,
-                title: diary.title,
-                description: diary.description,
-                date: diary.date
+                diary: diary
               )
               .padding(.top, 16)
               .padding(.horizontal, 20)
@@ -180,6 +178,7 @@ private struct DiaryListView: View {
           }
         )
         .frame(maxWidth: .infinity)
+        DiaryLinkView(store: store)
       } else {
         EmptyDiaryOrDreamView(description: "아직 기록된 꿈일기가 없어요.")
       }
@@ -187,8 +186,9 @@ private struct DiaryListView: View {
   }
 }
 
-private struct DiaryView: View {
+private struct DiaryCardView: View {
   private let store: Store<WithSharedState<StorageState>, StorageAction>
+  var diary: Diary
   var title: String
   var description: String
   var date: String
@@ -197,22 +197,21 @@ private struct DiaryView: View {
 
   init(
     store: Store<WithSharedState<StorageState>, StorageAction>,
-    title: String,
-    description: String,
-    date: String,
+    diary: Diary,
     firstImage: Image = R.CustomImage.homeDisabledIcon.image,
     secondImage: Image = R.CustomImage.homeActiveIcon.image
   ) {
     self.store = store
-    self.title = title
-    self.description = description
-    self.date = date
+    self.diary = diary
+    self.title = diary.title
+    self.description = diary.description
+    self.date = diary.date
     self.firstImage = firstImage
     self.secondImage = secondImage
   }
 
   var body: some View {
-    Button(action: { ViewStore(store).send(.dreamTapped) }) {
+    Button(action: { ViewStore(store).send(.diaryTapped(diary)) }) {
       HStack {
         Spacer()
           .frame(width: 20)
@@ -270,10 +269,9 @@ private struct DreamListView: View {
               spacing: 9
             ) {
               ForEach(dreamList, id: \.self) { dream in
-                DreamView(
+                DreamCardView(
                   store: store,
-                  title: dream.title,
-                  description: dream.description
+                  dream: dream
                 )
                 .padding(.top, 7)
               }
@@ -295,6 +293,7 @@ private struct DreamListView: View {
             }
           )
           .frame(maxWidth: .infinity)
+          DreamLinkView(store: store)
         } else {
           EmptyDiaryOrDreamView(description: "아직 저장된 해몽이 없어요.")
         }
@@ -304,8 +303,9 @@ private struct DreamListView: View {
   }
 }
 
-private struct DreamView: View {
+private struct DreamCardView: View {
   private let store: Store<WithSharedState<StorageState>, StorageAction>
+  var dream: DreamInfo
   var title: String
   var description: String
   var firstImage: Image
@@ -313,20 +313,20 @@ private struct DreamView: View {
 
   init(
     store: Store<WithSharedState<StorageState>, StorageAction>,
-    title: String,
-    description: String,
+    dream: DreamInfo,
     firstImage: Image = R.CustomImage.homeDisabledIcon.image,
     secondImage: Image = R.CustomImage.homeActiveIcon.image
   ) {
     self.store = store
-    self.title = title
-    self.description = description
+    self.dream = dream
+    self.title = dream.title
+    self.description = dream.description
     self.firstImage = firstImage
     self.secondImage = secondImage
   }
 
   var body: some View {
-    Button(action: { ViewStore(store).send(.dreamTapped) }) {
+    Button(action: { ViewStore(store).send(.dreamTapped(dream)) }) {
       VStack(alignment: .leading) {
         HStack(spacing: 4) {
           firstImage
@@ -370,6 +370,64 @@ private struct EmptyDiaryOrDreamView: View {
       Text(description)
         .font(.body2)
         .foregroundColor(.gray6)
+    }
+  }
+}
+
+private struct DiaryLinkView: View {
+  private let store: Store<WithSharedState<StorageState>, StorageAction>
+
+  init(store: Store<WithSharedState<StorageState>, StorageAction>) {
+    self.store = store
+  }
+
+  var body: some View {
+    WithViewStore(store.scope(state: \.local.isDiaryPushed)) { isDiaryPushedViewStore in
+      NavigationLink(
+        destination: IfLetStore(
+          store.scope(
+            state: \.diary,
+            action: StorageAction.diary
+          ),
+          then: DiaryView.init(store: )
+        ),
+        isActive: isDiaryPushedViewStore.binding(
+          send: { StorageAction.setDiaryPushed($0) }
+        ),
+        label: {
+          EmptyView()
+        }
+      )
+      .isDetailLink(true)
+    }
+  }
+}
+
+private struct DreamLinkView: View {
+  private let store: Store<WithSharedState<StorageState>, StorageAction>
+
+  init(store: Store<WithSharedState<StorageState>, StorageAction>) {
+    self.store = store
+  }
+
+  var body: some View {
+    WithViewStore(store.scope(state: \.local.isDreamPushed)) { isDreamPushedViewStore in
+      NavigationLink(
+        destination: IfLetStore(
+          store.scope(
+            state: \.dream,
+            action: StorageAction.dream
+          ),
+          then: DreamView.init(store: )
+        ),
+        isActive: isDreamPushedViewStore.binding(
+          send: { StorageAction.setDreamPushed($0) }
+        ),
+        label: {
+          EmptyView()
+        }
+      )
+      .isDetailLink(true)
     }
   }
 }
