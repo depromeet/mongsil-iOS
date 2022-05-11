@@ -86,7 +86,7 @@ private struct MSTab: View {
         Spacer()
       }
     }
-    .frame(maxWidth: .infinity, maxHeight: 90)
+    .frame(maxWidth: .infinity, maxHeight: 56)
     .padding(.bottom, keyWindow?.safeAreaInsets.bottom)
     .background(Color.msTabBar)
   }

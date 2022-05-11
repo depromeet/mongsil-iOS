@@ -89,7 +89,7 @@ struct R: Rswift.Validatable {
     try intern.validate()
   }
 
-  /// This `R.color` struct is generated, and contains static references to 19 colors.
+  /// This `R.color` struct is generated, and contains static references to 20 colors.
   struct color {
     /// Color `AccentColor`.
     static let accentColor = Rswift.ColorResource(bundle: R.hostingBundle, name: "AccentColor")
@@ -129,6 +129,8 @@ struct R: Rswift.Validatable {
     static let msYellow = Rswift.ColorResource(bundle: R.hostingBundle, name: "MSYellow")
     /// Color `MsRed`.
     static let msRed = Rswift.ColorResource(bundle: R.hostingBundle, name: "MsRed")
+    /// Color `StorageBackground`.
+    static let storageBackground = Rswift.ColorResource(bundle: R.hostingBundle, name: "StorageBackground")
 
     #if os(iOS) || os(tvOS)
     /// `UIColor(named: "AccentColor", bundle: ..., traitCollection: ...)`
@@ -301,6 +303,15 @@ struct R: Rswift.Validatable {
     }
     #endif
 
+    #if os(iOS) || os(tvOS)
+    /// `UIColor(named: "StorageBackground", bundle: ..., traitCollection: ...)`
+    @available(tvOS 11.0, *)
+    @available(iOS 11.0, *)
+    static func storageBackground(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
+      return UIKit.UIColor(resource: R.color.storageBackground, compatibleWith: traitCollection)
+    }
+    #endif
+
     #if os(watchOS)
     /// `UIColor(named: "AccentColor", bundle: ..., traitCollection: ...)`
     @available(watchOSApplicationExtension 4.0, *)
@@ -453,6 +464,14 @@ struct R: Rswift.Validatable {
     }
     #endif
 
+    #if os(watchOS)
+    /// `UIColor(named: "StorageBackground", bundle: ..., traitCollection: ...)`
+    @available(watchOSApplicationExtension 4.0, *)
+    static func storageBackground(_: Void = ()) -> UIKit.UIColor? {
+      return UIKit.UIColor(named: R.color.storageBackground.name)
+    }
+    #endif
+
     fileprivate init() {}
   }
 
@@ -548,7 +567,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 20 images.
+  /// This `R.image` struct is generated, and contains static references to 22 images.
   struct image {
     /// Image `AppleLoginButton`.
     static let appleLoginButton = Rswift.ImageResource(bundle: R.hostingBundle, name: "AppleLoginButton")
@@ -562,6 +581,10 @@ struct R: Rswift.Validatable {
     static let arrowUpIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "ArrowUpIcon")
     /// Image `BackIcon`.
     static let backIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "BackIcon")
+    /// Image `BackgroundImage2`.
+    static let backgroundImage2 = Rswift.ImageResource(bundle: R.hostingBundle, name: "BackgroundImage2")
+    /// Image `BackgroundImage`.
+    static let backgroundImage = Rswift.ImageResource(bundle: R.hostingBundle, name: "BackgroundImage")
     /// Image `CancelIcon`.
     static let cancelIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "CancelIcon")
     /// Image `CancelSmallIcon`.
@@ -630,6 +653,20 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "BackIcon", bundle: ..., traitCollection: ...)`
     static func backIcon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.backIcon, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "BackgroundImage", bundle: ..., traitCollection: ...)`
+    static func backgroundImage(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.backgroundImage, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "BackgroundImage2", bundle: ..., traitCollection: ...)`
+    static func backgroundImage2(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.backgroundImage2, compatibleWith: traitCollection)
     }
     #endif
 

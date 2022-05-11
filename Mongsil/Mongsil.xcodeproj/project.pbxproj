@@ -43,6 +43,9 @@
 		123EE0A028045F5700D34B93 /* PersonalInfoPolicyCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123EE09F28045F5700D34B93 /* PersonalInfoPolicyCore.swift */; };
 		123EE0A328045F7A00D34B93 /* OpenSourceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123EE0A228045F7A00D34B93 /* OpenSourceView.swift */; };
 		123EE0A528045F8300D34B93 /* OpenSourceCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123EE0A428045F8300D34B93 /* OpenSourceCore.swift */; };
+		124DBC7B2829EB9B005C3ED4 /* SegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124DBC7A2829EB9B005C3ED4 /* SegmentView.swift */; };
+		124DBC7E282A1213005C3ED4 /* Diary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124DBC7D282A1213005C3ED4 /* Diary.swift */; };
+		124DBC80282A18F9005C3ED4 /* Date+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124DBC7F282A18F9005C3ED4 /* Date+extensions.swift */; };
 		125F84AC280D122500279C42 /* AlertSingleButtonCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125F84AB280D122500279C42 /* AlertSingleButtonCore.swift */; };
 		125F84AE280D123D00279C42 /* AlertDoubleButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125F84AD280D123D00279C42 /* AlertDoubleButtonView.swift */; };
 		125F84B0280D124700279C42 /* AlertSingleButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125F84AF280D124700279C42 /* AlertSingleButtonView.swift */; };
@@ -143,6 +146,9 @@
 		123EE09F28045F5700D34B93 /* PersonalInfoPolicyCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoPolicyCore.swift; sourceTree = "<group>"; };
 		123EE0A228045F7A00D34B93 /* OpenSourceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenSourceView.swift; sourceTree = "<group>"; };
 		123EE0A428045F8300D34B93 /* OpenSourceCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenSourceCore.swift; sourceTree = "<group>"; };
+		124DBC7A2829EB9B005C3ED4 /* SegmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentView.swift; sourceTree = "<group>"; };
+		124DBC7D282A1213005C3ED4 /* Diary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diary.swift; sourceTree = "<group>"; };
+		124DBC7F282A18F9005C3ED4 /* Date+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+extensions.swift"; sourceTree = "<group>"; };
 		125F84AB280D122500279C42 /* AlertSingleButtonCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertSingleButtonCore.swift; sourceTree = "<group>"; };
 		125F84AD280D123D00279C42 /* AlertDoubleButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertDoubleButtonView.swift; sourceTree = "<group>"; };
 		125F84AF280D124700279C42 /* AlertSingleButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertSingleButtonView.swift; sourceTree = "<group>"; };
@@ -413,6 +419,14 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		124DBC7C2829ED4C005C3ED4 /* SegmentView */ = {
+			isa = PBXGroup;
+			children = (
+				124DBC7A2829EB9B005C3ED4 /* SegmentView.swift */,
+			);
+			path = SegmentView;
+			sourceTree = "<group>";
+		};
 		125F84A8280D11D800279C42 /* AlertModal */ = {
 			isa = PBXGroup;
 			children = (
@@ -492,6 +506,7 @@
 				123EE07E2804531000D34B93 /* Combine */,
 				123EE07D2804530500D34B93 /* View */,
 				1292B19628249E7C0050A10D /* Unit.swift */,
+				124DBC7F282A18F9005C3ED4 /* Date+extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -517,6 +532,7 @@
 				125F84BA280D152600279C42 /* Indicators */,
 				12083C982816367C0020E20E /* Toast */,
 				12EF96AE28195DCD002CEFFA /* TabView */,
+				124DBC7C2829ED4C005C3ED4 /* SegmentView */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -681,6 +697,7 @@
 				7779D721281C07BF00683C1F /* Subcategory.swift */,
 				7779D723281C07C900683C1F /* DreamInfo.swift */,
 				7779D71B281ADE3600683C1F /* User.swift */,
+				124DBC7D282A1213005C3ED4 /* Diary.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -861,6 +878,7 @@
 				7779D724281C07C900683C1F /* DreamInfo.swift in Sources */,
 				12A2245027F7E0F000617C10 /* AppView.swift in Sources */,
 				123EE0A328045F7A00D34B93 /* OpenSourceView.swift in Sources */,
+				124DBC7B2829EB9B005C3ED4 /* SegmentView.swift in Sources */,
 				125F84B7280D14AB00279C42 /* AlertButton.swift in Sources */,
 				12A2245627F7E76F00617C10 /* HomeView.swift in Sources */,
 				773AE2AC280723FF006861FC /* RecordCore.swift in Sources */,
@@ -884,6 +902,7 @@
 				12D7D3CD281E91EA00B83DDE /* UserService.swift in Sources */,
 				12952A61280250A300C89DD7 /* Font+extensions.swift in Sources */,
 				1214C0E3280E7A37002D2C4C /* LoginView.swift in Sources */,
+				124DBC7E282A1213005C3ED4 /* Diary.swift in Sources */,
 				1214C0E5280E7A42002D2C4C /* LoginCore.swift in Sources */,
 				123EE08D280453D200D34B93 /* ProfileView.swift in Sources */,
 				12EF96B028195DF2002CEFFA /* MSTabView.swift in Sources */,
@@ -904,6 +923,7 @@
 				1292B17F28248D270050A10D /* URLHost.swift in Sources */,
 				12E6EE3A2828D7FF00504CE3 /* KeywordBadgeView.swift in Sources */,
 				123EE09B28045F1500D34B93 /* TermsCore.swift in Sources */,
+				124DBC80282A18F9005C3ED4 /* Date+extensions.swift in Sources */,
 				1292B18E282498510050A10D /* SignUpUserRequestDto.swift in Sources */,
 				12A2244D27F7E04A00617C10 /* SceneDelegate.swift in Sources */,
 			);
