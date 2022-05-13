@@ -15,13 +15,14 @@ struct MainTabState: Equatable {
   public var selectedTab: Tab = .home
   public var isRecordButtonTapped: Bool = true
   public var isTabBarPresented: Bool = true
-
+  
   // Child State
   public var home: HomeState = .init()
   public var record: RecordState?
   public var storage: StorageState = .init()
   public var login: LoginState?
-
+  public var closeButtonAlertModel: AlertDoubleButtonState?
+  
   init(
     isRecordPushed: Bool = false,
     isLoginPushed: Bool = false,
@@ -32,6 +33,7 @@ struct MainTabState: Equatable {
     storage: StorageState = .init(),
     login: LoginState? = nil,
     isRecordButtonTapped: Bool = true,
+    closeButtonAlertModel: AlertDoubleButtonState? = nil,
     isTabBarPresented: Bool = true
   ) {
     self.isRecordPushed = isRecordPushed
@@ -44,6 +46,7 @@ struct MainTabState: Equatable {
     self.login = login
     self.isRecordButtonTapped = isRecordButtonTapped
     self.isTabBarPresented = isTabBarPresented
+    self.closeButtonAlertModel = closeButtonAlertModel
   }
 }
 
@@ -53,7 +56,7 @@ enum MainTabAction {
   case setLoginPushed(Bool)
   case tabTapped(MainTabState.Tab)
   case setIsDisplayTabBar(Bool)
-
+  
   // Child Action
   case home(HomeAction)
   case record(RecordAction)
@@ -67,7 +70,7 @@ struct MainTabEnvironment {
   var kakaoLoginService: KakaoLoginService
   var userService: UserService
   var signUpService: SignUpService
-
+  
   init(
     mainQueue: AnySchedulerOf<DispatchQueue>,
     kakaoLoginService: KakaoLoginService,
@@ -84,10 +87,10 @@ struct MainTabEnvironment {
 extension MainTabState {
   public enum Tab: Int, Comparable, Hashable, Identifiable {
     public var id: Int { rawValue }
-
+    
     case home
     case storage
-
+    
     public static func < (lhs: Self, rhs: Self) -> Bool {
       return lhs.rawValue < rhs.rawValue
     }
@@ -150,7 +153,7 @@ Reducer.combine([
     case let .verifyUserLogined(pushed):
       state.local.isRecordButtonTapped = true
       let isLogined: Bool = UserDefaults.standard.bool(forKey: "isLogined")
-
+      
       if pushed && !isLogined {
         return setAlertModal(
           state: &state.local.requestLoginAlertModal,
@@ -161,25 +164,25 @@ Reducer.combine([
         )
       }
       return Effect(value: .setRecordPushed(pushed))
-
+      
     case let .setRecordPushed(pushed):
       state.local.isRecordPushed = pushed
       if pushed {
         state.local.record = .init()
       }
       return .none
-
+      
     case let .setLoginPushed(pushed):
       state.local.isLoginPushed = pushed
       if pushed {
         state.local.login = .init()
       }
       return .none
-
+      
     case let .tabTapped(tab):
       state.local.isRecordButtonTapped = false
       let isLogined: Bool = UserDefaults.standard.bool(forKey: "isLogined")
-
+      
       if tab == .storage && !isLogined {
         return setAlertModal(
           state: &state.local.requestLoginAlertModal,
@@ -191,29 +194,29 @@ Reducer.combine([
       }
       state.local.selectedTab = tab
       return .none
-
+      
     case let .setIsDisplayTabBar(isDisplay):
       state.local.isTabBarPresented = isDisplay
       return .none
-
+      
     case .home:
       return .none
-
+      
     case .record(.backButtonTapped):
       return Effect(value: .setRecordPushed(false))
-
+      
     case .record:
       return .none
-
+      
     case let .storage(.setSelectDateSheetPresented(presented)):
       return Effect(value: .setIsDisplayTabBar(!presented))
-
+      
     case .storage:
       return .none
-
+      
     case .login(.backButtonTapped):
       return Effect(value: .setLoginPushed(false))
-
+      
     case .login(.loginCompleted):
       if state.local.isRecordButtonTapped {
         return Effect.concatenate([
@@ -225,18 +228,18 @@ Reducer.combine([
       }
       state.local.selectedTab = .storage
       return Effect(value: .setLoginPushed(false))
-
+      
     case .login:
       return .none
-
+      
     case .requestLoginAlertModal(.primaryButtonTapped):
       state.local.requestLoginAlertModal = nil
       return Effect(value: .setLoginPushed(true))
-
+      
     case .requestLoginAlertModal(.secondaryButtonTapped):
       state.local.requestLoginAlertModal = nil
       return .none
-
+      
     case .requestLoginAlertModal:
       return .none
     }
