@@ -18,16 +18,17 @@ struct SettingView: View {
   var body: some View {
     VStack(alignment: .leading, spacing: 10) {
       MSNavigationBar(
-        titleText: "설정",
-        backButtonAction: { ViewStore(store).send(.backButtonTapped) }
+        backButtonImage: R.CustomImage.backIcon.image,
+        backButtonAction: { ViewStore(store).send(.backButtonTapped) },
+        titleText: "설정"
       )
-
       ProfileButtonView(store: store)
       AppInfoButtonView(store: store)
       VersionInfoView(store: store)
 
       Spacer()
     }
+    .padding(.horizontal, 20)
     .navigationBarHidden(true)
   }
 }

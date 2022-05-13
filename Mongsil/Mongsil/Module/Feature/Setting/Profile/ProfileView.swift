@@ -18,8 +18,9 @@ struct ProfileView: View {
   var body: some View {
     VStack {
       MSNavigationBar(
-        titleText: "계정",
-        backButtonAction: { ViewStore(store).send(.backButtonTapped) }
+        backButtonImage: R.CustomImage.backIcon.image,
+        backButtonAction: { ViewStore(store).send(.backButtonTapped) },
+        titleText: "계정"
       )
       UserInfoView(store: store)
       Spacer()

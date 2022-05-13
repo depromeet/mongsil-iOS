@@ -18,44 +18,52 @@ struct MainTabView: View {
 
   var body: some View {
     WithViewStore(store.scope(state: \.local.selectedTab)) { selectedTabViewStore in
-      GeometryReader { metrics in
-        MSTabView<MainTabState.Tab>(
-          activeIcons: [
-            .home: R.CustomImage.homeActiveIcon.image,
-            .storage: R.CustomImage.storageActiveIcon.image
-          ],
-          disabledIcons: [
-            .home: R.CustomImage.homeDisabledIcon.image,
-            .storage: R.CustomImage.storageDisabledIcon.image
-          ],
-          views: [
-            .home: HomeView(
-              store: store.scope(state: \.home, action: MainTabAction.home)
-            ).eraseToAnyView(),
-            .storage: StorageView(
-              store: store.scope(state: \.storage, action: MainTabAction.storage)
-            ).eraseToAnyView()
-          ],
-          selection: selectedTabViewStore.binding(
-            get: { $0 },
-            send: MainTabAction.tabTapped
+      WithViewStore(store.scope(state: \.local.isTabBarPresented)) { isTabBarPresentedViewStore in
+        GeometryReader { metrics in
+          MSTabView<MainTabState.Tab>(
+            activeIcons: [
+              .home: R.CustomImage.homeActiveIcon.image,
+              .storage: R.CustomImage.storageActiveIcon.image
+            ],
+            disabledIcons: [
+              .home: R.CustomImage.homeDisabledIcon.image,
+              .storage: R.CustomImage.storageDisabledIcon.image
+            ],
+            views: [
+              .home: HomeView(
+                store: store.scope(state: \.home, action: MainTabAction.home)
+              ).eraseToAnyView(),
+              .storage: StorageView(
+                store: store.scope(state: \.storage, action: MainTabAction.storage)
+              ).eraseToAnyView()
+            ],
+            selection: selectedTabViewStore.binding(
+              get: { $0 },
+              send: MainTabAction.tabTapped
+            ),
+            isPresented: isTabBarPresentedViewStore.binding(
+              get: { $0 },
+              send: MainTabAction.setIsDisplayTabBar
+            )
           )
+          if isTabBarPresentedViewStore.state {
+            RecordButtonView(store: store)
+              .offset(x: metrics.size.width/2 - 33, y: metrics.size.height - 89)
+          }
+        }
+        .backgroundIf(
+          selectedTabViewStore.state == .home,
+          R.CustomImage.backgroundImage2.image
+            .resizable()
+            .ignoresSafeArea(.all)
         )
-        RecordButtonView(store: store)
-          .offset(x: metrics.size.width/2 - 33, y: metrics.size.height - 89)
+        .backgroundIf(
+          selectedTabViewStore.state == .storage,
+          Rectangle()
+            .foregroundColor(.gray11)
+            .ignoresSafeArea(.all)
+        )
       }
-      .backgroundIf(
-        selectedTabViewStore.state == .home,
-        R.CustomImage.backgroundImage2.image
-          .resizable()
-          .ignoresSafeArea(.all)
-      )
-      .backgroundIf(
-        selectedTabViewStore.state == .storage,
-        Rectangle()
-          .foregroundColor(.gray11)
-          .ignoresSafeArea(.all)
-      )
     }
     .ignoresSafeArea(.keyboard)
     .alertDoubleButton(
@@ -77,7 +85,6 @@ private struct RecordButtonView: View {
   var body: some View {
     RecordLink(store: store)
     LoginLink(store: store)
-
   }
 }
 

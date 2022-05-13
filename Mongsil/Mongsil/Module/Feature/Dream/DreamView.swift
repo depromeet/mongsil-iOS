@@ -18,9 +18,9 @@ struct DreamView: View {
   var body: some View {
     VStack {
       MSNavigationBar(
+        backButtonImage: R.CustomImage.backIcon.image,
         backButtonAction: { ViewStore(store).send(.backButtonTapped) }
       )
-
       WithViewStore(store.scope(state: \.local.dream)) { dreamViewStore in
         Text("\(dreamViewStore.state.title)")
       }

@@ -18,8 +18,9 @@ struct PersonalInfoPolicyView: View {
   var body: some View {
     VStack {
       MSNavigationBar(
-        titleText: "개인정보 정책",
-        backButtonAction: { ViewStore(store).send(.backButtonTapped) }
+        backButtonImage: R.CustomImage.backIcon.image,
+        backButtonAction: { ViewStore(store).send(.backButtonTapped) },
+        titleText: "개인정보 정책"
       )
       Spacer()
         .frame(height: 50)

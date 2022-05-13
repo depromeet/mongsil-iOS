@@ -8,61 +8,100 @@
 import SwiftUI
 
 public struct MSNavigationBar: View {
-  public var titleText: String?
-  public var isUseBackButton: Bool
+  public var backButtonImage: Image?
   public var backButtonAction: () -> Void = {}
+  public var titleText: String = ""
+  public var titleSubImage: Image?
+  public var isButtonTitle: Bool = false
+  public var titleButtonAction: () -> Void = {}
   public var rightButtonText: String?
   public var rightButtonImage: Image?
   public var rightButtonAction: () -> Void = {}
+  @Binding public var rightButtonAbled: Bool
 
   public init(
-    titleText: String? = nil,
-    isUseBackButton: Bool = true,
+    backButtonImage: Image? = nil,
     backButtonAction: @escaping () -> Void = {},
+    titleText: String = "",
+    titleSubImage: Image? = nil,
+    isButtonTitle: Bool = false,
+    titleButtonAction: @escaping () -> Void = {},
     rightButtonText: String? = nil,
     rightButtonImage: Image? = nil,
-    rightButtonAction: @escaping () -> Void = {}
+    rightButtonAction: @escaping () -> Void = {},
+    rightButtonAbled: Binding<Bool> = .constant(true)
   ) {
-    self.titleText = titleText
-    self.isUseBackButton = isUseBackButton
+    self.backButtonImage = backButtonImage
     self.backButtonAction = backButtonAction
+    self.titleText = titleText
+    self.titleSubImage = titleSubImage
+    self.isButtonTitle = isButtonTitle
+    self.titleButtonAction = titleButtonAction
     self.rightButtonText = rightButtonText
     self.rightButtonImage = rightButtonImage
     self.rightButtonAction = rightButtonAction
+    self._rightButtonAbled = rightButtonAbled
   }
 
   public var body: some View {
-    ZStack {
-      HStack(alignment: .center) {
-        Spacer()
-        Text(titleText ?? "")
-          .font(.subTitle)
-          .foregroundColor(.gray2)
+    HStack(alignment: .center, spacing: 0) {
+      HStack(spacing: 0) {
+        if backButtonImage != nil {
+          Button(action: backButtonAction) {
+            backButtonImage?
+              .renderingMode(.template)
+              .foregroundColor(.gray2)
+          }
+        }
         Spacer()
       }
-      HStack {
-        if isUseBackButton {
-          BackButton(action: backButtonAction)
-            .frame(height: 44, alignment: .bottom)
+      .frame(width: 40)
+
+      HStack(spacing: 0) {
+        Spacer()
+        if isButtonTitle {
+          Button(action: titleButtonAction) {
+            HStack(spacing: 0) {
+              Text(titleText)
+                .font(.subTitle)
+                .foregroundColor(.gray2)
+              if titleSubImage != nil {
+                Spacer()
+                  .frame(width: 4)
+                titleSubImage?
+                  .renderingMode(.template)
+                  .foregroundColor(.gray2)
+              }
+            }
+          }
+        } else {
+          Text(titleText)
+            .font(.subTitle)
+            .foregroundColor(.gray2)
         }
         Spacer()
-        if let rightButtonText = rightButtonText {
-          RightButton(
-            text: rightButtonText,
-            action: rightButtonAction
-          )
-          .frame(height: 44)
-          .padding(.trailing, 20)
+      }
+
+      HStack(spacing: 0) {
+        Spacer()
+        if rightButtonText != nil {
+          Button(action: rightButtonAction) {
+            Text(rightButtonText ?? "")
+              .font(.button)
+              .foregroundColor(rightButtonAbled ? .gray2 : .gray8)
+          }
+          .disabled(!rightButtonAbled)
         }
-        if let rightButtonImage = rightButtonImage {
-          RightButton(
-            image: rightButtonImage,
-            action: rightButtonAction
-          )
-          .frame(height: 44)
-          .padding(.trailing, 20)
+        if rightButtonImage != nil {
+          Button(action: rightButtonAction) {
+            rightButtonImage?
+              .renderingMode(.template)
+              .foregroundColor(rightButtonAbled ? .gray2 : .gray8)
+          }
         }
       }
+      .frame(width: 40)
     }
+    .frame(height: 44)
   }
 }
