@@ -18,8 +18,9 @@ struct RecordView: View {
   var body: some View {
     VStack {
       MSNavigationBar(
-        titleText: "기록",
-        backButtonAction: { ViewStore(store).send(.backButtonTapped) }
+        backButtonImage: R.CustomImage.backIcon.image,
+        backButtonAction: { ViewStore(store).send(.backButtonTapped) },
+        titleText: "기록"
       )
       Spacer()
       Text("recordView")

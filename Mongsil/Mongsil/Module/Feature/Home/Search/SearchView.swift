@@ -17,8 +17,9 @@ struct SearchView: View {
 
   var body: some View {
     MSNavigationBar(
-      titleText: "검색",
-      backButtonAction: { ViewStore(store).send(.backButtonTapped) }
+      backButtonImage: R.CustomImage.backIcon.image,
+      backButtonAction: { ViewStore(store).send(.backButtonTapped) },
+      titleText: "검색"
     )
   }
 }

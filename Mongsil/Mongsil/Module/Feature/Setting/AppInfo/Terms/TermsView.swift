@@ -18,8 +18,9 @@ struct TermsView: View {
   var body: some View {
     VStack {
       MSNavigationBar(
-        titleText: "이용약관",
-        backButtonAction: { ViewStore(store).send(.backButtonTapped) }
+        backButtonImage: R.CustomImage.backIcon.image,
+        backButtonAction: { ViewStore(store).send(.backButtonTapped) },
+        titleText: "이용약관"
       )
       Spacer()
         .frame(height: 50)

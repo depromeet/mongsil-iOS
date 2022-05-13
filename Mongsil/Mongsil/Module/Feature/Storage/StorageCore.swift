@@ -17,6 +17,15 @@ struct StorageState: Equatable {
   public var selectedTab: Tab = .diary
   public var diaryList: [Diary]?
   public var dreamList: [DreamInfo]?
+  public var selectedDate: Date = Date()
+  public var selectedDateToStr: String {
+    return selectedYear+"."+selectedMonth
+  }
+  public var selectedYear: String
+  public var selectedMonth: String
+  public var tempYear: String = ""
+  public var tempMonth: String = ""
+  public var isSelectDateSheetPresented: Bool = false
 
   // Child State
   public var setting: SettingState?
@@ -30,7 +39,9 @@ struct StorageState: Equatable {
     selectedTab: Tab = .diary,
     setting: SettingState? = nil,
     diary: DiaryState? = nil,
-    dream: DreamState? = nil
+    dream: DreamState? = nil,
+    selectedDate: Date = Date(),
+    isSelectDateSheetPresented: Bool = false
   ) {
     self.isSettingPushed = isSettingPushed
     self.isDiaryPushed = isDiaryPushed
@@ -39,6 +50,10 @@ struct StorageState: Equatable {
     self.setting = setting
     self.diary = diary
     self.dream = dream
+    self.selectedDate = selectedDate
+    self.selectedYear = convertYearDateToString(selectedDate)
+    self.selectedMonth = convertMonthDateToString(selectedDate)
+    self.isSelectDateSheetPresented = isSelectDateSheetPresented
   }
 }
 
@@ -63,6 +78,11 @@ enum StorageAction {
   case tabTapped(StorageState.Tab)
   case diaryTapped(Diary)
   case dreamTapped(DreamInfo)
+  case navigationBarDateButtonTapped
+  case setSelectDateSheetPresented(Bool)
+  case setSelectedYear(String)
+  case setSelectedMonth(String)
+  case confirmDateButtonTapped
 
   // Child Action
   case setting(SettingAction)
@@ -149,6 +169,30 @@ Reducer.combine([
 
     case let .dreamTapped(dream):
       return Effect(value: .setDreamPushed(true, dream))
+
+    case .navigationBarDateButtonTapped:
+      return Effect(value: .setSelectDateSheetPresented(true))
+
+    case let .setSelectDateSheetPresented(presented):
+      state.local.isSelectDateSheetPresented = presented
+      return .none
+
+    case let .setSelectedYear(year):
+      state.local.tempYear = year
+      return .none
+
+    case let .setSelectedMonth(month):
+      state.local.tempMonth = month
+      return .none
+
+    case .confirmDateButtonTapped:
+      if state.local.tempYear != "" {
+        state.local.selectedYear = state.local.tempYear
+      }
+      if state.local.tempMonth != "" {
+        state.local.selectedMonth = state.local.tempMonth
+      }
+      return Effect(value: .setSelectDateSheetPresented(false))
 
     case .setting(.backButtonTapped):
       return Effect(value: .setSettingPushed(false))

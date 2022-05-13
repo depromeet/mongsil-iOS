@@ -18,10 +18,10 @@ struct AppInfoView: View {
   var body: some View {
     VStack(alignment: .leading, spacing: 10) {
       MSNavigationBar(
-        titleText: "정보",
-        backButtonAction: { ViewStore(store).send(.backButtonTapped) }
+        backButtonImage: R.CustomImage.backIcon.image,
+        backButtonAction: { ViewStore(store).send(.backButtonTapped) },
+        titleText: "정보"
       )
-
       TermsButtonView(store: store)
       PersonalInfoPolicyButtonView(store: store)
       OpenSourceButtonView(store: store)

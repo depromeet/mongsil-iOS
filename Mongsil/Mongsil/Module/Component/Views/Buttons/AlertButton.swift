@@ -8,25 +8,21 @@
 import SwiftUI
 
 public struct AlertButton: View {
-  public static var height: CGFloat { 40 }
+  public static var height: CGFloat { 56 }
 
   public var title: String
   public var hierarchy: Hierarchy = .primary
-  public var status: Bool = false
-
   public var loading: Bool = false
   public var action: () -> Void = {}
 
   public init(
     title: String,
     hierarchy: Hierarchy = .primary,
-    status: Bool = true,
     loading: Bool = false,
     action: @escaping () -> Void = {}
   ) {
     self.title = title
     self.hierarchy = hierarchy
-    self.status = status
     self.loading = loading
     self.action = action
   }
@@ -38,19 +34,17 @@ public struct AlertButton: View {
         self.action()
       },
       label: {
-        HStack(spacing: 0) {
+        HStack {
+          Spacer()
           Text(title)
-            .font(.title3)
-            .padding(.horizontal, 16)
-            .padding(.vertical, 9)
+            .font(.button)
+            .foregroundColor(hierarchy.foregroundColor)
+          Spacer()
         }
-        .foregroundColor(status ? hierarchy.enableForegroundColor : hierarchy.disableForegroundColor)
-        .frame(height: AlertButton.height)
       }
     )
-    .background(status ? hierarchy.enableBackgroundColor : hierarchy.disableBackgroundColor)
-    .cornerRadius(4)
-    .disabled(status == false)
+    .frame(height: AlertButton.height)
+    .background(hierarchy.backgroundColor)
     .overlayLoading(when: loading)
   }
 }
@@ -58,33 +52,22 @@ public struct AlertButton: View {
 extension AlertButton {
   public enum Hierarchy {
     case primary
+    case warning
     case secondary
 
-    var disableBackgroundColor: Color {
+    var backgroundColor: Color {
       switch self {
       case .primary: return .gray9
+      case .warning: return .gray9
       case .secondary: return .gray9
       }
     }
 
-    var enableBackgroundColor: Color {
-      switch self {
-      case .primary: return .gray9
-      case .secondary: return .gray9
-      }
-    }
-
-    var disableForegroundColor: Color {
-      switch self {
-      case .primary: return .gray4
-      case .secondary: return .gray4
-      }
-    }
-
-    var enableForegroundColor: Color {
+    var foregroundColor: Color {
       switch self {
       case .primary: return .white
-      case .secondary: return .white
+      case .warning: return .msRed
+      case .secondary: return .gray7
       }
     }
   }

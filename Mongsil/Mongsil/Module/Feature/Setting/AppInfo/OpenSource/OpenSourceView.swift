@@ -18,8 +18,9 @@ struct OpenSourceView: View {
   var body: some View {
     VStack {
       MSNavigationBar(
-        titleText: "오픈소스",
-        backButtonAction: { ViewStore(store).send(.backButtonTapped) }
+        backButtonImage: R.CustomImage.backIcon.image,
+        backButtonAction: { ViewStore(store).send(.backButtonTapped) },
+        titleText: "오픈소스"
       )
       Spacer()
         .frame(height: 50)

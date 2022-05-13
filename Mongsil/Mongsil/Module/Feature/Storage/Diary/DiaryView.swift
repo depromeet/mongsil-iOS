@@ -18,9 +18,9 @@ struct DiaryView: View {
   var body: some View {
     VStack {
       MSNavigationBar(
+        backButtonImage: R.CustomImage.backIcon.image,
         backButtonAction: { ViewStore(store).send(.backButtonTapped) }
       )
-
       WithViewStore(store.scope(state: \.local.diary)) { diaryViewStore in
         Text("\(diaryViewStore.state.title)")
       }

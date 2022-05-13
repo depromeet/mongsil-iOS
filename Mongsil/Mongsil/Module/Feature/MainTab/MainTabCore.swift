@@ -14,6 +14,7 @@ struct MainTabState: Equatable {
   public var requestLoginAlertModal: AlertDoubleButtonState?
   public var selectedTab: Tab = .home
   public var isRecordButtonTapped: Bool = true
+  public var isTabBarPresented: Bool = true
 
   // Child State
   public var home: HomeState = .init()
@@ -30,7 +31,8 @@ struct MainTabState: Equatable {
     record: RecordState? = nil,
     storage: StorageState = .init(),
     login: LoginState? = nil,
-    isRecordButtonTapped: Bool = true
+    isRecordButtonTapped: Bool = true,
+    isTabBarPresented: Bool = true
   ) {
     self.isRecordPushed = isRecordPushed
     self.isLoginPushed = isLoginPushed
@@ -41,6 +43,7 @@ struct MainTabState: Equatable {
     self.storage = storage
     self.login = login
     self.isRecordButtonTapped = isRecordButtonTapped
+    self.isTabBarPresented = isTabBarPresented
   }
 }
 
@@ -49,6 +52,7 @@ enum MainTabAction {
   case setRecordPushed(Bool)
   case setLoginPushed(Bool)
   case tabTapped(MainTabState.Tab)
+  case setIsDisplayTabBar(Bool)
 
   // Child Action
   case home(HomeAction)
@@ -152,7 +156,7 @@ Reducer.combine([
           state: &state.local.requestLoginAlertModal,
           titleText: "로그인이 필요한 기능이에요!",
           bodyText: "꿈 일기를 쓰려면 로그인을 해주세요.",
-          secondaryButtonTitle: "아니요",
+          secondaryButtonTitle: "돌아가기",
           primaryButtonTitle: "로그인하기"
         )
       }
@@ -188,6 +192,10 @@ Reducer.combine([
       state.local.selectedTab = tab
       return .none
 
+    case let .setIsDisplayTabBar(isDisplay):
+      state.local.isTabBarPresented = isDisplay
+      return .none
+
     case .home:
       return .none
 
@@ -196,6 +204,9 @@ Reducer.combine([
 
     case .record:
       return .none
+
+    case let .storage(.setSelectDateSheetPresented(presented)):
+      return Effect(value: .setIsDisplayTabBar(!presented))
 
     case .storage:
       return .none
@@ -237,13 +248,15 @@ private func setAlertModal(
   titleText: String? = nil,
   bodyText: String,
   secondaryButtonTitle: String,
-  primaryButtonTitle: String
+  primaryButtonTitle: String,
+  primaryButtonHierachy: AlertButton.Hierarchy = .primary
 ) -> Effect<MainTabAction, Never> {
   state = .init(
     title: titleText,
     body: bodyText,
     secondaryButtonTitle: secondaryButtonTitle,
-    primaryButtonTitle: primaryButtonTitle
+    primaryButtonTitle: primaryButtonTitle,
+    primaryButtonHierachy: primaryButtonHierachy
   )
   return .none
 }

@@ -16,21 +16,27 @@ struct StorageView: View {
   }
 
   var body: some View {
-    VStack {
+    GeometryReader { geometry in
       VStack {
-        StorageNavigationView(store: store)
-        IntroduceView(store: store)
+        VStack {
+          StorageNavigationView(store: store)
+          IntroduceView(store: store)
+            .padding(.top, 24)
+          DiaryCountView(store: store)
+            .padding(.top, 16)
+        }
+        .padding(.horizontal, 20)
+        SegmentDiaryOrDreamView(store: store)
           .padding(.top, 24)
-        DiaryCountView(store: store)
-          .padding(.top, 16)
       }
-      .padding(.horizontal, 20)
-      SegmentDiaryOrDreamView(store: store)
-        .padding(.top, 24)
+      .navigationTitle("")
+      .navigationBarHidden(true)
+      .onAppear(perform: { ViewStore(store).send(.onAppear) })
+      .selectDateSheet(
+        store: store,
+        width: geometry.width / 2
+      )
     }
-    .navigationTitle("")
-    .navigationBarHidden(true)
-    .onAppear(perform: { ViewStore(store).send(.onAppear) })
   }
 }
 
@@ -43,10 +49,16 @@ private struct StorageNavigationView: View {
 
   var body: some View {
     ZStack {
-      MSNavigationBar(
-        titleText: "보관함",
-        isUseBackButton: false
-      )
+      WithViewStore(store.scope(state: \.local.selectedDateToStr)) { selectedDateToStrViewStore in
+        MSNavigationBar(
+          titleText: selectedDateToStrViewStore.state,
+          titleSubImage: R.CustomImage.arrowDownIcon.image,
+          isButtonTitle: true,
+          titleButtonAction: { ViewStore(store).send(.navigationBarDateButtonTapped) },
+          rightButtonImage: R.CustomImage.settingIcon.image,
+          rightButtonAction: { ViewStore(store).send(.setSettingPushed(true)) }
+        )
+      }
       HStack {
         Spacer()
         WithViewStore(store.scope(state: \.local.isSettingPushed)) { isSettingPushedViewStore in
@@ -62,11 +74,10 @@ private struct StorageNavigationView: View {
               send: StorageAction.setSettingPushed
             ),
             label: {
-              R.CustomImage.settingIcon.image
+              EmptyView()
             }
           )
           .isDetailLink(true)
-          .padding(.trailing, 20)
         }
       }
     }
@@ -428,6 +439,129 @@ private struct DreamLinkView: View {
         }
       )
       .isDetailLink(true)
+    }
+  }
+}
+
+extension View {
+  fileprivate func selectDateSheet(
+    store: Store<WithSharedState<StorageState>, StorageAction>,
+    width: CGFloat
+  ) -> some View {
+    let viewStore = ViewStore(store.scope(state: \.local))
+
+    return self.apply(content: { view in
+      WithViewStore(store.scope(state: \.local.isSelectDateSheetPresented)) { _ in
+        view.bottomSheet(
+          title: "월 선택",
+          isPresented: viewStore.binding(
+            get: \.isSelectDateSheetPresented,
+            send: StorageAction.setSelectDateSheetPresented
+          ),
+          content: {
+            HStack(spacing: 0) {
+              YearPickerView(
+                store: store,
+                width: width
+              )
+              MonthPickerView(
+                store: store,
+                width: width
+              )
+            }
+          },
+          bottomArea: {
+            Button(action: { ViewStore(store).send(.confirmDateButtonTapped) }) {
+              HStack {
+                Spacer()
+                Text("확인")
+                  .font(.button)
+                  .foregroundColor(.gray10)
+                  .padding(.vertical, 12)
+                Spacer()
+              }
+            }
+            .background(Color.gray1)
+            .cornerRadius(8)
+          }
+        )
+      }
+    })
+  }
+}
+
+private struct YearPickerView: View {
+  private let store: Store<WithSharedState<StorageState>, StorageAction>
+  private let width: CGFloat
+  private let years = Array(2000...2099).map( String.init )
+
+  init(
+    store: Store<WithSharedState<StorageState>, StorageAction>,
+    width: CGFloat
+  ) {
+    self.store = store
+    self.width = width
+  }
+
+  var body: some View {
+    WithViewStore(store.scope(state: \.local.selectedYear)) { selectedYearViewStore in
+      Picker(
+        "",
+        selection: selectedYearViewStore.binding(
+          get: { $0 },
+          send: StorageAction.setSelectedYear
+        )
+      ) {
+        ForEach(years, id: \.self) { year in
+          HStack(alignment: .center, spacing: 0) {
+            Spacer()
+              .frame(width: 30)
+            Text(year)
+              .foregroundColor(.gray2)
+          }
+        }
+      }
+      .frame(width: width)
+      .clipped()
+      .pickerStyle(InlinePickerStyle())
+    }
+  }
+}
+
+private struct MonthPickerView: View {
+  private let store: Store<WithSharedState<StorageState>, StorageAction>
+  private let width: CGFloat
+  private let months = Array(1...12).map({ String(format: "%02d", $0) })
+
+  init(
+    store: Store<WithSharedState<StorageState>, StorageAction>,
+    width: CGFloat
+  ) {
+    self.store = store
+    self.width = width
+  }
+
+  var body: some View {
+    WithViewStore(store.scope(state: \.local.selectedMonth)) { selectedMonthViewStore in
+      Picker(
+        "",
+        selection: selectedMonthViewStore.binding(
+          get: { $0 },
+          send: StorageAction.setSelectedMonth
+        )
+      ) {
+        ForEach(months, id: \.self) { month in
+          HStack(alignment: .center, spacing: 0) {
+            Text(month)
+              .foregroundColor(.gray2)
+            Spacer()
+              .frame(width: 30)
+          }
+        }
+      }
+      .frame(width: width)
+      .clipped()
+      .pickerStyle(InlinePickerStyle())
     }
   }
 }
