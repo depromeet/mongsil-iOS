@@ -35,6 +35,12 @@ struct RecordView: View {
             .padding(.leading, 28)
             .padding(.trailing, 28)
             .foregroundColor(.gray8)
+            .alertDoubleButton(
+              store: store.scope(
+                state: \.local.closeButtonAlertModal,
+                action: RecordAction.closeButtonAlertModal
+              )
+            )
           Spacer()
           CountTextView(store: store)
             .font(.caption2)
@@ -152,12 +158,6 @@ private struct MainTextView: View {
           hideKeyboard()
         }
       }
-      .alertDoubleButton(
-        store: store.scope(
-          state: \.local.closeButtonAlertModal,
-          action: RecordAction.closeButtonAlertModal
-        )
-      )
     }
   }
 }
