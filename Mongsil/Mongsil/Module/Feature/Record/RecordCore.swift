@@ -7,6 +7,7 @@
 
 import SwiftUI
 import ComposableArchitecture
+import CryptoKit
 
 struct RecordState: Equatable {
   public var closeButtonAlertModal: AlertDoubleButtonState?
@@ -29,8 +30,8 @@ struct RecordState: Equatable {
 }
 
 enum RecordAction: ToastPresentableAction {
+  case textTyped(Bool)
   case presentToast(String)
-  case setNextButtonDisabled(Bool)
   case backButtonTapped
   case navigationBarDateButtonTapped
   case setSelectDateSheetPresented(Bool)
@@ -83,6 +84,14 @@ Reducer.combine([
         )
       }
       
+    case let .textTyped(typed):
+      if state.local.titleText.count > 0 && state.local.mainText.count > 0 {
+        return Effect(value: .setNextButtonAbled(true))
+      }
+      else {
+        return Effect(value: .setNextButtonAbled(false))
+      }
+      
     case .closeButtonAlertModal(.secondaryButtonTapped):
       state.local.closeButtonAlertModal = nil
       return .none
@@ -99,22 +108,17 @@ Reducer.combine([
         state.local.titleText.removeLast()
         return Effect(value: .presentToast("제목은 최대 40자까지 입력할 수 있어요."))
       }
-      return Effect(value: .setNextButtonDisabled(true))
+      return .none
       
     case let .mainTextFieldChanged(text):
       if checkTextCount(text: text, upper: 2000) {
         state.local.mainText = text
-        if text.count != 0 {
-          return Effect(value: .setNextButtonAbled(true))
-        }
-        else {
-          return Effect(value: .setNextButtonDisabled(true))
-        }
       }
       else {
         state.local.mainText.removeLast()
         return Effect(value: .presentToast("꿈일기는 최대 2000자까지 작성할 수 있어요."))
       }
+      return .none
       
     case .navigationBarDateButtonTapped:
       return Effect(value: .setSelectDateSheetPresented(true))
@@ -130,17 +134,13 @@ Reducer.combine([
     case .confirmDateButtonTapped:
       return Effect(value: .setSelectDateSheetPresented(false))
       
-      
     case let .setNextButtonAbled(abled):
       state.local.isNextButtonAbled = true
       return .none
       
-    case let .setNextButtonDisabled(disabled):
-      state.local.isNextButtonAbled = false
-      return .none
-      
     case .presentToast:
       return .none
+      
     }
   }
 ])

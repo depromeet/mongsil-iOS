@@ -104,6 +104,7 @@
 		773AE2AC280723FF006861FC /* RecordCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773AE2AB280723FF006861FC /* RecordCore.swift */; };
 		773AE2AE28072419006861FC /* StorageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773AE2AD28072419006861FC /* StorageView.swift */; };
 		773AE2B028072421006861FC /* StorageCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773AE2AF28072421006861FC /* StorageCore.swift */; };
+		773E2931282FA888009A0A37 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 773E2930282FA888009A0A37 /* Introspect */; };
 		7779D71A281ADE2F00683C1F /* Dream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7779D719281ADE2F00683C1F /* Dream.swift */; };
 		7779D71C281ADE3600683C1F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7779D71B281ADE3600683C1F /* User.swift */; };
 		7779D722281C07BF00683C1F /* Subcategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7779D721281C07BF00683C1F /* Subcategory.swift */; };
@@ -228,6 +229,7 @@
 				12F1DBE127F411CC0063A84D /* PureSwiftUI in Frameworks */,
 				12D775DB28024B8C00CD0CFD /* Rswift in Frameworks */,
 				12F1DBDB27F411A80063A84D /* Alamofire in Frameworks */,
+				773E2931282FA888009A0A37 /* Introspect in Frameworks */,
 				12F1DBE427F411DE0063A84D /* Nuke in Frameworks */,
 				F0E73461280A9C260052A7E2 /* KakaoSDKUser in Frameworks */,
 			);
@@ -769,6 +771,7 @@
 				F0E7345C280A9C260052A7E2 /* KakaoSDKAuth */,
 				F0E7345E280A9C260052A7E2 /* KakaoSDKCommon */,
 				F0E73460280A9C260052A7E2 /* KakaoSDKUser */,
+				773E2930282FA888009A0A37 /* Introspect */,
 			);
 			productName = Mongsil;
 			productReference = 126EF42527F2AC2400102FA9 /* Mongsil.app */;
@@ -807,6 +810,7 @@
 				12F1DBE227F411DE0063A84D /* XCRemoteSwiftPackageReference "Nuke" */,
 				12D775D928024B8C00CD0CFD /* XCRemoteSwiftPackageReference "R.swift" */,
 				F0E7345B280A9C260052A7E2 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
+				773E292F282FA888009A0A37 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 			);
 			productRefGroup = 126EF42627F2AC2400102FA9 /* Products */;
 			projectDirPath = "";
@@ -1235,6 +1239,14 @@
 				minimumVersion = 9.0.0;
 			};
 		};
+		773E292F282FA888009A0A37 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.4;
+			};
+		};
 		F0E7345B280A9C260052A7E2 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
@@ -1275,6 +1287,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 12F1DBE227F411DE0063A84D /* XCRemoteSwiftPackageReference "Nuke" */;
 			productName = Nuke;
+		};
+		773E2930282FA888009A0A37 /* Introspect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 773E292F282FA888009A0A37 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
+			productName = Introspect;
 		};
 		F0E7345C280A9C260052A7E2 /* KakaoSDKAuth */ = {
 			isa = XCSwiftPackageProductDependency;
