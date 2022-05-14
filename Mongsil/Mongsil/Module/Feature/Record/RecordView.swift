@@ -16,7 +16,7 @@ struct RecordView: View {
   }
   
   var body: some View {
-    WithViewStore(store.scope(state: \.local.isDisplayDatePicker)) { isDisplayDatePickerViewStore in
+    GeometryReader { geometry in
       ScrollView {
         VStack {
           MsNavigationView(store: store)
@@ -36,19 +36,21 @@ struct RecordView: View {
             .padding(.trailing, 28)
             .foregroundColor(.gray8)
           Spacer()
+          CountTextView(store: store)
+            .font(.caption2)
+            .foregroundColor(.gray6)
+            .padding(.bottom, 10)
+            .frame(minWidth: 61, maxHeight: 16, alignment: .center)
         }
+        .navigationTitle("")
         .navigationBarHidden(true)
+        
+        .padding(.horizontal, 20)
+        .selectDateSheet(
+          store: store,
+          height: geometry.height / 2.5
+        )
       }
-      .overlayIf(
-        isDisplayDatePickerViewStore.state,
-        DatePickerView(store: store)
-          .selectDateSheet(store: store)
-      )
-      CountTextView(store: store)
-        .font(.caption2)
-        .foregroundColor(.gray6)
-        .padding(.bottom, 10)
-        .frame(width: 61, height: 16, alignment: .center)
     }
   }
 }
@@ -96,17 +98,6 @@ private struct DateTitle: View {
         .frame(minWidth: 84, minHeight: 24, alignment: .center)
       }
     }
-  }
-}
-
-private struct DatePickerView: View {
-  private let store: Store<WithSharedState<RecordState>, RecordAction>
-  init(store: Store<WithSharedState<RecordState>, RecordAction>) {
-    self.store = store
-  }
-  
-  var body: some View {
-    Text("")
   }
 }
 
@@ -193,9 +184,11 @@ private struct CountTextView: View {
 
 extension View {
   fileprivate func selectDateSheet(
-    store: Store<WithSharedState<RecordState>, RecordAction>
+    store: Store<WithSharedState<RecordState>, RecordAction>,
+    height: CGFloat
   ) -> some View {
     let viewStore = ViewStore(store.scope(state: \.local))
+    
     return self.apply(content: { view in
       WithViewStore(store.scope(state: \.local.isSelectDateSheetPresented)) { _ in
         view.bottomSheet(
@@ -206,17 +199,19 @@ extension View {
           ),
           content: {
             WithViewStore(store.scope(state: \.local.currentDate)) { selectedDateViewStore in
-              DatePicker(
-                "",
-                selection: selectedDateViewStore.binding(
-                  get: { $0 },
-                  send: RecordAction.setSelectedDate
-                ),
-                displayedComponents: .date
-              )
-              .datePickerStyle(WheelDatePickerStyle())
-              .labelsHidden()
-              .frame(height: 200)
+              HStack(spacing: 0) {
+                DatePicker(
+                  "",
+                  selection: selectedDateViewStore.binding(
+                    get: { $0 },
+                    send: RecordAction.setSelectedDate
+                  ),
+                  displayedComponents: .date
+                )
+                .datePickerStyle(WheelDatePickerStyle())
+                .labelsHidden()
+                .frame(height: height)
+              }
             }
           },
           bottomArea: {

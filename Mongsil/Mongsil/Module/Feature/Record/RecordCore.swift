@@ -5,9 +5,8 @@
 //  Created by 이승후 on 2022/04/08.
 //
 
-import Combine
-import ComposableArchitecture
 import SwiftUI
+import ComposableArchitecture
 
 struct RecordState: Equatable {
   public var closeButtonAlertModal: AlertDoubleButtonState?
@@ -29,7 +28,8 @@ struct RecordState: Equatable {
   }
 }
 
-enum RecordAction: Equatable {
+enum RecordAction: ToastPresentableAction {
+  case presentToast(String)
   case setNextButtonDisabled(Bool)
   case backButtonTapped
   case navigationBarDateButtonTapped
@@ -62,7 +62,7 @@ Reducer.combine([
     )
   as Reducer<WithSharedState<RecordState>, RecordAction, RecordEnvironment>,
   Reducer<WithSharedState<RecordState>, RecordAction, RecordEnvironment> {
-    state, action, _ in
+    state, action, env in
     switch action {
     case .backButtonTapped:
       return .none
@@ -97,8 +97,9 @@ Reducer.combine([
       }
       else {
         state.local.titleText.removeLast()
+        return Effect(value: .presentToast("제목은 최대 40자까지 입력할 수 있어요."))
       }
-      return .none
+      return Effect(value: .setNextButtonDisabled(true))
       
     case let .mainTextFieldChanged(text):
       if checkTextCount(text: text, upper: 2000) {
@@ -112,8 +113,8 @@ Reducer.combine([
       }
       else {
         state.local.mainText.removeLast()
+        return Effect(value: .presentToast("꿈일기는 최대 2000자까지 작성할 수 있어요."))
       }
-      return .none
       
     case .navigationBarDateButtonTapped:
       return Effect(value: .setSelectDateSheetPresented(true))
@@ -129,8 +130,6 @@ Reducer.combine([
     case .confirmDateButtonTapped:
       return Effect(value: .setSelectDateSheetPresented(false))
       
-    case .closeButtonAlertModal:
-      return .none
       
     case let .setNextButtonAbled(abled):
       state.local.isNextButtonAbled = true
@@ -138,6 +137,9 @@ Reducer.combine([
       
     case let .setNextButtonDisabled(disabled):
       state.local.isNextButtonAbled = false
+      return .none
+      
+    case .presentToast:
       return .none
     }
   }

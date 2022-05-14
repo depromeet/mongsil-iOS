@@ -66,7 +66,7 @@ extension AlertButton {
     var foregroundColor: Color {
       switch self {
       case .primary: return .white
-      case .warning: return .red
+      case .warning: return .msRed
       case .secondary: return .gray7
       }
     }

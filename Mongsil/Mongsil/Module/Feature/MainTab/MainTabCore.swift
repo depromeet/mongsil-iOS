@@ -113,7 +113,7 @@ Reducer.combine([
     .pullback(
       state: \.record,
       action: /MainTabAction.record,
-      environment: { _ in
+      environment: {_ in 
         RecordEnvironment()
       }
     ) as Reducer<WithSharedState<MainTabState>, MainTabAction, MainTabEnvironment>,

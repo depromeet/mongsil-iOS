@@ -55,9 +55,6 @@ private struct RightButtonWithText: View {
       Text(text)
         .font(.title1)
         .foregroundColor(.gray2)
-        .padding(.trailing, 10)
-        .padding(.top, 10)
-        .padding(.bottom, 10)
     }
   }
 }
