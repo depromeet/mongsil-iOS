@@ -16,6 +16,11 @@ struct StorageState: Equatable {
   public var diaryCount: Int = 0
   public var selectedTab: Tab = .diary
   public var diaryList: [Diary]?
+  public var diaryListWithDate: [Diary] {
+    diaryList?.filter {
+      $0.date.contains(self.selectedDateToStr)
+    } ?? []
+  }
   public var dreamList: [DreamInfo]?
   public var selectedDate: Date = Date()
   public var selectedDateToStr: String {

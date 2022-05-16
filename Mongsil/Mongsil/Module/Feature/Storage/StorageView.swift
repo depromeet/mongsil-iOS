@@ -242,8 +242,9 @@ private struct DiaryListView: View {
   }
 
   var body: some View {
-    WithViewStore(store.scope(state: \.local.diaryList)) { diaryListViewStore in
-      if let diaryList = diaryListViewStore.state {
+    WithViewStore(store.scope(state: \.local.diaryListWithDate)) { diaryListViewStore in
+      if let diaryList = diaryListViewStore.state,
+         diaryList.isNotEmpty {
         ScrollView {
           VStack {
             ForEach(diaryList, id: \.self) { diary in
@@ -454,7 +455,7 @@ private struct DreamCardView: View {
     self.firstImage = firstImage
     self.secondImage = secondImage
   }
-  
+
   var body: some View {
     Button(action: {}) {
       WithViewStore(store.scope(state: \.local.displayDeleteCardHeader)) { displayDeleteCardHeaderViewStore in
