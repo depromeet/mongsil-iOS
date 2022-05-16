@@ -7,9 +7,9 @@
 
 import SwiftUI
 import ComposableArchitecture
-import CryptoKit
 
 struct RecordState: Equatable {
+  public var isRecordKeywordPushed: Bool = false
   public var closeButtonAlertModal: AlertDoubleButtonState?
   public var titleText: String = ""
   public var mainText: String = ""
@@ -22,14 +22,20 @@ struct RecordState: Equatable {
   public var isNextButtonAbled: Bool = false
   public var closeButtonTapped: Bool = false
   
+  // Child State
+  public var recordKeyword: RecordKeywordState?
+  
   init(
-    closeButtonAlertModel: AlertDoubleButtonState? = nil
+    closeButtonAlertModel: AlertDoubleButtonState? = nil,
+    recordKeyword: RecordKeywordState? = nil
   ) {
     self.closeButtonAlertModal = closeButtonAlertModel
+    self.recordKeyword = recordKeyword
   }
 }
 
 enum RecordAction: ToastPresentableAction {
+  case setRecordKeywordPushed(Bool)
   case textTyped(Bool)
   case presentToast(String)
   case backButtonTapped
@@ -43,6 +49,7 @@ enum RecordAction: ToastPresentableAction {
   case setNextButtonAbled(Bool)
   
   //Child Action
+  case recordKeyword(RecordKeywordAction)
   case closeButtonAlertModal(AlertDoubleButtonAction)
 }
 
@@ -62,6 +69,15 @@ Reducer.combine([
       }
     )
   as Reducer<WithSharedState<RecordState>, RecordAction, RecordEnvironment>,
+  recordKeywordReducer
+    .optional()
+    .pullback(
+      state: \.recordKeyword,
+      action: /RecordAction.recordKeyword,
+      environment: { _ in
+        RecordKeywordEnvironment()
+      }
+    ) as Reducer<WithSharedState<RecordState>, RecordAction, RecordEnvironment>,
   Reducer<WithSharedState<RecordState>, RecordAction, RecordEnvironment> {
     state, action, env in
     switch action {
@@ -69,7 +85,7 @@ Reducer.combine([
       return .none
       
     case let .isCloseButtonTapped(tapped):
-      if state.local.mainText == "" && state.local.titleText == ""
+      if state.local.mainText.count == 0 && state.local.titleText.count == 0
       {
         return Effect(value: .backButtonTapped)
       }
@@ -83,6 +99,15 @@ Reducer.combine([
           primaryButtonHierachy: .warning
         )
       }
+      
+    case let .setNextButtonAbled(abled):
+      if abled == true {
+      state.local.isNextButtonAbled = true
+      }
+      else {
+        state.local.isNextButtonAbled = false
+      }
+      return .none
       
     case let .textTyped(typed):
       if state.local.titleText.count > 0 && state.local.mainText.count > 0 {
@@ -101,24 +126,34 @@ Reducer.combine([
       return Effect(value: .backButtonTapped)
       
     case let .titletextFieldChanged(text):
-      if checkTextCount(text: text, upper: 40) {
+      if checkTextCount(text: text, upper: 25) {
         state.local.titleText = text
+        if state.local.titleText.count > 0 && state.local.mainText.count > 0 {
+          return Effect(value: .setNextButtonAbled(true))
+        }
+        else {
+          return Effect(value: .setNextButtonAbled(false))
+        }
       }
       else {
         state.local.titleText.removeLast()
-        return Effect(value: .presentToast("제목은 최대 40자까지 입력할 수 있어요."))
+        return Effect(value: .presentToast("제목은 최대 20자까지 입력할 수 있어요."))
       }
-      return .none
       
     case let .mainTextFieldChanged(text):
       if checkTextCount(text: text, upper: 2000) {
         state.local.mainText = text
+        if state.local.titleText.count > 0 && state.local.mainText.count > 0 {
+          return Effect(value: .setNextButtonAbled(true))
+        }
+        else {
+          return Effect(value: .setNextButtonAbled(false))
+        }
       }
       else {
         state.local.mainText.removeLast()
         return Effect(value: .presentToast("꿈일기는 최대 2000자까지 작성할 수 있어요."))
       }
-      return .none
       
     case .navigationBarDateButtonTapped:
       return Effect(value: .setSelectDateSheetPresented(true))
@@ -134,13 +169,21 @@ Reducer.combine([
     case .confirmDateButtonTapped:
       return Effect(value: .setSelectDateSheetPresented(false))
       
-    case let .setNextButtonAbled(abled):
-      state.local.isNextButtonAbled = true
-      return .none
-      
     case .presentToast:
       return .none
       
+    case let .setRecordKeywordPushed(pushed):
+      state.local.isRecordKeywordPushed = pushed
+      if pushed {
+        state.local.recordKeyword = .init()
+      }
+      return .none
+      
+    case .recordKeyword(.backButtonTapped):
+      return Effect(value: .setRecordKeywordPushed(false))
+      
+    case .recordKeyword:
+      return .none
     }
   }
 ])
