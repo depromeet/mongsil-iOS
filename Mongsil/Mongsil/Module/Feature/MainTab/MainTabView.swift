@@ -10,9 +10,14 @@ import ComposableArchitecture
 
 struct MainTabView: View {
   private let store: Store<WithSharedState<MainTabState>, MainTabAction>
+  private let storageStore: Store<WithSharedState<StorageState>, StorageAction>
 
   init(store: Store<WithSharedState<MainTabState>, MainTabAction>) {
     self.store = store
+    self.storageStore = self.store.scope(
+      state: \.storage,
+      action: MainTabAction.storage
+    )
     UITabBar.appearance().scrollEdgeAppearance = .init()
   }
 
@@ -53,7 +58,7 @@ struct MainTabView: View {
         }
         .backgroundIf(
           selectedTabViewStore.state == .home,
-          R.CustomImage.backgroundImage2.image
+          R.CustomImage.backgroundImage.image
             .resizable()
             .ignoresSafeArea(.all)
         )
@@ -70,6 +75,12 @@ struct MainTabView: View {
       store: store.scope(
         state: \.local.requestLoginAlertModal,
         action: MainTabAction.requestLoginAlertModal
+      )
+    )
+    .alertDoubleButton(
+      store: storageStore.scope(
+        state: \.local.deleteCardAlertModal,
+        action: StorageAction.deleteCardAlertModal
       )
     )
   }

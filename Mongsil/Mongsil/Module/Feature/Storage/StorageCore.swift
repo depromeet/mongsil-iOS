@@ -26,11 +26,20 @@ struct StorageState: Equatable {
   public var tempYear: String = ""
   public var tempMonth: String = ""
   public var isSelectDateSheetPresented: Bool = false
+  public var displayDeleteCardHeader: Bool = false
+  public var deleteDiaryList: [Diary] = []
+  public var deleteDreamList: [DreamInfo] = []
+  public var selectedDeleteCardCount: Int {
+    selectedTab == .diary
+    ? deleteDiaryList.count
+    : deleteDreamList.count
+  }
 
   // Child State
   public var setting: SettingState?
   public var diary: DiaryState?
   public var dream: DreamState?
+  public var deleteCardAlertModal: AlertDoubleButtonState?
 
   init(
     isSettingPushed: Bool = false,
@@ -41,7 +50,11 @@ struct StorageState: Equatable {
     diary: DiaryState? = nil,
     dream: DreamState? = nil,
     selectedDate: Date = Date(),
-    isSelectDateSheetPresented: Bool = false
+    isSelectDateSheetPresented: Bool = false,
+    displayDeleteCardHeader: Bool = false,
+    deleteDiaryList: [Diary] = [],
+    deleteDreamList: [DreamInfo] = [],
+    deleteCardAlertModal: AlertDoubleButtonState? = nil
   ) {
     self.isSettingPushed = isSettingPushed
     self.isDiaryPushed = isDiaryPushed
@@ -54,6 +67,10 @@ struct StorageState: Equatable {
     self.selectedYear = convertYearDateToString(selectedDate)
     self.selectedMonth = convertMonthDateToString(selectedDate)
     self.isSelectDateSheetPresented = isSelectDateSheetPresented
+    self.displayDeleteCardHeader = displayDeleteCardHeader
+    self.deleteDiaryList = deleteDiaryList
+    self.deleteDreamList = deleteDreamList
+    self.deleteCardAlertModal = deleteCardAlertModal
   }
 }
 
@@ -83,11 +100,16 @@ enum StorageAction {
   case setSelectedYear(String)
   case setSelectedMonth(String)
   case confirmDateButtonTapped
+  case setDisplayDeleteCardHeader(Bool)
+  case completeButtonTapped(StorageState.Tab)
+  case clearSelectionButtonTapped(StorageState.Tab)
+  case deleteButtonTapped(StorageState.Tab)
 
   // Child Action
   case setting(SettingAction)
   case diary(DiaryAction)
   case dream(DreamAction)
+  case deleteCardAlertModal(AlertDoubleButtonAction)
 }
 
 struct StorageEnvironment {
@@ -120,6 +142,15 @@ Reducer.combine([
       action: /StorageAction.dream,
       environment: { _ in
         DreamEnvironment()
+      }
+    ) as Reducer<WithSharedState<StorageState>, StorageAction, StorageEnvironment>,
+  alertDoubleButtonReducer
+    .optional()
+    .pullback(
+      state: \.local.deleteCardAlertModal,
+      action: /StorageAction.deleteCardAlertModal,
+      environment: { _ in
+        AlertDoubleButtonEnvironment()
       }
     ) as Reducer<WithSharedState<StorageState>, StorageAction, StorageEnvironment>,
   Reducer<WithSharedState<StorageState>, StorageAction, StorageEnvironment> {
@@ -161,13 +192,32 @@ Reducer.combine([
       return .none
 
     case let .tabTapped(tab):
-      state.local.selectedTab = tab
+      if state.local.selectedTab != tab {
+        state.local.selectedTab = tab
+        return Effect(value: .setDisplayDeleteCardHeader(false))
+      }
       return .none
 
     case let .diaryTapped(diary):
+      if state.local.displayDeleteCardHeader {
+        if state.local.deleteDiaryList.contains(diary) {
+          state.local.deleteDiaryList.remove(object: diary)
+        } else {
+          state.local.deleteDiaryList.append(diary)
+        }
+        return .none
+      }
       return Effect(value: .setDiaryPushed(true, diary))
 
     case let .dreamTapped(dream):
+      if state.local.displayDeleteCardHeader {
+        if state.local.deleteDreamList.contains(dream) {
+          state.local.deleteDreamList.remove(object: dream)
+        } else {
+          state.local.deleteDreamList.append(dream)
+        }
+        return .none
+      }
       return Effect(value: .setDreamPushed(true, dream))
 
     case .navigationBarDateButtonTapped:
@@ -194,6 +244,56 @@ Reducer.combine([
       }
       return Effect(value: .setSelectDateSheetPresented(false))
 
+    case let .setDisplayDeleteCardHeader(display):
+      if !display {
+        state.local.deleteDiaryList.removeAll()
+        state.local.deleteDreamList.removeAll()
+      }
+      state.local.displayDeleteCardHeader = display
+      return .none
+
+    case let .completeButtonTapped(tab):
+      switch tab {
+      case .diary:
+        return Effect.concatenate([
+          revortDeleteList(of: .diary, state: &state),
+          Effect(value: .setDisplayDeleteCardHeader(false))
+        ])
+      case .dream:
+        return Effect.concatenate([
+          revortDeleteList(of: .dream, state: &state),
+          Effect(value: .setDisplayDeleteCardHeader(false))
+        ])
+      }
+
+    case let .clearSelectionButtonTapped(tab):
+      switch tab {
+      case .diary:
+        return revortDeleteList(of: .diary, state: &state)
+      case .dream:
+        return revortDeleteList(of: .dream, state: &state)
+      }
+
+    case let .deleteButtonTapped(tab):
+      switch tab {
+      case .diary:
+        return setAlertModal(
+          state: &state.local.deleteCardAlertModal,
+          titleText: "꿈 일기를 삭제할까요?",
+          bodyText: "삭제하면 다시 복구할 수 없어요.",
+          secondaryButtonTitle: "아니요",
+          primaryButtonTitle: "삭제하기"
+        )
+      case .dream:
+        return setAlertModal(
+          state: &state.local.deleteCardAlertModal,
+          titleText: "해몽을 삭제할까요?",
+          bodyText: "삭제해도 다시 검색할 수 있어요.",
+          secondaryButtonTitle: "아니요",
+          primaryButtonTitle: "삭제하기"
+        )
+      }
+
     case .setting(.backButtonTapped):
       return Effect(value: .setSettingPushed(false))
 
@@ -210,6 +310,27 @@ Reducer.combine([
       return Effect(value: .setDreamPushed(false))
 
     case .dream:
+      return .none
+
+    case .deleteCardAlertModal(.primaryButtonTapped):
+      state.local.deleteCardAlertModal = nil
+      if state.local.selectedTab == .diary {
+        return Effect.concatenate([
+          deleteDiaryList(state: &state),
+          Effect(value: .setDisplayDeleteCardHeader(false))
+        ])
+      } else {
+        return Effect.concatenate([
+          deleteDreamList(state: &state),
+          Effect(value: .setDisplayDeleteCardHeader(false))
+        ])
+      }
+
+    case .deleteCardAlertModal(.secondaryButtonTapped):
+      state.local.deleteCardAlertModal = nil
+      return .none
+
+    case .deleteCardAlertModal:
       return .none
     }
   }
@@ -239,5 +360,54 @@ private func setDreamList(state: inout WithSharedState<StorageState>) -> Effect<
 private func setDiaryCount(state: inout WithSharedState<StorageState>) -> Effect<StorageAction, Never> {
   let diaryCount = state.local.diaryList?.count
   state.local.diaryCount = diaryCount ?? 0
+  return .none
+}
+
+private func deleteDiaryList(state: inout WithSharedState<StorageState>) -> Effect<StorageAction, Never> {
+  // 추후 꿈일기 삭제 API 및 로직 필요
+  for diary in state.local.deleteDiaryList {
+    state.local.diaryList?.remove(object: diary)
+  }
+  state.local.deleteDiaryList.removeAll()
+  return .none
+}
+
+private func deleteDreamList(state: inout WithSharedState<StorageState>) -> Effect<StorageAction, Never> {
+  // 추후 해몽 삭제 API 및 로직 필요
+  for dream in state.local.deleteDreamList {
+    state.local.dreamList?.remove(object: dream)
+  }
+  state.local.deleteDreamList.removeAll()
+  return .none
+}
+
+private func revortDeleteList(
+  of tab: StorageState.Tab,
+  state: inout WithSharedState<StorageState>
+) -> Effect<StorageAction, Never> {
+  switch tab {
+  case .diary:
+    state.local.deleteDiaryList.removeAll()
+  case .dream:
+    state.local.deleteDreamList.removeAll()
+  }
+  return .none
+}
+
+private func setAlertModal(
+  state: inout AlertDoubleButtonState?,
+  titleText: String? = nil,
+  bodyText: String,
+  secondaryButtonTitle: String,
+  primaryButtonTitle: String,
+  primaryButtonHierachy: AlertButton.Hierarchy = .warning
+) -> Effect<StorageAction, Never> {
+  state = .init(
+    title: titleText,
+    body: bodyText,
+    secondaryButtonTitle: secondaryButtonTitle,
+    primaryButtonTitle: primaryButtonTitle,
+    primaryButtonHierachy: primaryButtonHierachy
+  )
   return .none
 }

@@ -138,10 +138,40 @@ private struct SegmentDiaryOrDreamView: View {
           .dream: "해몽"
         ],
         views: [
-          .diary: DiaryListView(store: store)
-          .eraseToAnyView(),
-          .dream: DreamListView(store: store)
-          .eraseToAnyView()
+          .diary:
+            VStack(spacing: 0) {
+              WithViewStore(store.scope(state: \.local.displayDeleteCardHeader)) { displayDeleteCardHeaderViewStore in
+                if displayDeleteCardHeaderViewStore.state {
+                  DeleteCardHeaderView(
+                    store: store,
+                    completeAction: { ViewStore(store).send(.completeButtonTapped(.diary)) },
+                    clearSelectionAction: { ViewStore(store).send(.clearSelectionButtonTapped(.diary)) },
+                    deleteAction: { ViewStore(store).send(.deleteButtonTapped(.diary)) }
+                  )
+                  Spacer()
+                    .frame(height: 4)
+                }
+              }
+              DiaryListView(store: store)
+            }
+            .eraseToAnyView(),
+          .dream:
+            VStack(spacing: 0) {
+              WithViewStore(store.scope(state: \.local.displayDeleteCardHeader)) { displayDeleteCardHeaderViewStore in
+                if displayDeleteCardHeaderViewStore.state {
+                  DeleteCardHeaderView(
+                    store: store,
+                    completeAction: { ViewStore(store).send(.completeButtonTapped(.dream)) },
+                    clearSelectionAction: { ViewStore(store).send(.clearSelectionButtonTapped(.dream)) },
+                    deleteAction: { ViewStore(store).send(.deleteButtonTapped(.dream)) }
+                  )
+                  Spacer()
+                    .frame(height: 4)
+                }
+              }
+              DreamListView(store: store)
+            }
+            .eraseToAnyView()
         ],
         selection: selectedTabViewStore.binding(
           get: { $0 },
@@ -149,6 +179,58 @@ private struct SegmentDiaryOrDreamView: View {
         )
       )
     }
+  }
+}
+
+private struct DeleteCardHeaderView: View {
+  private let store: Store<WithSharedState<StorageState>, StorageAction>
+  var completeAction: () -> Void = {}
+  var clearSelectionAction: () -> Void = {}
+  var deleteAction: () -> Void = {}
+
+  init(
+    store: Store<WithSharedState<StorageState>, StorageAction>,
+    completeAction: @escaping () -> Void = {},
+    clearSelectionAction: @escaping () -> Void = {},
+    deleteAction: @escaping () -> Void = {}
+  ) {
+    self.store = store
+    self.completeAction = completeAction
+    self.clearSelectionAction = clearSelectionAction
+    self.deleteAction = deleteAction
+  }
+
+  var body: some View {
+    HStack(spacing: 0) {
+      Button(action: completeAction) {
+        Text("완료")
+          .font(.button)
+          .foregroundColor(.gray2)
+      }
+      Spacer()
+      WithViewStore(store.scope(state: \.local.selectedDeleteCardCount)) { selectedDeleteCardCountViewStore in
+        if selectedDeleteCardCountViewStore.state != 0 {
+          Button(action: clearSelectionAction) {
+            Text("선택해제 \(selectedDeleteCardCountViewStore.state)")
+              .font(.button)
+              .foregroundColor(.gray2)
+          }
+        }
+        Spacer()
+        Button(action: deleteAction) {
+          Text("삭제")
+            .font(.button)
+            .foregroundColor(
+              selectedDeleteCardCountViewStore.state == 0
+              ? .gray8
+              : .gray2
+            )
+        }
+        .disabled(selectedDeleteCardCountViewStore.state == 0)
+      }
+    }
+    .padding(.top, 14)
+    .padding(.horizontal, 20)
   }
 }
 
@@ -172,7 +254,10 @@ private struct DiaryListView: View {
               .padding(.top, 16)
               .padding(.horizontal, 20)
             }
+            Spacer()
+              .frame(height: 100)
           }
+          .highPriorityGesture(DragGesture())
         }
         .overlay(
           VStack {
@@ -222,40 +307,71 @@ private struct DiaryCardView: View {
   }
 
   var body: some View {
-    Button(action: { ViewStore(store).send(.diaryTapped(diary)) }) {
-      HStack {
-        Spacer()
-          .frame(width: 20)
-        VStack(alignment: .leading) {
-          Spacer()
-            .frame(height: 18)
-          Text(title)
-            .font(.subTitle)
-            .foregroundColor(.gray2)
-            .lineLimit(1)
-            .padding(.bottom, 2)
-          Text(description)
-            .font(.caption1)
-            .foregroundColor(.gray3)
-            .lineLimit(1)
-            .padding(.bottom, 10)
-          Text(date)
-            .font(.caption1)
-            .foregroundColor(.gray6)
-          Spacer()
-            .frame(height: 16)
+    WithViewStore(store.scope(state: \.local.displayDeleteCardHeader)) { displayDeleteCardHeaderViewStore in
+      Button(action: { }) {
+        WithViewStore(store.scope(state: \.local.deleteDiaryList)) { deleteDiaryListViewStore in
+          HStack {
+            if displayDeleteCardHeaderViewStore.state {
+              Spacer()
+                .frame(width: 12)
+              if deleteDiaryListViewStore.state.contains(self.diary) {
+                R.CustomImage.checkIcon.image
+              } else {
+                R.CustomImage.nonCheckIcon.image
+              }
+            }
+            Spacer()
+              .frame(width: displayDeleteCardHeaderViewStore.state ? 12 : 20)
+            VStack(alignment: .leading) {
+              Spacer()
+                .frame(height: 18)
+              Text(title)
+                .font(.subTitle)
+                .foregroundColor(.gray2)
+                .lineLimit(1)
+                .padding(.bottom, 2)
+              Text(description)
+                .font(.caption1)
+                .foregroundColor(.gray3)
+                .lineLimit(1)
+                .padding(.bottom, 10)
+              Text(date)
+                .font(.caption1)
+                .foregroundColor(.gray6)
+              Spacer()
+                .frame(height: 16)
+            }
+            Spacer()
+            HStack {
+              firstImage
+              secondImage
+            }
+            Spacer()
+              .frame(width: 20)
+          }
+          .background(
+            deleteDiaryListViewStore.state.contains(self.diary) && displayDeleteCardHeaderViewStore.state
+            ? Color.gray8
+            : Color.gray10
+          )
         }
-        Spacer()
-        HStack {
-          firstImage
-          secondImage
-        }
-        Spacer()
-          .frame(width: 20)
       }
-      .background(Color.gray10)
+      .highPriorityGesture(
+        TapGesture()
+          .onEnded { _ in
+            ViewStore(store).send(.diaryTapped(diary))
+          }
+      )
+      .simultaneousGesture(
+        LongPressGesture(minimumDuration: 1)
+          .onEnded { _ in
+            withAnimation {
+              ViewStore(store).send(.setDisplayDeleteCardHeader(true))
+            }
+          }
+      )
+      .cornerRadius(8)
     }
-    .cornerRadius(8)
   }
 }
 
@@ -286,8 +402,11 @@ private struct DreamListView: View {
                 )
                 .padding(.top, 7)
               }
+              Spacer()
+                .frame(height: 100)
             }
             .padding(.horizontal, 20)
+            .highPriorityGesture(DragGesture())
           }
           .overlay(
             VStack {
@@ -335,33 +454,62 @@ private struct DreamCardView: View {
     self.firstImage = firstImage
     self.secondImage = secondImage
   }
-
+  
   var body: some View {
-    Button(action: { ViewStore(store).send(.dreamTapped(dream)) }) {
-      VStack(alignment: .leading) {
-        HStack(spacing: 4) {
-          firstImage
-          secondImage
-          Spacer()
+    Button(action: {}) {
+      WithViewStore(store.scope(state: \.local.displayDeleteCardHeader)) { displayDeleteCardHeaderViewStore in
+        WithViewStore(store.scope(state: \.local.deleteDreamList)) { deleteDreamListViewStore in
+          VStack(alignment: .leading) {
+            HStack(spacing: 4) {
+              firstImage
+              secondImage
+              Spacer()
+              if displayDeleteCardHeaderViewStore.state {
+                if deleteDreamListViewStore.state.contains(self.dream) {
+                  R.CustomImage.checkIcon.image
+                } else {
+                  R.CustomImage.nonCheckIcon.image
+                }
+              }
+            }
+            .padding(.top, 20)
+            Text(title)
+              .font(.subTitle)
+              .foregroundColor(.msWhite)
+              .multilineTextAlignment(.leading)
+              .lineLimit(2)
+              .padding(.top, 10)
+            Text(description)
+              .font(.caption1)
+              .foregroundColor(.gray3)
+              .multilineTextAlignment(.leading)
+              .lineLimit(3)
+              .padding(.top, 10)
+            Spacer()
+          }
+          .padding(.horizontal, 14)
+          .background(
+            deleteDreamListViewStore.state.contains(self.dream) && displayDeleteCardHeaderViewStore.state
+            ? Color.gray8
+            : Color.gray10
+          )
         }
-        .padding(.top, 20)
-        Text(title)
-          .font(.subTitle)
-          .foregroundColor(.msWhite)
-          .multilineTextAlignment(.leading)
-          .lineLimit(2)
-          .padding(.top, 10)
-        Text(description)
-          .font(.caption1)
-          .foregroundColor(.gray3)
-          .multilineTextAlignment(.leading)
-          .lineLimit(3)
-          .padding(.top, 10)
-        Spacer()
       }
-      .padding(.horizontal, 14)
-      .background(Color.gray10)
     }
+    .highPriorityGesture(
+      TapGesture()
+        .onEnded { _ in
+          ViewStore(store).send(.dreamTapped(dream))
+        }
+    )
+    .simultaneousGesture(
+      LongPressGesture(minimumDuration: 1)
+        .onEnded { _ in
+          withAnimation {
+            ViewStore(store).send(.setDisplayDeleteCardHeader(true))
+          }
+        }
+    )
     .frame(height: 180)
     .cornerRadius(8)
   }
