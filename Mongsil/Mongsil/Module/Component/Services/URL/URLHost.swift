@@ -10,6 +10,8 @@ public enum URLHost: CustomStringConvertible {
   case checkUser
   case signUp
   case dropout
+  case dreamList
+  case saveDream
 
   public var description: String {
     switch self {
@@ -20,7 +22,11 @@ public enum URLHost: CustomStringConvertible {
     case .signUp:
       return "/user/signUp"
     case .dropout:
-      return "/user/expire"
+      return "/user/dropout"
+    case .dreamList:
+      return "/user/dreamList"
+    case .saveDream:
+      return "/user/saveDream"
     }
   }
 }

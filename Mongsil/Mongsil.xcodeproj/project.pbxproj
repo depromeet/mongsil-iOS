@@ -83,6 +83,11 @@
 		12952A61280250A300C89DD7 /* Font+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12952A60280250A300C89DD7 /* Font+extensions.swift */; };
 		12952A63280250D700C89DD7 /* UIFont+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12952A62280250D700C89DD7 /* UIFont+extensions.swift */; };
 		12952A65280251D600C89DD7 /* Fonts+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12952A64280251D600C89DD7 /* Fonts+Generated.swift */; };
+		12A026D1283391E800665CAF /* UserDreamListRequestDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A026D0283391E800665CAF /* UserDreamListRequestDto.swift */; };
+		12A026D3283393B300665CAF /* UserDreamListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A026D2283393B300665CAF /* UserDreamListService.swift */; };
+		12A026D5283395C400665CAF /* UserDreamList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A026D4283395C400665CAF /* UserDreamList.swift */; };
+		12A026D72833976400665CAF /* UserDreamListIDRequestDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A026D62833976400665CAF /* UserDreamListIDRequestDto.swift */; };
+		12A026D92833993300665CAF /* SaveDreamRequestDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A026D82833993300665CAF /* SaveDreamRequestDto.swift */; };
 		12A2244B27F7DFED00617C10 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A2244A27F7DFED00617C10 /* AppDelegate.swift */; };
 		12A2244D27F7E04A00617C10 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A2244C27F7E04A00617C10 /* SceneDelegate.swift */; };
 		12A2245027F7E0F000617C10 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A2244F27F7E0F000617C10 /* AppView.swift */; };
@@ -198,6 +203,11 @@
 		12952A60280250A300C89DD7 /* Font+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+extensions.swift"; sourceTree = "<group>"; };
 		12952A62280250D700C89DD7 /* UIFont+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+extensions.swift"; sourceTree = "<group>"; };
 		12952A64280251D600C89DD7 /* Fonts+Generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Fonts+Generated.swift"; sourceTree = "<group>"; };
+		12A026D0283391E800665CAF /* UserDreamListRequestDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDreamListRequestDto.swift; sourceTree = "<group>"; };
+		12A026D2283393B300665CAF /* UserDreamListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDreamListService.swift; sourceTree = "<group>"; };
+		12A026D4283395C400665CAF /* UserDreamList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDreamList.swift; sourceTree = "<group>"; };
+		12A026D62833976400665CAF /* UserDreamListIDRequestDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDreamListIDRequestDto.swift; sourceTree = "<group>"; };
+		12A026D82833993300665CAF /* SaveDreamRequestDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveDreamRequestDto.swift; sourceTree = "<group>"; };
 		12A2244A27F7DFED00617C10 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		12A2244C27F7E04A00617C10 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		12A2244F27F7E0F000617C10 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
@@ -455,6 +465,7 @@
 				12D7D3CC281E91EA00B83DDE /* UserService.swift */,
 				1292B188282495030050A10D /* SignUpService.swift */,
 				1292B19428249D0F0050A10D /* DropoutService.swift */,
+				12A026D2283393B300665CAF /* UserDreamListService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -619,6 +630,9 @@
 				1292B18A282497B30050A10D /* CheckUserRequestDto.swift */,
 				1292B18D282498510050A10D /* SignUpUserRequestDto.swift */,
 				1292B18F282498940050A10D /* DropoutRequestDto.swift */,
+				12A026D0283391E800665CAF /* UserDreamListRequestDto.swift */,
+				12A026D62833976400665CAF /* UserDreamListIDRequestDto.swift */,
+				12A026D82833993300665CAF /* SaveDreamRequestDto.swift */,
 			);
 			path = RequestDto;
 			sourceTree = "<group>";
@@ -760,6 +774,7 @@
 				7779D723281C07C900683C1F /* DreamInfo.swift */,
 				7779D71B281ADE3600683C1F /* User.swift */,
 				124DBC7D282A1213005C3ED4 /* Diary.swift */,
+				12A026D4283395C400665CAF /* UserDreamList.swift */,
 				123FED292833689700F62663 /* UserDream.swift */,
 				123FED2B28336A4200F62663 /* Category.swift */,
 			);
@@ -970,6 +985,7 @@
 				122E1079282BA2B20034DF37 /* DreamView.swift in Sources */,
 				7779D71C281ADE3600683C1F /* User.swift in Sources */,
 				123EE088280453AB00D34B93 /* SettingView.swift in Sources */,
+				12A026D1283391E800665CAF /* UserDreamListRequestDto.swift in Sources */,
 				125F84AC280D122500279C42 /* AlertSingleButtonCore.swift in Sources */,
 				12D7D3CD281E91EA00B83DDE /* UserService.swift in Sources */,
 				12590E8B282C8DEF000FB712 /* BottomSheet.swift in Sources */,
@@ -994,12 +1010,16 @@
 				120BBCB228025E3200AD44B5 /* Color+extensions.swift in Sources */,
 				773AE2A6280723DC006861FC /* MainTabView.swift in Sources */,
 				123FED2C28336A4200F62663 /* Category.swift in Sources */,
+				12A026D5283395C400665CAF /* UserDreamList.swift in Sources */,
 				123EE07C2804530000D34B93 /* View+extensions.swift in Sources */,
 				1292B18B282497B30050A10D /* CheckUserRequestDto.swift in Sources */,
+				12A026D3283393B300665CAF /* UserDreamListService.swift in Sources */,
 				1292B17F28248D270050A10D /* URLHost.swift in Sources */,
 				12E6EE3A2828D7FF00504CE3 /* KeywordBadgeView.swift in Sources */,
+				12A026D72833976400665CAF /* UserDreamListIDRequestDto.swift in Sources */,
 				123EE09B28045F1500D34B93 /* TermsCore.swift in Sources */,
 				124DBC80282A18F9005C3ED4 /* Date+extensions.swift in Sources */,
+				12A026D92833993300665CAF /* SaveDreamRequestDto.swift in Sources */,
 				1292B18E282498510050A10D /* SignUpUserRequestDto.swift in Sources */,
 				12A2244D27F7E04A00617C10 /* SceneDelegate.swift in Sources */,
 			);
