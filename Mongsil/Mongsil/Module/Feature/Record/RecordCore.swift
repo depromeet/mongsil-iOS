@@ -23,10 +23,10 @@ struct RecordState: Equatable {
   public var cancelRecordAlertModal: AlertDoubleButtonState?
   
   init(
-    closeButtonAlertModel: AlertDoubleButtonState? = nil,
+    cancelRecordAlertModal: AlertDoubleButtonState? = nil,
     recordKeyword: RecordKeywordState? = nil
   ) {
-    self.cancelRecordAlertModal = closeButtonAlertModel
+    self.cancelRecordAlertModal = cancelRecordAlertModal
     self.recordKeyword = recordKeyword
   }
 }
@@ -97,7 +97,7 @@ Reducer.combine([
       }
       
     case let .setNextButtonAbled(abled):
-      state.local.isNextButtonAbled = abled ? true : false
+      state.local.isNextButtonAbled = abled
       return .none
       
     case .cancelRecordAlertModal(.secondaryButtonTapped):
@@ -111,7 +111,7 @@ Reducer.combine([
     case let .titletextFieldChanged(text):
       if checkTextCount(text: text, upper: 20) {
         state.local.titleText = text
-        if checkTextFieldEmpty(titleText: state.local.titleText, mainText: state.local.mainText) {
+        if checkTextFieldEmpty(&state.local.titleText, &state.local.mainText) {
           return Effect(value: .setNextButtonAbled(true))
         }
         else {
@@ -126,7 +126,7 @@ Reducer.combine([
     case let .mainTextFieldChanged(text):
       if checkTextCount(text: text, upper: 2000) {
         state.local.mainText = text
-        if checkTextFieldEmpty(titleText: state.local.titleText, mainText: state.local.mainText) {
+        if checkTextFieldEmpty(&state.local.titleText, &state.local.mainText) {
           return Effect(value: .setNextButtonAbled(true))
         }
         else {
@@ -135,7 +135,7 @@ Reducer.combine([
       }
       else {
         state.local.mainText.removeLast()
-        return Effect(value: .presentToast("꿈일기는 최대 2000자까지 작성할 수 있어요."))
+        return Effect(value: .presentToast("꿈 일기는 최대 2000자까지 작성할 수 있어요."))
       }
       
     case .navigationBarDateButtonTapped:
@@ -171,7 +171,7 @@ Reducer.combine([
   }
 ])
 
-private func checkTextFieldEmpty(titleText: String, mainText: String) -> Bool {
+private func checkTextFieldEmpty(_ titleText: inout String, _ mainText: inout String) -> Bool {
   return titleText.count > 0 && mainText.count > 0 ? true : false
 }
 
