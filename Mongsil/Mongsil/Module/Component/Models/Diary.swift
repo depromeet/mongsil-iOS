@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Diary: Decodable, Equatable, Hashable {
+public struct Diary: Codable, Equatable, Hashable {
   public let title: String
   public let description: String
   public let date: String

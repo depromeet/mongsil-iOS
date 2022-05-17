@@ -50,14 +50,16 @@ private struct StorageNavigationView: View {
   var body: some View {
     ZStack {
       WithViewStore(store.scope(state: \.local.selectedDateToStr)) { selectedDateToStrViewStore in
-        MSNavigationBar(
-          titleText: selectedDateToStrViewStore.state,
-          titleSubImage: R.CustomImage.arrowDownIcon.image,
-          isButtonTitle: true,
-          titleButtonAction: { ViewStore(store).send(.navigationBarDateButtonTapped) },
-          rightButtonImage: R.CustomImage.settingIcon.image,
-          rightButtonAction: { ViewStore(store).send(.setSettingPushed(true)) }
-        )
+        WithViewStore(store.scope(state: \.local.displayDeleteCardHeader)) { displayDeleteCardHeaderViewStore in
+          MSNavigationBar(
+            titleText: selectedDateToStrViewStore.state,
+            titleSubImage: R.CustomImage.arrowDownIcon.image,
+            isButtonTitle: !displayDeleteCardHeaderViewStore.state,
+            titleButtonAction: { ViewStore(store).send(.navigationBarDateButtonTapped) },
+            rightButtonImage: R.CustomImage.settingIcon.image,
+            rightButtonAction: { ViewStore(store).send(.setSettingPushed(true)) }
+          )
+        }
       }
       HStack {
         Spacer()
