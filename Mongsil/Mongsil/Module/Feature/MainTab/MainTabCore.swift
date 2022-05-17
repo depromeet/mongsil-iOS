@@ -21,7 +21,6 @@ struct MainTabState: Equatable {
   public var record: RecordState?
   public var storage: StorageState = .init()
   public var login: LoginState?
-  public var closeButtonAlertModel: AlertDoubleButtonState?
   
   init(
     isRecordPushed: Bool = false,
@@ -33,7 +32,6 @@ struct MainTabState: Equatable {
     storage: StorageState = .init(),
     login: LoginState? = nil,
     isRecordButtonTapped: Bool = true,
-    closeButtonAlertModel: AlertDoubleButtonState? = nil,
     isTabBarPresented: Bool = true
   ) {
     self.isRecordPushed = isRecordPushed
@@ -46,7 +44,6 @@ struct MainTabState: Equatable {
     self.login = login
     self.isRecordButtonTapped = isRecordButtonTapped
     self.isTabBarPresented = isTabBarPresented
-    self.closeButtonAlertModel = closeButtonAlertModel
   }
 }
 

@@ -5,38 +5,34 @@
 //  Created by 이승후 on 2022/04/08.
 //
 
-import SwiftUI
 import ComposableArchitecture
 
 struct RecordState: Equatable {
   public var isRecordKeywordPushed: Bool = false
-  public var closeButtonAlertModal: AlertDoubleButtonState?
   public var titleText: String = ""
   public var mainText: String = ""
   public var currentDate: Date = Date()
   public var selectedDateToStr: String {
-    return  convertDateToString(currentDate)
+    convertDateToString(currentDate)
   }
-  public var isDisplayDatePicker: Bool = true
   public var isSelectDateSheetPresented: Bool = false
   public var isNextButtonAbled: Bool = false
-  public var closeButtonTapped: Bool = false
   
   // Child State
   public var recordKeyword: RecordKeywordState?
+  public var cancelRecordAlertModal: AlertDoubleButtonState?
   
   init(
     closeButtonAlertModel: AlertDoubleButtonState? = nil,
     recordKeyword: RecordKeywordState? = nil
   ) {
-    self.closeButtonAlertModal = closeButtonAlertModel
+    self.cancelRecordAlertModal = closeButtonAlertModel
     self.recordKeyword = recordKeyword
   }
 }
 
 enum RecordAction: ToastPresentableAction {
   case setRecordKeywordPushed(Bool)
-  case textTyped(Bool)
   case presentToast(String)
   case backButtonTapped
   case navigationBarDateButtonTapped
@@ -50,7 +46,7 @@ enum RecordAction: ToastPresentableAction {
   
   //Child Action
   case recordKeyword(RecordKeywordAction)
-  case closeButtonAlertModal(AlertDoubleButtonAction)
+  case cancelRecordAlertModal(AlertDoubleButtonAction)
 }
 
 struct RecordEnvironment {
@@ -62,8 +58,8 @@ Reducer.combine([
   alertDoubleButtonReducer
     .optional()
     .pullback(
-      state: \.local.closeButtonAlertModal,
-      action: /RecordAction.closeButtonAlertModal,
+      state: \.local.cancelRecordAlertModal,
+      action: /RecordAction.cancelRecordAlertModal,
       environment: { _ in
         AlertDoubleButtonEnvironment()
       }
@@ -91,7 +87,7 @@ Reducer.combine([
       }
       else {
         return setAlertModal(
-          state: &state.local.closeButtonAlertModal,
+          state: &state.local.cancelRecordAlertModal,
           titleText: "작성을 취소할까요?",
           bodyText: "작성 중인 내용은 저장되지 않아요.",
           secondaryButtonTitle: "아니요",
@@ -101,34 +97,21 @@ Reducer.combine([
       }
       
     case let .setNextButtonAbled(abled):
-      if abled == true {
-      state.local.isNextButtonAbled = true
-      }
-      else {
-        state.local.isNextButtonAbled = false
-      }
+      state.local.isNextButtonAbled = abled ? true : false
       return .none
       
-    case let .textTyped(typed):
-      if state.local.titleText.count > 0 && state.local.mainText.count > 0 {
-        return Effect(value: .setNextButtonAbled(true))
-      }
-      else {
-        return Effect(value: .setNextButtonAbled(false))
-      }
-      
-    case .closeButtonAlertModal(.secondaryButtonTapped):
-      state.local.closeButtonAlertModal = nil
+    case .cancelRecordAlertModal(.secondaryButtonTapped):
+      state.local.cancelRecordAlertModal = nil
       return .none
       
-    case .closeButtonAlertModal(.primaryButtonTapped):
-      state.local.closeButtonAlertModal = nil
+    case .cancelRecordAlertModal(.primaryButtonTapped):
+      state.local.cancelRecordAlertModal = nil
       return Effect(value: .backButtonTapped)
       
     case let .titletextFieldChanged(text):
-      if checkTextCount(text: text, upper: 25) {
+      if checkTextCount(text: text, upper: 20) {
         state.local.titleText = text
-        if state.local.titleText.count > 0 && state.local.mainText.count > 0 {
+        if checkTextFieldEmpty(titleText: state.local.titleText, mainText: state.local.mainText) {
           return Effect(value: .setNextButtonAbled(true))
         }
         else {
@@ -143,7 +126,7 @@ Reducer.combine([
     case let .mainTextFieldChanged(text):
       if checkTextCount(text: text, upper: 2000) {
         state.local.mainText = text
-        if state.local.titleText.count > 0 && state.local.mainText.count > 0 {
+        if checkTextFieldEmpty(titleText: state.local.titleText, mainText: state.local.mainText) {
           return Effect(value: .setNextButtonAbled(true))
         }
         else {
@@ -188,13 +171,12 @@ Reducer.combine([
   }
 ])
 
+private func checkTextFieldEmpty(titleText: String, mainText: String) -> Bool {
+  return titleText.count > 0 && mainText.count > 0 ? true : false
+}
+
 private func checkTextCount(text: String, upper: Int) -> Bool {
-  if text.count > upper {
-    return false
-  }
-  else {
-    return true
-  }
+  return text.count > upper ? false : true
 }
 
 private func setAlertModal(

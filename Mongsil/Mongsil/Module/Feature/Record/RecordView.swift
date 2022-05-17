@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Combine
 import ComposableArchitecture
 import Introspect
 
@@ -19,12 +18,9 @@ struct RecordView: View {
   
   var body: some View {
     VStack {
-      MsNavigationView(store: store)
+      MSNavigationView(store: store)
         .padding(.horizontal, 20)
       TitleTextView(store: store)
-        .introspectTextView { textField in
-          textField.becomeFirstResponder()
-        }
         .padding(.init(top: 16, leading: 28, bottom: 16, trailing: 28))
       Divider()
         .padding(.leading, 28)
@@ -41,8 +37,8 @@ struct RecordView: View {
     }
     .alertDoubleButton(
       store: store.scope(
-        state: \.local.closeButtonAlertModal,
-        action: RecordAction.closeButtonAlertModal
+        state: \.local.cancelRecordAlertModal,
+        action: RecordAction.cancelRecordAlertModal
       )
     )
     .selectDateSheet(store: store)
@@ -51,7 +47,7 @@ struct RecordView: View {
   }
 }
 
-private struct MsNavigationView: View {
+private struct MSNavigationView: View {
   private let store: Store<WithSharedState<RecordState>, RecordAction>
   
   init(store: Store<WithSharedState<RecordState>, RecordAction>) {
@@ -59,47 +55,43 @@ private struct MsNavigationView: View {
   }
   
   var body: some View {
-    ZStack {
-      WithViewStore(store.scope(state: \.local.selectedDateToStr)) { selectedDateToStrViewStore in
-        WithViewStore(store.scope(state: \.local.isNextButtonAbled)) { isNextButtonAbledViewStore in
-          MSNavigationBar(
-            backButtonImage: R.CustomImage.cancelIcon.image,
-            backButtonAction: {ViewStore(store).send(.isCloseButtonTapped(true))},
-            titleText: selectedDateToStrViewStore.state,
-            titleSubImage: R.CustomImage.arrowDownIcon.image,
-            isButtonTitle: true,
-            titleButtonAction: { ViewStore(store).send(.navigationBarDateButtonTapped)
-              hideKeyboard()
-            },
-            rightButtonText: "다음",
-            rightButtonAction: { ViewStore(store).send(.setRecordKeywordPushed(true)) },
-            rightButtonAbled: isNextButtonAbledViewStore.binding(
-              get: { $0 },
-              send: RecordAction.setNextButtonAbled(true)
-            )
+    WithViewStore(store.scope(state: \.local.selectedDateToStr)) { selectedDateToStrViewStore in
+      WithViewStore(store.scope(state: \.local.isNextButtonAbled)) { isNextButtonAbledViewStore in
+        MSNavigationBar(
+          backButtonImage: R.CustomImage.cancelIcon.image,
+          backButtonAction: { ViewStore(store).send(.isCloseButtonTapped(true)) },
+          titleText: selectedDateToStrViewStore.state,
+          titleSubImage: R.CustomImage.arrowDownIcon.image,
+          isButtonTitle: true,
+          titleButtonAction: {
+            ViewStore(store).send(.navigationBarDateButtonTapped)
+            hideKeyboard()
+          },
+          rightButtonText: "다음",
+          rightButtonAction: { ViewStore(store).send(.setRecordKeywordPushed(true)) },
+          rightButtonAbled: isNextButtonAbledViewStore.binding(
+            get: { $0 },
+            send: RecordAction.setNextButtonAbled(true)
           )
-        }
-        HStack {
-          Spacer()
-          WithViewStore(store.scope(state: \.local.isRecordKeywordPushed)) { isRecordKeywordPushedViewStore in
-            NavigationLink(
-              destination: IfLetStore(
-                store.scope(
-                  state: \.recordKeyword,
-                  action: RecordAction.recordKeyword
-                ),
-                then: RecordKeywordView.init(store: )
-              ),
-              isActive: isRecordKeywordPushedViewStore.binding(
-                send: RecordAction.setRecordKeywordPushed
-              ),
-              label: {
-                EmptyView()
-              }
-            )
-            .isDetailLink(true)
+        )
+      }
+      WithViewStore(store.scope(state: \.local.isRecordKeywordPushed)) { isRecordKeywordPushedViewStore in
+        NavigationLink(
+          destination: IfLetStore(
+            store.scope(
+              state: \.recordKeyword,
+              action: RecordAction.recordKeyword
+            ),
+            then: RecordKeywordView.init(store: )
+          ),
+          isActive: isRecordKeywordPushedViewStore.binding(
+            send: RecordAction.setRecordKeywordPushed
+          ),
+          label: {
+            EmptyView()
           }
-        }
+        )
+        .isDetailLink(true)
       }
     }
   }
@@ -107,7 +99,6 @@ private struct MsNavigationView: View {
 
 private struct TitleTextView: View {
   private let store: Store<WithSharedState<RecordState>, RecordAction>
-  @State private var becomeFirstResponder = false
   
   init(store: Store<WithSharedState<RecordState>, RecordAction>) {
     self.store = store
@@ -121,15 +112,18 @@ private struct TitleTextView: View {
           send: { RecordAction.titletextFieldChanged($0) }
         ), label: {}
       )
+      .introspectTextField { textField in
+        textField.becomeFirstResponder()
+      }
+      .foregroundColor(.gray2)
       .placeholder(when: titleTextViewStore.isEmpty, placeholder: {
         Text("제목 (최대 20자)")
+          .foregroundColor(.gray8)
       })
-      .foregroundColor(.gray3)
-      .opacity(titleTextViewStore.state.isEmpty ? 0.25 : 1)
+      .font(.title3)
       .onTapGesture {
         hideKeyboard()
       }
-      .frame( maxHeight: 36, alignment: .trailing)
     }
   }
 }
@@ -147,6 +141,7 @@ private struct MainTextView: View {
       ZStack {
         if mainTextViewStore.state.isEmpty {
           TextEditor(text: $placeholederText)
+            .foregroundColor(.gray8)
             .font(.body2)
             .disabled(true)
         }
@@ -155,6 +150,7 @@ private struct MainTextView: View {
           send: { RecordAction.mainTextFieldChanged($0) }
         ))
         .foregroundColor(.gray3)
+        .font(.body2)
         .opacity(mainTextViewStore.state.isEmpty ? 0.25 : 1)
         .onTapGesture {
           hideKeyboard()
@@ -167,25 +163,18 @@ private struct MainTextView: View {
 private struct CountTextView: View {
   private let store: Store<WithSharedState<RecordState>, RecordAction>
   @State var keyboardYOffset: CGFloat = 0
+  
   init(store: Store<WithSharedState<RecordState>, RecordAction>) {
     self.store = store
   }
   
   var body: some View {
     WithViewStore(store.scope(state: \.local.mainText)) { mainTextViewStore in
-      VStack {
-        if mainTextViewStore.state.count == 0 {
-          Text("nnnn/2000")
-            .onKeyboard($keyboardYOffset)
-        }
-        else {
-          let num = mainTextViewStore.state.count
-          Text("\(num)/2000")
-            .onKeyboard($keyboardYOffset)
-        }
-      }
-      .frame(minWidth: 61, maxHeight: 16, alignment: .center)
+      let text = mainTextViewStore.state.count == 0 ? "nnnn" : "\(mainTextViewStore.state.count)"
+      Text(text + "/2000")
+        .onKeyboard($keyboardYOffset)
     }
+    .frame(minWidth: 61, maxHeight: 16, alignment: .center)
   }
 }
 
@@ -194,6 +183,7 @@ extension View {
     store: Store<WithSharedState<RecordState>, RecordAction>
   ) -> some View {
     let viewStore = ViewStore(store.scope(state: \.local))
+    
     return self.apply(content: { view in
       WithViewStore(store.scope(state: \.local.isSelectDateSheetPresented)) { _ in
         view.bottomSheet(
@@ -235,46 +225,5 @@ extension View {
         )
       }
     })
-  }
-}
-
-extension View {
-  fileprivate func hideKeyboard() {
-    let resign = #selector(UIResponder.resignFirstResponder)
-    UIApplication.shared.sendAction(resign, to: nil, from: nil, for: nil)
-  }
-}
-
-extension View {
-  func onKeyboard(_ keyboardYOffset: Binding<CGFloat>) -> some View {
-    return ModifiedContent(content: self, modifier: KeyboardModifier(keyboardYOffset))
-  }
-}
-
-struct KeyboardModifier: ViewModifier {
-  @Binding var keyboardYOffset: CGFloat
-  let keyboardWillAppearPublisher = NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)
-  let keyboardWillHidePublisher = NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)
-  
-  init(_ offset: Binding<CGFloat>) {
-    _keyboardYOffset = offset
-  }
-  
-  func body(content: Content) -> some View {
-    return content.offset(x: 0, y: -$keyboardYOffset.wrappedValue)
-      .animation(.easeInOut(duration: 0.33))
-      .onReceive(keyboardWillAppearPublisher) { notification in
-        _ = UIApplication.shared.connectedScenes
-          .filter { $0.activationState == .foregroundActive }
-          .map { $0 as? UIWindowScene }
-          .compactMap { $0 }
-          .first?.windows
-          .filter { $0.isKeyWindow }
-          .first
-        let keyboardFrame = (notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue ?? .zero
-        self.$keyboardYOffset.wrappedValue = (keyboardFrame.height)
-      }.onReceive(keyboardWillHidePublisher) { _ in
-        self.$keyboardYOffset.wrappedValue = 0
-      }
   }
 }
