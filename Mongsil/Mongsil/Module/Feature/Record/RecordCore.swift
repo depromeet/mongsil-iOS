@@ -111,7 +111,9 @@ Reducer.combine([
     case let .titletextFieldChanged(text):
       if checkTextCount(text: text, upper: 20) {
         state.local.titleText = text
-        if checkTextFieldEmpty(&state.local.titleText, &state.local.mainText) {
+        if checkTextFieldEmpty(
+          state: &state.local
+        ) {
           return Effect(value: .setNextButtonAbled(true))
         }
         else {
@@ -126,7 +128,9 @@ Reducer.combine([
     case let .mainTextFieldChanged(text):
       if checkTextCount(text: text, upper: 2000) {
         state.local.mainText = text
-        if checkTextFieldEmpty(&state.local.titleText, &state.local.mainText) {
+        if checkTextFieldEmpty(
+          state: &state.local
+        ) {
           return Effect(value: .setNextButtonAbled(true))
         }
         else {
@@ -171,8 +175,12 @@ Reducer.combine([
   }
 ])
 
-private func checkTextFieldEmpty(_ titleText: inout String, _ mainText: inout String) -> Bool {
-  return titleText.count > 0 && mainText.count > 0 ? true : false
+private func checkTextFieldEmpty(
+  state: inout RecordState,
+  titleText: String = "",
+  mainText: String = ""
+) -> Bool {
+  return state.titleText.count > 0 && state.mainText.count > 0 ? true : false
 }
 
 private func checkTextCount(text: String, upper: Int) -> Bool {
