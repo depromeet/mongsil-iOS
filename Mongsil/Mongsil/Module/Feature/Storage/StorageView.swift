@@ -135,7 +135,7 @@ private struct SegmentDiaryOrDreamView: View {
       SegmentView<StorageState.Tab>(
         title: [
           .diary: "꿈일기",
-          .dream: "해몽"
+          .dream: "해몽함"
         ],
         views: [
           .diary:
@@ -236,6 +236,7 @@ private struct DeleteCardHeaderView: View {
 
 private struct DiaryListView: View {
   private let store: Store<WithSharedState<StorageState>, StorageAction>
+  @GestureState private var dragState = false
 
   init(store: Store<WithSharedState<StorageState>, StorageAction>) {
     self.store = store
@@ -252,13 +253,21 @@ private struct DiaryListView: View {
                 store: store,
                 diary: diary
               )
+              .gesture(
+                LongPressGesture(minimumDuration: 1.0)
+                  .sequenced(before: DragGesture())
+                  .updating($dragState) { _, _, _ in
+                    withAnimation {
+                      ViewStore(store).send(.setDisplayDeleteCardHeader(true))
+                    }
+                  }
+              )
               .padding(.top, 16)
               .padding(.horizontal, 20)
             }
             Spacer()
               .frame(height: 100)
           }
-          .highPriorityGesture(DragGesture())
         }
         .overlay(
           VStack {
@@ -309,75 +318,66 @@ private struct DiaryCardView: View {
 
   var body: some View {
     WithViewStore(store.scope(state: \.local.displayDeleteCardHeader)) { displayDeleteCardHeaderViewStore in
-      Button(action: { }) {
-        WithViewStore(store.scope(state: \.local.deleteDiaryList)) { deleteDiaryListViewStore in
+      WithViewStore(store.scope(state: \.local.deleteDiaryList)) { deleteDiaryListViewStore in
+        HStack {
+          if displayDeleteCardHeaderViewStore.state {
+            Spacer()
+              .frame(width: 12)
+            if deleteDiaryListViewStore.state.contains(self.diary) {
+              R.CustomImage.checkIcon.image
+            } else {
+              R.CustomImage.nonCheckIcon.image
+            }
+          }
+          Spacer()
+            .frame(width: displayDeleteCardHeaderViewStore.state ? 12 : 20)
+          VStack(alignment: .leading) {
+            Spacer()
+              .frame(height: 18)
+            Text(title)
+              .font(.subTitle)
+              .foregroundColor(.gray2)
+              .lineLimit(1)
+              .padding(.bottom, 2)
+            Text(description)
+              .font(.caption1)
+              .foregroundColor(.gray3)
+              .lineLimit(1)
+              .padding(.bottom, 10)
+            Text(date)
+              .font(.caption1)
+              .foregroundColor(.gray6)
+            Spacer()
+              .frame(height: 16)
+          }
+          Spacer()
           HStack {
-            if displayDeleteCardHeaderViewStore.state {
-              Spacer()
-                .frame(width: 12)
-              if deleteDiaryListViewStore.state.contains(self.diary) {
-                R.CustomImage.checkIcon.image
-              } else {
-                R.CustomImage.nonCheckIcon.image
-              }
-            }
-            Spacer()
-              .frame(width: displayDeleteCardHeaderViewStore.state ? 12 : 20)
-            VStack(alignment: .leading) {
-              Spacer()
-                .frame(height: 18)
-              Text(title)
-                .font(.subTitle)
-                .foregroundColor(.gray2)
-                .lineLimit(1)
-                .padding(.bottom, 2)
-              Text(description)
-                .font(.caption1)
-                .foregroundColor(.gray3)
-                .lineLimit(1)
-                .padding(.bottom, 10)
-              Text(date)
-                .font(.caption1)
-                .foregroundColor(.gray6)
-              Spacer()
-                .frame(height: 16)
-            }
-            Spacer()
-            HStack {
-              firstImage
-              secondImage
-            }
-            Spacer()
-              .frame(width: 20)
+            firstImage
+            secondImage
           }
-          .background(
-            deleteDiaryListViewStore.state.contains(self.diary) && displayDeleteCardHeaderViewStore.state
-            ? Color.gray8
-            : Color.gray10
-          )
+          Spacer()
+            .frame(width: 20)
         }
-      }
-      .highPriorityGesture(
-        TapGesture()
-          .onEnded { _ in
-            ViewStore(store).send(.diaryTapped(diary))
-          }
-      )
-      .simultaneousGesture(
-        LongPressGesture(minimumDuration: 1)
-          .onEnded { _ in
-            withAnimation {
-              ViewStore(store).send(.setDisplayDeleteCardHeader(true))
+        .background(
+          deleteDiaryListViewStore.state.contains(self.diary) && displayDeleteCardHeaderViewStore.state
+          ? Color.gray8
+          : Color.gray10
+        )
+        .gesture(
+          TapGesture()
+            .onEnded { _ in
+              ViewStore(store).send(.diaryTapped(diary))
             }
-          }
-      )
-      .cornerRadius(8)
+        )
+      }
     }
+    .cornerRadius(8)
   }
 }
 
 private struct DreamListView: View {
   private let store: Store<WithSharedState<StorageState>, StorageAction>
+  @GestureState private var dragState = false
 
   init(store: Store<WithSharedState<StorageState>, StorageAction>) {
     self.store = store
@@ -401,13 +401,21 @@ private struct DreamListView: View {
                   store: store,
                   dream: dream
                 )
+                .gesture(
+                  LongPressGesture(minimumDuration: 1.0)
+                    .sequenced(before: DragGesture())
+                    .updating($dragState) { _, _, _ in
+                      withAnimation {
+                        ViewStore(store).send(.setDisplayDeleteCardHeader(true))
+                      }
+                    }
+                )
                 .padding(.top, 7)
               }
               Spacer()
                 .frame(height: 100)
             }
             .padding(.horizontal, 20)
-            .highPriorityGesture(DragGesture())
           }
           .overlay(
             VStack {
@@ -457,7 +465,6 @@ private struct DreamCardView: View {
   }
 
   var body: some View {
-    Button(action: {}) {
       WithViewStore(store.scope(state: \.local.displayDeleteCardHeader)) { displayDeleteCardHeaderViewStore in
         WithViewStore(store.scope(state: \.local.deleteDreamList)) { deleteDreamListViewStore in
           VStack(alignment: .leading) {
@@ -494,25 +501,16 @@ private struct DreamCardView: View {
             ? Color.gray8
             : Color.gray10
           )
+          .gesture(
+            TapGesture()
+              .onEnded { _ in
+                ViewStore(store).send(.dreamTapped(dream))
+              }
+          )
+          .frame(height: 180)
+          .cornerRadius(8)
         }
       }
-    }
-    .highPriorityGesture(
-      TapGesture()
-        .onEnded { _ in
-          ViewStore(store).send(.dreamTapped(dream))
-        }
-    )
-    .simultaneousGesture(
-      LongPressGesture(minimumDuration: 1)
-        .onEnded { _ in
-          withAnimation {
-            ViewStore(store).send(.setDisplayDeleteCardHeader(true))
-          }
-        }
-    )
-    .frame(height: 180)
-    .cornerRadius(8)
   }
 }
 

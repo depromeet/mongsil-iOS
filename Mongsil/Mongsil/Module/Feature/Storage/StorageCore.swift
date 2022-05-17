@@ -293,7 +293,7 @@ Reducer.combine([
         return setAlertModal(
           state: &state.local.deleteCardAlertModal,
           titleText: "해몽을 삭제할까요?",
-          bodyText: "삭제해도 다시 검색할 수 있어요.",
+          bodyText: "삭제해도 다시 검색해서 찾아볼 수 있어요.",
           secondaryButtonTitle: "아니요",
           primaryButtonTitle: "삭제하기"
         )
