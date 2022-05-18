@@ -54,7 +54,7 @@ private struct RightButtonWithText: View {
     Button(action: action) {
       Text(text)
         .font(.title1)
-        .foregroundColor(.gray1)
+        .foregroundColor(.gray2)
     }
   }
 }

@@ -148,6 +148,9 @@ let appReducer = Reducer.combine([
     case let .mainTab(.login(.presentToast(text))):
       return Effect(value: .presentToast(text))
 
+    case let .mainTab(.record(.presentToast(text))):
+      return Effect(value: .presentToast(text))
+
     case .mainTab:
       return .none
 

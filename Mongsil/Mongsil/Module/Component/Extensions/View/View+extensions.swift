@@ -62,6 +62,15 @@ extension View {
         self
       }
     }
+
+  public func hideKeyboard() {
+    let resign = #selector(UIResponder.resignFirstResponder)
+    UIApplication.shared.sendAction(resign, to: nil, from: nil, for: nil)
+  }
+
+  public func onKeyboard(_ keyboardYOffset: Binding<CGFloat>) -> some View {
+    return ModifiedContent(content: self, modifier: KeyboardModifier(keyboardYOffset))
+  }
 }
 
 public struct RoundedCorner: Shape {
@@ -75,5 +84,35 @@ public struct RoundedCorner: Shape {
       cornerRadii: CGSize(width: radius, height: radius)
     )
     return Path(path.cgPath)
+  }
+}
+
+public struct KeyboardModifier: ViewModifier {
+  @Binding var keyboardYOffset: CGFloat
+  let keyboardWillAppearPublisher = NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)
+  let keyboardWillHidePublisher = NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)
+
+  init(_ offset: Binding<CGFloat>) {
+    _keyboardYOffset = offset
+  }
+
+  public func body(content: Content) -> some View {
+    let anumationValue = 0
+    return content.offset(x: 0, y: -$keyboardYOffset.wrappedValue)
+      .animationIf(true)
+      .animation(.easeInOut(duration: 0.35), value: anumationValue)
+      .onReceive(keyboardWillAppearPublisher) { notification in
+        _ = UIApplication.shared.connectedScenes
+          .filter { $0.activationState == .foregroundActive }
+          .map { $0 as? UIWindowScene }
+          .compactMap { $0 }
+          .first?.windows
+          .filter { $0.isKeyWindow }
+          .first
+        let keyboardFrame = (notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue ?? .zero
+        self.$keyboardYOffset.wrappedValue = (keyboardFrame.height)
+      }.onReceive(keyboardWillHidePublisher) { _ in
+        self.$keyboardYOffset.wrappedValue = 0
+      }
   }
 }

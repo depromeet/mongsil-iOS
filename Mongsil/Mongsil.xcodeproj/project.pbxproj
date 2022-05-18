@@ -104,6 +104,9 @@
 		773AE2AC280723FF006861FC /* RecordCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773AE2AB280723FF006861FC /* RecordCore.swift */; };
 		773AE2AE28072419006861FC /* StorageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773AE2AD28072419006861FC /* StorageView.swift */; };
 		773AE2B028072421006861FC /* StorageCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773AE2AF28072421006861FC /* StorageCore.swift */; };
+		773E2931282FA888009A0A37 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 773E2930282FA888009A0A37 /* Introspect */; };
+		773E293328312788009A0A37 /* RecordKeywordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773E293228312788009A0A37 /* RecordKeywordView.swift */; };
+		773E29352831279C009A0A37 /* RecordKeywordCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773E29342831279C009A0A37 /* RecordKeywordCore.swift */; };
 		7779D71A281ADE2F00683C1F /* Dream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7779D719281ADE2F00683C1F /* Dream.swift */; };
 		7779D71C281ADE3600683C1F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7779D71B281ADE3600683C1F /* User.swift */; };
 		7779D722281C07BF00683C1F /* Subcategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7779D721281C07BF00683C1F /* Subcategory.swift */; };
@@ -208,6 +211,8 @@
 		773AE2AB280723FF006861FC /* RecordCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordCore.swift; sourceTree = "<group>"; };
 		773AE2AD28072419006861FC /* StorageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageView.swift; sourceTree = "<group>"; };
 		773AE2AF28072421006861FC /* StorageCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageCore.swift; sourceTree = "<group>"; };
+		773E293228312788009A0A37 /* RecordKeywordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordKeywordView.swift; sourceTree = "<group>"; };
+		773E29342831279C009A0A37 /* RecordKeywordCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordKeywordCore.swift; sourceTree = "<group>"; };
 		7779D719281ADE2F00683C1F /* Dream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dream.swift; sourceTree = "<group>"; };
 		7779D71B281ADE3600683C1F /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		7779D721281C07BF00683C1F /* Subcategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subcategory.swift; sourceTree = "<group>"; };
@@ -228,6 +233,7 @@
 				12F1DBE127F411CC0063A84D /* PureSwiftUI in Frameworks */,
 				12D775DB28024B8C00CD0CFD /* Rswift in Frameworks */,
 				12F1DBDB27F411A80063A84D /* Alamofire in Frameworks */,
+				773E2931282FA888009A0A37 /* Introspect in Frameworks */,
 				12F1DBE427F411DE0063A84D /* Nuke in Frameworks */,
 				F0E73461280A9C260052A7E2 /* KakaoSDKUser in Frameworks */,
 			);
@@ -706,6 +712,7 @@
 			children = (
 				773AE2A9280723F7006861FC /* RecordView.swift */,
 				773AE2AB280723FF006861FC /* RecordCore.swift */,
+				773E2936283127A1009A0A37 /* RecordKeyword */,
 			);
 			path = Record;
 			sourceTree = "<group>";
@@ -727,6 +734,15 @@
 				773AE2A7280723E6006861FC /* MainTabCore.swift */,
 			);
 			path = MainTab;
+			sourceTree = "<group>";
+		};
+		773E2936283127A1009A0A37 /* RecordKeyword */ = {
+			isa = PBXGroup;
+			children = (
+				773E293228312788009A0A37 /* RecordKeywordView.swift */,
+				773E29342831279C009A0A37 /* RecordKeywordCore.swift */,
+			);
+			path = RecordKeyword;
 			sourceTree = "<group>";
 		};
 		7779D718281ADE2400683C1F /* Models */ = {
@@ -769,6 +785,7 @@
 				F0E7345C280A9C260052A7E2 /* KakaoSDKAuth */,
 				F0E7345E280A9C260052A7E2 /* KakaoSDKCommon */,
 				F0E73460280A9C260052A7E2 /* KakaoSDKUser */,
+				773E2930282FA888009A0A37 /* Introspect */,
 			);
 			productName = Mongsil;
 			productReference = 126EF42527F2AC2400102FA9 /* Mongsil.app */;
@@ -807,6 +824,7 @@
 				12F1DBE227F411DE0063A84D /* XCRemoteSwiftPackageReference "Nuke" */,
 				12D775D928024B8C00CD0CFD /* XCRemoteSwiftPackageReference "R.swift" */,
 				F0E7345B280A9C260052A7E2 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
+				773E292F282FA888009A0A37 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 			);
 			productRefGroup = 126EF42627F2AC2400102FA9 /* Products */;
 			projectDirPath = "";
@@ -918,6 +936,7 @@
 				12A2245027F7E0F000617C10 /* AppView.swift in Sources */,
 				123EE0A328045F7A00D34B93 /* OpenSourceView.swift in Sources */,
 				124DBC7B2829EB9B005C3ED4 /* SegmentView.swift in Sources */,
+				773E29352831279C009A0A37 /* RecordKeywordCore.swift in Sources */,
 				125F84B7280D14AB00279C42 /* AlertButton.swift in Sources */,
 				12A2245627F7E76F00617C10 /* HomeView.swift in Sources */,
 				773AE2AC280723FF006861FC /* RecordCore.swift in Sources */,
@@ -932,6 +951,7 @@
 				123EE08A280453B300D34B93 /* SettingCore.swift in Sources */,
 				123EE09728045B3600D34B93 /* ListButtonItemWithText.swift in Sources */,
 				12083C97281636700020E20E /* Toast.swift in Sources */,
+				773E293328312788009A0A37 /* RecordKeywordView.swift in Sources */,
 				773AE2AA280723F7006861FC /* RecordView.swift in Sources */,
 				122E107C282BA2C40034DF37 /* DreamCore.swift in Sources */,
 				1291296527F812D80017E087 /* Effect+extensions.swift in Sources */,
@@ -1235,6 +1255,14 @@
 				minimumVersion = 9.0.0;
 			};
 		};
+		773E292F282FA888009A0A37 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.4;
+			};
+		};
 		F0E7345B280A9C260052A7E2 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
@@ -1275,6 +1303,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 12F1DBE227F411DE0063A84D /* XCRemoteSwiftPackageReference "Nuke" */;
 			productName = Nuke;
+		};
+		773E2930282FA888009A0A37 /* Introspect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 773E292F282FA888009A0A37 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
+			productName = Introspect;
 		};
 		F0E7345C280A9C260052A7E2 /* KakaoSDKAuth */ = {
 			isa = XCSwiftPackageProductDependency;
