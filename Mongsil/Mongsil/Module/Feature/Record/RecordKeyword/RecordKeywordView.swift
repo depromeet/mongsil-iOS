@@ -10,11 +10,11 @@ import ComposableArchitecture
 
 struct RecordKeywordView: View {
   private let store: Store<WithSharedState<RecordKeywordState>, RecordKeywordAction>
-  
+
   init(store: Store<WithSharedState<RecordKeywordState>, RecordKeywordAction>) {
     self.store = store
   }
-  
+
   var body: some View {
     VStack {
       ScrollView {
@@ -42,11 +42,11 @@ struct RecordKeywordView: View {
 
 struct RecordKeywordNavigationView: View {
   private let store: Store<WithSharedState<RecordKeywordState>, RecordKeywordAction>
-  
+
   init(store: Store<WithSharedState<RecordKeywordState>, RecordKeywordAction>) {
     self.store = store
   }
-  
+
   var body: some View {
     WithViewStore(store.scope(state: \.local.isStroeButtonAbled)) { isStroeButtonAbledViewStore in
       MSNavigationBar(
@@ -66,20 +66,20 @@ struct RecordKeywordNavigationView: View {
 
 private struct DateTitle: View {
   private let store: Store<WithSharedState<RecordKeywordState>, RecordKeywordAction>
-  
+
   init(store: Store<WithSharedState<RecordKeywordState>, RecordKeywordAction>) {
     self.store = store
   }
-  
+
   var body: some View {
     WithViewStore(store.scope(state: \.local.selectedDateToStr)) { selectedDateToStrViewStore in
-      HStack{
+      HStack {
         Button(action: { ViewStore(store).send(.navigationBarDateButtonTapped) }) {
           Text("\(selectedDateToStrViewStore.state)")
           R.CustomImage.arrowDownIcon.image
         }
         .foregroundColor(.gray2)
-        .padding(.top ,10)
+        .padding(.top, 10)
         .padding(.bottom, 10)
         .frame(minWidth: 84, minHeight: 24, alignment: .center)
       }
@@ -92,7 +92,7 @@ extension View {
     store: Store<WithSharedState<RecordKeywordState>, RecordKeywordAction>
   ) -> some View {
     let viewStore = ViewStore(store.scope(state: \.local))
-    
+
     return self.apply(content: { view in
       WithViewStore(store.scope(state: \.local.isSelectDateSheetPresented)) { _ in
         view.bottomSheet(

@@ -10,11 +10,11 @@ import ComposableArchitecture
 
 struct StorageView: View {
   private let store: Store<WithSharedState<StorageState>, StorageAction>
-  
+
   init(store: Store<WithSharedState<StorageState>, StorageAction>) {
     self.store = store
   }
-  
+
   var body: some View {
     GeometryReader { geometry in
       VStack {
@@ -42,11 +42,11 @@ struct StorageView: View {
 
 private struct StorageNavigationView: View {
   private let store: Store<WithSharedState<StorageState>, StorageAction>
-  
+
   init(store: Store<WithSharedState<StorageState>, StorageAction>) {
     self.store = store
   }
-  
+
   var body: some View {
     ZStack {
       WithViewStore(store.scope(state: \.local.selectedDateToStr)) { selectedDateToStrViewStore in
@@ -86,11 +86,11 @@ private struct StorageNavigationView: View {
 
 private struct IntroduceView: View {
   private let store: Store<WithSharedState<StorageState>, StorageAction>
-  
+
   init(store: Store<WithSharedState<StorageState>, StorageAction>) {
     self.store = store
   }
-  
+
   var body: some View {
     HStack {
       WithViewStore(store.scope(state: \.local.userName)) { userNameViewStore in
@@ -106,11 +106,11 @@ private struct IntroduceView: View {
 
 private struct DiaryCountView: View {
   private let store: Store<WithSharedState<StorageState>, StorageAction>
-  
+
   init(store: Store<WithSharedState<StorageState>, StorageAction>) {
     self.store = store
   }
-  
+
   var body: some View {
     HStack {
       WithViewStore(store.scope(state: \.local.diaryCount)) { diaryCountViewStore in
@@ -125,11 +125,11 @@ private struct DiaryCountView: View {
 
 private struct SegmentDiaryOrDreamView: View {
   private let store: Store<WithSharedState<StorageState>, StorageAction>
-  
+
   init(store: Store<WithSharedState<StorageState>, StorageAction>) {
     self.store = store
   }
-  
+
   var body: some View {
     WithViewStore(store.scope(state: \.local.selectedTab)) { selectedTabViewStore in
       SegmentView<StorageState.Tab>(
@@ -154,11 +154,11 @@ private struct SegmentDiaryOrDreamView: View {
 
 private struct DiaryListView: View {
   private let store: Store<WithSharedState<StorageState>, StorageAction>
-  
+
   init(store: Store<WithSharedState<StorageState>, StorageAction>) {
     self.store = store
   }
-  
+
   var body: some View {
     WithViewStore(store.scope(state: \.local.diaryList)) { diaryListViewStore in
       if let diaryList = diaryListViewStore.state {
@@ -205,7 +205,7 @@ private struct DiaryCardView: View {
   var date: String
   var firstImage: Image
   var secondImage: Image
-  
+
   init(
     store: Store<WithSharedState<StorageState>, StorageAction>,
     diary: Diary,
@@ -220,7 +220,7 @@ private struct DiaryCardView: View {
     self.firstImage = firstImage
     self.secondImage = secondImage
   }
-  
+
   var body: some View {
     Button(action: { ViewStore(store).send(.diaryTapped(diary)) }) {
       HStack {
@@ -261,11 +261,11 @@ private struct DiaryCardView: View {
 
 private struct DreamListView: View {
   private let store: Store<WithSharedState<StorageState>, StorageAction>
-  
+
   init(store: Store<WithSharedState<StorageState>, StorageAction>) {
     self.store = store
   }
-  
+
   var body: some View {
     GeometryReader { geometry in
       WithViewStore(store.scope(state: \.local.dreamList)) { dreamListViewStore in
@@ -321,7 +321,7 @@ private struct DreamCardView: View {
   var description: String
   var firstImage: Image
   var secondImage: Image
-  
+
   init(
     store: Store<WithSharedState<StorageState>, StorageAction>,
     dream: DreamInfo,
@@ -335,7 +335,7 @@ private struct DreamCardView: View {
     self.firstImage = firstImage
     self.secondImage = secondImage
   }
-  
+
   var body: some View {
     Button(action: { ViewStore(store).send(.dreamTapped(dream)) }) {
       VStack(alignment: .leading) {
@@ -369,11 +369,11 @@ private struct DreamCardView: View {
 
 private struct EmptyDiaryOrDreamView: View {
   let description: String
-  
+
   init(description: String) {
     self.description = description
   }
-  
+
   var body: some View {
     VStack {
       Spacer()
@@ -387,11 +387,11 @@ private struct EmptyDiaryOrDreamView: View {
 
 private struct DiaryLinkView: View {
   private let store: Store<WithSharedState<StorageState>, StorageAction>
-  
+
   init(store: Store<WithSharedState<StorageState>, StorageAction>) {
     self.store = store
   }
-  
+
   var body: some View {
     WithViewStore(store.scope(state: \.local.isDiaryPushed)) { isDiaryPushedViewStore in
       NavigationLink(
@@ -416,11 +416,11 @@ private struct DiaryLinkView: View {
 
 private struct DreamLinkView: View {
   private let store: Store<WithSharedState<StorageState>, StorageAction>
-  
+
   init(store: Store<WithSharedState<StorageState>, StorageAction>) {
     self.store = store
   }
-  
+
   var body: some View {
     WithViewStore(store.scope(state: \.local.isDreamPushed)) { isDreamPushedViewStore in
       NavigationLink(
@@ -449,7 +449,7 @@ extension View {
     width: CGFloat
   ) -> some View {
     let viewStore = ViewStore(store.scope(state: \.local))
-    
+
     return self.apply(content: { view in
       WithViewStore(store.scope(state: \.local.isSelectDateSheetPresented)) { _ in
         view.bottomSheet(
@@ -494,7 +494,7 @@ private struct YearPickerView: View {
   private let store: Store<WithSharedState<StorageState>, StorageAction>
   private let width: CGFloat
   private let years = Array(2000...2099).map( String.init )
-  
+
   init(
     store: Store<WithSharedState<StorageState>, StorageAction>,
     width: CGFloat
@@ -502,7 +502,7 @@ private struct YearPickerView: View {
     self.store = store
     self.width = width
   }
-  
+
   var body: some View {
     WithViewStore(store.scope(state: \.local.selectedYear)) { selectedYearViewStore in
       Picker(
@@ -532,7 +532,7 @@ private struct MonthPickerView: View {
   private let store: Store<WithSharedState<StorageState>, StorageAction>
   private let width: CGFloat
   private let months = Array(1...12).map({ String(format: "%02d", $0) })
-  
+
   init(
     store: Store<WithSharedState<StorageState>, StorageAction>,
     width: CGFloat
@@ -540,7 +540,7 @@ private struct MonthPickerView: View {
     self.store = store
     self.width = width
   }
-  
+
   var body: some View {
     WithViewStore(store.scope(state: \.local.selectedMonth)) { selectedMonthViewStore in
       Picker(

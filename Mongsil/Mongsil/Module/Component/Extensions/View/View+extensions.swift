@@ -18,15 +18,15 @@ extension View {
       return self.eraseToAnyView()
     }
   }
-  
+
   public func apply<Content: View>(content: (Self) -> Content) -> AnyView {
     return content(self).eraseToAnyView()
   }
-  
+
   public func eraseToAnyView() -> AnyView {
     return AnyView(self)
   }
-  
+
   public func shadow(
     color: Color,
     x: CGFloat,
@@ -44,30 +44,39 @@ extension View {
       y: spreadedY
     )
   }
-  
+
   public func cornerRadius(
     _ radius: CGFloat,
     corners: UIRectCorner
   ) -> some View {
     clipShape(RoundedCorner(radius: radius, corners: corners))
   }
-  
+
   public func placeholder<Content: View>(
     when shouldShow: Bool,
     alignment: Alignment = .leading,
     @ViewBuilder placeholder: () -> Content) -> some View {
-      
+
       ZStack(alignment: alignment) {
         placeholder().opacity(shouldShow ? 1 : 0)
         self
       }
     }
+
+  public func hideKeyboard() {
+    let resign = #selector(UIResponder.resignFirstResponder)
+    UIApplication.shared.sendAction(resign, to: nil, from: nil, for: nil)
+  }
+
+  public func onKeyboard(_ keyboardYOffset: Binding<CGFloat>) -> some View {
+    return ModifiedContent(content: self, modifier: KeyboardModifier(keyboardYOffset))
+  }
 }
 
 public struct RoundedCorner: Shape {
   public var radius: CGFloat = .infinity
   public var corners: UIRectCorner = .allCorners
-  
+
   public func path(in rect: CGRect) -> Path {
     let path = UIBezierPath(
       roundedRect: rect,
@@ -78,29 +87,16 @@ public struct RoundedCorner: Shape {
   }
 }
 
-extension View {
-  public func hideKeyboard() {
-    let resign = #selector(UIResponder.resignFirstResponder)
-    UIApplication.shared.sendAction(resign, to: nil, from: nil, for: nil)
-  }
-}
-
-extension View {
-  public func onKeyboard(_ keyboardYOffset: Binding<CGFloat>) -> some View {
-    return ModifiedContent(content: self, modifier: KeyboardModifier(keyboardYOffset))
-  }
-}
-
-struct KeyboardModifier: ViewModifier {
+public struct KeyboardModifier: ViewModifier {
   @Binding var keyboardYOffset: CGFloat
   let keyboardWillAppearPublisher = NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)
   let keyboardWillHidePublisher = NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)
-  
+
   init(_ offset: Binding<CGFloat>) {
     _keyboardYOffset = offset
   }
-  
-  func body(content: Content) -> some View {
+
+  public func body(content: Content) -> some View {
     let anumationValue = 0
     return content.offset(x: 0, y: -$keyboardYOffset.wrappedValue)
       .animationIf(true)

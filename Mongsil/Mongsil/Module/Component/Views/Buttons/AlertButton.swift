@@ -9,12 +9,12 @@ import SwiftUI
 
 public struct AlertButton: View {
   public static var height: CGFloat { 56 }
-  
+
   public var title: String
   public var hierarchy: Hierarchy = .primary
   public var loading: Bool = false
   public var action: () -> Void = {}
-  
+
   public init(
     title: String,
     hierarchy: Hierarchy = .primary,
@@ -26,7 +26,7 @@ public struct AlertButton: View {
     self.loading = loading
     self.action = action
   }
-  
+
   public var body: some View {
     Button(
       action: {
@@ -54,7 +54,7 @@ extension AlertButton {
     case primary
     case warning
     case secondary
-    
+
     var backgroundColor: Color {
       switch self {
       case .primary: return .gray9
@@ -62,7 +62,7 @@ extension AlertButton {
       case .secondary: return .gray9
       }
     }
-    
+
     var foregroundColor: Color {
       switch self {
       case .primary: return .white

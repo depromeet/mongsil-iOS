@@ -11,11 +11,11 @@ import PureSwiftUI
 
 struct HomeView: View {
   private let store: Store<WithSharedState<HomeState>, HomeAction>
-  
+
   init(store: Store<WithSharedState<HomeState>, HomeAction>) {
     self.store = store
   }
-  
+
   var body: some View {
     VStack(spacing: 0) {
       Spacer()
@@ -72,11 +72,11 @@ private struct SeachBarView: View {
 
 private struct SearchLink: View {
   private let store: Store<WithSharedState<HomeState>, HomeAction>
-  
+
   init(store: Store<WithSharedState<HomeState>, HomeAction>) {
     self.store = store
   }
-  
+
   var body: some View {
     WithViewStore(store.scope(state: \.local.isSearchPushed)) { isSearchPushedViewStore in
       NavigationLink(
@@ -112,14 +112,14 @@ private struct HotKeywordTitleView: View {
 
 private struct HotKeywordBadgesView: View {
   private let store: Store<WithSharedState<HomeState>, HomeAction>
-  
+
   init(store: Store<WithSharedState<HomeState>, HomeAction>) {
     self.store = store
   }
-  
+
   var body: some View {
     WithViewStore(store.scope(state: \.local.hotKeyword)) { hotKeywordViewStore in
-      
+
       if hotKeywordViewStore.state.isNotEmpty {
         VStack(spacing: 12) {
           HStack(spacing: 8) {

@@ -11,11 +11,11 @@ import Introspect
 
 struct RecordView: View {
   private let store: Store<WithSharedState<RecordState>, RecordAction>
-  
+
   init(store: Store<WithSharedState<RecordState>, RecordAction>) {
     self.store = store
   }
-  
+
   var body: some View {
     VStack {
       MSNavigationView(store: store)
@@ -23,8 +23,7 @@ struct RecordView: View {
       TitleTextView(store: store)
         .padding(.init(top: 16, leading: 28, bottom: 16, trailing: 28))
       Divider()
-        .padding(.leading, 28)
-        .padding(.trailing, 28)
+        .padding(.horizontal, 28)
         .foregroundColor(.gray9)
       MainTextView(store: store)
         .foregroundColor(.gray8)
@@ -49,11 +48,11 @@ struct RecordView: View {
 
 private struct MSNavigationView: View {
   private let store: Store<WithSharedState<RecordState>, RecordAction>
-  
+
   init(store: Store<WithSharedState<RecordState>, RecordAction>) {
     self.store = store
   }
-  
+
   var body: some View {
     WithViewStore(store.scope(state: \.local.selectedDateToStr)) { selectedDateToStrViewStore in
       WithViewStore(store.scope(state: \.local.isNextButtonAbled)) { isNextButtonAbledViewStore in
@@ -99,11 +98,11 @@ private struct MSNavigationView: View {
 
 private struct TitleTextView: View {
   private let store: Store<WithSharedState<RecordState>, RecordAction>
-  
+
   init(store: Store<WithSharedState<RecordState>, RecordAction>) {
     self.store = store
   }
-  
+
   var body: some View {
     WithViewStore(store.scope(state: \.local.titleText)) { titleTextViewStore in
       TextField(
@@ -131,11 +130,11 @@ private struct TitleTextView: View {
 private struct MainTextView: View {
   private let store: Store<WithSharedState<RecordState>, RecordAction>
   @State var placeholederText: String = "오늘은 어떤 꿈을 꾸셨나요?"
-  
+
   init(store: Store<WithSharedState<RecordState>, RecordAction>) {
     self.store = store
   }
-  
+
   var body: some View {
     WithViewStore(store.scope(state: \.local.mainText)) { mainTextViewStore in
       ZStack {
@@ -163,11 +162,11 @@ private struct MainTextView: View {
 private struct CountTextView: View {
   private let store: Store<WithSharedState<RecordState>, RecordAction>
   @State var keyboardYOffset: CGFloat = 0
-  
+
   init(store: Store<WithSharedState<RecordState>, RecordAction>) {
     self.store = store
   }
-  
+
   var body: some View {
     WithViewStore(store.scope(state: \.local.mainText)) { mainTextViewStore in
       let text = mainTextViewStore.state.count == 0 ? "nnnn" : "\(mainTextViewStore.state.count)"
@@ -183,7 +182,7 @@ extension View {
     store: Store<WithSharedState<RecordState>, RecordAction>
   ) -> some View {
     let viewStore = ViewStore(store.scope(state: \.local))
-    
+
     return self.apply(content: { view in
       WithViewStore(store.scope(state: \.local.isSelectDateSheetPresented)) { _ in
         view.bottomSheet(

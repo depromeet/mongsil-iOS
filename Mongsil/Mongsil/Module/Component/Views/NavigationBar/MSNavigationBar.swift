@@ -18,7 +18,7 @@ public struct MSNavigationBar: View {
   public var rightButtonImage: Image?
   public var rightButtonAction: () -> Void = {}
   @Binding public var rightButtonAbled: Bool
-  
+
   public init(
     backButtonImage: Image? = nil,
     backButtonAction: @escaping () -> Void = {},
@@ -42,7 +42,7 @@ public struct MSNavigationBar: View {
     self.rightButtonAction = rightButtonAction
     self._rightButtonAbled = rightButtonAbled
   }
-  
+
   public var body: some View {
     HStack(alignment: .center, spacing: 0) {
       HStack(spacing: 0) {
@@ -56,7 +56,7 @@ public struct MSNavigationBar: View {
         Spacer()
       }
       .frame(width: 40)
-      
+
       HStack(spacing: 0) {
         Spacer()
         if isButtonTitle {
@@ -81,7 +81,7 @@ public struct MSNavigationBar: View {
         }
         Spacer()
       }
-      
+
       HStack(spacing: 0) {
         Spacer()
         if rightButtonText != nil {

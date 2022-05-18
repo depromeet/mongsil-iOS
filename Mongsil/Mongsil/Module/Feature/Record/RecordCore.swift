@@ -17,11 +17,11 @@ struct RecordState: Equatable {
   }
   public var isSelectDateSheetPresented: Bool = false
   public var isNextButtonAbled: Bool = false
-  
+
   // Child State
   public var recordKeyword: RecordKeywordState?
   public var cancelRecordAlertModal: AlertDoubleButtonState?
-  
+
   init(
     cancelRecordAlertModal: AlertDoubleButtonState? = nil,
     recordKeyword: RecordKeywordState? = nil
@@ -32,19 +32,19 @@ struct RecordState: Equatable {
 }
 
 enum RecordAction: ToastPresentableAction {
-  case setRecordKeywordPushed(Bool)
-  case presentToast(String)
   case backButtonTapped
+  case isCloseButtonTapped(Bool)
   case navigationBarDateButtonTapped
   case setSelectDateSheetPresented(Bool)
+  case confirmDateButtonTapped
   case setSelectedDate(Date)
+  case setNextButtonAbled(Bool)
+  case setRecordKeywordPushed(Bool)
   case titletextFieldChanged(String)
   case mainTextFieldChanged(String)
-  case confirmDateButtonTapped
-  case isCloseButtonTapped(Bool)
-  case setNextButtonAbled(Bool)
-  
-  //Child Action
+  case presentToast(String)
+
+  // Child Action
   case recordKeyword(RecordKeywordAction)
   case cancelRecordAlertModal(AlertDoubleButtonAction)
 }
@@ -75,17 +75,15 @@ Reducer.combine([
       }
     ) as Reducer<WithSharedState<RecordState>, RecordAction, RecordEnvironment>,
   Reducer<WithSharedState<RecordState>, RecordAction, RecordEnvironment> {
-    state, action, env in
+    state, action, _ in
     switch action {
     case .backButtonTapped:
       return .none
-      
+
     case let .isCloseButtonTapped(tapped):
-      if state.local.mainText.count == 0 && state.local.titleText.count == 0
-      {
+      if state.local.mainText.count == 0 && state.local.titleText.count == 0 {
         return Effect(value: .backButtonTapped)
-      }
-      else {
+      } else {
         return setAlertModal(
           state: &state.local.cancelRecordAlertModal,
           titleText: "작성을 취소할까요?",
@@ -95,96 +93,84 @@ Reducer.combine([
           primaryButtonHierachy: .warning
         )
       }
-      
-    case let .setNextButtonAbled(abled):
-      state.local.isNextButtonAbled = abled
-      return .none
-      
-    case .cancelRecordAlertModal(.secondaryButtonTapped):
-      state.local.cancelRecordAlertModal = nil
-      return .none
-      
-    case .cancelRecordAlertModal(.primaryButtonTapped):
-      state.local.cancelRecordAlertModal = nil
-      return Effect(value: .backButtonTapped)
-      
-    case let .titletextFieldChanged(text):
-      if checkTextCount(text: text, upper: 20) {
-        state.local.titleText = text
-        if checkTextFieldEmpty(
-          state: &state.local
-        ) {
-          return Effect(value: .setNextButtonAbled(true))
-        }
-        else {
-          return Effect(value: .setNextButtonAbled(false))
-        }
-      }
-      else {
-        state.local.titleText.removeLast()
-        return Effect(value: .presentToast("제목은 최대 20자까지 입력할 수 있어요."))
-      }
-      
-    case let .mainTextFieldChanged(text):
-      if checkTextCount(text: text, upper: 2000) {
-        state.local.mainText = text
-        if checkTextFieldEmpty(
-          state: &state.local
-        ) {
-          return Effect(value: .setNextButtonAbled(true))
-        }
-        else {
-          return Effect(value: .setNextButtonAbled(false))
-        }
-      }
-      else {
-        state.local.mainText.removeLast()
-        return Effect(value: .presentToast("꿈 일기는 최대 2000자까지 작성할 수 있어요."))
-      }
-      
+
     case .navigationBarDateButtonTapped:
       return Effect(value: .setSelectDateSheetPresented(true))
-      
+
     case let .setSelectDateSheetPresented(presented):
       state.local.isSelectDateSheetPresented = presented
       return .none
-      
+
+    case .confirmDateButtonTapped:
+      return Effect(value: .setSelectDateSheetPresented(false))
+
     case let .setSelectedDate(date):
       state.local.currentDate = date
       return .none
-      
-    case .confirmDateButtonTapped:
-      return Effect(value: .setSelectDateSheetPresented(false))
-      
-    case .presentToast:
+
+    case let .setNextButtonAbled(abled):
+      state.local.isNextButtonAbled = abled
       return .none
-      
+
     case let .setRecordKeywordPushed(pushed):
       state.local.isRecordKeywordPushed = pushed
       if pushed {
         state.local.recordKeyword = .init()
       }
       return .none
-      
+
+    case let .titletextFieldChanged(text):
+      if checkTextCount(text: text, upper: 20) {
+        state.local.titleText = text
+        if checkTextFieldEmpty(state: &state) {
+          return Effect(value: .setNextButtonAbled(true))
+        }
+        return Effect(value: .setNextButtonAbled(false))
+      } else {
+        state.local.titleText.removeLast()
+        return Effect(value: .presentToast("제목은 최대 20자까지 입력할 수 있어요."))
+      }
+
+    case let .mainTextFieldChanged(text):
+      if checkTextCount(text: text, upper: 2000) {
+        state.local.mainText = text
+        if checkTextFieldEmpty(state: &state) {
+          return Effect(value: .setNextButtonAbled(true))
+        }
+        return Effect(value: .setNextButtonAbled(false))
+      } else {
+        state.local.mainText.removeLast()
+        return Effect(value: .presentToast("꿈 일기는 최대 2000자까지 작성할 수 있어요."))
+      }
+
+    case .presentToast:
+      return .none
+
     case .recordKeyword(.backButtonTapped):
       return Effect(value: .setRecordKeywordPushed(false))
-      
+
     case .recordKeyword:
       return .none
+
+    case .cancelRecordAlertModal(.secondaryButtonTapped):
+      state.local.cancelRecordAlertModal = nil
+      return .none
+
+    case .cancelRecordAlertModal(.primaryButtonTapped):
+      state.local.cancelRecordAlertModal = nil
+      return Effect(value: .backButtonTapped)
     }
   }
 ])
 
-private func checkTextFieldEmpty(
-  state: inout RecordState,
-  titleText: String = "",
-  mainText: String = ""
-) -> Bool {
-  return state.titleText.count > 0 && state.mainText.count > 0 ? true : false
-}
-
 private func checkTextCount(text: String, upper: Int) -> Bool {
   return text.count > upper ? false : true
+}
+
+private func checkTextFieldEmpty(state: inout WithSharedState<RecordState>) -> Bool {
+  return state.local.titleText.count > 0 && state.local.mainText.count > 0
+  ? true
+  : false
 }
 
 private func setAlertModal(

@@ -35,21 +35,21 @@ let recordKeywordReducer = Reducer<WithSharedState<RecordKeywordState>, RecordKe
   switch action {
   case .backButtonTapped:
     return .none
-    
+
   case .setNextButtonAbled:
     return .none
-    
+
   case .navigationBarDateButtonTapped:
     return Effect(value: .setSelectDateSheetPresented(true))
-    
+
   case let .setSelectDateSheetPresented(presented):
     state.local.isSelectDateSheetPresented = presented
     return .none
-    
+
   case let .setSelectedDate(date):
     state.local.currentDate = date
     return .none
-    
+
   case .confirmDateButtonTapped:
     return Effect(value: .setSelectDateSheetPresented(false))
   }
