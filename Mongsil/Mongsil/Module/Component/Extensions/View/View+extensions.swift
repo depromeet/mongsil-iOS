@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 extension View {
   public func `if`<Content: View>(
@@ -71,6 +72,10 @@ extension View {
   public func onKeyboard(_ keyboardYOffset: Binding<CGFloat>) -> some View {
     return ModifiedContent(content: self, modifier: KeyboardModifier(keyboardYOffset))
   }
+
+  public func adaptsToKeyboard() -> some View {
+    return modifier(AdaptsToKeyboard())
+  }
 }
 
 public struct RoundedCorner: Shape {
@@ -114,5 +119,53 @@ public struct KeyboardModifier: ViewModifier {
       }.onReceive(keyboardWillHidePublisher) { _ in
         self.$keyboardYOffset.wrappedValue = 0
       }
+  }
+}
+
+public struct AdaptsToKeyboard: ViewModifier {
+  @State var currentHeight: CGFloat = 0
+
+  public func body(content: Content) -> some View {
+    GeometryReader { geometry in
+      content
+        .padding(.bottom, self.currentHeight)
+        .onAppear(perform: {
+          NotificationCenter.Publisher(
+            center: NotificationCenter.default,
+            name: UIResponder.keyboardWillShowNotification
+          )
+          .merge(with: NotificationCenter.Publisher(
+            center: NotificationCenter.default,
+            name: UIResponder.keyboardWillChangeFrameNotification
+          ))
+          .compactMap { notification in
+            withAnimation(.easeOut(duration: 0.16)) {
+              notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect
+            }
+          }
+          .map { rect in
+            rect.height - geometry.safeAreaInsets.bottom
+          }
+          .subscribe(
+            Subscribers.Assign(
+              object: self,
+              keyPath: \.currentHeight
+            )
+          )
+          NotificationCenter.Publisher(
+            center: NotificationCenter.default,
+            name: UIResponder.keyboardWillHideNotification
+          )
+          .compactMap { _ in
+            CGFloat.zero
+          }
+          .subscribe(
+            Subscribers.Assign(
+              object: self,
+              keyPath: \.currentHeight
+            )
+          )
+        })
+    }
   }
 }

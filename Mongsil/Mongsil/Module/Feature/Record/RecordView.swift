@@ -155,6 +155,7 @@ private struct MainTextView: View {
           hideKeyboard()
         }
       }
+      .adaptsToKeyboard()
     }
   }
 }
