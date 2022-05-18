@@ -8,6 +8,7 @@
 import SwiftUI
 import ComposableArchitecture
 import Introspect
+import Combine
 
 struct RecordView: View {
   private let store: Store<WithSharedState<RecordState>, RecordAction>
@@ -156,6 +157,7 @@ private struct MainTextView: View {
           hideKeyboard()
         }
       }
+      .adaptsToKeyboard()
     }
   }
 }
