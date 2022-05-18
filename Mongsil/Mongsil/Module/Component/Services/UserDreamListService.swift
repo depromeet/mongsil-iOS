@@ -18,9 +18,9 @@ public class UserDreamListService {
     self.alamofireSession = alamofireSession
   }
 
-  public func getUserDreamList(id: String) -> AnyPublisher<UserDreamList, Error> {
+  public func getUserDreamList(userID: String) -> AnyPublisher<UserDreamList, Error> {
     let url = "http://3.34.46.139:80\(URLHost.dreamList)"
-    let body = UserDreamListRequestDto(userID: id)
+    let body = UserDreamListRequestDto(userID: userID)
 
     return alamofireSession.request(
       url,
@@ -45,7 +45,7 @@ public class UserDreamListService {
       case let .failure(error):
         throw ErrorFactory.getUserDreamListFailed(
           url: url,
-          id: id,
+          userID: userID,
           underlying: error
         )
       }
@@ -57,7 +57,7 @@ public class UserDreamListService {
         throw ErrorFactory.getUserDreamListFailed(
           url: url,
           statusCode: response.statusCode,
-          id: id,
+          userID: userID,
           underlying: nil
         )
       }
@@ -199,7 +199,7 @@ public enum UserDreamListServiceErrorFactory: ErrorFactory {
   public static func getUserDreamListFailed(
     url: String,
     statusCode: String? = nil,
-    id: String,
+    userID: String,
     underlying: Error? = nil
   ) -> NSError {
     return NSError(
@@ -209,7 +209,7 @@ public enum UserDreamListServiceErrorFactory: ErrorFactory {
         "identifier": String(reflecting: Code.getUserDreamListFailed),
         "url": url,
         "statusCode": statusCode as Any,
-        "id": id,
+        "userID": userID,
         NSUnderlyingErrorKey: underlying as Any
       ]
     )

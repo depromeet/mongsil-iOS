@@ -26,7 +26,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         defaults: .standard,
         alamofireSession: .default
       ),
-      signUpService: .init(alamofireSession: .default)
+      signUpService: .init(alamofireSession: .default),
+      userDreamListService: .init(alamofireSession: .default)
     )
   )
 

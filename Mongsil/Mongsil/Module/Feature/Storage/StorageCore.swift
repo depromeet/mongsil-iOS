@@ -22,6 +22,7 @@ struct StorageState: Equatable {
     } ?? []
   }
   public var dreamList: [DreamInfo]?
+  public var userDreamList: [UserDream]?
   public var selectedDate: Date = Date()
   public var selectedDateToStr: String {
     return selectedYear+"."+selectedMonth
@@ -34,6 +35,7 @@ struct StorageState: Equatable {
   public var displayDeleteCardHeader: Bool = false
   public var deleteDiaryList: [Diary] = []
   public var deleteDreamList: [DreamInfo] = []
+  public var deleteUserDreamList: [UserDream] = []
   public var selectedDeleteCardCount: Int {
     selectedTab == .diary
     ? deleteDiaryList.count
@@ -59,6 +61,7 @@ struct StorageState: Equatable {
     displayDeleteCardHeader: Bool = false,
     deleteDiaryList: [Diary] = [],
     deleteDreamList: [DreamInfo] = [],
+    deleteUserDreamList: [UserDream] = [],
     deleteCardAlertModal: AlertDoubleButtonState? = nil
   ) {
     self.isSettingPushed = isSettingPushed
@@ -75,6 +78,7 @@ struct StorageState: Equatable {
     self.displayDeleteCardHeader = displayDeleteCardHeader
     self.deleteDiaryList = deleteDiaryList
     self.deleteDreamList = deleteDreamList
+    self.deleteUserDreamList = deleteUserDreamList
     self.deleteCardAlertModal = deleteCardAlertModal
   }
 }
@@ -92,8 +96,9 @@ extension StorageState {
   }
 }
 
-enum StorageAction {
+enum StorageAction: ToastPresentableAction {
   case onAppear
+  case setUserDreamList([UserDream])
   case setSettingPushed(Bool)
   case setDiaryPushed(Bool, Diary? = nil)
   case setDreamPushed(Bool, DreamInfo? = nil)
@@ -109,6 +114,9 @@ enum StorageAction {
   case completeButtonTapped(StorageState.Tab)
   case clearSelectionButtonTapped(StorageState.Tab)
   case deleteButtonTapped(StorageState.Tab)
+  case setDeleteUserDreamList
+  case presentToast(String)
+  case noop
 
   // Child Action
   case setting(SettingAction)
@@ -118,6 +126,11 @@ enum StorageAction {
 }
 
 struct StorageEnvironment {
+  var userDreamListService: UserDreamListService
+
+  init(userDreamListService: UserDreamListService) {
+    self.userDreamListService = userDreamListService
+  }
 }
 
 let storageReducer: Reducer<WithSharedState<StorageState>, StorageAction, StorageEnvironment> =
@@ -159,15 +172,19 @@ Reducer.combine([
       }
     ) as Reducer<WithSharedState<StorageState>, StorageAction, StorageEnvironment>,
   Reducer<WithSharedState<StorageState>, StorageAction, StorageEnvironment> {
-    state, action, _ in
+    state, action, env in
     switch action {
     case .onAppear:
       return Effect.concatenate([
         setUserName(state: &state),
         setDiaryList(state: &state),
-        setDreamList(state: &state),
+        setDreamList(state: &state, env: env),
         setDiaryCount(state: &state)
       ])
+
+    case let .setUserDreamList(userDreamList):
+      state.local.userDreamList = userDreamList
+      return .none
 
     case let .setSettingPushed(pushed):
       state.local.isSettingPushed = pushed
@@ -299,6 +316,19 @@ Reducer.combine([
         )
       }
 
+    case .setDeleteUserDreamList:
+      for dream in state.local.deleteUserDreamList {
+        state.local.userDreamList?.remove(object: dream)
+      }
+      state.local.deleteUserDreamList.removeAll()
+      return Effect(value: .presentToast("해몽이 삭제되었습니다."))
+
+    case .presentToast:
+      return .none
+
+    case .noop:
+      return .none
+
     case .setting(.backButtonTapped):
       return Effect(value: .setSettingPushed(false))
 
@@ -326,7 +356,7 @@ Reducer.combine([
         ])
       } else {
         return Effect.concatenate([
-          deleteDreamList(state: &state),
+          deleteDreamList(state: &state, env: env),
           Effect(value: .setDisplayDeleteCardHeader(false))
         ])
       }
@@ -356,8 +386,29 @@ private func setDiaryList(state: inout WithSharedState<StorageState>) -> Effect<
   return .none
 }
 
-private func setDreamList(state: inout WithSharedState<StorageState>) -> Effect<StorageAction, Never> {
-  // 추후 유저가 저장한 해몽에 대해 받아오는 API 및 로직 필요
+private func setDreamList(
+  state: inout WithSharedState<StorageState>,
+  env: StorageEnvironment
+) -> Effect<StorageAction, Never> {
+  // MARK: - 유저의 해몽 리스트 받아오는 API로 추후 서버 배포 후 해당 코드 사용 예정
+  /**
+  guard let userID = UserDefaults.standard.string(forKey: "userID") else {
+    return .none
+  }
+
+  return env.userDreamListService.getUserDreamList(userID: userID)
+    .catchToEffect()
+    .map({ result in
+      switch result {
+      case let .success(response):
+        return StorageAction.setUserDreamList(response.dreamList)
+      case .failure:
+        return StorageAction.noop
+      }
+    })
+   */
+
+  // MARK: - 유저의 해몽 리스트에 대한 Stub 데이터를 통한 Fake 구현
   state.local.dreamList = Dream.Stub.dream1.subcategory[0].dreamInfo
   return .none
 }
@@ -377,13 +428,33 @@ private func deleteDiaryList(state: inout WithSharedState<StorageState>) -> Effe
   return .none
 }
 
-private func deleteDreamList(state: inout WithSharedState<StorageState>) -> Effect<StorageAction, Never> {
-  // 추후 해몽 삭제 API 및 로직 필요
+private func deleteDreamList(
+  state: inout WithSharedState<StorageState>,
+  env: StorageEnvironment
+) -> Effect<StorageAction, Never> {
+  // MARK: - 유저가 삭제할 해몽 리스트에 대해 요청하는 API로 추후 서버 배포 후 해당 코드 사용 예정
+  /**
+  let deleteUserDreamListID = state.local.deleteuserDreamList
+    .map({ $0.id })
+
+  return env.userDreamListService.deleteUserDreamList(dreamIDs: deleteUserDreamListID)
+    .catchToEffect()
+    .map({ result in
+      switch result {
+      case .success:
+        return StorageAction.setDeleteUserDreamList
+      case .failure:
+        return StorageAction.presentToast("해몽 삭제에 실패했습니다. 다시 시도해주세요.")
+      }
+    })
+   */
+
+  // MARK: - 유저가 삭제할 해몽 리스트에 대한 Stub 데이터를 통한 Fake 구현
   for dream in state.local.deleteDreamList {
     state.local.dreamList?.remove(object: dream)
   }
   state.local.deleteDreamList.removeAll()
-  return .none
+  return Effect(value: .presentToast("해몽이 삭제되었습니다."))
 }
 
 private func revortDeleteList(

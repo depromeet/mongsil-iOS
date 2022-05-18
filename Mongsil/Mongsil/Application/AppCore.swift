@@ -37,6 +37,7 @@ struct AppEnvironment {
   var appleLoginService: AppleLoginService
   var userService: UserService
   var signUpService: SignUpService
+  var userDreamListService: UserDreamListService
 
   init(
     mainQueue: AnySchedulerOf<DispatchQueue>,
@@ -44,7 +45,8 @@ struct AppEnvironment {
     kakaoLoginService: KakaoLoginService,
     appleLoginService: AppleLoginService,
     userService: UserService,
-    signUpService: SignUpService
+    signUpService: SignUpService,
+    userDreamListService: UserDreamListService
   ) {
     self.mainQueue = mainQueue
     self.appTrackingService = appTrackingService
@@ -52,6 +54,7 @@ struct AppEnvironment {
     self.appleLoginService = appleLoginService
     self.userService = userService
     self.signUpService = signUpService
+    self.userDreamListService = userDreamListService
   }
 }
 
@@ -64,7 +67,8 @@ let appReducer = Reducer.combine([
         mainQueue: $0.mainQueue,
         kakaoLoginService: $0.kakaoLoginService,
         userService: $0.userService,
-        signUpService: $0.signUpService
+        signUpService: $0.signUpService,
+        userDreamListService: $0.userDreamListService
       )
     }
   ) as Reducer<WithSharedState<AppState>, AppAction, AppEnvironment>,
@@ -149,6 +153,9 @@ let appReducer = Reducer.combine([
       return Effect(value: .presentToast(text))
 
     case let .mainTab(.record(.presentToast(text))):
+      return Effect(value: .presentToast(text))
+
+    case let .mainTab(.storage(.presentToast(text))):
       return Effect(value: .presentToast(text))
 
     case .mainTab:
