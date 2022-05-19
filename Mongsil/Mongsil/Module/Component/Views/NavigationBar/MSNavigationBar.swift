@@ -17,6 +17,7 @@ public struct MSNavigationBar: View {
   public var rightButtonText: String?
   public var rightButtonImage: Image?
   public var rightButtonAction: () -> Void = {}
+  public var displayTitle: Bool
   @Binding public var rightButtonAbled: Bool
 
   public init(
@@ -29,6 +30,7 @@ public struct MSNavigationBar: View {
     rightButtonText: String? = nil,
     rightButtonImage: Image? = nil,
     rightButtonAction: @escaping () -> Void = {},
+    displayTitle: Bool = true,
     rightButtonAbled: Binding<Bool> = .constant(true)
   ) {
     self.backButtonImage = backButtonImage
@@ -40,6 +42,7 @@ public struct MSNavigationBar: View {
     self.rightButtonText = rightButtonText
     self.rightButtonImage = rightButtonImage
     self.rightButtonAction = rightButtonAction
+    self.displayTitle = displayTitle
     self._rightButtonAbled = rightButtonAbled
   }
 
@@ -59,27 +62,29 @@ public struct MSNavigationBar: View {
 
       HStack(spacing: 0) {
         Spacer()
-        if isButtonTitle {
-          Button(action: titleButtonAction) {
-            HStack(spacing: 0) {
-              Text(titleText)
-                .font(.subTitle)
-                .foregroundColor(.gray2)
-              if titleSubImage != nil {
-                Spacer()
-                  .frame(width: 4)
-                titleSubImage?
-                  .renderingMode(.template)
+        if displayTitle {
+          if isButtonTitle {
+            Button(action: titleButtonAction) {
+              HStack(spacing: 0) {
+                Text(titleText)
+                  .font(.subTitle)
                   .foregroundColor(.gray2)
+                if titleSubImage != nil {
+                  Spacer()
+                    .frame(width: 4)
+                  titleSubImage?
+                    .renderingMode(.template)
+                    .foregroundColor(.gray2)
+                }
               }
             }
+          } else {
+            Text(titleText)
+              .font(.subTitle)
+              .foregroundColor(.gray2)
           }
-        } else {
-          Text(titleText)
-            .font(.subTitle)
-            .foregroundColor(.gray2)
+          Spacer()
         }
-        Spacer()
       }
 
       HStack(spacing: 0) {

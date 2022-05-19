@@ -15,6 +15,9 @@ struct StorageState: Equatable {
   public var userName: String = ""
   public var diaryCount: Int = 0
   public var selectedTab: Tab = .diary
+  public var displayNavigationTitle: Bool {
+    selectedTab == .diary
+  }
   public var diaryList: [Diary]?
   public var diaryListWithDate: [Diary] {
     diaryList?.filter {
