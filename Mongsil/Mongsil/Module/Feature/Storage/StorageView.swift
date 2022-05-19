@@ -48,40 +48,38 @@ private struct StorageNavigationView: View {
   }
 
   var body: some View {
-    ZStack {
-      WithViewStore(store.scope(state: \.local.selectedDateToStr)) { selectedDateToStrViewStore in
-        WithViewStore(store.scope(state: \.local.displayDeleteCardHeader)) { displayDeleteCardHeaderViewStore in
+    WithViewStore(store.scope(state: \.local.selectedDateToStr)) { selectedDateToStrViewStore in
+      WithViewStore(store.scope(state: \.local.displayDeleteCardHeader)) { displayDeleteCardHeaderViewStore in
+        WithViewStore(store.scope(state: \.local.displayNavigationTitle)) { displayNavigationTitleViewStore in
           MSNavigationBar(
             titleText: selectedDateToStrViewStore.state,
             titleSubImage: R.CustomImage.arrowDownIcon.image,
             isButtonTitle: !displayDeleteCardHeaderViewStore.state,
             titleButtonAction: { ViewStore(store).send(.navigationBarDateButtonTapped) },
             rightButtonImage: R.CustomImage.settingIcon.image,
-            rightButtonAction: { ViewStore(store).send(.setSettingPushed(true)) }
+            rightButtonAction: { ViewStore(store).send(.setSettingPushed(true)) },
+            displayTitle: displayNavigationTitleViewStore.state
           )
         }
       }
-      HStack {
-        Spacer()
-        WithViewStore(store.scope(state: \.local.isSettingPushed)) { isSettingPushedViewStore in
-          NavigationLink(
-            destination: IfLetStore(
-              store.scope(
-                state: \.setting,
-                action: StorageAction.setting
-              ),
-              then: SettingView.init(store: )
-            ),
-            isActive: isSettingPushedViewStore.binding(
-              send: StorageAction.setSettingPushed
-            ),
-            label: {
-              EmptyView()
-            }
-          )
-          .isDetailLink(true)
+    }
+    WithViewStore(store.scope(state: \.local.isSettingPushed)) { isSettingPushedViewStore in
+      NavigationLink(
+        destination: IfLetStore(
+          store.scope(
+            state: \.setting,
+            action: StorageAction.setting
+          ),
+          then: SettingView.init(store: )
+        ),
+        isActive: isSettingPushedViewStore.binding(
+          send: StorageAction.setSettingPushed
+        ),
+        label: {
+          EmptyView()
         }
-      }
+      )
+      .isDetailLink(true)
     }
   }
 }
