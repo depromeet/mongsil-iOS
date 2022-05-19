@@ -47,6 +47,8 @@
 		123EE0A028045F5700D34B93 /* PersonalInfoPolicyCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123EE09F28045F5700D34B93 /* PersonalInfoPolicyCore.swift */; };
 		123EE0A328045F7A00D34B93 /* OpenSourceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123EE0A228045F7A00D34B93 /* OpenSourceView.swift */; };
 		123EE0A528045F8300D34B93 /* OpenSourceCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123EE0A428045F8300D34B93 /* OpenSourceCore.swift */; };
+		123FED2A2833689700F62663 /* UserDream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123FED292833689700F62663 /* UserDream.swift */; };
+		123FED2C28336A4200F62663 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123FED2B28336A4200F62663 /* Category.swift */; };
 		124DBC7B2829EB9B005C3ED4 /* SegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124DBC7A2829EB9B005C3ED4 /* SegmentView.swift */; };
 		124DBC7E282A1213005C3ED4 /* Diary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124DBC7D282A1213005C3ED4 /* Diary.swift */; };
 		124DBC80282A18F9005C3ED4 /* Date+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124DBC7F282A18F9005C3ED4 /* Date+extensions.swift */; };
@@ -81,12 +83,18 @@
 		12952A61280250A300C89DD7 /* Font+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12952A60280250A300C89DD7 /* Font+extensions.swift */; };
 		12952A63280250D700C89DD7 /* UIFont+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12952A62280250D700C89DD7 /* UIFont+extensions.swift */; };
 		12952A65280251D600C89DD7 /* Fonts+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12952A64280251D600C89DD7 /* Fonts+Generated.swift */; };
+		12A026D1283391E800665CAF /* UserDreamListRequestDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A026D0283391E800665CAF /* UserDreamListRequestDto.swift */; };
+		12A026D3283393B300665CAF /* UserDreamListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A026D2283393B300665CAF /* UserDreamListService.swift */; };
+		12A026D5283395C400665CAF /* UserDreamList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A026D4283395C400665CAF /* UserDreamList.swift */; };
+		12A026D72833976400665CAF /* UserDreamListIDRequestDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A026D62833976400665CAF /* UserDreamListIDRequestDto.swift */; };
+		12A026D92833993300665CAF /* SaveDreamRequestDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A026D82833993300665CAF /* SaveDreamRequestDto.swift */; };
 		12A2244B27F7DFED00617C10 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A2244A27F7DFED00617C10 /* AppDelegate.swift */; };
 		12A2244D27F7E04A00617C10 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A2244C27F7E04A00617C10 /* SceneDelegate.swift */; };
 		12A2245027F7E0F000617C10 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A2244F27F7E0F000617C10 /* AppView.swift */; };
 		12A2245227F7E0F900617C10 /* AppCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A2245127F7E0F900617C10 /* AppCore.swift */; };
 		12A2245627F7E76F00617C10 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A2245527F7E76F00617C10 /* HomeView.swift */; };
 		12A2245827F7E77700617C10 /* HomeCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A2245727F7E77700617C10 /* HomeCore.swift */; };
+		12B38ADA2831DD1C00D0E921 /* Array+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B38AD92831DD1C00D0E921 /* Array+extensions.swift */; };
 		12D775DB28024B8C00CD0CFD /* Rswift in Frameworks */ = {isa = PBXBuildFile; productRef = 12D775DA28024B8C00CD0CFD /* Rswift */; };
 		12D7D3CD281E91EA00B83DDE /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D7D3CC281E91EA00B83DDE /* UserService.swift */; };
 		12E6EE352828CEFF00504CE3 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E6EE342828CEFF00504CE3 /* SearchView.swift */; };
@@ -158,6 +166,8 @@
 		123EE09F28045F5700D34B93 /* PersonalInfoPolicyCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoPolicyCore.swift; sourceTree = "<group>"; };
 		123EE0A228045F7A00D34B93 /* OpenSourceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenSourceView.swift; sourceTree = "<group>"; };
 		123EE0A428045F8300D34B93 /* OpenSourceCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenSourceCore.swift; sourceTree = "<group>"; };
+		123FED292833689700F62663 /* UserDream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDream.swift; sourceTree = "<group>"; };
+		123FED2B28336A4200F62663 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		124DBC7A2829EB9B005C3ED4 /* SegmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentView.swift; sourceTree = "<group>"; };
 		124DBC7D282A1213005C3ED4 /* Diary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diary.swift; sourceTree = "<group>"; };
 		124DBC7F282A18F9005C3ED4 /* Date+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+extensions.swift"; sourceTree = "<group>"; };
@@ -193,6 +203,11 @@
 		12952A60280250A300C89DD7 /* Font+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Font+extensions.swift"; sourceTree = "<group>"; };
 		12952A62280250D700C89DD7 /* UIFont+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+extensions.swift"; sourceTree = "<group>"; };
 		12952A64280251D600C89DD7 /* Fonts+Generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Fonts+Generated.swift"; sourceTree = "<group>"; };
+		12A026D0283391E800665CAF /* UserDreamListRequestDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDreamListRequestDto.swift; sourceTree = "<group>"; };
+		12A026D2283393B300665CAF /* UserDreamListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDreamListService.swift; sourceTree = "<group>"; };
+		12A026D4283395C400665CAF /* UserDreamList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDreamList.swift; sourceTree = "<group>"; };
+		12A026D62833976400665CAF /* UserDreamListIDRequestDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDreamListIDRequestDto.swift; sourceTree = "<group>"; };
+		12A026D82833993300665CAF /* SaveDreamRequestDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveDreamRequestDto.swift; sourceTree = "<group>"; };
 		12A2244A27F7DFED00617C10 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		12A2244C27F7E04A00617C10 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		12A2244F27F7E0F000617C10 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
@@ -200,6 +215,7 @@
 		12A2245327F7E5D300617C10 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		12A2245527F7E76F00617C10 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		12A2245727F7E77700617C10 /* HomeCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCore.swift; sourceTree = "<group>"; };
+		12B38AD92831DD1C00D0E921 /* Array+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+extensions.swift"; sourceTree = "<group>"; };
 		12D7D3CC281E91EA00B83DDE /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		12E6EE342828CEFF00504CE3 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		12E6EE362828CF0500504CE3 /* SearchCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCore.swift; sourceTree = "<group>"; };
@@ -449,6 +465,7 @@
 				12D7D3CC281E91EA00B83DDE /* UserService.swift */,
 				1292B188282495030050A10D /* SignUpService.swift */,
 				1292B19428249D0F0050A10D /* DropoutService.swift */,
+				12A026D2283393B300665CAF /* UserDreamListService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -549,6 +566,7 @@
 				123EE07D2804530500D34B93 /* View */,
 				1292B19628249E7C0050A10D /* Unit.swift */,
 				124DBC7F282A18F9005C3ED4 /* Date+extensions.swift */,
+				12B38AD92831DD1C00D0E921 /* Array+extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -612,6 +630,9 @@
 				1292B18A282497B30050A10D /* CheckUserRequestDto.swift */,
 				1292B18D282498510050A10D /* SignUpUserRequestDto.swift */,
 				1292B18F282498940050A10D /* DropoutRequestDto.swift */,
+				12A026D0283391E800665CAF /* UserDreamListRequestDto.swift */,
+				12A026D62833976400665CAF /* UserDreamListIDRequestDto.swift */,
+				12A026D82833993300665CAF /* SaveDreamRequestDto.swift */,
 			);
 			path = RequestDto;
 			sourceTree = "<group>";
@@ -753,6 +774,9 @@
 				7779D723281C07C900683C1F /* DreamInfo.swift */,
 				7779D71B281ADE3600683C1F /* User.swift */,
 				124DBC7D282A1213005C3ED4 /* Diary.swift */,
+				12A026D4283395C400665CAF /* UserDreamList.swift */,
+				123FED292833689700F62663 /* UserDream.swift */,
+				123FED2B28336A4200F62663 /* Category.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -928,6 +952,7 @@
 				122236F028024DF1009D5C66 /* R.generated.swift in Sources */,
 				1214C0E8280E8A7E002D2C4C /* OnboardingImage.swift in Sources */,
 				12952A63280250D700C89DD7 /* UIFont+extensions.swift in Sources */,
+				12B38ADA2831DD1C00D0E921 /* Array+extensions.swift in Sources */,
 				123EE0832804536800D34B93 /* BackButton.swift in Sources */,
 				1291296F27F815460017E087 /* SharedState.swift in Sources */,
 				123EE0802804533C00D34B93 /* MSNavigationBar.swift in Sources */,
@@ -960,6 +985,7 @@
 				122E1079282BA2B20034DF37 /* DreamView.swift in Sources */,
 				7779D71C281ADE3600683C1F /* User.swift in Sources */,
 				123EE088280453AB00D34B93 /* SettingView.swift in Sources */,
+				12A026D1283391E800665CAF /* UserDreamListRequestDto.swift in Sources */,
 				125F84AC280D122500279C42 /* AlertSingleButtonCore.swift in Sources */,
 				12D7D3CD281E91EA00B83DDE /* UserService.swift in Sources */,
 				12590E8B282C8DEF000FB712 /* BottomSheet.swift in Sources */,
@@ -971,6 +997,7 @@
 				12EF96B028195DF2002CEFFA /* MSTabView.swift in Sources */,
 				1292B182282491EF0050A10D /* CommonResponseDto.swift in Sources */,
 				123DD564280283410020440E /* Theme.swift in Sources */,
+				123FED2A2833689700F62663 /* UserDream.swift in Sources */,
 				7779D722281C07BF00683C1F /* Subcategory.swift in Sources */,
 				F03FF6CB28099B7900E83570 /* KakaoLoginService.swift in Sources */,
 				123DD5662802889D0020440E /* Image+Generated.swift in Sources */,
@@ -982,12 +1009,17 @@
 				123EE07A280452E600D34B93 /* Separator.swift in Sources */,
 				120BBCB228025E3200AD44B5 /* Color+extensions.swift in Sources */,
 				773AE2A6280723DC006861FC /* MainTabView.swift in Sources */,
+				123FED2C28336A4200F62663 /* Category.swift in Sources */,
+				12A026D5283395C400665CAF /* UserDreamList.swift in Sources */,
 				123EE07C2804530000D34B93 /* View+extensions.swift in Sources */,
 				1292B18B282497B30050A10D /* CheckUserRequestDto.swift in Sources */,
+				12A026D3283393B300665CAF /* UserDreamListService.swift in Sources */,
 				1292B17F28248D270050A10D /* URLHost.swift in Sources */,
 				12E6EE3A2828D7FF00504CE3 /* KeywordBadgeView.swift in Sources */,
+				12A026D72833976400665CAF /* UserDreamListIDRequestDto.swift in Sources */,
 				123EE09B28045F1500D34B93 /* TermsCore.swift in Sources */,
 				124DBC80282A18F9005C3ED4 /* Date+extensions.swift in Sources */,
+				12A026D92833993300665CAF /* SaveDreamRequestDto.swift in Sources */,
 				1292B18E282498510050A10D /* SignUpUserRequestDto.swift in Sources */,
 				12A2244D27F7E04A00617C10 /* SceneDelegate.swift in Sources */,
 			);

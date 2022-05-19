@@ -567,7 +567,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 22 images.
+  /// This `R.image` struct is generated, and contains static references to 23 images.
   struct image {
     /// Image `AppleLoginButton`.
     static let appleLoginButton = Rswift.ImageResource(bundle: R.hostingBundle, name: "AppleLoginButton")
@@ -581,14 +581,14 @@ struct R: Rswift.Validatable {
     static let arrowUpIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "ArrowUpIcon")
     /// Image `BackIcon`.
     static let backIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "BackIcon")
-    /// Image `BackgroundImage2`.
-    static let backgroundImage2 = Rswift.ImageResource(bundle: R.hostingBundle, name: "BackgroundImage2")
     /// Image `BackgroundImage`.
     static let backgroundImage = Rswift.ImageResource(bundle: R.hostingBundle, name: "BackgroundImage")
     /// Image `CancelIcon`.
     static let cancelIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "CancelIcon")
     /// Image `CancelSmallIcon`.
     static let cancelSmallIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "CancelSmallIcon")
+    /// Image `CheckIcon`.
+    static let checkIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "CheckIcon")
     /// Image `FilterIcon`.
     static let filterIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "FilterIcon")
     /// Image `HomeActiveIcon`.
@@ -599,6 +599,8 @@ struct R: Rswift.Validatable {
     static let kakaoLoginButton = Rswift.ImageResource(bundle: R.hostingBundle, name: "KakaoLoginButton")
     /// Image `MoreIcon`.
     static let moreIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "MoreIcon")
+    /// Image `NonCheckIcon`.
+    static let nonCheckIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "NonCheckIcon")
     /// Image `PlusIcon`.
     static let plusIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "PlusIcon")
     /// Image `RecordIcon`.
@@ -664,13 +666,6 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "BackgroundImage2", bundle: ..., traitCollection: ...)`
-    static func backgroundImage2(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.backgroundImage2, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
     /// `UIImage(named: "CancelIcon", bundle: ..., traitCollection: ...)`
     static func cancelIcon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.cancelIcon, compatibleWith: traitCollection)
@@ -681,6 +676,13 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "CancelSmallIcon", bundle: ..., traitCollection: ...)`
     static func cancelSmallIcon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.cancelSmallIcon, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "CheckIcon", bundle: ..., traitCollection: ...)`
+    static func checkIcon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.checkIcon, compatibleWith: traitCollection)
     }
     #endif
 
@@ -716,6 +718,13 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "MoreIcon", bundle: ..., traitCollection: ...)`
     static func moreIcon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.moreIcon, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "NonCheckIcon", bundle: ..., traitCollection: ...)`
+    static func nonCheckIcon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.nonCheckIcon, compatibleWith: traitCollection)
     }
     #endif
 

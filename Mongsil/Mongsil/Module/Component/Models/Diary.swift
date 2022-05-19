@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Diary: Decodable, Equatable, Hashable {
+public struct Diary: Codable, Equatable, Hashable {
   public let title: String
   public let description: String
   public let date: String
@@ -108,7 +108,7 @@ extension Diary {
     public static let diary6 = Diary(
       title: "절벽에서 뛰어내리는 꿈",
       description: "아래는 파도가 무섭게 치는 바다가 보이고 나는 그 위에서 번지점프 하듯이 뛰어내렸다.",
-      date: convertDateToString(Date())
+      date: "2022.04.10"
     )
   }
 }

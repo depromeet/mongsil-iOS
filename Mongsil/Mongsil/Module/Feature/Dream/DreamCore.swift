@@ -9,10 +9,10 @@ import Combine
 import ComposableArchitecture
 
 struct DreamState: Equatable {
-  var dream: DreamInfo
+  var userDream: UserDream
 
-  init(dream: DreamInfo) {
-    self.dream = dream
+  init(userDream: UserDream) {
+    self.userDream = userDream
   }
 }
 
