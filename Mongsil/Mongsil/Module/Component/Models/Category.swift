@@ -35,3 +35,28 @@ public struct Category: Codable, Equatable, Hashable {
     self.image = try container.decode(String.self, forKey: .image)
   }
 }
+
+extension Category {
+  public enum Stub {
+    public static let category1 = Category(
+      categoryID: "1",
+      name: "호랑이",
+      image: "테스트"
+    )
+    public static let category2 = Category(
+      categoryID: "2",
+      name: "사자",
+      image: "테스트"
+    )
+    public static let category3 = Category(
+      categoryID: "3",
+      name: "머리",
+      image: "테스트"
+    )
+    public static let category4 = Category(
+      categoryID: "4",
+      name: "눈",
+      image: "테스트"
+    )
+  }
+}

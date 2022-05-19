@@ -21,8 +21,8 @@ struct DreamView: View {
         backButtonImage: R.CustomImage.backIcon.image,
         backButtonAction: { ViewStore(store).send(.backButtonTapped) }
       )
-      WithViewStore(store.scope(state: \.local.dream)) { dreamViewStore in
-        Text("\(dreamViewStore.state.title)")
+      WithViewStore(store.scope(state: \.local.userDream)) { userDreamViewStore in
+        Text("\(userDreamViewStore.state.title)")
       }
 
       Spacer()

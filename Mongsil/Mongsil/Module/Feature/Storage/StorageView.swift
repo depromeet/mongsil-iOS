@@ -387,8 +387,8 @@ private struct DreamListView: View {
 
   var body: some View {
     GeometryReader { geometry in
-      WithViewStore(store.scope(state: \.local.dreamList)) { dreamListViewStore in
-        if let dreamList = dreamListViewStore.state {
+      WithViewStore(store.scope(state: \.local.userDreamList)) { userDreamListViewStore in
+        if let userDreamList = userDreamListViewStore.state {
           ScrollView {
             let columns: [GridItem] = [
               GridItem(.fixed((geometry.width / 2) - 24.5)),
@@ -398,7 +398,7 @@ private struct DreamListView: View {
               columns: columns,
               spacing: 9
             ) {
-              ForEach(dreamList, id: \.self) { dream in
+              ForEach(userDreamList, id: \.self) { dream in
                 DreamCardView(
                   store: store,
                   dream: dream
@@ -446,7 +446,7 @@ private struct DreamListView: View {
 
 private struct DreamCardView: View {
   private let store: Store<WithSharedState<StorageState>, StorageAction>
-  var dream: DreamInfo
+  var dream: UserDream
   var title: String
   var description: String
   var firstImage: Image
@@ -454,7 +454,7 @@ private struct DreamCardView: View {
 
   init(
     store: Store<WithSharedState<StorageState>, StorageAction>,
-    dream: DreamInfo,
+    dream: UserDream,
     firstImage: Image = R.CustomImage.homeDisabledIcon.image,
     secondImage: Image = R.CustomImage.homeActiveIcon.image
   ) {
@@ -468,14 +468,14 @@ private struct DreamCardView: View {
 
   var body: some View {
       WithViewStore(store.scope(state: \.local.displayDeleteCardHeader)) { displayDeleteCardHeaderViewStore in
-        WithViewStore(store.scope(state: \.local.deleteDreamList)) { deleteDreamListViewStore in
+        WithViewStore(store.scope(state: \.local.deleteUserDreamList)) { deleteUserDreamListViewStore in
           VStack(alignment: .leading) {
             HStack(spacing: 4) {
               firstImage
               secondImage
               Spacer()
               if displayDeleteCardHeaderViewStore.state {
-                if deleteDreamListViewStore.state.contains(self.dream) {
+                if deleteUserDreamListViewStore.state.contains(self.dream) {
                   R.CustomImage.checkIcon.image
                 } else {
                   R.CustomImage.nonCheckIcon.image
@@ -499,7 +499,7 @@ private struct DreamCardView: View {
           }
           .padding(.horizontal, 14)
           .background(
-            deleteDreamListViewStore.state.contains(self.dream) && displayDeleteCardHeaderViewStore.state
+            deleteUserDreamListViewStore.state.contains(self.dream) && displayDeleteCardHeaderViewStore.state
             ? Color.gray8
             : Color.gray10
           )

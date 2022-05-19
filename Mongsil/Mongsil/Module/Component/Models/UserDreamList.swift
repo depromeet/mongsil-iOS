@@ -28,3 +28,22 @@ public struct UserDreamList: Codable, Equatable, Hashable {
     try container.encode(dreamList, forKey: .dreamList)
   }
 }
+
+extension UserDreamList {
+  public enum Stub {
+    public static let userDreamList1 = UserDreamList(
+      dreamList: [
+        UserDream.Stub.userDream1,
+        UserDream.Stub.userDream2,
+        UserDream.Stub.userDream3,
+        UserDream.Stub.userDream4,
+        UserDream.Stub.userDream5,
+        UserDream.Stub.userDream6,
+        UserDream.Stub.userDream7,
+        UserDream.Stub.userDream8,
+        UserDream.Stub.userDream9,
+        UserDream.Stub.userDream10
+      ]
+    )
+  }
+}

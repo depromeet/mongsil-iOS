@@ -21,7 +21,6 @@ struct StorageState: Equatable {
       $0.date.contains(self.selectedDateToStr)
     } ?? []
   }
-  public var dreamList: [DreamInfo]?
   public var userDreamList: [UserDream]?
   public var selectedDate: Date = Date()
   public var selectedDateToStr: String {
@@ -34,12 +33,11 @@ struct StorageState: Equatable {
   public var isSelectDateSheetPresented: Bool = false
   public var displayDeleteCardHeader: Bool = false
   public var deleteDiaryList: [Diary] = []
-  public var deleteDreamList: [DreamInfo] = []
   public var deleteUserDreamList: [UserDream] = []
   public var selectedDeleteCardCount: Int {
     selectedTab == .diary
     ? deleteDiaryList.count
-    : deleteDreamList.count
+    : deleteUserDreamList.count
   }
 
   // Child State
@@ -60,7 +58,6 @@ struct StorageState: Equatable {
     isSelectDateSheetPresented: Bool = false,
     displayDeleteCardHeader: Bool = false,
     deleteDiaryList: [Diary] = [],
-    deleteDreamList: [DreamInfo] = [],
     deleteUserDreamList: [UserDream] = [],
     deleteCardAlertModal: AlertDoubleButtonState? = nil
   ) {
@@ -77,7 +74,6 @@ struct StorageState: Equatable {
     self.isSelectDateSheetPresented = isSelectDateSheetPresented
     self.displayDeleteCardHeader = displayDeleteCardHeader
     self.deleteDiaryList = deleteDiaryList
-    self.deleteDreamList = deleteDreamList
     self.deleteUserDreamList = deleteUserDreamList
     self.deleteCardAlertModal = deleteCardAlertModal
   }
@@ -101,10 +97,10 @@ enum StorageAction: ToastPresentableAction {
   case setUserDreamList([UserDream])
   case setSettingPushed(Bool)
   case setDiaryPushed(Bool, Diary? = nil)
-  case setDreamPushed(Bool, DreamInfo? = nil)
+  case setDreamPushed(Bool, UserDream? = nil)
   case tabTapped(StorageState.Tab)
   case diaryTapped(Diary)
-  case dreamTapped(DreamInfo)
+  case dreamTapped(UserDream)
   case navigationBarDateButtonTapped
   case setSelectDateSheetPresented(Bool)
   case setSelectedYear(String)
@@ -209,7 +205,7 @@ Reducer.combine([
         return .none
       }
       if pushed {
-        state.local.dream = .init(dream: dream)
+        state.local.dream = .init(userDream: dream)
       }
       return .none
 
@@ -233,10 +229,10 @@ Reducer.combine([
 
     case let .dreamTapped(dream):
       if state.local.displayDeleteCardHeader {
-        if state.local.deleteDreamList.contains(dream) {
-          state.local.deleteDreamList.remove(object: dream)
+        if state.local.deleteUserDreamList.contains(dream) {
+          state.local.deleteUserDreamList.remove(object: dream)
         } else {
-          state.local.deleteDreamList.append(dream)
+          state.local.deleteUserDreamList.append(dream)
         }
         return .none
       }
@@ -269,7 +265,7 @@ Reducer.combine([
     case let .setDisplayDeleteCardHeader(display):
       if !display {
         state.local.deleteDiaryList.removeAll()
-        state.local.deleteDreamList.removeAll()
+        state.local.deleteUserDreamList.removeAll()
       }
       state.local.displayDeleteCardHeader = display
       return .none
@@ -321,7 +317,7 @@ Reducer.combine([
         state.local.userDreamList?.remove(object: dream)
       }
       state.local.deleteUserDreamList.removeAll()
-      return Effect(value: .presentToast("해몽이 삭제되었습니다."))
+      return .none
 
     case .presentToast:
       return .none
@@ -409,7 +405,7 @@ private func setDreamList(
    */
 
   // MARK: - 유저의 해몽 리스트에 대한 Stub 데이터를 통한 Fake 구현
-  state.local.dreamList = Dream.Stub.dream1.subcategory[0].dreamInfo
+  state.local.userDreamList = UserDreamList.Stub.userDreamList1.dreamList
   return .none
 }
 
@@ -444,17 +440,13 @@ private func deleteDreamList(
       case .success:
         return StorageAction.setDeleteUserDreamList
       case .failure:
-        return StorageAction.presentToast("해몽 삭제에 실패했습니다. 다시 시도해주세요.")
+        return StorageAction.presentToast("해몽이 삭제되지 않았어요. 다시 시도해주세요.")
       }
     })
    */
 
   // MARK: - 유저가 삭제할 해몽 리스트에 대한 Stub 데이터를 통한 Fake 구현
-  for dream in state.local.deleteDreamList {
-    state.local.dreamList?.remove(object: dream)
-  }
-  state.local.deleteDreamList.removeAll()
-  return Effect(value: .presentToast("해몽이 삭제되었습니다."))
+  return Effect(value: .setDeleteUserDreamList)
 }
 
 private func revortDeleteList(
@@ -465,7 +457,7 @@ private func revortDeleteList(
   case .diary:
     state.local.deleteDiaryList.removeAll()
   case .dream:
-    state.local.deleteDreamList.removeAll()
+    state.local.deleteUserDreamList.removeAll()
   }
   return .none
 }
