@@ -51,12 +51,12 @@ public class UserDreamListService {
       }
     })
     .tryMap({ response -> CommonResponseDto.ExistData<UserDreamList> in
-      if response.statusCode == "200" {
+      if response.statusCode == 200 {
         return response
       } else {
         throw ErrorFactory.getUserDreamListFailed(
           url: url,
-          statusCode: response.statusCode,
+          statusCode: String(response.statusCode),
           userID: userID,
           underlying: nil
         )
@@ -99,12 +99,12 @@ public class UserDreamListService {
       }
     })
     .tryMap({ response -> CommonResponseDto.NotExistData in
-      if response.statusCode == "200" {
+      if response.statusCode == 200 {
         return response
       } else {
         throw ErrorFactory.deleteUserDreamListFailed(
           url: url,
-          statusCode: response.statusCode,
+          statusCode: String(response.statusCode),
           dreamIDs: dreamIDs,
           underlying: nil
         )
@@ -154,12 +154,12 @@ public class UserDreamListService {
       }
     })
     .tryMap({ response -> CommonResponseDto.NotExistData in
-      if response.statusCode == "200" {
+      if response.statusCode == 200 {
         return response
       } else {
         throw ErrorFactory.saveDreamFailed(
           url: url,
-          statusCode: response.statusCode,
+          statusCode: String(response.statusCode),
           userID: userID,
           DreamID: dreamID,
           underlying: nil

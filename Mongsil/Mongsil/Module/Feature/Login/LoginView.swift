@@ -11,11 +11,11 @@ import SwiftUI
 
 struct LoginView: View {
   private let store: Store<WithSharedState<LoginState>, LoginAction>
-
+  
   init(store: Store<WithSharedState<LoginState>, LoginAction>) {
     self.store = store
   }
-
+  
   var body: some View {
     VStack(alignment: .leading, spacing: 10) {
       MSNavigationBar(
@@ -49,11 +49,11 @@ private struct WelcomeTitleView: View {
 
 private struct OnboardingView: View {
   private let store: Store<WithSharedState<LoginState>, LoginAction>
-
+  
   init(store: Store<WithSharedState<LoginState>, LoginAction>) {
     self.store = store
   }
-
+  
   var body: some View {
     WithViewStore(store.scope(state: \.local.onboardingImage)) { onboardingImageStore in
       TabView {
@@ -73,11 +73,11 @@ private struct OnboardingView: View {
 
 private struct SocialLoginButtonView: View {
   private let store: Store<WithSharedState<LoginState>, LoginAction>
-
+  
   init(store: Store<WithSharedState<LoginState>, LoginAction>) {
     self.store = store
   }
-
+  
   var body: some View {
     HStack {
       Spacer()
@@ -92,11 +92,11 @@ private struct SocialLoginButtonView: View {
 
 private struct KakaoLoginButtonView: View {
   private let store: Store<WithSharedState<LoginState>, LoginAction>
-
+  
   init(store: Store<WithSharedState<LoginState>, LoginAction>) {
     self.store = store
   }
-
+  
   var body: some View {
     Button(action: { ViewStore(store).send(.kakaoLoginButtonTapped) }) {
       R.CustomImage.kakaoLoginButton.image
@@ -107,11 +107,11 @@ private struct KakaoLoginButtonView: View {
 
 private struct AppleLoginButtonView: View {
   private let store: Store<WithSharedState<LoginState>, LoginAction>
-
+  
   init(store: Store<WithSharedState<LoginState>, LoginAction>) {
     self.store = store
   }
-
+  
   var body: some View {
     SignInWithAppleButton(
       .signIn,

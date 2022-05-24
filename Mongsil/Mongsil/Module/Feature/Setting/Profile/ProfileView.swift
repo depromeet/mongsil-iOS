@@ -2,7 +2,7 @@
 //  ProfileView.swift
 //  Mongsil
 //
-//  Created by Chanwoo Cho on 2022/04/11.
+//  Created by 이승후 on 2022/05/21.
 //
 
 import ComposableArchitecture
@@ -10,84 +10,129 @@ import SwiftUI
 
 struct ProfileView: View {
   private let store: Store<WithSharedState<ProfileState>, ProfileAction>
-
+  
   init(store: Store<WithSharedState<ProfileState>, ProfileAction>) {
     self.store = store
   }
-
+  
   var body: some View {
-    VStack {
+    VStack(spacing: 0){
       MSNavigationBar(
         backButtonImage: R.CustomImage.backIcon.image,
         backButtonAction: { ViewStore(store).send(.backButtonTapped) },
         titleText: "계정"
       )
-      UserInfoView(store: store)
-      Spacer()
-        .frame(height: 50)
-      VStack(spacing: 10) {
+      UserNameView(store: store)
+        .padding(.top, 26)
+        .padding(.leading, 20)
+      UserEmailView(store: store)
+        .padding(.leading, 20)
+        .padding(.bottom, 24)
+      VStack(alignment: .leading, spacing: 0){
         LogoutButtonView(store: store)
+          .padding(.leading, 20)
+          .padding(.bottom, 15)
+          .padding(.top, 15)
+        Divider()
+          .background(Color.gray8)
         WithdrawButtonView(store: store)
+          .padding(.leading, 20)
+          .padding(.bottom, 15)
+          .padding(.top, 15)
+        Divider()
+          .background(Color.gray8)
       }
       Spacer()
     }
+    .alertDoubleButton(
+      store: store.scope(
+        state: \.local.logoutAlertModal,
+        action: ProfileAction.logoutAlertModal
+      )
+    )
+    .alertDoubleButton(
+      store: store.scope(
+        state: \.local.withdrawAlertModal,
+        action: ProfileAction.withdrawAlertModal
+      )
+    )
+    .onAppear(perform: { ViewStore(store).send(.onAppear) })
     .navigationBarHidden(true)
   }
 }
 
-private struct UserInfoView: View {
+private struct UserNameView: View {
   private let store: Store<WithSharedState<ProfileState>, ProfileAction>
-
+  
   init(store: Store<WithSharedState<ProfileState>, ProfileAction>) {
     self.store = store
   }
-
+  
   var body: some View {
-    HStack(spacing: 20) {
-      Circle()
-        .fill(.gray)
-        .frame(width: 50, height: 50)
-      VStack(alignment: .leading, spacing: 10) {
-        Text("사용자 이름")
-        Text("연동된 이메일 주소@email.com")
+    HStack {
+      WithViewStore(store.scope(state: \.local.userName)) { userNameViewStore in
+        Text("\(userNameViewStore.state)")
+          .font(.title2)
+          .foregroundColor(.gray2)
+        Spacer()
       }
-      Spacer()
+      .padding(.bottom, 8)
+      .frame(alignment: .leading)
+    }
+  }
+}
+
+private struct UserEmailView: View {
+  private let store: Store<WithSharedState<ProfileState>, ProfileAction>
+  
+  init(store: Store<WithSharedState<ProfileState>, ProfileAction>) {
+    self.store = store
+  }
+  
+  var body: some View {
+    HStack {
+      WithViewStore(store.scope(state: \.local.userEmail)) { userEmailViewStore in
+        Text("\(userEmailViewStore.state)")
+          .font(.body2)
+          .foregroundColor(.gray6)
+        Spacer()
+      }
+      .frame(alignment: .leading)
     }
   }
 }
 
 private struct LogoutButtonView: View {
   private let store: Store<WithSharedState<ProfileState>, ProfileAction>
-
+  
   init(store: Store<WithSharedState<ProfileState>, ProfileAction>) {
     self.store = store
   }
-
+  
   var body: some View {
-    ListButtonItemWithText(
-      buttonAction: { ViewStore(store).send(.logoutButtonTapped) },
-      content: {
-        Text("로그아웃")
-          .foregroundColor(.gray2)
-      }
-    )
+    Button(action: {
+      ViewStore(store).send(.logoutButtonTapped)
+
+    }) {
+      Text("로그아웃")
+        .font(.body2)
+    }
+    .foregroundColor(.gray2)
   }
 }
 
 private struct WithdrawButtonView: View {
   private let store: Store<WithSharedState<ProfileState>, ProfileAction>
-
+  
   init(store: Store<WithSharedState<ProfileState>, ProfileAction>) {
     self.store = store
   }
-
+  
   var body: some View {
-    ListButtonItemWithText(
-      buttonAction: { ViewStore(store).send(.withdrawButtonTapped) },
-      content: {
-        Text("탈퇴하기")
-          .foregroundColor(.gray2)
-      }
-    )
+    Button(action: {ViewStore(store).send(.withdrawButtonTapped)}) {
+      Text("탈퇴하기")
+        .font(.body2)
+    }
+    .foregroundColor(.gray2)
   }
 }

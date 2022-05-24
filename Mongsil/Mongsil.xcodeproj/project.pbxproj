@@ -115,6 +115,8 @@
 		773E2931282FA888009A0A37 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 773E2930282FA888009A0A37 /* Introspect */; };
 		773E293328312788009A0A37 /* RecordKeywordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773E293228312788009A0A37 /* RecordKeywordView.swift */; };
 		773E29352831279C009A0A37 /* RecordKeywordCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773E29342831279C009A0A37 /* RecordKeywordCore.swift */; };
+		775632712837E30B00B2B51F /* MakersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775632702837E30B00B2B51F /* MakersView.swift */; };
+		775632732837E32100B2B51F /* MakersCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775632722837E32100B2B51F /* MakersCore.swift */; };
 		7779D71A281ADE2F00683C1F /* Dream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7779D719281ADE2F00683C1F /* Dream.swift */; };
 		7779D71C281ADE3600683C1F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7779D71B281ADE3600683C1F /* User.swift */; };
 		7779D722281C07BF00683C1F /* Subcategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7779D721281C07BF00683C1F /* Subcategory.swift */; };
@@ -229,6 +231,8 @@
 		773AE2AF28072421006861FC /* StorageCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageCore.swift; sourceTree = "<group>"; };
 		773E293228312788009A0A37 /* RecordKeywordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordKeywordView.swift; sourceTree = "<group>"; };
 		773E29342831279C009A0A37 /* RecordKeywordCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordKeywordCore.swift; sourceTree = "<group>"; };
+		775632702837E30B00B2B51F /* MakersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakersView.swift; sourceTree = "<group>"; };
+		775632722837E32100B2B51F /* MakersCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakersCore.swift; sourceTree = "<group>"; };
 		7779D719281ADE2F00683C1F /* Dream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dream.swift; sourceTree = "<group>"; };
 		7779D71B281ADE3600683C1F /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		7779D721281C07BF00683C1F /* Subcategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subcategory.swift; sourceTree = "<group>"; };
@@ -422,6 +426,7 @@
 				123EE09C28045F1700D34B93 /* Terms */,
 				123EE0A128045F5A00D34B93 /* PersonalInfoPolicy */,
 				123EE0A628045F8500D34B93 /* OpenSource */,
+				775632742837E32700B2B51F /* Makers */,
 			);
 			path = AppInfo;
 			sourceTree = "<group>";
@@ -766,6 +771,15 @@
 			path = RecordKeyword;
 			sourceTree = "<group>";
 		};
+		775632742837E32700B2B51F /* Makers */ = {
+			isa = PBXGroup;
+			children = (
+				775632702837E30B00B2B51F /* MakersView.swift */,
+				775632722837E32100B2B51F /* MakersCore.swift */,
+			);
+			path = Makers;
+			sourceTree = "<group>";
+		};
 		7779D718281ADE2400683C1F /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -976,6 +990,7 @@
 				123EE08A280453B300D34B93 /* SettingCore.swift in Sources */,
 				123EE09728045B3600D34B93 /* ListButtonItemWithText.swift in Sources */,
 				12083C97281636700020E20E /* Toast.swift in Sources */,
+				775632712837E30B00B2B51F /* MakersView.swift in Sources */,
 				773E293328312788009A0A37 /* RecordKeywordView.swift in Sources */,
 				773AE2AA280723F7006861FC /* RecordView.swift in Sources */,
 				122E107C282BA2C40034DF37 /* DreamCore.swift in Sources */,
@@ -1012,6 +1027,7 @@
 				123FED2C28336A4200F62663 /* Category.swift in Sources */,
 				12A026D5283395C400665CAF /* UserDreamList.swift in Sources */,
 				123EE07C2804530000D34B93 /* View+extensions.swift in Sources */,
+				775632732837E32100B2B51F /* MakersCore.swift in Sources */,
 				1292B18B282497B30050A10D /* CheckUserRequestDto.swift in Sources */,
 				12A026D3283393B300665CAF /* UserDreamListService.swift in Sources */,
 				1292B17F28248D270050A10D /* URLHost.swift in Sources */,

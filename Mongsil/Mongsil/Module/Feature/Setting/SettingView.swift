@@ -2,7 +2,7 @@
 //  SettingView.swift
 //  Mongsil
 //
-//  Created by Chanwoo Cho on 2022/04/11.
+//  Created by 이승후 on 2022/05/21.
 //
 
 import ComposableArchitecture
@@ -10,50 +10,42 @@ import SwiftUI
 
 struct SettingView: View {
   private let store: Store<WithSharedState<SettingState>, SettingAction>
-
+  
   init(store: Store<WithSharedState<SettingState>, SettingAction>) {
     self.store = store
   }
-
+  
   var body: some View {
-    VStack(alignment: .leading, spacing: 10) {
-      MSNavigationBar(
-        backButtonImage: R.CustomImage.backIcon.image,
-        backButtonAction: { ViewStore(store).send(.backButtonTapped) },
-        titleText: "설정"
-      )
-      ProfileButtonView(store: store)
-      AppInfoButtonView(store: store)
+    MSNavigationBar(
+      backButtonImage: R.CustomImage.backIcon.image,
+      backButtonAction: { ViewStore(store).send(.backButtonTapped) },
+      titleText: "설정"
+    )
+    .padding(.bottom, 24)
+    VStack(spacing: 0) {
+      ProfileLinkView(store: store)
+      Divider()
+        .background(Color.gray8)
+      AppInfoLinkView(store: store)
+      Divider()
+        .background(Color.gray8)
       VersionInfoView(store: store)
-
-      Spacer()
+      Divider()
+        .background(Color.gray8)
     }
     .padding(.horizontal, 20)
     .navigationBarHidden(true)
+    Spacer()
   }
 }
 
-private struct ProfileButtonView: View {
+private struct ProfileLinkView: View {
   private let store: Store<WithSharedState<SettingState>, SettingAction>
-
+  
   init(store: Store<WithSharedState<SettingState>, SettingAction>) {
     self.store = store
   }
-
-  var body: some View {
-    ListItemWithTextIcon(
-      content: { ProfileLink(store: store) }
-    )
-  }
-}
-
-private struct ProfileLink: View {
-  private let store: Store<WithSharedState<SettingState>, SettingAction>
-
-  init(store: Store<WithSharedState<SettingState>, SettingAction>) {
-    self.store = store
-  }
-
+  
   var body: some View {
     WithViewStore(store.scope(state: \.local.isProfilePushed)) { isProfilePushedViewStore in
       NavigationLink(
@@ -68,9 +60,15 @@ private struct ProfileLink: View {
           send: SettingAction.setProfilePushed
         ),
         label: {
-          Text("계정")
-            .font(.title2)
-            .foregroundColor(.gray2)
+          HStack(spacing: 0) {
+            Text("계정")
+              .padding(.bottom, 15)
+              .padding(.top, 15)
+              .font(.body2)
+              .foregroundColor(.gray2)
+            Spacer()
+            R.CustomImage.arrowRightIcon.image
+          }
         }
       )
       .isDetailLink(true)
@@ -78,27 +76,13 @@ private struct ProfileLink: View {
   }
 }
 
-private struct AppInfoButtonView: View {
+private struct AppInfoLinkView: View {
   private let store: Store<WithSharedState<SettingState>, SettingAction>
-
+  
   init(store: Store<WithSharedState<SettingState>, SettingAction>) {
     self.store = store
   }
-
-  var body: some View {
-    ListItemWithTextIcon(
-      content: { AppInfoLink(store: store) }
-    )
-  }
-}
-
-private struct AppInfoLink: View {
-  private let store: Store<WithSharedState<SettingState>, SettingAction>
-
-  init(store: Store<WithSharedState<SettingState>, SettingAction>) {
-    self.store = store
-  }
-
+  
   var body: some View {
     WithViewStore(store.scope(state: \.local.isAppInfoPushed)) { isAppInfoPushedViewStore in
       NavigationLink(
@@ -113,9 +97,15 @@ private struct AppInfoLink: View {
           send: SettingAction.setAppInfoPushed
         ),
         label: {
-          Text("정보")
-            .font(.title2)
-            .foregroundColor(.gray2)
+          HStack {
+            Text("정보")
+              .padding(.bottom, 15)
+              .padding(.top, 15)
+              .font(.body2)
+              .foregroundColor(.gray2)
+            Spacer()
+            R.CustomImage.arrowRightIcon.image
+          }
         }
       )
       .isDetailLink(true)
@@ -125,22 +115,25 @@ private struct AppInfoLink: View {
 
 private struct VersionInfoView: View {
   private let store: Store<WithSharedState<SettingState>, SettingAction>
-
+  
   init(store: Store<WithSharedState<SettingState>, SettingAction>) {
     self.store = store
   }
-
+  
   var body: some View {
-    ListItemWithText(
-      content: {
+    VStack(spacing: 0) {
+      HStack(spacing: 0) {
         Text("버전 정보")
-          .font(.title2)
+          .padding(.bottom, 15)
+          .padding(.top, 15)
+          .font(.body2)
           .foregroundColor(.gray2)
         Spacer()
         Text("1.0")
-          .font(.title3)
-          .foregroundColor(.gray2)
+          .font(.body2)
+          .foregroundColor(.gray6)
       }
-    )
+    }
   }
 }
+

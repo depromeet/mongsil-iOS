@@ -48,7 +48,7 @@ public class SignUpService {
         }
       })
       .tryMap({ response -> CommonResponseDto.ExistData<SignUpUserResponseDto> in
-        if response.statusCode == "200" {
+        if response.statusCode == 200 {
           return response
         } else {
           throw ErrorFactory.signUpFailed(
@@ -88,7 +88,7 @@ public enum SignUpServiceErrorFactory: ErrorFactory {
 
   public static func signUpFailed(
     url: String,
-    statusCode: String? = nil,
+    statusCode: Int? = nil,
     underlying: Error? = nil
   ) -> NSError {
     return NSError(

@@ -8,7 +8,7 @@
 import Foundation
 
 public struct SignUpUserResponseDto: Decodable {
-  public let userId: String
+  public let userId: Int
 
   public enum CodingKeys: String, CodingKey {
     case userId
@@ -16,6 +16,6 @@ public struct SignUpUserResponseDto: Decodable {
 
   public init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
-    self.userId = try container.decode(String.self, forKey: .userId)
+    self.userId = try container.decode(Int.self, forKey: .userId)
   }
 }

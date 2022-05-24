@@ -27,10 +27,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         alamofireSession: .default
       ),
       signUpService: .init(alamofireSession: .default),
-      userDreamListService: .init(alamofireSession: .default)
+      userDreamListService: .init(alamofireSession: .default),
+      dropoutService: .init(alamofireSession: .default)
     )
   )
-
+  
   func scene(
     _ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions
   ) {

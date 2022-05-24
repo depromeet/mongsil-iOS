@@ -10,7 +10,7 @@ import ComposableArchitecture
 
 struct DiaryState: Equatable {
   var diary: Diary
-
+  
   init(diary: Diary) {
     self.diary = diary
   }

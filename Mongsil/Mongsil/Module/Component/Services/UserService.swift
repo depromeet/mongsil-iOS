@@ -11,10 +11,10 @@ import CombineExt
 
 public class UserService {
   public typealias ErrorFactory = UserServiceErrorFactory
-
+  
   public var defaults: UserDefaults
   public let alamofireSession: Session
-
+  
   public init(
     defaults: UserDefaults,
     alamofireSession: Session
@@ -22,7 +22,7 @@ public class UserService {
     self.defaults = defaults
     self.alamofireSession = alamofireSession
   }
-
+  
   public func isLogined() -> AnyPublisher<Bool, Never> {
     return Publishers.Create<Bool, Never>(factory: { [unowned self] subscribers -> Cancellable in
       if self.defaults.object(forKey: "isLogined") == nil {
@@ -35,7 +35,7 @@ public class UserService {
     })
     .eraseToAnyPublisher()
   }
-
+  
   public func setLoginInfo(
     isLogined: Bool,
     isKakao: Bool,
@@ -58,11 +58,12 @@ public class UserService {
     })
     .eraseToAnyPublisher()
   }
-
+  
   public func searchUserID(with email: String) ->  AnyPublisher<CheckUserResponseDto, Error> {
     let url = "http://3.34.46.139:80\(URLHost.checkUser)"
     let body = CheckUserRequestDto(userEmail: email)
-
+    print(email)
+    
     return alamofireSession
       .request(
         url,
@@ -89,7 +90,7 @@ public class UserService {
         }
       })
       .tryMap({ response -> CommonResponseDto.ExistData<CheckUserResponseDto> in
-        if response.statusCode == "200" {
+        if response.statusCode == 200 {
           return response
         } else {
           throw ErrorFactory.checkUserFailed(
@@ -102,7 +103,7 @@ public class UserService {
       .compactMap { $0.data }
       .eraseToAnyPublisher()
   }
-
+  
   private func setUserDefaults(
     isLogined: Bool,
     isKakao: Bool,
@@ -129,7 +130,7 @@ public enum UserServiceErrorFactory: ErrorFactory {
     case decodeFailed = 1
     case checkUserFailed = 2
   }
-
+  
   public static func decodeFailed(
     url: String,
     data: Data,
@@ -146,10 +147,10 @@ public enum UserServiceErrorFactory: ErrorFactory {
       ]
     )
   }
-
+  
   public static func checkUserFailed(
     url: String,
-    statusCode: String? = nil,
+    statusCode: Int? = nil,
     underlying: Error? = nil
   ) -> NSError {
     return NSError(
