@@ -10,23 +10,39 @@ import ComposableArchitecture
 
 struct DreamView: View {
   private let store: Store<WithSharedState<DreamState>, DreamAction>
+  private let cardResultStore: Store<WithSharedState<CardResultState>, CardResultAction>
 
   init(store: Store<WithSharedState<DreamState>, DreamAction>) {
     self.store = store
+    self.cardResultStore = self.store.scope(
+      state: \.cardResult,
+      action: DreamAction.cardResult
+    )
   }
 
   var body: some View {
-    VStack {
-      MSNavigationBar(
-        backButtonImage: R.CustomImage.backIcon.image,
+    WithViewStore(store.scope(state: \.local.userDreamCardResult)) { userDreamCardResultViewStore in
+      CardResultView(
+        store: cardResultStore,
+        imageURLs: userDreamCardResultViewStore.state.imageURLs,
+        title: userDreamCardResultViewStore.state.userDream.title,
+        keywords: userDreamCardResultViewStore.state.keywords,
+        description: userDreamCardResultViewStore.state.userDream.description,
+        cardResult: .dreamForDelete,
         backButtonAction: { ViewStore(store).send(.backButtonTapped) }
       )
-      WithViewStore(store.scope(state: \.local.userDream)) { userDreamViewStore in
-        Text("\(userDreamViewStore.state.title)")
-      }
-
-      Spacer()
     }
-    .navigationBarHidden(true)
+    .alertDoubleButton(
+      store: store.scope(
+        state: \.local.requestDeleteDreamAlertModal,
+        action: DreamAction.requestDeleteDreamAlertModal
+      )
+    )
+    .alertDoubleButton(
+      store: store.scope(
+        state: \.local.requestSaveDreamAlertModal,
+        action: DreamAction.requestSaveDreamAlertModal
+      )
+    )
   }
 }
