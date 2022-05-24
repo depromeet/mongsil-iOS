@@ -43,62 +43,64 @@ public struct CardResultView: View {
   }
 
   public var body: some View {
-    GeometryReader { geometry in
-      VStack {
-        MSNavigationBar(
-          backButtonImage: R.CustomImage.cancelIcon.image,
-          backButtonAction: backButtonAction,
-          titleText: recordDate
-        )
-        ScrollView(showsIndicators: false) {
-          if displayMultipleCardImage {
-            MultipleCardImageView(
-              firstImageURL: imageURLs.first ?? "",
-              secondImageURL: imageURLs[safe: 1] ?? ""
-            )
-            .frame(height: abs((geometry.width - 40) / 2))
-            .padding(.top, 40)
-          } else {
-            SingleCardImageView(imageURL: imageURLs.first ?? "")
-              .frame(
-                width: (geometry.width - 40) / 2,
-                height: (geometry.width - 40) / 2
-              )
-              .padding(.top, 40)
-          }
-          CardDescriptionView(
-            title: title,
-            keywords: keywords,
-            description: description
+    WithViewStore(store.scope(state: \.local.totalImage)) { totalImageViewStore in
+      GeometryReader { geometry in
+        VStack {
+          MSNavigationBar(
+            backButtonImage: R.CustomImage.cancelIcon.image,
+            backButtonAction: backButtonAction,
+            titleText: recordDate
           )
-          .background(Color.gray10)
-          .cornerRadius(10)
-          .padding(.top, 30)
+          ScrollView(showsIndicators: false) {
+            if displayMultipleCardImage {
+              MultipleCardImageView(
+                firstImageURL: imageURLs.first ?? "",
+                secondImageURL: imageURLs[safe: 1] ?? ""
+              )
+              .frame(height: abs((geometry.width - 40) / 2))
+              .padding(.top, 40)
+            } else {
+              SingleCardImageView(imageURL: imageURLs.first ?? "")
+                .frame(
+                  width: (geometry.width - 40) / 2,
+                  height: (geometry.width - 40) / 2
+                )
+                .padding(.top, 40)
+            }
+            CardDescriptionView(
+              title: title,
+              keywords: keywords,
+              description: description
+            )
+            .background(Color.gray10)
+            .cornerRadius(10)
+            .padding(.top, 30)
+          }
+          Spacer()
+            .frame(height: 36)
+          BottomView(
+            store: store,
+            cardResult: cardResult,
+            width: geometry.width
+          )
+          .padding(.horizontal, -20)
         }
-        Spacer()
-          .frame(height: 36)
-        BottomView(
-          store: store,
-          cardResult: cardResult,
-          width: geometry.width
+        .ignoresSafeArea(.container, edges: .bottom)
+        .padding(.horizontal, 20)
+        .navigationBarHidden(true)
+        .background(
+          R.CustomImage.resultBackgroundImage.image
+            .resizable()
+            .ignoresSafeArea(.all)
         )
-        .padding(.horizontal, -20)
       }
-      .ignoresSafeArea(.container, edges: .bottom)
-      .padding(.horizontal, 20)
-      .navigationBarHidden(true)
-      .background(
-        R.CustomImage.resultBackgroundImage.image
-          .resizable()
-          .ignoresSafeArea(.all)
+      .onAppear(perform: { ViewStore(store).send(.onAppear) })
+      .modifyAndDeleteSheet(store: store)
+      .shareViewSheet(
+        store: store,
+        image: totalImageViewStore.state
       )
     }
-    .modifyAndDeleteSheet(store: store)
-    .shareViewSheet(
-      store: store,
-      // 추후 해당 뷰의 스냅샷으로 변경 예정 (현재 임의의 이미지)
-      image: R.CustomImage.shareIcon.image.snapshot()
-    )
   }
 }
 
