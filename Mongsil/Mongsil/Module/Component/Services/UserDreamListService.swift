@@ -159,7 +159,7 @@ public class UserDreamListService {
       } else {
         throw ErrorFactory.saveDreamFailed(
           url: url,
-          statusCode: String(response.statusCode),
+          statusCode: response.statusCode,
           userID: userID,
           DreamID: dreamID,
           underlying: nil
@@ -236,7 +236,7 @@ public enum UserDreamListServiceErrorFactory: ErrorFactory {
 
   public static func saveDreamFailed(
     url: String,
-    statusCode: String? = nil,
+    statusCode: Int? = nil,
     userID: String,
     DreamID: String,
     underlying: Error? = nil
