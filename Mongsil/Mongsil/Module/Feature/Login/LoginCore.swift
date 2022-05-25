@@ -107,7 +107,7 @@ let loginReducer = Reducer<WithSharedState<LoginState>, LoginAction, LoginEnviro
       .map({ result in
         switch result {
         case let .success(response):
-          UserDefaults.standard.set(response.userId, forKey: "userID")
+          UserDefaults.standard.set(response.userID, forKey: "userID")
           return .noop
         case let .failure(error):
           return LoginAction.presentToast("회원 가입에 실패했습니다.")

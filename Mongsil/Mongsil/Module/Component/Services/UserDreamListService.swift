@@ -56,7 +56,7 @@ public class UserDreamListService {
       } else {
         throw ErrorFactory.getUserDreamListFailed(
           url: url,
-          statusCode: String(response.statusCode),
+          statusCode: response.statusCode,
           userID: userID,
           underlying: nil
         )
@@ -198,7 +198,7 @@ public enum UserDreamListServiceErrorFactory: ErrorFactory {
 
   public static func getUserDreamListFailed(
     url: String,
-    statusCode: String? = nil,
+    statusCode: Int? = nil,
     userID: String,
     underlying: Error? = nil
   ) -> NSError {

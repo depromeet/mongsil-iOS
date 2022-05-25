@@ -20,10 +20,10 @@ struct ProfileState: Equatable {
   
   init(
     logoutAlertModal: AlertDoubleButtonState? = nil,
-    witdrawAlertModal: AlertDoubleButtonState? = nil
+    withdrawAlertModal: AlertDoubleButtonState? = nil
   ) {
     self.logoutAlertModal = logoutAlertModal
-    self.withdrawAlertModal = witdrawAlertModal
+    self.withdrawAlertModal = withdrawAlertModal
   }
 }
 
@@ -56,6 +56,16 @@ Reducer.combine([
       }
     )
   as Reducer<WithSharedState<ProfileState>, ProfileAction, ProfileEnvironment>,
+  alertDoubleButtonReducer
+    .optional()
+    .pullback(
+      state: \.local.withdrawAlertModal,
+      action: /ProfileAction.withdrawAlertModal,
+      environment: { _ in
+        AlertDoubleButtonEnvironment()
+      }
+    )
+  as Reducer<WithSharedState<ProfileState>, ProfileAction, ProfileEnvironment>,
   Reducer<WithSharedState<ProfileState>, ProfileAction, ProfileEnvironment> {
     state, action, env in
     switch action {
@@ -68,6 +78,16 @@ Reducer.combine([
     case .backButtonTapped:
       return .none
       
+    case .logoutButtonTapped:
+      return setAlertModal(
+        state: &state.local.logoutAlertModal,
+        titleText: "로그아웃할까요?",
+        bodyText: "로그아웃을 해도 꿈 일기와\n 저장한 해몽은 사라지지 않아요",
+        secondaryButtonTitle: "아니요",
+        primaryButtonTitle: "로그아웃",
+        primaryButtonHierachy: .warning
+      )
+      
     case .withdrawButtonTapped:
       return setAlertModal(
         state: &state.local.withdrawAlertModal,
@@ -75,31 +95,15 @@ Reducer.combine([
         bodyText: "차곡차곡 쌓은 꿈 일기와\n 저장한 해몽이 모두 사라져요.",
         secondaryButtonTitle: "아니요",
         primaryButtonTitle: "탈퇴하기",
-        primaryButtonHierachy: .warning)
-      
-    case .logoutButtonTapped:
-      return setAlertModal(
-        state: &state.local.logoutAlertModal,
-        titleText: "로그아웃할까요?",
-        bodyText: "로그아웃을 해도 꿈일기와\n 저장한 해몽은 사라지지 않아요",
-        secondaryButtonTitle: "아니요",
-        primaryButtonTitle: "로그아웃",
-        primaryButtonHierachy: .warning)
+        primaryButtonHierachy: .warning
+      )
       
     case .logoutAlertModal(.secondaryButtonTapped):
       state.local.logoutAlertModal = nil
       return .none
       
     case .logoutAlertModal(.primaryButtonTapped):
-      let window = UIApplication.shared.connectedScenes
-        .filter { $0.activationState == .foregroundActive }
-        .map { $0 as? UIWindowScene }
-        .compactMap { $0 }
-        .first?.windows
-        .filter { $0.isKeyWindow }
-        .first
-      let profile = window?.rootViewController?.children.first as? UINavigationController
-      profile?.popToRootViewController(animated: true)
+      popToRoot()
       UserDefaults.standard.removeObject(forKey: "isLogined")
       UserDefaults.standard.bool(forKey: "isKakao") ? requestKakaoLogout() : requestAppleLogout()
       state.local.logoutAlertModal = nil
@@ -111,27 +115,17 @@ Reducer.combine([
       
     case .withdrawAlertModal(.primaryButtonTapped):
       state.local.withdrawAlertModal = nil
-      let window = UIApplication.shared.connectedScenes
-        .filter { $0.activationState == .foregroundActive }
-        .map { $0 as? UIWindowScene }
-        .compactMap { $0 }
-        .first?.windows
-        .filter { $0.isKeyWindow }
-        .first
-      let profile = window?.rootViewController?.children.first as? UINavigationController
-      profile?.popToRootViewController(animated: true)
       let userID =  UserDefaults.standard.string(forKey: "userID") ?? ""
       return env.dropoutService.dropout(id: userID)
         .catchToEffect()
         .map ({ result in
           switch result {
           case .success:
-            print("회원탈퇴 성공")
             UserDefaults.standard.removeObject(forKey: "userID")
             UserDefaults.standard.removeObject(forKey: "isLogined")
             return .noop
-          case let .failure(error):
-            print(error)
+            
+          case .failure:
             return .noop
           }
         })
@@ -167,28 +161,13 @@ private func requestKakaoLogout() {
   UserDefaults.standard.removeObject(forKey: "kakaoName")
   UserDefaults.standard.removeObject(forKey: "kakaoEmail")
   UserDefaults.standard.removeObject(forKey: "isKakao")
-  UserApi.shared.logout {(error) in
-    if let error = error {
-      print(error)
-    }
-    else {
-      print("logout success.")
-    }
-  }
 }
 
 private func requestAppleLogout() {
   UserDefaults.standard.removeObject(forKey: "appleName")
   UserDefaults.standard.removeObject(forKey: "appleEmail")
   UserDefaults.standard.removeObject(forKey: "appleUserID")
-  UserApi.shared.logout {(error) in
-    if let error = error {
-      print(error)
-    }
-    else {
-      print("logout success.")
-    }
-  }
+  UserDefaults.standard.removeObject(forKey: "isKakao")
 }
 
 private func setAlertModal(
@@ -209,3 +188,14 @@ private func setAlertModal(
   return .none
 }
 
+public func popToRoot() {
+  let window = UIApplication.shared.connectedScenes
+    .filter { $0.activationState == .foregroundActive }
+    .map { $0 as? UIWindowScene }
+    .compactMap { $0 }
+    .first?.windows
+    .filter { $0.isKeyWindow }
+    .first
+  let profile = window?.rootViewController?.children.first as? UINavigationController
+  profile?.popToRootViewController(animated: true)
+}

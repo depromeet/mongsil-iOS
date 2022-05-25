@@ -136,11 +136,11 @@ Reducer.combine([
     case .openSource(.backButtonTapped):
       return Effect(value: .setOpenSourcePushed(false))
       
-    case .makers(.backButtonTapped):
-      return Effect(value: .setMakersPushed(false))
-      
     case .openSource:
       return .none
+      
+    case .makers(.backButtonTapped):
+      return Effect(value: .setMakersPushed(false))
       
     case .makers:
       return .none

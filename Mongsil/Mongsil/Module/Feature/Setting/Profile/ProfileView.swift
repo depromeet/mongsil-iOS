@@ -16,29 +16,28 @@ struct ProfileView: View {
   }
   
   var body: some View {
-    VStack(spacing: 0){
+    VStack(spacing: 0) {
       MSNavigationBar(
         backButtonImage: R.CustomImage.backIcon.image,
         backButtonAction: { ViewStore(store).send(.backButtonTapped) },
         titleText: "계정"
       )
+      .padding(.horizontal, 20)
       UserNameView(store: store)
         .padding(.top, 26)
         .padding(.leading, 20)
       UserEmailView(store: store)
         .padding(.leading, 20)
         .padding(.bottom, 24)
-      VStack(alignment: .leading, spacing: 0){
+      VStack(alignment: .leading, spacing: 0) {
         LogoutButtonView(store: store)
           .padding(.leading, 20)
-          .padding(.bottom, 15)
-          .padding(.top, 15)
+          .padding(.vertical, 15)
         Divider()
           .background(Color.gray8)
         WithdrawButtonView(store: store)
           .padding(.leading, 20)
-          .padding(.bottom, 15)
-          .padding(.top, 15)
+          .padding(.vertical, 15)
         Divider()
           .background(Color.gray8)
       }
@@ -111,13 +110,11 @@ private struct LogoutButtonView: View {
   
   var body: some View {
     Button(action: {
-      ViewStore(store).send(.logoutButtonTapped)
-
-    }) {
-      Text("로그아웃")
-        .font(.body2)
-    }
-    .foregroundColor(.gray2)
+      ViewStore(store).send(.logoutButtonTapped)}) {
+        Text("로그아웃")
+          .font(.body2)
+      }
+      .foregroundColor(.gray2)
   }
 }
 
@@ -129,7 +126,7 @@ private struct WithdrawButtonView: View {
   }
   
   var body: some View {
-    Button(action: {ViewStore(store).send(.withdrawButtonTapped)}) {
+    Button(action: { ViewStore(store).send(.withdrawButtonTapped) }) {
       Text("탈퇴하기")
         .font(.body2)
     }

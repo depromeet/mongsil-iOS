@@ -10,11 +10,11 @@ import SwiftUI
 
 struct TermsView: View {
   private let store: Store<WithSharedState<TermsState>, TermsAction>
-
+  
   init(store: Store<WithSharedState<TermsState>, TermsAction>) {
     self.store = store
   }
-
+  
   var body: some View {
     VStack {
       MSNavigationBar(
@@ -22,6 +22,7 @@ struct TermsView: View {
         backButtonAction: { ViewStore(store).send(.backButtonTapped) },
         titleText: "이용약관"
       )
+      .padding(.horizontal, 20)
       Spacer()
         .frame(height: 50)
       ScrollView {

@@ -10,11 +10,11 @@ import SwiftUI
 
 struct PersonalInfoPolicyView: View {
   private let store: Store<WithSharedState<PersonalInfoPolicyState>, PersonalInfoPolicyAction>
-
+  
   init(store: Store<WithSharedState<PersonalInfoPolicyState>, PersonalInfoPolicyAction>) {
     self.store = store
   }
-
+  
   var body: some View {
     VStack {
       MSNavigationBar(
@@ -22,6 +22,7 @@ struct PersonalInfoPolicyView: View {
         backButtonAction: { ViewStore(store).send(.backButtonTapped) },
         titleText: "개인정보 정책"
       )
+      .padding(.horizontal, 20)
       Spacer()
         .frame(height: 50)
       ScrollView {

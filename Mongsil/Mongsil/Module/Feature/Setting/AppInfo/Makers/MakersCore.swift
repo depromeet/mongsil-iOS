@@ -8,6 +8,7 @@
 import ComposableArchitecture
 
 struct MakersState: Equatable {
+  public var makersList: [Makers]?
 }
 
 enum MakersAction {

@@ -52,7 +52,7 @@ public class DropoutService {
       } else {
         throw ErrorFactory.dropoutFailed(
           url: url,
-          statusCode: String(response.statusCode),
+          statusCode: response.statusCode,
           underlying: nil
         )
       }
@@ -87,7 +87,7 @@ public enum DropoutServiceErrorFactory: ErrorFactory {
   
   public static func dropoutFailed(
     url: String,
-    statusCode: String? = nil,
+    statusCode: Int? = nil,
     underlying: Error? = nil
   ) -> NSError {
     return NSError(

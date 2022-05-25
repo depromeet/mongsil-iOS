@@ -21,6 +21,7 @@ struct SettingView: View {
       backButtonAction: { ViewStore(store).send(.backButtonTapped) },
       titleText: "설정"
     )
+    .padding(.horizontal, 20)
     .padding(.bottom, 24)
     VStack(spacing: 0) {
       ProfileLinkView(store: store)
@@ -124,8 +125,7 @@ private struct VersionInfoView: View {
     VStack(spacing: 0) {
       HStack(spacing: 0) {
         Text("버전 정보")
-          .padding(.bottom, 15)
-          .padding(.top, 15)
+          .padding(.vertical, 15)
           .font(.body2)
           .foregroundColor(.gray2)
         Spacer()
