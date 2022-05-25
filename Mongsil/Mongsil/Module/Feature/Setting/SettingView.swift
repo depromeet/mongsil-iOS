@@ -10,11 +10,11 @@ import SwiftUI
 
 struct SettingView: View {
   private let store: Store<WithSharedState<SettingState>, SettingAction>
-  
+
   init(store: Store<WithSharedState<SettingState>, SettingAction>) {
     self.store = store
   }
-  
+
   var body: some View {
     MSNavigationBar(
       backButtonImage: R.CustomImage.backIcon.image,
@@ -22,7 +22,6 @@ struct SettingView: View {
       titleText: "설정"
     )
     .padding(.horizontal, 20)
-    .padding(.bottom, 24)
     VStack(spacing: 0) {
       ProfileLinkView(store: store)
       Divider()
@@ -34,7 +33,9 @@ struct SettingView: View {
       Divider()
         .background(Color.gray8)
     }
+    .padding(.top, 24)
     .padding(.horizontal, 20)
+    .navigationTitle("")
     .navigationBarHidden(true)
     Spacer()
   }
@@ -42,11 +43,11 @@ struct SettingView: View {
 
 private struct ProfileLinkView: View {
   private let store: Store<WithSharedState<SettingState>, SettingAction>
-  
+
   init(store: Store<WithSharedState<SettingState>, SettingAction>) {
     self.store = store
   }
-  
+
   var body: some View {
     WithViewStore(store.scope(state: \.local.isProfilePushed)) { isProfilePushedViewStore in
       NavigationLink(
@@ -79,11 +80,11 @@ private struct ProfileLinkView: View {
 
 private struct AppInfoLinkView: View {
   private let store: Store<WithSharedState<SettingState>, SettingAction>
-  
+
   init(store: Store<WithSharedState<SettingState>, SettingAction>) {
     self.store = store
   }
-  
+
   var body: some View {
     WithViewStore(store.scope(state: \.local.isAppInfoPushed)) { isAppInfoPushedViewStore in
       NavigationLink(
@@ -116,11 +117,11 @@ private struct AppInfoLinkView: View {
 
 private struct VersionInfoView: View {
   private let store: Store<WithSharedState<SettingState>, SettingAction>
-  
+
   init(store: Store<WithSharedState<SettingState>, SettingAction>) {
     self.store = store
   }
-  
+
   var body: some View {
     VStack(spacing: 0) {
       HStack(spacing: 0) {
@@ -136,4 +137,3 @@ private struct VersionInfoView: View {
     }
   }
 }
-

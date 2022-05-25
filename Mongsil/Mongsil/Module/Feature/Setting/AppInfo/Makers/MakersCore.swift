@@ -6,6 +6,7 @@
 //
 
 import ComposableArchitecture
+import SwiftUI
 
 struct MakersState: Equatable {
   public var makersList: [Makers]?
@@ -13,15 +14,25 @@ struct MakersState: Equatable {
 
 enum MakersAction {
   case backButtonTapped
+  case onAppear
+  case makersCardTapped(URL)
 }
 
 struct MakersEnvironment {
 }
 
 let makersReducer = Reducer<WithSharedState<MakersState>, MakersAction, MakersEnvironment> {
-  state, action, environment in
+  state, action, _ in
   switch action {
+  case .onAppear:
+    state.local.makersList = Makers.makersList
+    return .none
+
   case .backButtonTapped:
+    return .none
+
+  case let .makersCardTapped(url):
+    UIApplication.shared.open(url)
     return .none
   }
 }

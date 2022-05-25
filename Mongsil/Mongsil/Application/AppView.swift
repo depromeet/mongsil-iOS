@@ -12,7 +12,7 @@ struct AppView: View {
   private let store: Store<WithSharedState<AppState>, AppAction>
   private let shouldDisplayRequestAppTrackingAlertViewStore: ViewStore<Bool, AppAction>
   private let colorScheme: ColorScheme
-  
+
   init(
     store: Store<WithSharedState<AppState>, AppAction>,
     colorScheme: ColorScheme

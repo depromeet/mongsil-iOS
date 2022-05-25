@@ -13,13 +13,13 @@ struct AppInfoState: Equatable {
   public var isPersonalInfoPolicyPushed: Bool = false
   public var isOpenSourcePushed: Bool = false
   public var isMakersPushed: Bool = false
-  
+
   // Child State
   public var terms: TermsState?
   public var personalInfoPolicy: PersonalInfoPolicyState?
   public var openSource: OpenSourceState?
   public var makers: MakersState?
-  
+
   init(
     isTermsPushed: Bool = false,
     isPersonalInfoPolicyPushed: Bool = false,
@@ -39,7 +39,7 @@ enum AppInfoAction {
   case setPersonalInfoPolicyPushed(Bool)
   case setOpenSourcePushed(Bool)
   case setMakersPushed(Bool)
-  
+
   // Child Action
   case terms(TermsAction)
   case personalInfoPolicy(PersonalInfoPolicyAction)
@@ -92,56 +92,56 @@ Reducer.combine([
     switch action {
     case .backButtonTapped:
       return .none
-      
+
     case let .setTermsPushed(pushed):
       state.local.isTermsPushed = pushed
       if pushed {
         state.local.terms = .init()
       }
       return .none
-      
+
     case let .setPersonalInfoPolicyPushed(pushed):
       state.local.isPersonalInfoPolicyPushed = pushed
       if pushed {
         state.local.personalInfoPolicy = .init()
       }
       return .none
-      
+
     case let .setOpenSourcePushed(pushed):
       state.local.isOpenSourcePushed = pushed
       if pushed {
         state.local.openSource = .init()
       }
       return .none
-      
+
     case let .setMakersPushed(pushed):
       state.local.isMakersPushed = pushed
       if pushed {
         state.local.makers = .init()
       }
       return .none
-      
+
     case .terms(.backButtonTapped):
       return Effect(value: .setTermsPushed(false))
-      
+
     case .terms:
       return .none
-      
+
     case .personalInfoPolicy(.backButtonTapped):
       return Effect(value: .setPersonalInfoPolicyPushed(false))
-      
+
     case .personalInfoPolicy:
       return .none
-      
+
     case .openSource(.backButtonTapped):
       return Effect(value: .setOpenSourcePushed(false))
-      
+
     case .openSource:
       return .none
-      
+
     case .makers(.backButtonTapped):
       return Effect(value: .setMakersPushed(false))
-      
+
     case .makers:
       return .none
     }

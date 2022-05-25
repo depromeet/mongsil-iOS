@@ -11,10 +11,10 @@ import ComposableArchitecture
 struct HomeState: Equatable {
   public var isSearchPushed: Bool = false
   public var hotKeyword: [String] = []
-  
+
   // Child State
   public var search: SearchState?
-  
+
   init(
     hotKeyword: [String] = [],
     search: SearchState? = nil
@@ -28,7 +28,7 @@ enum HomeAction {
   case onAppear
   case setSearchPushed(Bool)
   case hotKeywordTapped(String)
-  
+
   // Child Action
   case search(SearchAction)
 }
@@ -54,20 +54,20 @@ Reducer.combine([
       // 추후 인기 해몽 키워드 API 호출 및 저장 필요
       state.local.hotKeyword = ["호랑이", "천사", "애플워치", "돼지", "돈", "회사", "바다", "부자"]
       return .none
-      
+
     case let .setSearchPushed(pushed):
       state.local.isSearchPushed = pushed
       if pushed {
         state.local.search = .init()
       }
       return .none
-      
+
     case let .hotKeywordTapped(text):
       return Effect(value: .setSearchPushed(true))
-      
+
     case .search(.backButtonTapped):
       return Effect(value: .setSearchPushed(false))
-      
+
     case .search:
       return .none
     }

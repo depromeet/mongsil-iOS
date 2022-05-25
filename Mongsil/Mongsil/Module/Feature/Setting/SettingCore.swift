@@ -11,11 +11,11 @@ import ComposableArchitecture
 struct SettingState: Equatable {
   public var isProfilePushed: Bool = false
   public var isAppInfoPushed: Bool = false
-  
+
   // Child State
   public var profile: ProfileState?
   public var appInfo: AppInfoState?
-  
+
   init(
     isProfilePushed: Bool = false,
     isAppInfoPushed: Bool = false
@@ -29,7 +29,7 @@ enum SettingAction {
   case backButtonTapped
   case setProfilePushed(Bool)
   case setAppInfoPushed(Bool)
-  
+
   // Child Action
   case appInfo(AppInfoAction)
   case profile(ProfileAction)
@@ -64,30 +64,30 @@ Reducer.combine([
     switch action {
     case .backButtonTapped:
       return .none
-      
+
     case let .setProfilePushed(pushed):
       state.local.isProfilePushed = pushed
       if pushed {
         state.local.profile = .init()
       }
       return .none
-      
+
     case let .setAppInfoPushed(pushed):
       state.local.isAppInfoPushed = pushed
       if pushed {
         state.local.appInfo = .init()
       }
       return .none
-      
+
     case .profile(.backButtonTapped):
       return Effect(value: .setProfilePushed(false))
-      
+
     case .profile:
       return .none
-      
+
     case .appInfo(.backButtonTapped):
       return Effect(value: .setAppInfoPushed(false))
-      
+
     case .appInfo:
       return .none
     }

@@ -10,11 +10,11 @@ import SwiftUI
 
 struct MakersView: View {
   private let store: Store<WithSharedState<MakersState>, MakersAction>
-  
+
   init(store: Store<WithSharedState<MakersState>, MakersAction>) {
     self.store = store
   }
-  
+
   var body: some View {
     VStack {
       MSNavigationBar(
@@ -25,12 +25,12 @@ struct MakersView: View {
       .padding(.horizontal, 20)
       .padding(.bottom, 24)
       MakersWelcomeView()
-        .padding(.leading, 20)
-      //      MakersCardView(store: store, makers: makers)
+      MakersCardListView(store: store)
       Spacer()
     }
     .navigationTitle("")
     .navigationBarHidden(true)
+    .onAppear(perform: { ViewStore(store).send(.onAppear) })
   }
 }
 
@@ -41,7 +41,7 @@ private struct MakersWelcomeView: View {
         Text("안녕하세요\n좋은 꿈 꾸셨나요?")
           .foregroundColor(.msWhite)
           .font(.title1)
-          .lineSpacing(10)
+          .lineSpacing(1)
         Spacer()
       }
       .padding(.bottom, 16)
@@ -50,62 +50,45 @@ private struct MakersWelcomeView: View {
         .font(.body2)
         .padding(.bottom, 24)
     }
+    .padding(.leading, 20)
   }
 }
 
-private struct makersListView: View {
+private struct MakersCardListView: View {
   private let store: Store<WithSharedState<MakersState>, MakersAction>
-  
-  
+
   init(store: Store<WithSharedState<MakersState>, MakersAction>) {
     self.store = store
   }
-  
+
   var body: some View {
     WithViewStore(store.scope(state: \.local.makersList)) { makersListViewStore in
       if let makersList = makersListViewStore.state {
         ScrollView {
           VStack {
             ForEach(makersList, id: \.self) { makers in
-              MakersCardListView(
+              MakersCardView(
                 store: store,
                 makers: makers
               )
-              .padding(.top, 16)
               .padding(.horizontal, 20)
             }
-            Spacer()
-              .frame(height: 100)
           }
         }
-        .overlay(
-          VStack {
-            Spacer()
-            Rectangle()
-              .foregroundColor(.gray11)
-              .opacity(0.8)
-              .frame(maxWidth: .infinity, maxHeight: 90)
-              .background {
-                Color.gray11
-                  .opacity(0.8)
-                  .blur(radius: 0)
-              }
-          }
-        )
-        .frame(maxWidth: .infinity)
       }
     }
   }
 }
 
-private struct MakersCardListView: View {
+private struct MakersCardView: View {
   private let store: Store<WithSharedState<MakersState>, MakersAction>
   var makers: Makers
   var name: String
-  var description: String
+  var position: String
   var firstImage: Image
   var secondImage: Image
-  
+  var makersURL: URL
+
   init(
     store: Store<WithSharedState<MakersState>, MakersAction>,
     makers: Makers,
@@ -115,309 +98,41 @@ private struct MakersCardListView: View {
     self.store = store
     self.makers = makers
     self.name = makers.name
-    self.description = makers.position
-    self.firstImage = firstImage
-    self.secondImage = secondImage
+    self.position = makers.position
+    self.firstImage = makers.firstImage
+    self.secondImage = makers.secondImage
+    self.makersURL = makers.makersURL
   }
-  
+
   var body: some View {
-    
-    VStack(alignment: .leading) {
-      Spacer()
-        .frame(height: 18)
-      Text(name)
-        .font(.subTitle)
-        .foregroundColor(.gray2)
-        .lineLimit(1)
-        .padding(.bottom, 2)
-      Text(description)
-        .font(.caption1)
-        .foregroundColor(.gray3)
-        .lineLimit(1)
-        .padding(.bottom, 10)
-      Text(description)
-        .font(.caption1)
-        .foregroundColor(.gray6)
-      Spacer()
-        .frame(height: 16)
+    Button(action: { ViewStore(store).send(.makersCardTapped(makersURL)) }) {
+      HStack(spacing: 0) {
+        VStack(alignment: .leading, spacing: 0) {
+          Spacer()
+            .frame(height: 18)
+          Text(name)
+            .font(.subTitle)
+            .foregroundColor(.gray2)
+            .padding(.bottom, 2)
+            .padding(.leading, 20)
+          Text(position)
+            .font(.caption1)
+            .foregroundColor(.gray3)
+            .padding(.leading, 20)
+          Spacer()
+            .frame(height: 18)
+        }
+        Spacer()
+        HStack {
+          firstImage
+          secondImage
+        }
+        Spacer()
+          .frame(width: 20)
+      }
     }
-    Spacer()
-    HStack {
-      firstImage
-      secondImage
-    }
+    .background(Color.gray10)
+    .cornerRadius(8)
+    .padding(.bottom, 16)
   }
 }
-
-
-//    ScrollView {
-//      Button(action:{openURL(URL(string: "https://github.com/MoSonLee")!)}) {
-//        HStack {
-//          VStack(alignment: .leading) {
-//            Spacer()
-//              .frame(height: 18)
-//            Text("박종호")
-//              .font(.subTitle)
-//              .foregroundColor(.gray2)
-//              .padding(.bottom, 2)
-//              .padding(.leading, 20)
-//            Text("PM")
-//              .font(.caption1)
-//              .foregroundColor(.gray3)
-//              .padding(.bottom, 18)
-//              .padding(.leading, 20)
-//            Spacer()
-//              .frame(height: 16)
-//          }
-//          Spacer()
-//          HStack {
-//            firstImage
-//            secondImage
-//          }
-//          Spacer()
-//            .frame(width: 20)
-//        }
-//      }
-//      .background(Color.gray10)
-//      .cornerRadius(8)
-//      .padding(.bottom, 16)
-//      Button(action:{openURL(URL(string: "https://github.com/MoSonLee")!)}) {
-//        HStack {
-//          VStack(alignment: .leading) {
-//            Spacer()
-//              .frame(height: 18)
-//            Text("이건웅")
-//              .font(.subTitle)
-//              .foregroundColor(.gray2)
-//              .padding(.bottom, 2)
-//              .padding(.leading, 20)
-//            Text("Backend Developer")
-//              .font(.caption1)
-//              .foregroundColor(.gray3)
-//              .padding(.bottom, 18)
-//              .padding(.leading, 20)
-//            Spacer()
-//              .frame(height: 16)
-//          }
-//          Spacer()
-//          HStack {
-//            firstImage
-//            secondImage
-//          }
-//          Spacer()
-//            .frame(width: 20)
-//        }
-//      }
-//      .background(Color.gray10)
-//      .cornerRadius(8)
-//      .padding(.bottom, 16)
-//      Button(action:{openURL(URL(string: "https://github.com/MoSonLee")!)}) {
-//        HStack {
-//          VStack(alignment: .leading) {
-//            Spacer()
-//              .frame(height: 18)
-//            Text("이석호")
-//              .font(.subTitle)
-//              .foregroundColor(.gray2)
-//              .padding(.bottom, 2)
-//              .padding(.leading, 20)
-//            Text("Backend Developer")
-//              .font(.caption1)
-//              .foregroundColor(.gray3)
-//              .padding(.bottom, 18)
-//              .padding(.leading, 20)
-//            Spacer()
-//              .frame(height: 16)
-//          }
-//          Spacer()
-//          HStack {
-//            firstImage
-//            secondImage
-//          }
-//          Spacer()
-//            .frame(width: 20)
-//        }
-//      }
-//      .background(Color.gray10)
-//      .cornerRadius(8)
-//      .padding(.bottom, 16)
-//      Button(action:{openURL(URL(string: "https://github.com/MoSonLee")!)}) {
-//        HStack {
-//          VStack(alignment: .leading) {
-//            Spacer()
-//              .frame(height: 18)
-//            Text("조찬우")
-//              .font(.subTitle)
-//              .foregroundColor(.gray2)
-//              .padding(.bottom, 2)
-//              .padding(.leading, 20)
-//            Text("iOS Developer")
-//              .font(.caption1)
-//              .foregroundColor(.gray3)
-//              .padding(.bottom, 18)
-//              .padding(.leading, 20)
-//            Spacer()
-//              .frame(height: 16)
-//          }
-//          Spacer()
-//          HStack {
-//            firstImage
-//            secondImage
-//          }
-//          Spacer()
-//            .frame(width: 20)
-//        }
-//      }
-//      .background(Color.gray10)
-//      .cornerRadius(8)
-//      .padding(.bottom, 16)
-//      Button(action:{openURL(URL(string: "https://github.com/MoSonLee")!)}) {
-//        HStack {
-//          VStack(alignment: .leading) {
-//            Spacer()
-//              .frame(height: 18)
-//            Text("이승후")
-//              .font(.subTitle)
-//              .foregroundColor(.gray2)
-//              .padding(.bottom, 2)
-//              .padding(.leading, 20)
-//            Text("iOS Developer")
-//              .font(.caption1)
-//              .foregroundColor(.gray3)
-//              .padding(.bottom, 18)
-//              .padding(.leading, 20)
-//            Spacer()
-//              .frame(height: 16)
-//          }
-//          Spacer()
-//          HStack {
-//            firstImage
-//            secondImage
-//          }
-//          Spacer()
-//            .frame(width: 20)
-//        }
-//      }
-//      .background(Color.gray10)
-//      .cornerRadius(8)
-//      .padding(.bottom, 16)
-//      Button(action:{openURL(URL(string: "https://github.com/MoSonLee")!)}) {
-//        HStack {
-//          VStack(alignment: .leading) {
-//            Spacer()
-//              .frame(height: 18)
-//            Text("이영은")
-//              .font(.subTitle)
-//              .foregroundColor(.gray2)
-//              .padding(.bottom, 2)
-//              .padding(.leading, 20)
-//            Text("iOS Developer")
-//              .font(.caption1)
-//              .foregroundColor(.gray3)
-//              .padding(.bottom, 18)
-//              .padding(.leading, 20)
-//            Spacer()
-//              .frame(height: 16)
-//          }
-//          Spacer()
-//          HStack {
-//            firstImage
-//            secondImage
-//          }
-//          Spacer()
-//            .frame(width: 20)
-//        }
-//      }
-//      .background(Color.gray10)
-//      .cornerRadius(8)
-//      .padding(.bottom, 16)
-//      Button(action:{openURL(URL(string: "https://github.com/MoSonLee")!)}) {
-//        HStack {
-//          VStack(alignment: .leading) {
-//            Spacer()
-//              .frame(height: 18)
-//            Text("정진아")
-//              .font(.subTitle)
-//              .foregroundColor(.gray2)
-//              .padding(.bottom, 2)
-//              .padding(.leading, 20)
-//            Text("Designer")
-//              .font(.caption1)
-//              .foregroundColor(.gray3)
-//              .padding(.bottom, 18)
-//              .padding(.leading, 20)
-//            Spacer()
-//              .frame(height: 16)
-//          }
-//          Spacer()
-//          HStack {
-//            firstImage
-//            secondImage
-//          }
-//          Spacer()
-//            .frame(width: 20)
-//        }
-//      }
-//      .background(Color.gray10)
-//      .cornerRadius(8)
-//      .padding(.bottom, 16)
-//      Button(action:{openURL(URL(string: "https://github.com/MoSonLee")!)}) {
-//        HStack {
-//          VStack(alignment: .leading) {
-//            Spacer()
-//              .frame(height: 18)
-//            Text("김나영")
-//              .font(.subTitle)
-//              .foregroundColor(.gray2)
-//              .padding(.bottom, 2)
-//              .padding(.leading, 20)
-//            Text("Designer")
-//              .font(.caption1)
-//              .foregroundColor(.gray3)
-//              .padding(.bottom, 18)
-//              .padding(.leading, 20)
-//            Spacer()
-//              .frame(height: 16)
-//          }
-//          Spacer()
-//          HStack {
-//            firstImage
-//            secondImage
-//          }
-//          Spacer()
-//            .frame(width: 20)
-//        }
-//      }
-//      .background(Color.gray10)
-//      .cornerRadius(8)
-//      .padding(.bottom, 16)
-//      Button(action:{openURL(URL(string: "https://github.com/MoSonLee")!)}) {
-//        HStack {
-//          VStack(alignment: .leading) {
-//            Spacer()
-//              .frame(height: 18)
-//            Text("이영희")
-//              .font(.subTitle)
-//              .foregroundColor(.gray2)
-//              .padding(.bottom, 2)
-//              .padding(.leading, 20)
-//            Text("Designer")
-//              .font(.caption1)
-//              .foregroundColor(.gray3)
-//              .padding(.bottom, 18)
-//              .padding(.leading, 20)
-//            Spacer()
-//              .frame(height: 16)
-//          }
-//          Spacer()
-//          HStack {
-//            firstImage
-//            secondImage
-//          }
-//          Spacer()
-//            .frame(width: 20)
-//        }
-//      }
-//      .background(Color.gray10)
-//      .cornerRadius(8)
-//    }

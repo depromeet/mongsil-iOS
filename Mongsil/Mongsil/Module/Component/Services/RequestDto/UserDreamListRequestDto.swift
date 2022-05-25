@@ -11,7 +11,7 @@ public struct UserDreamListRequestDto: Encodable {
   public var userID: String
 
   enum CodingKeys: String, CodingKey {
-    case userID = "userId"
+    case userID = "userID"
   }
 
   public func encode(to encoder: Encoder) throws {

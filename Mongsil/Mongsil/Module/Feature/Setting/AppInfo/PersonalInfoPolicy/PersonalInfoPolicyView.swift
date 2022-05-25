@@ -10,11 +10,11 @@ import SwiftUI
 
 struct PersonalInfoPolicyView: View {
   private let store: Store<WithSharedState<PersonalInfoPolicyState>, PersonalInfoPolicyAction>
-  
+
   init(store: Store<WithSharedState<PersonalInfoPolicyState>, PersonalInfoPolicyAction>) {
     self.store = store
   }
-  
+
   var body: some View {
     VStack {
       MSNavigationBar(

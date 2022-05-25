@@ -10,11 +10,11 @@ import SwiftUI
 
 struct OpenSourceView: View {
   private let store: Store<WithSharedState<OpenSourceState>, OpenSourceAction>
-  
+
   init(store: Store<WithSharedState<OpenSourceState>, OpenSourceAction>) {
     self.store = store
   }
-  
+
   var body: some View {
     VStack {
       MSNavigationBar(

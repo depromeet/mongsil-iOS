@@ -11,17 +11,17 @@ import CombineExt
 
 public class DropoutService {
   public typealias ErrorFactory = DropoutServiceErrorFactory
-  
+
   public let alamofireSession: Session
-  
+
   public init(alamofireSession: Session) {
     self.alamofireSession = alamofireSession
   }
-  
+
   public func dropout(id: String) -> AnyPublisher<Unit, Error> {
     let url = "http://3.34.46.139:80\(URLHost.dropout)"
-    let body = DropoutRequestDto(userId: id)
-    
+    let body = DropoutRequestDto(userID: id)
+
     return alamofireSession.request(
       url,
       method: .delete,
@@ -67,7 +67,7 @@ public enum DropoutServiceErrorFactory: ErrorFactory {
     case decodeFailed = 1
     case dropoutFailed = 2
   }
-  
+
   public static func decodeFailed(
     url: String,
     data: Data,
@@ -84,7 +84,7 @@ public enum DropoutServiceErrorFactory: ErrorFactory {
       ]
     )
   }
-  
+
   public static func dropoutFailed(
     url: String,
     statusCode: Int? = nil,

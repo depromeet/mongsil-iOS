@@ -31,7 +31,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
       dropoutService: .init(alamofireSession: .default)
     )
   )
-  
+
   func scene(
     _ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions
   ) {

@@ -10,11 +10,11 @@ import SwiftUI
 
 struct AppInfoView: View {
   private let store: Store<WithSharedState<AppInfoState>, AppInfoAction>
-  
+
   init(store: Store<WithSharedState<AppInfoState>, AppInfoAction>) {
     self.store = store
   }
-  
+
   var body: some View {
     MSNavigationBar(
       backButtonImage: R.CustomImage.backIcon.image,
@@ -49,11 +49,11 @@ struct AppInfoView: View {
 
 private struct TermsLink: View {
   private let store: Store<WithSharedState<AppInfoState>, AppInfoAction>
-  
+
   init(store: Store<WithSharedState<AppInfoState>, AppInfoAction>) {
     self.store = store
   }
-  
+
   var body: some View {
     WithViewStore(store.scope(state: \.local.isTermsPushed)) { isTermsPushedViewStore in
       NavigationLink(
@@ -86,11 +86,11 @@ private struct TermsLink: View {
 
 private struct PersonalInfoPolicyLink: View {
   private let store: Store<WithSharedState<AppInfoState>, AppInfoAction>
-  
+
   init(store: Store<WithSharedState<AppInfoState>, AppInfoAction>) {
     self.store = store
   }
-  
+
   var body: some View {
     WithViewStore(store.scope(state: \.local.isPersonalInfoPolicyPushed)) { isPersonalInfoPolicyPushedViewStore in
       NavigationLink(
@@ -123,11 +123,11 @@ private struct PersonalInfoPolicyLink: View {
 
 private struct OpenSourceLink: View {
   private let store: Store<WithSharedState<AppInfoState>, AppInfoAction>
-  
+
   init(store: Store<WithSharedState<AppInfoState>, AppInfoAction>) {
     self.store = store
   }
-  
+
   var body: some View {
     WithViewStore(store.scope(state: \.local.isOpenSourcePushed)) { isOpenSourcePushedViewStore in
       NavigationLink(
@@ -160,11 +160,11 @@ private struct OpenSourceLink: View {
 
 private struct MakersLinkView: View {
   private let store: Store<WithSharedState<AppInfoState>, AppInfoAction>
-  
+
   init(store: Store<WithSharedState<AppInfoState>, AppInfoAction>) {
     self.store = store
   }
-  
+
   var body: some View {
     WithViewStore(store.scope(state: \.local.isMakersPushed)) { isMakersPushedViewStore in
       NavigationLink(

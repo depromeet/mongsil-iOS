@@ -10,11 +10,11 @@ import SwiftUI
 
 struct TermsView: View {
   private let store: Store<WithSharedState<TermsState>, TermsAction>
-  
+
   init(store: Store<WithSharedState<TermsState>, TermsAction>) {
     self.store = store
   }
-  
+
   var body: some View {
     VStack {
       MSNavigationBar(

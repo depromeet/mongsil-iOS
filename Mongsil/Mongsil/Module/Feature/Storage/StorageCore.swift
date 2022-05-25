@@ -42,13 +42,13 @@ struct StorageState: Equatable {
     ? deleteDiaryList.count
     : deleteUserDreamList.count
   }
-  
+
   // Child State
   public var setting: SettingState?
   public var diary: DiaryState?
   public var dream: DreamState?
   public var deleteCardAlertModal: AlertDoubleButtonState?
-  
+
   init(
     isSettingPushed: Bool = false,
     isDiaryPushed: Bool = false,
@@ -85,10 +85,10 @@ struct StorageState: Equatable {
 extension StorageState {
   public enum Tab: Int, Comparable, Hashable, Identifiable {
     public var id: Int { rawValue }
-    
+
     case diary
     case dream
-    
+
     public static func < (lhs: Self, rhs: Self) -> Bool {
       return lhs.rawValue < rhs.rawValue
     }
@@ -116,7 +116,7 @@ enum StorageAction: ToastPresentableAction {
   case setDeleteUserDreamList
   case presentToast(String)
   case noop
-  
+
   // Child Action
   case setting(SettingAction)
   case diary(DiaryAction)
@@ -177,18 +177,18 @@ Reducer.combine([
         setDreamList(state: &state, env: env),
         setDiaryCount(state: &state)
       ])
-      
+
     case let .setUserDreamList(userDreamList):
       state.local.userDreamList = userDreamList
       return .none
-      
+
     case let .setSettingPushed(pushed):
       state.local.isSettingPushed = pushed
       if pushed {
         state.local.setting = .init()
       }
       return .none
-      
+
     case let .setDiaryPushed(pushed, diary):
       state.local.isDiaryPushed = pushed
       guard let diary = diary else {
@@ -198,7 +198,7 @@ Reducer.combine([
         state.local.diary = .init(diary: diary)
       }
       return .none
-      
+
     case let .setDreamPushed(pushed, dream):
       state.local.isDreamPushed = pushed
       guard let dream = dream else {
@@ -208,14 +208,14 @@ Reducer.combine([
         state.local.dream = .init(userDream: dream)
       }
       return .none
-      
+
     case let .tabTapped(tab):
       if state.local.selectedTab != tab {
         state.local.selectedTab = tab
         return Effect(value: .setDisplayDeleteCardHeader(false))
       }
       return .none
-      
+
     case let .diaryTapped(diary):
       if state.local.displayDeleteCardHeader {
         if state.local.deleteDiaryList.contains(diary) {
@@ -226,7 +226,7 @@ Reducer.combine([
         return .none
       }
       return Effect(value: .setDiaryPushed(true, diary))
-      
+
     case let .dreamTapped(dream):
       if state.local.displayDeleteCardHeader {
         if state.local.deleteUserDreamList.contains(dream) {
@@ -237,22 +237,22 @@ Reducer.combine([
         return .none
       }
       return Effect(value: .setDreamPushed(true, dream))
-      
+
     case .navigationBarDateButtonTapped:
       return Effect(value: .setSelectDateSheetPresented(true))
-      
+
     case let .setSelectDateSheetPresented(presented):
       state.local.isSelectDateSheetPresented = presented
       return .none
-      
+
     case let .setSelectedYear(year):
       state.local.tempYear = year
       return .none
-      
+
     case let .setSelectedMonth(month):
       state.local.tempMonth = month
       return .none
-      
+
     case .confirmDateButtonTapped:
       if state.local.tempYear != "" {
         state.local.selectedYear = state.local.tempYear
@@ -261,7 +261,7 @@ Reducer.combine([
         state.local.selectedMonth = state.local.tempMonth
       }
       return Effect(value: .setSelectDateSheetPresented(false))
-      
+
     case let .setDisplayDeleteCardHeader(display):
       if !display {
         state.local.deleteDiaryList.removeAll()
@@ -269,7 +269,7 @@ Reducer.combine([
       }
       state.local.displayDeleteCardHeader = display
       return .none
-      
+
     case let .completeButtonTapped(tab):
       switch tab {
       case .diary:
@@ -283,7 +283,7 @@ Reducer.combine([
           Effect(value: .setDisplayDeleteCardHeader(false))
         ])
       }
-      
+
     case let .clearSelectionButtonTapped(tab):
       switch tab {
       case .diary:
@@ -291,7 +291,7 @@ Reducer.combine([
       case .dream:
         return revortDeleteList(of: .dream, state: &state)
       }
-      
+
     case let .deleteButtonTapped(tab):
       switch tab {
       case .diary:
@@ -311,38 +311,38 @@ Reducer.combine([
           primaryButtonTitle: "삭제하기"
         )
       }
-      
+
     case .setDeleteUserDreamList:
       for dream in state.local.deleteUserDreamList {
         state.local.userDreamList?.remove(object: dream)
       }
       state.local.deleteUserDreamList.removeAll()
       return .none
-      
+
     case .presentToast:
       return .none
-      
+
     case .noop:
       return .none
-      
+
     case .setting(.backButtonTapped):
       return Effect(value: .setSettingPushed(false))
-      
+
     case .setting:
       return .none
-      
+
     case .diary(.backButtonTapped):
       return Effect(value: .setDiaryPushed(false))
-      
+
     case .diary:
       return .none
-      
+
     case .dream(.backButtonTapped):
       return Effect(value: .setDreamPushed(false))
-      
+
     case .dream:
       return .none
-      
+
     case .deleteCardAlertModal(.primaryButtonTapped):
       state.local.deleteCardAlertModal = nil
       if state.local.selectedTab == .diary {
@@ -356,11 +356,11 @@ Reducer.combine([
           Effect(value: .setDisplayDeleteCardHeader(false))
         ])
       }
-      
+
     case .deleteCardAlertModal(.secondaryButtonTapped):
       state.local.deleteCardAlertModal = nil
       return .none
-      
+
     case .deleteCardAlertModal:
       return .none
     }
@@ -403,7 +403,7 @@ private func setDreamList(
    }
    })
    */
-  
+
   // MARK: - 유저의 해몽 리스트에 대한 Stub 데이터를 통한 Fake 구현
   state.local.userDreamList = UserDreamList.Stub.userDreamList1.dreamList
   return .none
@@ -444,7 +444,7 @@ private func deleteDreamList(
    }
    })
    */
-  
+
   // MARK: - 유저가 삭제할 해몽 리스트에 대한 Stub 데이터를 통한 Fake 구현
   return Effect(value: .setDeleteUserDreamList)
 }

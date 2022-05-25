@@ -11,17 +11,17 @@ import CombineExt
 
 public class SignUpService {
   public typealias ErrorFactory = SignUpServiceErrorFactory
-  
+
   public let alamofireSession: Session
-  
+
   public init(alamofireSession: Session) {
     self.alamofireSession = alamofireSession
   }
-  
+
   public func singUp(name: String, with email: String) -> AnyPublisher<SignUpUserResponseDto, Error> {
     let url = "http://3.34.46.139:80\(URLHost.signUp)"
     let body = SignUpUserRequestDto(userEmail: email, userName: name)
-    
+
     return alamofireSession
       .request(
         url,
@@ -68,7 +68,7 @@ public enum SignUpServiceErrorFactory: ErrorFactory {
     case decodeFailed = 1
     case signUpFailed = 2
   }
-  
+
   public static func decodeFailed(
     url: String,
     data: Data,
@@ -85,7 +85,7 @@ public enum SignUpServiceErrorFactory: ErrorFactory {
       ]
     )
   }
-  
+
   public static func signUpFailed(
     url: String,
     statusCode: Int? = nil,

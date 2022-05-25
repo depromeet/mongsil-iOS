@@ -10,11 +10,11 @@ public enum CommonResponseDto {
     public var statusCode: Int
     public var message: String
     public var data: T?
-    
+
     public enum CodingKeys: String, CodingKey {
       case statusCode, message, data
     }
-    
+
     public init(from decoder: Decoder) throws {
       let container = try decoder.container(keyedBy: CodingKeys.self)
       self.statusCode = try container.decode(Int.self, forKey: .statusCode)
@@ -22,15 +22,15 @@ public enum CommonResponseDto {
       self.data = try container.decode(T?.self, forKey: .data)
     }
   }
-  
+
   public struct NotExistData: Decodable {
     public var statusCode: Int
     public var message: String
-    
+
     public enum CodingKeys: String, CodingKey {
       case statusCode, message
     }
-    
+
     public init(from decoder: Decoder) throws {
       let container = try decoder.container(keyedBy: CodingKeys.self)
       self.statusCode = try container.decode(Int.self, forKey: .statusCode)
@@ -38,4 +38,3 @@ public enum CommonResponseDto {
     }
   }
 }
-
