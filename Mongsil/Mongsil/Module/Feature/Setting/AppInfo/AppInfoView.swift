@@ -68,14 +68,12 @@ private struct TermsLink: View {
           send: AppInfoAction.setTermsPushed
         ),
         label: {
-          VStack(alignment: .leading) {
-            HStack {
-              Text("이용약관")
-                .font(.body2)
-                .foregroundColor(.gray2)
-              Spacer()
-              R.CustomImage.arrowRightIcon.image
-            }
+          HStack {
+            Text("이용약관")
+              .font(.body2)
+              .foregroundColor(.gray2)
+            Spacer()
+            R.CustomImage.arrowRightIcon.image
           }
         }
       )
@@ -105,14 +103,12 @@ private struct PersonalInfoPolicyLink: View {
           send: AppInfoAction.setPersonalInfoPolicyPushed
         ),
         label: {
-          VStack(alignment: .leading) {
-            HStack {
-              Text("개인정보 정책")
-                .font(.body2)
-                .foregroundColor(.gray2)
-              Spacer()
-              R.CustomImage.arrowRightIcon.image
-            }
+          HStack {
+            Text("개인정보 정책")
+              .font(.body2)
+              .foregroundColor(.gray2)
+            Spacer()
+            R.CustomImage.arrowRightIcon.image
           }
         }
       )
@@ -142,14 +138,12 @@ private struct OpenSourceLink: View {
           send: AppInfoAction.setOpenSourcePushed
         ),
         label: {
-          VStack(alignment: .leading) {
-            HStack {
-              Text("오픈소스")
-                .font(.body2)
-                .foregroundColor(.gray2)
-              Spacer()
-              R.CustomImage.arrowRightIcon.image
-            }
+          HStack {
+            Text("오픈소스")
+              .font(.body2)
+              .foregroundColor(.gray2)
+            Spacer()
+            R.CustomImage.arrowRightIcon.image
           }
         }
       )
@@ -179,14 +173,12 @@ private struct MakersLinkView: View {
           send: AppInfoAction.setMakersPushed
         ),
         label: {
-          VStack {
-            HStack {
-              Text("만든 사람들")
-                .font(.body2)
-                .foregroundColor(.gray2)
-              Spacer()
-              R.CustomImage.arrowRightIcon.image
-            }
+          HStack {
+            Text("만든 사람들")
+              .font(.body2)
+              .foregroundColor(.gray2)
+            Spacer()
+            R.CustomImage.arrowRightIcon.image
           }
         }
       )

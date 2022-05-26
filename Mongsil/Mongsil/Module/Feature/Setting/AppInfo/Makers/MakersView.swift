@@ -82,18 +82,16 @@ private struct MakersCardListView: View {
 
 private struct MakersCardView: View {
   private let store: Store<WithSharedState<MakersState>, MakersAction>
-  var makers: Makers
-  var name: String
-  var position: String
-  var firstImage: Image
-  var secondImage: Image
-  var makersURL: URL
+  private var makers: Makers
+  private var name: String
+  private var position: String
+  private var firstImage: Image
+  private var secondImage: Image
+  private var makersURL: URL
 
   init(
     store: Store<WithSharedState<MakersState>, MakersAction>,
-    makers: Makers,
-    firstImage: Image = R.CustomImage.homeDisabledIcon.image,
-    secondImage: Image = R.CustomImage.homeActiveIcon.image
+    makers: Makers
   ) {
     self.store = store
     self.makers = makers

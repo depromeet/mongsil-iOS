@@ -13,6 +13,8 @@ public struct Makers: Equatable, Hashable {
   public let position: String
   public let firstImage: Image
   public let secondImage: Image
+  public var firstImageToString: String?
+  public var secondImageToString: String?
   public let makersURL: URL
 
   public init(
@@ -20,14 +22,19 @@ public struct Makers: Equatable, Hashable {
     position: String,
     firstImage: Image,
     secondImage: Image,
+    firstImageToString: String? = nil,
+    secondImageToString: String? = nil,
     makersURL: URL
   ) {
     self.name = name
     self.position = position
     self.firstImage = firstImage
     self.secondImage = secondImage
+    self.firstImageToString = firstImageToString
+    self.secondImageToString = secondImageToString
     self.makersURL = makersURL
   }
+
   public func hash(into hasher: inout Hasher) {
     hasher.combine(name)
     hasher.combine(position)

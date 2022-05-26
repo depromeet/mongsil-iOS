@@ -12,7 +12,7 @@ public struct SaveDreamRequestDto: Encodable {
   public var dreamID: String
 
   enum CodingKeys: String, CodingKey {
-    case userID = "userID"
+    case userID = "userId"
     case dreamID = "dreamId"
   }
 

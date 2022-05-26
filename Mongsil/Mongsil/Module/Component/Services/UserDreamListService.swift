@@ -209,7 +209,7 @@ public enum UserDreamListServiceErrorFactory: ErrorFactory {
         "identifier": String(reflecting: Code.getUserDreamListFailed),
         "url": url,
         "statusCode": statusCode as Any,
-        "userID": userID,
+        "userId": userID,
         NSUnderlyingErrorKey: underlying as Any
       ]
     )
@@ -248,7 +248,7 @@ public enum UserDreamListServiceErrorFactory: ErrorFactory {
         "identifier": String(reflecting: Code.saveDreamFailed),
         "url": url,
         "statusCode": statusCode as Any,
-        "userID": userID,
+        "userId": userID,
         "DreamID": DreamID,
         NSUnderlyingErrorKey: underlying as Any
       ]

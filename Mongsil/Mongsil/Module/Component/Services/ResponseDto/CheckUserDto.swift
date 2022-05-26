@@ -12,7 +12,8 @@ public struct CheckUserResponseDto: Decodable {
   public let userID: String?
 
   public enum CodingKeys: String, CodingKey {
-    case checkValue, userID
+    case checkValue
+    case userID = "userId"
   }
 
   public init(from decoder: Decoder) throws {

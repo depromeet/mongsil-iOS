@@ -9,6 +9,7 @@ import ComposableArchitecture
 import KakaoSDKUser
 import KakaoSDKAuth
 import SwiftUI
+import Combine
 
 struct ProfileState: Equatable {
   public var userName: String = ""
@@ -115,21 +116,22 @@ Reducer.combine([
 
     case .withdrawAlertModal(.primaryButtonTapped):
       state.local.withdrawAlertModal = nil
-      let userID =  UserDefaults.standard.string(forKey: "userID") ?? ""
+      let userID =  UserDefaults.standard.string(forKey: "userId") ?? ""
       return env.dropoutService.dropout(id: userID)
         .catchToEffect()
-        .map({ result in
+        .flatMapLatest({ result -> Effect<ProfileAction, Never> in
           switch result {
           case .success:
-            UserDefaults.standard.removeObject(forKey: "userID")
+            UserDefaults.standard.removeObject(forKey: "userId")
             UserDefaults.standard.removeObject(forKey: "isLogined")
             popToRoot()
-            return .noop
+            return .none
 
           case .failure:
-            return .noop
+            return Effect(value: .presentToast("회원 탈퇴에 실패했습니다. 다시 시도해주세요."))
           }
         })
+        .eraseToEffect()
 
     case .presentToast:
       return .none
