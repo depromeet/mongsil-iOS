@@ -10,11 +10,11 @@ import SwiftUI
 
 struct ProfileView: View {
   private let store: Store<WithSharedState<ProfileState>, ProfileAction>
-  
+
   init(store: Store<WithSharedState<ProfileState>, ProfileAction>) {
     self.store = store
   }
-  
+
   var body: some View {
     VStack(spacing: 0) {
       MSNavigationBar(
@@ -65,11 +65,11 @@ struct ProfileView: View {
 
 private struct UserNameView: View {
   private let store: Store<WithSharedState<ProfileState>, ProfileAction>
-  
+
   init(store: Store<WithSharedState<ProfileState>, ProfileAction>) {
     self.store = store
   }
-  
+
   var body: some View {
     HStack {
       WithViewStore(store.scope(state: \.local.userName)) { userNameViewStore in
@@ -86,11 +86,11 @@ private struct UserNameView: View {
 
 private struct UserEmailView: View {
   private let store: Store<WithSharedState<ProfileState>, ProfileAction>
-  
+
   init(store: Store<WithSharedState<ProfileState>, ProfileAction>) {
     self.store = store
   }
-  
+
   var body: some View {
     HStack {
       WithViewStore(store.scope(state: \.local.userEmail)) { userEmailViewStore in
@@ -106,11 +106,11 @@ private struct UserEmailView: View {
 
 private struct LogoutButtonView: View {
   private let store: Store<WithSharedState<ProfileState>, ProfileAction>
-  
+
   init(store: Store<WithSharedState<ProfileState>, ProfileAction>) {
     self.store = store
   }
-  
+
   var body: some View {
     Button(action: {
       ViewStore(store).send(.logoutButtonTapped)}) {
@@ -123,11 +123,11 @@ private struct LogoutButtonView: View {
 
 private struct WithdrawButtonView: View {
   private let store: Store<WithSharedState<ProfileState>, ProfileAction>
-  
+
   init(store: Store<WithSharedState<ProfileState>, ProfileAction>) {
     self.store = store
   }
-  
+
   var body: some View {
     Button(action: { ViewStore(store).send(.withdrawButtonTapped) }) {
       Text("탈퇴하기")

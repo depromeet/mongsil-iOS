@@ -90,7 +90,7 @@ let loginReducer = Reducer<WithSharedState<LoginState>, LoginAction, LoginEnviro
             guard let userID = response.userID else {
               return LoginAction.presentToast("회원 ID가 없습니다.")
             }
-            UserDefaults.standard.set(userID, forKey: "userId")
+            UserDefaults.standard.set(userID, forKey: "userID")
             return .noop
           } else {
             return LoginAction.signUpUser(name, email)
@@ -106,7 +106,7 @@ let loginReducer = Reducer<WithSharedState<LoginState>, LoginAction, LoginEnviro
       .map({ result in
         switch result {
         case let .success(response):
-          UserDefaults.standard.set(response.userID, forKey: "userId")
+          UserDefaults.standard.set(response.userID, forKey: "userID")
           return .noop
         case let .failure(error):
           return LoginAction.presentToast("회원 가입에 실패했습니다.")

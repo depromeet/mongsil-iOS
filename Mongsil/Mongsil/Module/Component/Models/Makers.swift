@@ -11,12 +11,16 @@ import SwiftUI
 public struct Makers: Equatable, Hashable {
   public let name: String
   public let position: String
-  public let firstImage: Image
-  public let secondImage: Image
-  public var firstImageToString: String?
-  public var secondImageToString: String?
+  public let firstImageStr: String = ""
+  public let secondImageStr: String = ""
+  public var firstImage: Image {
+    stringToImage(firstImageStr)
+  }
+  public var secondImage: Image {
+    stringToImage(secondImageStr)
+  }
   public let makersURL: URL
-
+  
   public init(
     name: String,
     position: String,
@@ -28,17 +32,17 @@ public struct Makers: Equatable, Hashable {
   ) {
     self.name = name
     self.position = position
-    self.firstImage = firstImage
-    self.secondImage = secondImage
-    self.firstImageToString = firstImageToString
-    self.secondImageToString = secondImageToString
     self.makersURL = makersURL
   }
-
+  
   public func hash(into hasher: inout Hasher) {
     hasher.combine(name)
     hasher.combine(position)
     hasher.combine(makersURL)
+  }
+  
+  public func stringToImage(_ imageName: String) -> Image {
+    return Image(systemName: imageName)
   }
 }
 
@@ -54,7 +58,7 @@ extension Makers {
     makers8,
     makers9
   ]
-
+  
   public static let makers1 = Makers(
     name: "박종호",
     position: "PM",

@@ -166,11 +166,11 @@ let appReducer = Reducer.combine([
       return Effect(value: .mainTab(.tabTapped(.home)))
 
     case .mainTab(.storage(.setting(.profile(.withdrawAlertModal(.primaryButtonTapped))))):
-      let userID = UserDefaults.standard.string(forKey: "userID")
-      if userID == nil {
+      let userId = UserDefaults.standard.string(forKey: "userId")
+      if userId == nil {
         return Effect(value: .mainTab(.tabTapped(.home)))
       } else {
-        return .none
+        return Effect(value: .presentToast("회원 탈퇴에 실패했습니다. 다시 시도해주세요."))
       }
 
     case .mainTab:

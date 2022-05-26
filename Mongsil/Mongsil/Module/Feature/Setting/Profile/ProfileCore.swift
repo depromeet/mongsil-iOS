@@ -116,7 +116,7 @@ Reducer.combine([
 
     case .withdrawAlertModal(.primaryButtonTapped):
       state.local.withdrawAlertModal = nil
-      let userID =  UserDefaults.standard.string(forKey: "userId") ?? ""
+      let userID =  UserDefaults.standard.string(forKey: "userID") ?? ""
       return env.dropoutService.dropout(id: userID)
         .catchToEffect()
         .flatMapLatest({ result -> Effect<ProfileAction, Never> in
