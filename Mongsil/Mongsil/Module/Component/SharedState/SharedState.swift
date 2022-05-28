@@ -45,11 +45,13 @@ public struct WithSharedState<LocalState: Equatable>: Equatable {
 public struct SharedState: Equatable {
   public var toastText: String?
   public var isToastBottomPosition: Bool = true
+  public var userId: String?
 
   public init(
-    toastText: String? = nil
+    toastText: String? = nil,
+    userId: String? = nil
   ) {
     self.toastText = toastText
+    self.userId = userId
   }
-
 }

@@ -159,7 +159,6 @@ Reducer.combine([
     case let .verifyUserLogined(pushed):
       state.local.isRecordButtonTapped = true
       let isLogined: Bool = UserDefaults.standard.bool(forKey: "isLogined")
-
       if pushed && !isLogined {
         return setAlertModal(
           state: &state.local.requestLoginAlertModal,

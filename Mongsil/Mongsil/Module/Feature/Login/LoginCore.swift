@@ -90,6 +90,7 @@ let loginReducer = Reducer<WithSharedState<LoginState>, LoginAction, LoginEnviro
             guard let userID = response.userID else {
               return LoginAction.presentToast("회원 ID가 없습니다.")
             }
+            //          state.shared.userId = "userID"
             UserDefaults.standard.set(userID, forKey: "userID")
             return .noop
           } else {
@@ -106,6 +107,7 @@ let loginReducer = Reducer<WithSharedState<LoginState>, LoginAction, LoginEnviro
       .map({ result in
         switch result {
         case let .success(response):
+          //          state.shared.userId = "userID"
           UserDefaults.standard.set(response.userID, forKey: "userID")
           return .noop
         case let .failure(error):

@@ -104,10 +104,10 @@ Reducer.combine([
       return .none
 
     case .logoutAlertModal(.primaryButtonTapped):
-      popToRoot()
       UserDefaults.standard.removeObject(forKey: "isLogined")
       UserDefaults.standard.bool(forKey: "isKakao") ? requestKakaoLogout() : requestAppleLogout()
       state.local.logoutAlertModal = nil
+      popToRoot()
       return .none
 
     case .withdrawAlertModal(.secondaryButtonTapped):
@@ -116,15 +116,17 @@ Reducer.combine([
 
     case .withdrawAlertModal(.primaryButtonTapped):
       state.local.withdrawAlertModal = nil
-      let userID =  UserDefaults.standard.string(forKey: "userID") ?? ""
-      return env.dropoutService.dropout(id: userID)
+      // let userID =  UserDefaults.standard.string(forKey: "userID") ?? ""
+      var userID = state.shared.userId
+      state.shared.userId = "userID"
+      return env.dropoutService.dropout(id: state.shared.userId ?? "")
         .catchToEffect()
         .flatMapLatest({ result -> Effect<ProfileAction, Never> in
           switch result {
           case .success:
-            UserDefaults.standard.removeObject(forKey: "userId")
+            //            state.shared.userId = nil
+            UserDefaults.standard.removeObject(forKey: "userID")
             UserDefaults.standard.removeObject(forKey: "isLogined")
-            popToRoot()
             return .none
 
           case .failure:

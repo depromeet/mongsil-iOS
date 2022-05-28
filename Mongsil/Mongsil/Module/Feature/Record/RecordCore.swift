@@ -17,11 +17,11 @@ struct RecordState: Equatable {
   }
   public var isSelectDateSheetPresented: Bool = false
   public var isNextButtonAbled: Bool = false
-  
+
   // Child State
   public var recordKeyword: RecordKeywordState?
   public var cancelRecordAlertModal: AlertDoubleButtonState?
-  
+
   init(
     cancelRecordAlertModal: AlertDoubleButtonState? = nil,
     recordKeyword: RecordKeywordState? = nil
@@ -43,7 +43,7 @@ enum RecordAction: ToastPresentableAction {
   case titletextFieldChanged(String)
   case mainTextFieldChanged(String)
   case presentToast(String)
-  
+
   // Child Action
   case recordKeyword(RecordKeywordAction)
   case cancelRecordAlertModal(AlertDoubleButtonAction)
@@ -79,7 +79,7 @@ Reducer.combine([
     switch action {
     case .backButtonTapped:
       return .none
-      
+
     case let .isCloseButtonTapped(tapped):
       if state.local.mainText.count == 0 && state.local.titleText.count == 0 {
         return Effect(value: .backButtonTapped)
@@ -93,32 +93,32 @@ Reducer.combine([
           primaryButtonHierachy: .warning
         )
       }
-      
+
     case .navigationBarDateButtonTapped:
       return Effect(value: .setSelectDateSheetPresented(true))
-      
+
     case let .setSelectDateSheetPresented(presented):
       state.local.isSelectDateSheetPresented = presented
       return .none
-      
+
     case .confirmDateButtonTapped:
       return Effect(value: .setSelectDateSheetPresented(false))
-      
+
     case let .setSelectedDate(date):
       state.local.currentDate = date
       return .none
-      
+
     case let .setNextButtonAbled(abled):
       state.local.isNextButtonAbled = abled
       return .none
-      
+
     case let .setRecordKeywordPushed(pushed):
       state.local.isRecordKeywordPushed = pushed
       if pushed {
         state.local.recordKeyword = .init()
       }
       return .none
-      
+
     case let .titletextFieldChanged(text):
       if checkTextCount(text: text, upper: 20) {
         state.local.titleText = text
@@ -130,7 +130,7 @@ Reducer.combine([
         state.local.titleText.removeLast()
         return Effect(value: .presentToast("제목은 최대 20자까지 입력할 수 있어요."))
       }
-      
+
     case let .mainTextFieldChanged(text):
       if checkTextCount(text: text, upper: 2000) {
         state.local.mainText = text
@@ -142,20 +142,20 @@ Reducer.combine([
         state.local.mainText.removeLast()
         return Effect(value: .presentToast("꿈 일기는 최대 2000자까지 작성할 수 있어요."))
       }
-      
+
     case .presentToast:
       return .none
-      
+
     case .recordKeyword(.backButtonTapped):
       return Effect(value: .setRecordKeywordPushed(false))
-      
+
     case .recordKeyword:
       return .none
-      
+
     case .cancelRecordAlertModal(.secondaryButtonTapped):
       state.local.cancelRecordAlertModal = nil
       return .none
-      
+
     case .cancelRecordAlertModal(.primaryButtonTapped):
       state.local.cancelRecordAlertModal = nil
       return Effect(value: .backButtonTapped)
