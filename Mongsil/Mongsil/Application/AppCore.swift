@@ -25,7 +25,7 @@ enum AppAction {
   case presentToast(String, Bool = true)
   case hideToast
   case noop
-
+  
   // Child Action
   case mainTab(MainTabAction)
 }
@@ -39,7 +39,7 @@ struct AppEnvironment {
   var signUpService: SignUpService
   var userDreamListService: UserDreamListService
   var dropoutService: DropoutService
-
+  
   init(
     mainQueue: AnySchedulerOf<DispatchQueue>,
     appTrackingService: AppTrackingService,
@@ -79,14 +79,14 @@ let appReducer = Reducer.combine([
   Reducer<WithSharedState<AppState>, AppAction, AppEnvironment> {
     state, action, env in
     struct ToastCancelId: Hashable {}
-
+    
     switch action {
     case .onAppear:
       return Effect.merge([
         Effect(value: .checkDisplayAppTrackingAlert),
         Effect(value: .checkIsLogined)
       ])
-
+      
     case .checkDisplayAppTrackingAlert:
       return env.appTrackingService.getTrackingAuthorizationStatus()
         .map({ status -> AppAction in
@@ -94,15 +94,15 @@ let appReducer = Reducer.combine([
         })
         .delay(for: .milliseconds(100), scheduler: env.mainQueue)
         .eraseToEffect()
-
+      
     case let .setShouldDisplayRequestAppTrackingAlert(status):
       state.local.shouldDisplayRequestAppTrackingAlert = status
       return .none
-
+      
     case .displayRequestAppTrackingAlert:
       return env.appTrackingService.requestAppTrackingAuthorization()
         .fireAndForget()
-
+      
     case .checkIsLogined:
       let isKakao = UserDefaults.standard.bool(forKey: "isKakao")
       return env.userService.isLogined()
@@ -113,7 +113,7 @@ let appReducer = Reducer.combine([
           return .noop
         })
         .eraseToEffect()
-
+      
     case .checkHasKakaoToken:
       return env.kakaoLoginService.hasKakaoToken()
         .catchToEffect()
@@ -126,18 +126,18 @@ let appReducer = Reducer.combine([
           }
         })
         .eraseToEffect()
-
+      
     case .checkHasAppleToken:
       return env.appleLoginService.hasAppleToken()
         .map({ result -> AppAction in
           return .setIsLogined(result)
         })
         .eraseToEffect()
-
+      
     case let .setIsLogined(isLogined):
       UserDefaults.standard.set(isLogined, forKey: "isLogined")
       return .none
-
+      
     case let .presentToast(toastText, isBottomPosition):
       state.shared.toastText = toastText
       state.shared.isToastBottomPosition = isBottomPosition
@@ -148,36 +148,34 @@ let appReducer = Reducer.combine([
           .eraseToEffect()
           .cancellable(id: ToastCancelId(), cancelInFlight: true)
       ])
-
+      
     case .hideToast:
       state.shared.toastText = nil
       return .none
-
+      
     case let .mainTab(.login(.presentToast(text))):
       return Effect(value: .presentToast(text))
-
+      
     case let .mainTab(.record(.presentToast(text))):
       return Effect(value: .presentToast(text))
-
+      
     case let .mainTab(.storage(.presentToast(text))):
       return Effect(value: .presentToast(text))
-
+      
     case .mainTab(.storage(.setting(.profile(.logoutAlertModal(.primaryButtonTapped))))):
       return Effect(value: .mainTab(.tabTapped(.home)))
-
+      
     case .mainTab(.storage(.setting(.profile(.withdrawAlertModal(.primaryButtonTapped))))):
-//      let userId = UserDefaults.standard.string(forKey: "userId")
-//      if userId == nil {
       if state.shared.userId == nil {
         popToRoot()
         return Effect(value: .mainTab(.tabTapped(.home)))
       } else {
         return Effect(value: .presentToast("회원 탈퇴에 실패했습니다. 다시 시도해주세요."))
       }
-
+      
     case .mainTab:
       return .none
-
+      
     case .noop:
       return .none
     }

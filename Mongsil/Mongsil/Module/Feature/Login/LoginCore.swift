@@ -23,6 +23,7 @@ enum LoginAction: ToastPresentableAction {
   case loginCompleted
   case noop
   case presentToast(String)
+  case setUserId(String)
 }
 
 struct LoginEnvironment {
@@ -42,7 +43,7 @@ struct LoginEnvironment {
 }
 
 let loginReducer = Reducer<WithSharedState<LoginState>, LoginAction, LoginEnvironment> {
-  _, action, env in
+  state, action, env in
   switch action {
   case .backButtonTapped:
     return .none
@@ -90,9 +91,7 @@ let loginReducer = Reducer<WithSharedState<LoginState>, LoginAction, LoginEnviro
             guard let userID = response.userID else {
               return LoginAction.presentToast("회원 ID가 없습니다.")
             }
-            //          state.shared.userId = "userID"
-            UserDefaults.standard.set(userID, forKey: "userID")
-            return .noop
+            return LoginAction.setUserId(userID)
           } else {
             return LoginAction.signUpUser(name, email)
           }
@@ -107,9 +106,8 @@ let loginReducer = Reducer<WithSharedState<LoginState>, LoginAction, LoginEnviro
       .map({ result in
         switch result {
         case let .success(response):
-          //          state.shared.userId = "userID"
-          UserDefaults.standard.set(response.userID, forKey: "userID")
-          return .noop
+          let userID = response.userID
+          return LoginAction.setUserId(userID)
         case let .failure(error):
           return LoginAction.presentToast("회원 가입에 실패했습니다.")
         }
@@ -135,6 +133,10 @@ let loginReducer = Reducer<WithSharedState<LoginState>, LoginAction, LoginEnviro
     return .none
 
   case .presentToast:
+    return .none
+
+  case let .setUserId(userID):
+    state.shared.userId = userID
     return .none
   }
 }
