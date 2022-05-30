@@ -38,8 +38,10 @@ extension R {
     public static let kakaoLoginButton = ImageAsset(name: "KakaoLoginButton")
     public static let appleLoginButton = ImageAsset(name: "AppleLoginButton")
     public static let backgroundImage = ImageAsset(name: "BackgroundImage")
+    public static let resultBackgroundImage = ImageAsset(name: "ResultBackgroundImage")
     public static let nonCheckIcon = ImageAsset(name: "NonCheckIcon")
     public static let checkIcon = ImageAsset(name: "CheckIcon")
+    public static let cardResultDefaultImage = ImageAsset(name: "CardResultDefaultImage")
   }
 }
 

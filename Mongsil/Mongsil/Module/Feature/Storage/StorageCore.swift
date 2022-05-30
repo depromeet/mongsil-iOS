@@ -195,7 +195,7 @@ Reducer.combine([
         return .none
       }
       if pushed {
-        state.local.diary = .init(diary: diary)
+        state.local.diary = .init(userDiary: diary)
       }
       return .none
 
@@ -205,7 +205,7 @@ Reducer.combine([
         return .none
       }
       if pushed {
-        state.local.dream = .init(userDream: dream)
+        state.local.dream = .init(userDreamCardResult: .init(userDream: dream))
       }
       return .none
 
