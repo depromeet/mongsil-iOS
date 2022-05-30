@@ -372,7 +372,6 @@
 			children = (
 				123EE07B2804530000D34B93 /* View+extensions.swift */,
 				127EBD77280A65960011C556 /* UINavigationController+extensions.swift */,
-				771D12372844956800DFEF8C /* String+extensions.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -574,6 +573,7 @@
 				1291296827F813340017E087 /* ComposableArchitecture */,
 				123EE07E2804531000D34B93 /* Combine */,
 				123EE07D2804530500D34B93 /* View */,
+				771D12372844956800DFEF8C /* String+extensions.swift */,
 				1292B19628249E7C0050A10D /* Unit.swift */,
 				124DBC7F282A18F9005C3ED4 /* Date+extensions.swift */,
 				12B38AD92831DD1C00D0E921 /* Array+extensions.swift */,
