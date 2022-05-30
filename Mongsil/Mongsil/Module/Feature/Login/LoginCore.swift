@@ -19,11 +19,11 @@ enum LoginAction: ToastPresentableAction {
   case appleLoginNotCompleted
   case searchUser(String, String)
   case signUpUser(String, String)
+  case setUserID(String)
   case setLoginInfo(Bool, Bool, String, String, String? = nil)
   case loginCompleted
   case noop
   case presentToast(String)
-  case setUserId(String)
 }
 
 struct LoginEnvironment {
@@ -91,7 +91,7 @@ let loginReducer = Reducer<WithSharedState<LoginState>, LoginAction, LoginEnviro
             guard let userID = response.userID else {
               return LoginAction.presentToast("회원 ID가 없습니다.")
             }
-            return LoginAction.setUserId(userID)
+            return LoginAction.setUserID(userID)
           } else {
             return LoginAction.signUpUser(name, email)
           }
@@ -107,7 +107,7 @@ let loginReducer = Reducer<WithSharedState<LoginState>, LoginAction, LoginEnviro
         switch result {
         case let .success(response):
           let userID = response.userID
-          return LoginAction.setUserId(userID)
+          return LoginAction.setUserID(userID)
         case let .failure(error):
           return LoginAction.presentToast("회원 가입에 실패했습니다.")
         }
@@ -135,8 +135,8 @@ let loginReducer = Reducer<WithSharedState<LoginState>, LoginAction, LoginEnviro
   case .presentToast:
     return .none
 
-  case let .setUserId(userID):
-    state.shared.userId = userID
+  case let .setUserID(userID):
+    state.shared.userID = userID
     return .none
   }
 }

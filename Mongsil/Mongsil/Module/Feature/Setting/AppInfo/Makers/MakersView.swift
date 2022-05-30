@@ -72,6 +72,8 @@ private struct MakersCardListView: View {
                 makers: makers
               )
               .padding(.horizontal, 20)
+              Spacer()
+                .frame(height: 16)
             }
           }
         }
@@ -123,7 +125,10 @@ private struct MakersCardView: View {
         Spacer()
         HStack {
           firstImage
+            .frame(width: 40, height: 40)
+            .padding(.trailing, 8)
           secondImage
+            .frame(width: 34, height: 40)
         }
         Spacer()
           .frame(width: 20)
@@ -131,6 +136,5 @@ private struct MakersCardView: View {
     }
     .background(Color.gray10)
     .cornerRadius(8)
-    .padding(.bottom, 16)
   }
 }

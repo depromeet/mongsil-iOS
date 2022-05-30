@@ -62,7 +62,6 @@ public class UserService {
   public func searchUserID(with email: String) ->  AnyPublisher<CheckUserResponseDto, Error> {
     let url = "http://3.34.46.139:80\(URLHost.checkUser)"
     let body = CheckUserRequestDto(userEmail: email)
-    print(email)
 
     return alamofireSession
       .request(

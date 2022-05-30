@@ -14,11 +14,11 @@ import Combine
 struct ProfileState: Equatable {
   public var userName: String = ""
   public var userEmail: String = ""
-  
+
   // Child State
   public var logoutAlertModal: AlertDoubleButtonState?
   public var withdrawAlertModal: AlertDoubleButtonState?
-  
+
   init(
     logoutAlertModal: AlertDoubleButtonState? = nil,
     withdrawAlertModal: AlertDoubleButtonState? = nil
@@ -33,10 +33,10 @@ enum ProfileAction {
   case backButtonTapped
   case logoutButtonTapped
   case withdrawButtonTapped
+  case setUserID(String?)
   case presentToast(String)
-  case setUserIdNil
   case noop
-  
+
   // Child Action
   case logoutAlertModal(AlertDoubleButtonAction)
   case withdrawAlertModal(AlertDoubleButtonAction)
@@ -76,10 +76,10 @@ Reducer.combine([
         setUserName(state: &state),
         setUserEmail(state: &state)
       ])
-      
+
     case .backButtonTapped:
       return .none
-      
+
     case .logoutButtonTapped:
       return setAlertModal(
         state: &state.local.logoutAlertModal,
@@ -89,7 +89,7 @@ Reducer.combine([
         primaryButtonTitle: "로그아웃",
         primaryButtonHierachy: .warning
       )
-      
+
     case .withdrawButtonTapped:
       return setAlertModal(
         state: &state.local.withdrawAlertModal,
@@ -99,46 +99,46 @@ Reducer.combine([
         primaryButtonTitle: "탈퇴하기",
         primaryButtonHierachy: .warning
       )
-      
+
     case .logoutAlertModal(.secondaryButtonTapped):
       state.local.logoutAlertModal = nil
       return .none
-      
+
     case .logoutAlertModal(.primaryButtonTapped):
       UserDefaults.standard.removeObject(forKey: "isLogined")
       UserDefaults.standard.bool(forKey: "isKakao") ? requestKakaoLogout() : requestAppleLogout()
       state.local.logoutAlertModal = nil
       popToRoot()
       return .none
-      
+
     case .withdrawAlertModal(.secondaryButtonTapped):
       state.local.withdrawAlertModal = nil
       return .none
-      
+
     case .withdrawAlertModal(.primaryButtonTapped):
       state.local.withdrawAlertModal = nil
-      return env.dropoutService.dropout(id: state.shared.userId ?? "")
+      return env.dropoutService.dropout(id: state.shared.userID ?? "")
         .catchToEffect()
         .flatMapLatest({ result -> Effect<ProfileAction, Never> in
           switch result {
           case .success:
             UserDefaults.standard.removeObject(forKey: "isLogined")
-            return Effect(value: .setUserIdNil)
-            
+            return Effect(value: .setUserID(nil))
+
           case .failure:
             return Effect(value: .presentToast("회원 탈퇴에 실패했습니다. 다시 시도해주세요."))
           }
         })
         .eraseToEffect()
-      
+
     case .presentToast:
       return .none
-      
+
     case .noop:
       return .none
-      
-    case .setUserIdNil:
-      state.shared.userId = nil
+
+    case let .setUserID(id):
+      state.shared.userID = id
       return .none
     }
   }
@@ -191,16 +191,4 @@ private func setAlertModal(
     primaryButtonHierachy: primaryButtonHierachy
   )
   return .none
-}
-
-public func popToRoot() {
-  let window = UIApplication.shared.connectedScenes
-    .filter { $0.activationState == .foregroundActive }
-    .map { $0 as? UIWindowScene }
-    .compactMap { $0 }
-    .first?.windows
-    .filter { $0.isKeyWindow }
-    .first
-  let profile = window?.rootViewController?.children.first as? UINavigationController
-  profile?.popToRootViewController(animated: true)
 }

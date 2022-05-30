@@ -104,7 +104,7 @@ public class UserDreamListService {
       } else {
         throw ErrorFactory.deleteUserDreamListFailed(
           url: url,
-          statusCode: String(response.statusCode),
+          statusCode: response.statusCode,
           dreamIDs: dreamIDs,
           underlying: nil
         )
@@ -209,7 +209,7 @@ public enum UserDreamListServiceErrorFactory: ErrorFactory {
         "identifier": String(reflecting: Code.getUserDreamListFailed),
         "url": url,
         "statusCode": statusCode as Any,
-        "userId": userID,
+        "userID": userID,
         NSUnderlyingErrorKey: underlying as Any
       ]
     )
@@ -217,7 +217,7 @@ public enum UserDreamListServiceErrorFactory: ErrorFactory {
 
   public static func deleteUserDreamListFailed(
     url: String,
-    statusCode: String? = nil,
+    statusCode: Int? = nil,
     dreamIDs: [String],
     underlying: Error? = nil
   ) -> NSError {
@@ -248,8 +248,8 @@ public enum UserDreamListServiceErrorFactory: ErrorFactory {
         "identifier": String(reflecting: Code.saveDreamFailed),
         "url": url,
         "statusCode": statusCode as Any,
-        "userId": userID,
-        "DreamID": DreamID,
+        "userID": userID,
+        "dreamID": DreamID,
         NSUnderlyingErrorKey: underlying as Any
       ]
     )
