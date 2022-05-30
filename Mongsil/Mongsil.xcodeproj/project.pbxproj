@@ -112,7 +112,6 @@
 		12F1DBDB27F411A80063A84D /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 12F1DBDA27F411A80063A84D /* Alamofire */; };
 		12F1DBDE27F411C00063A84D /* CombineExt in Frameworks */ = {isa = PBXBuildFile; productRef = 12F1DBDD27F411C00063A84D /* CombineExt */; };
 		12F1DBE127F411CC0063A84D /* PureSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 12F1DBE027F411CC0063A84D /* PureSwiftUI */; };
-		12F1DBE427F411DE0063A84D /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = 12F1DBE327F411DE0063A84D /* Nuke */; };
 		771D12382844956800DFEF8C /* String+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771D12372844956800DFEF8C /* String+extensions.swift */; };
 		7736245C283CF48300EE72F6 /* Makers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7736245B283CF48300EE72F6 /* Makers.swift */; };
 		773AE2A6280723DC006861FC /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773AE2A5280723DC006861FC /* MainTabView.swift */; };
