@@ -89,7 +89,7 @@ public class UserService {
         }
       })
       .tryMap({ response -> CommonResponseDto.ExistData<CheckUserResponseDto> in
-        if response.statusCode == "200" {
+        if response.statusCode == 200 {
           return response
         } else {
           throw ErrorFactory.checkUserFailed(
@@ -149,7 +149,7 @@ public enum UserServiceErrorFactory: ErrorFactory {
 
   public static func checkUserFailed(
     url: String,
-    statusCode: String? = nil,
+    statusCode: Int? = nil,
     underlying: Error? = nil
   ) -> NSError {
     return NSError(

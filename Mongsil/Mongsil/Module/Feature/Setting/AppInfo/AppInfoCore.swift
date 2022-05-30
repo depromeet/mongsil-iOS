@@ -12,20 +12,24 @@ struct AppInfoState: Equatable {
   public var isTermsPushed: Bool = false
   public var isPersonalInfoPolicyPushed: Bool = false
   public var isOpenSourcePushed: Bool = false
+  public var isMakersPushed: Bool = false
 
   // Child State
   public var terms: TermsState?
   public var personalInfoPolicy: PersonalInfoPolicyState?
   public var openSource: OpenSourceState?
+  public var makers: MakersState?
 
   init(
     isTermsPushed: Bool = false,
     isPersonalInfoPolicyPushed: Bool = false,
-    isOpenSourcePushed: Bool = false
+    isOpenSourcePushed: Bool = false,
+    isMakersPushed: Bool = false
   ) {
     self.isTermsPushed = isTermsPushed
     self.isPersonalInfoPolicyPushed = isPersonalInfoPolicyPushed
     self.isOpenSourcePushed = isOpenSourcePushed
+    self.isMakersPushed = isMakersPushed
   }
 }
 
@@ -34,11 +38,13 @@ enum AppInfoAction {
   case setTermsPushed(Bool)
   case setPersonalInfoPolicyPushed(Bool)
   case setOpenSourcePushed(Bool)
+  case setMakersPushed(Bool)
 
   // Child Action
   case terms(TermsAction)
   case personalInfoPolicy(PersonalInfoPolicyAction)
   case openSource(OpenSourceAction)
+  case makers(MakersAction)
 }
 
 struct AppInfoEnvironment { }
@@ -72,6 +78,15 @@ Reducer.combine([
         OpenSourceEnvironment()
       }
     ) as Reducer<WithSharedState<AppInfoState>, AppInfoAction, AppInfoEnvironment>,
+  makersReducer
+    .optional()
+    .pullback(
+      state: \.makers,
+      action: /AppInfoAction.makers,
+      environment: { _ in
+        MakersEnvironment()
+      }
+    ) as Reducer<WithSharedState<AppInfoState>, AppInfoAction, AppInfoEnvironment>,
   Reducer<WithSharedState<AppInfoState>, AppInfoAction, AppInfoEnvironment> {
     state, action, _ in
     switch action {
@@ -99,6 +114,13 @@ Reducer.combine([
       }
       return .none
 
+    case let .setMakersPushed(pushed):
+      state.local.isMakersPushed = pushed
+      if pushed {
+        state.local.makers = .init()
+      }
+      return .none
+
     case .terms(.backButtonTapped):
       return Effect(value: .setTermsPushed(false))
 
@@ -115,6 +137,12 @@ Reducer.combine([
       return Effect(value: .setOpenSourcePushed(false))
 
     case .openSource:
+      return .none
+
+    case .makers(.backButtonTapped):
+      return Effect(value: .setMakersPushed(false))
+
+    case .makers:
       return .none
     }
   }

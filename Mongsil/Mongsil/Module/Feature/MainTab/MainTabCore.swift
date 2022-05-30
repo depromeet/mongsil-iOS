@@ -68,19 +68,22 @@ struct MainTabEnvironment {
   var userService: UserService
   var signUpService: SignUpService
   var userDreamListService: UserDreamListService
+  var dropoutService: DropoutService
 
   init(
     mainQueue: AnySchedulerOf<DispatchQueue>,
     kakaoLoginService: KakaoLoginService,
     userService: UserService,
     signUpService: SignUpService,
-    userDreamListService: UserDreamListService
+    userDreamListService: UserDreamListService,
+    dropoutService: DropoutService
   ) {
     self.mainQueue = mainQueue
     self.kakaoLoginService = kakaoLoginService
     self.userService = userService
     self.signUpService = signUpService
     self.userDreamListService = userDreamListService
+    self.dropoutService = dropoutService
   }
 }
 
@@ -123,7 +126,8 @@ Reducer.combine([
       action: /MainTabAction.storage,
       environment: {
         StorageEnvironment(
-          userDreamListService: $0.userDreamListService
+          userDreamListService: $0.userDreamListService,
+          dropoutService: $0.dropoutService
         )
       }
     ) as Reducer<WithSharedState<MainTabState>, MainTabAction, MainTabEnvironment>,
@@ -155,7 +159,6 @@ Reducer.combine([
     case let .verifyUserLogined(pushed):
       state.local.isRecordButtonTapped = true
       let isLogined: Bool = UserDefaults.standard.bool(forKey: "isLogined")
-
       if pushed && !isLogined {
         return setAlertModal(
           state: &state.local.requestLoginAlertModal,
@@ -224,7 +227,7 @@ Reducer.combine([
         return Effect.concatenate([
           Effect(value: .setLoginPushed(false)),
           Effect(value: .setRecordPushed(true))
-            .delay(for: .milliseconds(800), scheduler: env.mainQueue)
+            .delay(for: .milliseconds(1000), scheduler: env.mainQueue)
             .eraseToEffect()
         ])
       }

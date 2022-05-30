@@ -51,7 +51,7 @@ public class UserDreamListService {
       }
     })
     .tryMap({ response -> CommonResponseDto.ExistData<UserDreamList> in
-      if response.statusCode == "200" {
+      if response.statusCode == 200 {
         return response
       } else {
         throw ErrorFactory.getUserDreamListFailed(
@@ -99,7 +99,7 @@ public class UserDreamListService {
       }
     })
     .tryMap({ response -> CommonResponseDto.NotExistData in
-      if response.statusCode == "200" {
+      if response.statusCode == 200 {
         return response
       } else {
         throw ErrorFactory.deleteUserDreamListFailed(
@@ -154,7 +154,7 @@ public class UserDreamListService {
       }
     })
     .tryMap({ response -> CommonResponseDto.NotExistData in
-      if response.statusCode == "200" {
+      if response.statusCode == 200 {
         return response
       } else {
         throw ErrorFactory.saveDreamFailed(
@@ -198,7 +198,7 @@ public enum UserDreamListServiceErrorFactory: ErrorFactory {
 
   public static func getUserDreamListFailed(
     url: String,
-    statusCode: String? = nil,
+    statusCode: Int? = nil,
     userID: String,
     underlying: Error? = nil
   ) -> NSError {
@@ -217,7 +217,7 @@ public enum UserDreamListServiceErrorFactory: ErrorFactory {
 
   public static func deleteUserDreamListFailed(
     url: String,
-    statusCode: String? = nil,
+    statusCode: Int? = nil,
     dreamIDs: [String],
     underlying: Error? = nil
   ) -> NSError {
@@ -236,7 +236,7 @@ public enum UserDreamListServiceErrorFactory: ErrorFactory {
 
   public static func saveDreamFailed(
     url: String,
-    statusCode: String? = nil,
+    statusCode: Int? = nil,
     userID: String,
     DreamID: String,
     underlying: Error? = nil
@@ -249,7 +249,7 @@ public enum UserDreamListServiceErrorFactory: ErrorFactory {
         "url": url,
         "statusCode": statusCode as Any,
         "userID": userID,
-        "DreamID": DreamID,
+        "dreamID": DreamID,
         NSUnderlyingErrorKey: underlying as Any
       ]
     )

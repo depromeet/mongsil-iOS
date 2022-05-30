@@ -465,52 +465,52 @@ private struct DreamCardView: View {
   }
 
   var body: some View {
-      WithViewStore(store.scope(state: \.local.displayDeleteCardHeader)) { displayDeleteCardHeaderViewStore in
-        WithViewStore(store.scope(state: \.local.deleteUserDreamList)) { deleteUserDreamListViewStore in
-          VStack(alignment: .leading) {
-            HStack(spacing: 4) {
-              firstImage
-              secondImage
-              Spacer()
-              if displayDeleteCardHeaderViewStore.state {
-                if deleteUserDreamListViewStore.state.contains(self.dream) {
-                  R.CustomImage.checkIcon.image
-                } else {
-                  R.CustomImage.nonCheckIcon.image
-                }
+    WithViewStore(store.scope(state: \.local.displayDeleteCardHeader)) { displayDeleteCardHeaderViewStore in
+      WithViewStore(store.scope(state: \.local.deleteUserDreamList)) { deleteUserDreamListViewStore in
+        VStack(alignment: .leading) {
+          HStack(spacing: 4) {
+            firstImage
+            secondImage
+            Spacer()
+            if displayDeleteCardHeaderViewStore.state {
+              if deleteUserDreamListViewStore.state.contains(self.dream) {
+                R.CustomImage.checkIcon.image
+              } else {
+                R.CustomImage.nonCheckIcon.image
               }
             }
-            .padding(.top, 20)
-            Text(title)
-              .font(.subTitle)
-              .foregroundColor(.msWhite)
-              .multilineTextAlignment(.leading)
-              .lineLimit(2)
-              .padding(.top, 10)
-            Text(description)
-              .font(.caption1)
-              .foregroundColor(.gray3)
-              .multilineTextAlignment(.leading)
-              .lineLimit(3)
-              .padding(.top, 10)
-            Spacer()
           }
-          .padding(.horizontal, 14)
-          .background(
-            deleteUserDreamListViewStore.state.contains(self.dream) && displayDeleteCardHeaderViewStore.state
-            ? Color.gray8
-            : Color.gray10
-          )
-          .gesture(
-            TapGesture()
-              .onEnded { _ in
-                ViewStore(store).send(.dreamTapped(dream))
-              }
-          )
-          .frame(height: 180)
-          .cornerRadius(8)
+          .padding(.top, 20)
+          Text(title)
+            .font(.subTitle)
+            .foregroundColor(.msWhite)
+            .multilineTextAlignment(.leading)
+            .lineLimit(2)
+            .padding(.top, 10)
+          Text(description)
+            .font(.caption1)
+            .foregroundColor(.gray3)
+            .multilineTextAlignment(.leading)
+            .lineLimit(3)
+            .padding(.top, 10)
+          Spacer()
         }
+        .padding(.horizontal, 14)
+        .background(
+          deleteUserDreamListViewStore.state.contains(self.dream) && displayDeleteCardHeaderViewStore.state
+          ? Color.gray8
+          : Color.gray10
+        )
+        .gesture(
+          TapGesture()
+            .onEnded { _ in
+              ViewStore(store).send(.dreamTapped(dream))
+            }
+        )
+        .frame(height: 180)
+        .cornerRadius(8)
       }
+    }
   }
 }
 

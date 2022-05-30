@@ -22,6 +22,7 @@ struct PersonalInfoPolicyView: View {
         backButtonAction: { ViewStore(store).send(.backButtonTapped) },
         titleText: "개인정보 정책"
       )
+      .padding(.horizontal, 20)
       Spacer()
         .frame(height: 50)
       ScrollView {

@@ -126,10 +126,7 @@ enum StorageAction: ToastPresentableAction {
 
 struct StorageEnvironment {
   var userDreamListService: UserDreamListService
-
-  init(userDreamListService: UserDreamListService) {
-    self.userDreamListService = userDreamListService
-  }
+  var dropoutService: DropoutService
 }
 
 let storageReducer: Reducer<WithSharedState<StorageState>, StorageAction, StorageEnvironment> =
@@ -139,8 +136,8 @@ Reducer.combine([
     .pullback(
       state: \.setting,
       action: /StorageAction.setting,
-      environment: { _ in
-        SettingEnvironment()
+      environment: {
+        SettingEnvironment(dropoutService: $0.dropoutService)
       }
     ) as Reducer<WithSharedState<StorageState>, StorageAction, StorageEnvironment>,
   diaryReducer
@@ -391,20 +388,20 @@ private func setDreamList(
 ) -> Effect<StorageAction, Never> {
   // MARK: - 유저의 해몽 리스트 받아오는 API로 추후 서버 배포 후 해당 코드 사용 예정
   /**
-  guard let userID = UserDefaults.standard.string(forKey: "userID") else {
-    return .none
-  }
-
-  return env.userDreamListService.getUserDreamList(userID: userID)
-    .catchToEffect()
-    .map({ result in
-      switch result {
-      case let .success(response):
-        return StorageAction.setUserDreamList(response.dreamList)
-      case .failure:
-        return StorageAction.noop
-      }
-    })
+   guard let userID = UserDefaults.standard.string(forKey: "userID") else {
+   return .none
+   }
+   
+   return env.userDreamListService.getUserDreamList(userID: userID)
+   .catchToEffect()
+   .map({ result in
+   switch result {
+   case let .success(response):
+   return StorageAction.setUserDreamList(response.dreamList)
+   case .failure:
+   return StorageAction.noop
+   }
+   })
    */
 
   // MARK: - 유저의 해몽 리스트에 대한 Stub 데이터를 통한 Fake 구현
@@ -433,19 +430,19 @@ private func deleteDreamList(
 ) -> Effect<StorageAction, Never> {
   // MARK: - 유저가 삭제할 해몽 리스트에 대해 요청하는 API로 추후 서버 배포 후 해당 코드 사용 예정
   /**
-  let deleteUserDreamListID = state.local.deleteuserDreamList
-    .map({ $0.id })
-
-  return env.userDreamListService.deleteUserDreamList(dreamIDs: deleteUserDreamListID)
-    .catchToEffect()
-    .map({ result in
-      switch result {
-      case .success:
-        return StorageAction.setDeleteUserDreamList
-      case .failure:
-        return StorageAction.presentToast("해몽이 삭제되지 않았어요. 다시 시도해주세요.")
-      }
-    })
+   let deleteUserDreamListID = state.local.deleteuserDreamList
+   .map({ $0.id })
+   
+   return env.userDreamListService.deleteUserDreamList(dreamIDs: deleteUserDreamListID)
+   .catchToEffect()
+   .map({ result in
+   switch result {
+   case .success:
+   return StorageAction.setDeleteUserDreamList
+   case .failure:
+   return StorageAction.presentToast("해몽이 삭제되지 않았어요. 다시 시도해주세요.")
+   }
+   })
    */
 
   // MARK: - 유저가 삭제할 해몽 리스트에 대한 Stub 데이터를 통한 Fake 구현

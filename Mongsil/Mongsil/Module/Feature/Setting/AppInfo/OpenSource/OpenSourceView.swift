@@ -22,6 +22,7 @@ struct OpenSourceView: View {
         backButtonAction: { ViewStore(store).send(.backButtonTapped) },
         titleText: "오픈소스"
       )
+      .padding(.horizontal, 20)
       Spacer()
         .frame(height: 50)
       ScrollView {

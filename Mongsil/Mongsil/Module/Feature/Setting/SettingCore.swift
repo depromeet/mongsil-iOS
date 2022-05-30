@@ -36,7 +36,7 @@ enum SettingAction {
 }
 
 struct SettingEnvironment {
-
+  var dropoutService: DropoutService
 }
 
 let settingReducer: Reducer<WithSharedState<SettingState>, SettingAction, SettingEnvironment> =
@@ -55,8 +55,8 @@ Reducer.combine([
     .pullback(
       state: \.profile,
       action: /SettingAction.profile,
-      environment: { _ in
-        ProfileEnvironment()
+      environment: {
+        ProfileEnvironment(dropoutService: $0.dropoutService)
       }
     ) as Reducer<WithSharedState<SettingState>, SettingAction, SettingEnvironment>,
   Reducer<WithSharedState<SettingState>, SettingAction, SettingEnvironment> {

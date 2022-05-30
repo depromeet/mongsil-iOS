@@ -8,14 +8,14 @@
 import Foundation
 
 public struct SignUpUserResponseDto: Decodable {
-  public let userId: String
+  public let userID: String
 
   public enum CodingKeys: String, CodingKey {
-    case userId
+    case userID = "userId"
   }
 
   public init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
-    self.userId = try container.decode(String.self, forKey: .userId)
+    self.userID = try container.decode(String.self, forKey: .userID)
   }
 }

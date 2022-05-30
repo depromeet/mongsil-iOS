@@ -20,7 +20,7 @@ public class DropoutService {
 
   public func dropout(id: String) -> AnyPublisher<Unit, Error> {
     let url = "http://3.34.46.139:80\(URLHost.dropout)"
-    let body = DropoutRequestDto(userId: id)
+    let body = DropoutRequestDto(userID: id)
 
     return alamofireSession.request(
       url,
@@ -47,7 +47,7 @@ public class DropoutService {
       }
     })
     .tryMap({ response -> CommonResponseDto.NotExistData in
-      if response.statusCode == "200" {
+      if response.statusCode == 200 {
         return response
       } else {
         throw ErrorFactory.dropoutFailed(
@@ -87,7 +87,7 @@ public enum DropoutServiceErrorFactory: ErrorFactory {
 
   public static func dropoutFailed(
     url: String,
-    statusCode: String? = nil,
+    statusCode: Int? = nil,
     underlying: Error? = nil
   ) -> NSError {
     return NSError(

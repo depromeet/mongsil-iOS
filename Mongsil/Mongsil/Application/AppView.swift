@@ -23,7 +23,6 @@ struct AppView: View {
     )
     self.colorScheme = colorScheme
   }
-
   var body: some View {
     ZStack {
       Theme.backgroundColor(scheme: colorScheme)

@@ -8,14 +8,14 @@
 import Foundation
 
 public struct DropoutRequestDto: Encodable {
-  public var userId: String
+  public var userID: String
 
   enum CodingKeys: String, CodingKey {
-    case userId
+    case userID = "userId"
   }
 
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
-    try container.encode(userId, forKey: .userId)
+    try container.encode(userID, forKey: .userID)
   }
 }

@@ -2,7 +2,7 @@
 //  AppInfoView.swift
 //  Mongsil
 //
-//  Created by Chanwoo Cho on 2022/04/11.
+//  Created by 이승후 on 2022/05/21.
 //
 
 import ComposableArchitecture
@@ -16,33 +16,34 @@ struct AppInfoView: View {
   }
 
   var body: some View {
-    VStack(alignment: .leading, spacing: 10) {
-      MSNavigationBar(
-        backButtonImage: R.CustomImage.backIcon.image,
-        backButtonAction: { ViewStore(store).send(.backButtonTapped) },
-        titleText: "정보"
-      )
-      TermsButtonView(store: store)
-      PersonalInfoPolicyButtonView(store: store)
-      OpenSourceButtonView(store: store)
-
+    MSNavigationBar(
+      backButtonImage: R.CustomImage.backIcon.image,
+      backButtonAction: { ViewStore(store).send(.backButtonTapped) },
+      titleText: "정보"
+    )
+    .padding(.horizontal, 20)
+    .padding(.bottom, 24)
+    VStack(spacing: 0) {
+      TermsLink(store: store)
+        .padding(.vertical, 15)
+      Divider()
+        .background(Color.gray8)
+      PersonalInfoPolicyLink(store: store)
+        .padding(.vertical, 15)
+      Divider()
+        .background(Color.gray8)
+      OpenSourceLink(store: store)
+        .padding(.vertical, 15)
+      Divider()
+        .background(Color.gray8)
+      MakersLinkView(store: store)
+        .padding(.vertical, 15)
+      Divider()
+        .background(Color.gray8)
       Spacer()
     }
+    .padding(.horizontal, 20)
     .navigationBarHidden(true)
-  }
-}
-
-private struct TermsButtonView: View {
-  private let store: Store<WithSharedState<AppInfoState>, AppInfoAction>
-
-  init(store: Store<WithSharedState<AppInfoState>, AppInfoAction>) {
-    self.store = store
-  }
-
-  var body: some View {
-    ListItemWithTextIcon(
-      content: { TermsLink(store: store) }
-    )
   }
 }
 
@@ -67,27 +68,17 @@ private struct TermsLink: View {
           send: AppInfoAction.setTermsPushed
         ),
         label: {
-          Text("이용약관")
-            .font(.title2)
-            .foregroundColor(.gray2)
+          HStack {
+            Text("이용약관")
+              .font(.body2)
+              .foregroundColor(.gray2)
+            Spacer()
+            R.CustomImage.arrowRightIcon.image
+          }
         }
       )
       .isDetailLink(true)
     }
-  }
-}
-
-private struct PersonalInfoPolicyButtonView: View {
-  private let store: Store<WithSharedState<AppInfoState>, AppInfoAction>
-
-  init(store: Store<WithSharedState<AppInfoState>, AppInfoAction>) {
-    self.store = store
-  }
-
-  var body: some View {
-    ListItemWithTextIcon(
-      content: { PersonalInfoPolicyLink(store: store) }
-    )
   }
 }
 
@@ -112,27 +103,17 @@ private struct PersonalInfoPolicyLink: View {
           send: AppInfoAction.setPersonalInfoPolicyPushed
         ),
         label: {
-          Text("개인정보 정책")
-            .font(.title2)
-            .foregroundColor(.gray2)
+          HStack {
+            Text("개인정보 정책")
+              .font(.body2)
+              .foregroundColor(.gray2)
+            Spacer()
+            R.CustomImage.arrowRightIcon.image
+          }
         }
       )
       .isDetailLink(true)
     }
-  }
-}
-
-private struct OpenSourceButtonView: View {
-  private let store: Store<WithSharedState<AppInfoState>, AppInfoAction>
-
-  init(store: Store<WithSharedState<AppInfoState>, AppInfoAction>) {
-    self.store = store
-  }
-
-  var body: some View {
-    ListItemWithTextIcon(
-      content: { OpenSourceLink(store: store) }
-    )
   }
 }
 
@@ -157,9 +138,48 @@ private struct OpenSourceLink: View {
           send: AppInfoAction.setOpenSourcePushed
         ),
         label: {
-          Text("오픈소스")
-            .font(.title2)
-            .foregroundColor(.gray2)
+          HStack {
+            Text("오픈소스")
+              .font(.body2)
+              .foregroundColor(.gray2)
+            Spacer()
+            R.CustomImage.arrowRightIcon.image
+          }
+        }
+      )
+      .isDetailLink(true)
+    }
+  }
+}
+
+private struct MakersLinkView: View {
+  private let store: Store<WithSharedState<AppInfoState>, AppInfoAction>
+
+  init(store: Store<WithSharedState<AppInfoState>, AppInfoAction>) {
+    self.store = store
+  }
+
+  var body: some View {
+    WithViewStore(store.scope(state: \.local.isMakersPushed)) { isMakersPushedViewStore in
+      NavigationLink(
+        destination: IfLetStore(
+          store.scope(
+            state: \.makers,
+            action: AppInfoAction.makers
+          ),
+          then: MakersView.init(store:)
+        ),
+        isActive: isMakersPushedViewStore.binding(
+          send: AppInfoAction.setMakersPushed
+        ),
+        label: {
+          HStack {
+            Text("만든 사람들")
+              .font(.body2)
+              .foregroundColor(.gray2)
+            Spacer()
+            R.CustomImage.arrowRightIcon.image
+          }
         }
       )
       .isDetailLink(true)

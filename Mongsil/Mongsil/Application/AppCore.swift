@@ -38,6 +38,7 @@ struct AppEnvironment {
   var userService: UserService
   var signUpService: SignUpService
   var userDreamListService: UserDreamListService
+  var dropoutService: DropoutService
 
   init(
     mainQueue: AnySchedulerOf<DispatchQueue>,
@@ -46,7 +47,8 @@ struct AppEnvironment {
     appleLoginService: AppleLoginService,
     userService: UserService,
     signUpService: SignUpService,
-    userDreamListService: UserDreamListService
+    userDreamListService: UserDreamListService,
+    dropoutService: DropoutService
   ) {
     self.mainQueue = mainQueue
     self.appTrackingService = appTrackingService
@@ -55,6 +57,7 @@ struct AppEnvironment {
     self.userService = userService
     self.signUpService = signUpService
     self.userDreamListService = userDreamListService
+    self.dropoutService = dropoutService
   }
 }
 
@@ -68,7 +71,8 @@ let appReducer = Reducer.combine([
         kakaoLoginService: $0.kakaoLoginService,
         userService: $0.userService,
         signUpService: $0.signUpService,
-        userDreamListService: $0.userDreamListService
+        userDreamListService: $0.userDreamListService,
+        dropoutService: $0.dropoutService
       )
     }
   ) as Reducer<WithSharedState<AppState>, AppAction, AppEnvironment>,
@@ -157,6 +161,16 @@ let appReducer = Reducer.combine([
 
     case let .mainTab(.storage(.presentToast(text))):
       return Effect(value: .presentToast(text))
+
+    case .mainTab(.storage(.setting(.profile(.logoutAlertModal(.primaryButtonTapped))))):
+      return Effect(value: .mainTab(.tabTapped(.home)))
+
+    case .mainTab(.storage(.setting(.profile(.withdrawAlertModal(.primaryButtonTapped))))):
+      if state.shared.userID == nil {
+        return Effect(value: .mainTab(.tabTapped(.home)))
+      } else {
+        return Effect(value: .presentToast("회원 탈퇴에 실패했습니다. 다시 시도해주세요."))
+      }
 
     case .mainTab:
       return .none
