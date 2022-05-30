@@ -17,3 +17,15 @@ extension UINavigationController: UIGestureRecognizerDelegate {
     return viewControllers.count > 1
   }
 }
+
+public func popToRoot() {
+  let window = UIApplication.shared.connectedScenes
+    .filter { $0.activationState == .foregroundActive }
+    .map { $0 as? UIWindowScene }
+    .compactMap { $0 }
+    .first?.windows
+    .filter { $0.isKeyWindow }
+    .first
+  let profile = window?.rootViewController?.children.first as? UINavigationController
+  profile?.popToRootViewController(animated: true)
+}

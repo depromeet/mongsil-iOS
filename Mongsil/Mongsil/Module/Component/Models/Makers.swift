@@ -19,7 +19,7 @@ public struct Makers: Equatable, Hashable {
     Image(uiImage: secondImageStr.textToImage()!)
   }
   public let makersURL: URL
-  
+
   public init(
     name: String,
     position: String,
@@ -33,7 +33,7 @@ public struct Makers: Equatable, Hashable {
     self.secondImageStr = secondImageStr
     self.makersURL = makersURL
   }
-  
+
   public func hash(into hasher: inout Hasher) {
     hasher.combine(name)
     hasher.combine(position)
@@ -53,7 +53,7 @@ extension Makers {
     makers8,
     makers9
   ]
-  
+
   public static let makers1 = Makers(
     name: "박종호",
     position: "PM",
