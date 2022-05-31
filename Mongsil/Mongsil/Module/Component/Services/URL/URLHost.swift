@@ -12,6 +12,12 @@ public enum URLHost: CustomStringConvertible {
   case dropout
   case dreamList
   case saveDream
+  case dreamFilter
+  case dreamFilterCount
+  case dreamFilterResult
+  case selectDream
+  case dreamSearch
+  case hotKeyword
 
   public var description: String {
     switch self {
@@ -27,6 +33,18 @@ public enum URLHost: CustomStringConvertible {
       return "/user/dreamList"
     case .saveDream:
       return "/user/saveDream"
+    case .dreamFilter:
+      return "/api/dream/filter"
+    case .dreamFilterCount:
+      return "/api/dream/filter/count"
+    case .dreamFilterResult:
+      return "/api/dream/filter/result"
+    case .selectDream:
+      return "/api/dream/result"
+    case .dreamSearch:
+      return "/api/dream/search"
+    case .hotKeyword:
+      return "/api/dream/popularity"
     }
   }
 }

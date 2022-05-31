@@ -20,6 +20,7 @@ extension String {
     nsString.draw(at: CGPoint.zero, withAttributes: stringAttributes)
     let image = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
+
     return image ?? UIImage()
   }
 }

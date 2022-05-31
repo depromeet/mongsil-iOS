@@ -28,7 +28,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
       ),
       signUpService: .init(alamofireSession: .default),
       userDreamListService: .init(alamofireSession: .default),
-      dropoutService: .init(alamofireSession: .default)
+      dropoutService: .init(alamofireSession: .default),
+      dreamService: .init(alamofireSession: .default)
     )
   )
 

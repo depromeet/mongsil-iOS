@@ -49,9 +49,9 @@ public struct SharedState: Equatable {
 
   public init(
     toastText: String? = nil,
-    userId: String? = nil
+    userID: String? = nil
   ) {
     self.toastText = toastText
-    self.userID = userId
+    self.userID = userID
   }
 }

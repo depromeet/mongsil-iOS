@@ -26,6 +26,8 @@ public func popToRoot() {
     .first?.windows
     .filter { $0.isKeyWindow }
     .first
+
   let profile = window?.rootViewController?.children.first as? UINavigationController
+
   profile?.popToRootViewController(animated: true)
 }

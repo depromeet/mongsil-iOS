@@ -39,6 +39,7 @@ struct AppEnvironment {
   var signUpService: SignUpService
   var userDreamListService: UserDreamListService
   var dropoutService: DropoutService
+  var dreamService: DreamService
 
   init(
     mainQueue: AnySchedulerOf<DispatchQueue>,
@@ -48,7 +49,8 @@ struct AppEnvironment {
     userService: UserService,
     signUpService: SignUpService,
     userDreamListService: UserDreamListService,
-    dropoutService: DropoutService
+    dropoutService: DropoutService,
+    dreamService: DreamService
   ) {
     self.mainQueue = mainQueue
     self.appTrackingService = appTrackingService
@@ -58,6 +60,7 @@ struct AppEnvironment {
     self.signUpService = signUpService
     self.userDreamListService = userDreamListService
     self.dropoutService = dropoutService
+    self.dreamService = dreamService
   }
 }
 
@@ -72,7 +75,8 @@ let appReducer = Reducer.combine([
         userService: $0.userService,
         signUpService: $0.signUpService,
         userDreamListService: $0.userDreamListService,
-        dropoutService: $0.dropoutService
+        dropoutService: $0.dropoutService,
+        dreamService: $0.dreamService
       )
     }
   ) as Reducer<WithSharedState<AppState>, AppAction, AppEnvironment>,
