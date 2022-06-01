@@ -57,7 +57,6 @@ let loginReducer = Reducer<WithSharedState<LoginState>, LoginAction, LoginEnviro
         case let .success(userInfo):
           let nickName = userInfo["name"] ?? ""
           let email = userInfo["email"] ?? ""
-          
           return Effect.concatenate([
             Effect(value: .searchUser(nickName, email)),
             Effect(value: .setLoginInfo(
