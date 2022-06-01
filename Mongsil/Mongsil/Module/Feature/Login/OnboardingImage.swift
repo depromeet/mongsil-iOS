@@ -1,5 +1,5 @@
 //
-//  OnboardingImage.swift
+//  OnboardingImageandText.swift
 //  Mongsil
 //
 //  Created by Chanwoo Cho on 2022/04/19.
@@ -15,11 +15,13 @@ public enum OnboardingImage: CaseIterable, Identifiable {
   var image: Image {
     switch self {
     case .first:
-      return R.CustomImage.cancelIcon.image
+      return R.CustomImage.FirstLoginImage.image.resizable()
+
     case .second:
-      return R.CustomImage.settingIcon.image
+      return R.CustomImage.SecondLoginImage.image.resizable()
+
     case .third:
-      return R.CustomImage.searchIcon.image
+      return R.CustomImage.ThirdLoginImage.image.resizable()
     }
   }
 

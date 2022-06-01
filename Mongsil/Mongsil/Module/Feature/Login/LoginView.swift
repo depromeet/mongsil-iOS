@@ -11,49 +11,40 @@ import SwiftUI
 
 struct LoginView: View {
   private let store: Store<WithSharedState<LoginState>, LoginAction>
-
+  
   init(store: Store<WithSharedState<LoginState>, LoginAction>) {
     self.store = store
   }
-
+  
   var body: some View {
-    VStack(alignment: .leading, spacing: 10) {
+    VStack(spacing: 0) {
       MSNavigationBar(
         backButtonImage: R.CustomImage.backIcon.image,
         backButtonAction: { ViewStore(store).send(.backButtonTapped) }
       )
-      WelcomeTitleView()
-        .padding(.bottom, 10)
+      .padding(.leading, 20)
+      .padding(.bottom, 14)
       OnboardingView(store: store)
-        .padding(.bottom, 50)
       SocialLoginButtonView(store: store)
-        .padding(.bottom, 50)
+        .padding(.bottom, 32)
     }
+    .background(
+      Rectangle()
+        .foregroundColor(.gray11)
+        .ignoresSafeArea(.all)
+    )
+    .navigationTitle("")
     .navigationBarHidden(true)
-  }
-}
-
-private struct WelcomeTitleView: View {
-  var body: some View {
-    VStack(alignment: .leading, spacing: 20) {
-      Text("몽실에 오신 것을 환영해요!")
-        .font(.title2)
-        .foregroundColor(.white)
-      Text("더 많은 서비스를 이용하시려면 로그인 해주세요.")
-        .font(.subheadline)
-        .foregroundColor(.gray4)
-    }
-    .padding(.leading, 20)
   }
 }
 
 private struct OnboardingView: View {
   private let store: Store<WithSharedState<LoginState>, LoginAction>
-
+  
   init(store: Store<WithSharedState<LoginState>, LoginAction>) {
     self.store = store
   }
-
+  
   var body: some View {
     WithViewStore(store.scope(state: \.local.onboardingImage)) { onboardingImageStore in
       TabView {
@@ -61,10 +52,12 @@ private struct OnboardingView: View {
           onboardingImageStore.state,
           content: { _, onboardingImage, _ in
             onboardingImage.image
+              .resizedToFit()
+              .padding(.bottom, 55)
+              .aspectRatio(contentMode: .fit)
           }
         )
       }
-      .background(Color.gray)
       .tabViewStyle(.page)
       .indexViewStyle(.page(backgroundDisplayMode: .automatic))
     }
@@ -73,17 +66,20 @@ private struct OnboardingView: View {
 
 private struct SocialLoginButtonView: View {
   private let store: Store<WithSharedState<LoginState>, LoginAction>
-
+  
   init(store: Store<WithSharedState<LoginState>, LoginAction>) {
     self.store = store
   }
-
+  
   var body: some View {
-    HStack {
+    HStack(spacing: 0) {
       Spacer()
-      VStack(spacing: 10) {
+      VStack(alignment: .leading, spacing: 0) {
         KakaoLoginButtonView(store: store)
+          .frame(width: 335, height: 56, alignment: .center)
+          .padding(.bottom, 16)
         AppleLoginButtonView(store: store)
+          .frame(width: 335, height: 56, alignment: .center)
       }
       Spacer()
     }
@@ -92,26 +88,25 @@ private struct SocialLoginButtonView: View {
 
 private struct KakaoLoginButtonView: View {
   private let store: Store<WithSharedState<LoginState>, LoginAction>
-
+  
   init(store: Store<WithSharedState<LoginState>, LoginAction>) {
     self.store = store
   }
-
+  
   var body: some View {
     Button(action: { ViewStore(store).send(.kakaoLoginButtonTapped) }) {
       R.CustomImage.kakaoLoginButton.image
-        .resizedToFill(335, 55)
     }
   }
 }
 
 private struct AppleLoginButtonView: View {
   private let store: Store<WithSharedState<LoginState>, LoginAction>
-
+  
   init(store: Store<WithSharedState<LoginState>, LoginAction>) {
     self.store = store
   }
-
+  
   var body: some View {
     SignInWithAppleButton(
       .signIn,
@@ -137,6 +132,5 @@ private struct AppleLoginButtonView: View {
       }
     )
     .signInWithAppleButtonStyle(.white)
-    .frame(width: 335, height: 55, alignment: .center)
   }
 }
