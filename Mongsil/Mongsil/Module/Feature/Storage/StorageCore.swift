@@ -2,7 +2,7 @@
 //  StorageCore.swift
 //  Mongsil
 //
-//  Created by 이승후 on 2022/04/08.
+//  Created by Chanwoo Cho on 2022/04/08.
 //
 
 import Combine
@@ -127,6 +127,14 @@ enum StorageAction: ToastPresentableAction {
 struct StorageEnvironment {
   var userDreamListService: UserDreamListService
   var dropoutService: DropoutService
+
+  init(
+    userDreamListService: UserDreamListService,
+    dropoutService: DropoutService
+  ) {
+    self.userDreamListService = userDreamListService
+    self.dropoutService = dropoutService
+  }
 }
 
 let storageReducer: Reducer<WithSharedState<StorageState>, StorageAction, StorageEnvironment> =
@@ -154,8 +162,10 @@ Reducer.combine([
     .pullback(
       state: \.dream,
       action: /StorageAction.dream,
-      environment: { _ in
-        DreamEnvironment()
+      environment: {
+        DreamEnvironment(
+          userDreamListService: $0.userDreamListService
+        )
       }
     ) as Reducer<WithSharedState<StorageState>, StorageAction, StorageEnvironment>,
   alertDoubleButtonReducer
@@ -377,7 +387,7 @@ private func setUserName(state: inout WithSharedState<StorageState>) -> Effect<S
 }
 
 private func setDiaryList(state: inout WithSharedState<StorageState>) -> Effect<StorageAction, Never> {
-  // 추후 유저가 저장한 꿈일기에 대해 받아오는 API 및 로직 필요
+  // MARK: - 추후 유저가 저장한 꿈일기에 대해 받아오는 API 및 로직 필요
   state.local.diaryList = Diary.Stub.diaryList
   return .none
 }
@@ -386,27 +396,20 @@ private func setDreamList(
   state: inout WithSharedState<StorageState>,
   env: StorageEnvironment
 ) -> Effect<StorageAction, Never> {
-  // MARK: - 유저의 해몽 리스트 받아오는 API로 추후 서버 배포 후 해당 코드 사용 예정
-  /**
-   guard let userID = UserDefaults.standard.string(forKey: "userID") else {
-   return .none
-   }
-   
-   return env.userDreamListService.getUserDreamList(userID: userID)
-   .catchToEffect()
-   .map({ result in
-   switch result {
-   case let .success(response):
-   return StorageAction.setUserDreamList(response.dreamList)
-   case .failure:
-   return StorageAction.noop
-   }
-   })
-   */
+  guard let userID = state.shared.userID else {
+    return .none
+  }
 
-  // MARK: - 유저의 해몽 리스트에 대한 Stub 데이터를 통한 Fake 구현
-  state.local.userDreamList = UserDreamList.Stub.userDreamList1.dreamList
-  return .none
+  return env.userDreamListService.getUserDreamList(userID: userID)
+    .catchToEffect()
+    .map({ result in
+      switch result {
+      case let .success(response):
+        return StorageAction.setUserDreamList(response.dreamList)
+      case .failure:
+        return StorageAction.noop
+      }
+    })
 }
 
 private func setDiaryCount(state: inout WithSharedState<StorageState>) -> Effect<StorageAction, Never> {
@@ -416,7 +419,7 @@ private func setDiaryCount(state: inout WithSharedState<StorageState>) -> Effect
 }
 
 private func deleteDiaryList(state: inout WithSharedState<StorageState>) -> Effect<StorageAction, Never> {
-  // 추후 꿈일기 삭제 API 및 로직 필요
+  // MARK: - 추후 꿈일기 삭제 API 및 로직 필요
   for diary in state.local.deleteDiaryList {
     state.local.diaryList?.remove(object: diary)
   }
@@ -428,25 +431,19 @@ private func deleteDreamList(
   state: inout WithSharedState<StorageState>,
   env: StorageEnvironment
 ) -> Effect<StorageAction, Never> {
-  // MARK: - 유저가 삭제할 해몽 리스트에 대해 요청하는 API로 추후 서버 배포 후 해당 코드 사용 예정
-  /**
-   let deleteUserDreamListID = state.local.deleteuserDreamList
-   .map({ $0.id })
-   
-   return env.userDreamListService.deleteUserDreamList(dreamIDs: deleteUserDreamListID)
-   .catchToEffect()
-   .map({ result in
-   switch result {
-   case .success:
-   return StorageAction.setDeleteUserDreamList
-   case .failure:
-   return StorageAction.presentToast("해몽이 삭제되지 않았어요. 다시 시도해주세요.")
-   }
-   })
-   */
+  let deleteUserDreamListID = state.local.deleteUserDreamList
+    .map({ $0.id })
 
-  // MARK: - 유저가 삭제할 해몽 리스트에 대한 Stub 데이터를 통한 Fake 구현
-  return Effect(value: .setDeleteUserDreamList)
+  return env.userDreamListService.deleteUserDreamList(dreamIDs: deleteUserDreamListID)
+    .catchToEffect()
+    .map({ result in
+      switch result {
+      case .success:
+        return StorageAction.setDeleteUserDreamList
+      case .failure:
+        return StorageAction.presentToast("해몽이 삭제되지 않았어요. 다시 시도해주세요.")
+      }
+    })
 }
 
 private func revortDeleteList(

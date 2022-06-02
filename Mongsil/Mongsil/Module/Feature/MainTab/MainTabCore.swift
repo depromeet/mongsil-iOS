@@ -145,7 +145,8 @@ Reducer.combine([
         LoginEnvironment(
           kakaoLoginService: $0.kakaoLoginService,
           userService: $0.userService,
-          signUpService: $0.signUpService
+          signUpService: $0.signUpService,
+          mainQueue: $0.mainQueue
         )
       }
     ) as Reducer<WithSharedState<MainTabState>, MainTabAction, MainTabEnvironment>,
