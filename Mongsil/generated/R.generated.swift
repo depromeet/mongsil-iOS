@@ -582,12 +582,12 @@ struct R: Rswift.Validatable {
     static let backIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "BackIcon")
     /// Image `BackgroundImage`.
     static let backgroundImage = Rswift.ImageResource(bundle: R.hostingBundle, name: "BackgroundImage")
-    /// Image `FirstLoginImage`.
-    static let FirstLoginImage = Rswift.ImageResource(bundle: R.hostingBundle, name: "FirstLoginImage")
-    /// Image `SecondLoginImage`.
-    static let SecondLoginImage = Rswift.ImageResource(bundle: R.hostingBundle, name: "SecondLoginImage")
-    /// Image `ThirdLoginImage`.
-    static let ThirdLoginImage = Rswift.ImageResource(bundle: R.hostingBundle, name: "ThirdLoginImage")
+    /// Image `FirstOnboardingImage`.
+    static let FirstOnboardingImage = Rswift.ImageResource(bundle: R.hostingBundle, name: "FirstOnboardingImage")
+    /// Image `SecondOnboardingImage`.
+    static let SecondOnboardingImage = Rswift.ImageResource(bundle: R.hostingBundle, name: "SecondOnboardingImage")
+    /// Image `ThirdOnboardingImage`.
+    static let ThirdOnboardingImage = Rswift.ImageResource(bundle: R.hostingBundle, name: "ThirdOnboardingImage")
     /// Image `CancelIcon`.
     static let cancelIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "CancelIcon")
     /// Image `CancelSmallIcon`.
