@@ -43,16 +43,23 @@ extension DreamState {
   }
 }
 
-enum DreamAction {
+enum DreamAction: ToastPresentableAction {
   case backButtonTapped
+  case presentToast(String)
 
   // Child Action
   case cardResult(CardResultAction)
+  case displaySaveDreamAlertModal
   case requestDeleteDreamAlertModal(AlertDoubleButtonAction)
   case requestSaveDreamAlertModal(AlertDoubleButtonAction)
 }
 
 struct DreamEnvironment {
+  var userDreamListService: UserDreamListService
+
+  init(userDreamListService: UserDreamListService) {
+    self.userDreamListService = userDreamListService
+  }
 }
 
 let dreamReducer: Reducer<WithSharedState<DreamState>, DreamAction, DreamEnvironment> =
@@ -87,9 +94,12 @@ Reducer.combine([
     )
   as Reducer<WithSharedState<DreamState>, DreamAction, DreamEnvironment>,
   Reducer<WithSharedState<DreamState>, DreamAction, DreamEnvironment> {
-    state, action, _ in
+    state, action, env in
     switch action {
     case .backButtonTapped:
+      return .none
+
+    case .presentToast:
       return .none
 
     case .cardResult(.deleteDream):
@@ -103,7 +113,30 @@ Reducer.combine([
       )
 
     case .cardResult(.saveDream):
-      // 해몽 저장 API 호출 필요
+      guard let userID = state.shared.userID else {
+        return .none
+      }
+      let dreamID = state.local.userDreamCardResult.userDream.dreamID
+
+      return env.userDreamListService.saveUserDream(
+        userID: userID,
+        dreamID: dreamID
+      )
+      .catchToEffect()
+      .flatMapLatest({ result -> Effect<DreamAction, Never> in
+        switch result {
+        case .success:
+          return Effect(value: .displaySaveDreamAlertModal)
+        case .failure:
+          return Effect(value: .presentToast("해몽이 저장되지 않았어요. 다시 시도해주세요."))
+        }
+      })
+      .eraseToEffect()
+
+    case .cardResult:
+      return .none
+
+    case .displaySaveDreamAlertModal:
       return setAlertModal(
         state: &state.local.requestSaveDreamAlertModal,
         titleText: "해몽을 저장했어요!",
@@ -112,13 +145,21 @@ Reducer.combine([
         primaryButtonTitle: "닫기"
       )
 
-    case .cardResult:
-      return .none
-
     case .requestDeleteDreamAlertModal(.primaryButtonTapped):
-      // 해몽 삭제 API 호출 필요
       state.local.requestDeleteDreamAlertModal = nil
-      return Effect(value: .backButtonTapped)
+      let dreamIDs = state.local.userDreamCardResult.userDream.id
+
+      return env.userDreamListService.deleteUserDreamList(dreamIDs: [dreamIDs])
+        .catchToEffect()
+        .flatMapLatest({ result -> Effect<DreamAction, Never> in
+          switch result {
+          case .success:
+            return Effect(value: .backButtonTapped)
+          case .failure:
+            return Effect(value: .presentToast("해몽이 삭제되지 않았어요. 다시 시도해주세요."))
+          }
+        })
+        .eraseToEffect()
 
     case .requestDeleteDreamAlertModal(.secondaryButtonTapped):
       state.local.requestDeleteDreamAlertModal = nil
@@ -129,7 +170,7 @@ Reducer.combine([
       return .none
 
     case .requestSaveDreamAlertModal(.secondaryButtonTapped):
-      // 보관함 가기 로직 구현
+      // MARK: - 추후 꿈 카드 검색 후 저장 시 보관함 가기 로직 구현 (AppAction에서 필요)
       state.local.requestSaveDreamAlertModal = nil
       return .none
 

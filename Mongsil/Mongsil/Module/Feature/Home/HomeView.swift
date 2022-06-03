@@ -118,12 +118,12 @@ private struct HotKeywordBadgesView: View {
   }
 
   var body: some View {
-    WithViewStore(store.scope(state: \.local.hotKeyword)) { hotKeywordViewStore in
+    WithViewStore(store.scope(state: \.local.hotKeywords)) { hotKeywordsViewStore in
 
-      if hotKeywordViewStore.state.isNotEmpty {
+      if hotKeywordsViewStore.state.isNotEmpty {
         VStack(spacing: 12) {
           HStack(spacing: 8) {
-            ForEach(hotKeywordViewStore.state[0...3], id: \.self) { keyword in
+            ForEach(hotKeywordsViewStore.state[0...3], id: \.self) { keyword in
               Button(
                 action: {
                   ViewStore(store).send(.hotKeywordTapped(keyword))
@@ -135,7 +135,7 @@ private struct HotKeywordBadgesView: View {
             Spacer()
           }
           HStack(spacing: 8) {
-            ForEach(hotKeywordViewStore.state[4...7], id: \.self) { keyword in
+            ForEach(hotKeywordsViewStore.state[4...7], id: \.self) { keyword in
               Button(
                 action: {
                   ViewStore(store).send(.hotKeywordTapped(keyword))

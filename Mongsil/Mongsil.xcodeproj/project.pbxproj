@@ -57,6 +57,7 @@
 		124DBC7B2829EB9B005C3ED4 /* SegmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124DBC7A2829EB9B005C3ED4 /* SegmentView.swift */; };
 		124DBC7E282A1213005C3ED4 /* Diary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124DBC7D282A1213005C3ED4 /* Diary.swift */; };
 		124DBC80282A18F9005C3ED4 /* Date+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124DBC7F282A18F9005C3ED4 /* Date+extensions.swift */; };
+		1253F59D2845C34600273DE8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1253F59C2845C34600273DE8 /* LaunchScreen.storyboard */; };
 		12590E8B282C8DEF000FB712 /* BottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12590E8A282C8DEF000FB712 /* BottomSheet.swift */; };
 		125F84AC280D122500279C42 /* AlertSingleButtonCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125F84AB280D122500279C42 /* AlertSingleButtonCore.swift */; };
 		125F84AE280D123D00279C42 /* AlertDoubleButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125F84AD280D123D00279C42 /* AlertDoubleButtonView.swift */; };
@@ -102,6 +103,8 @@
 		12A56FD9283893A700CDEF6E /* CardResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A56FD8283893A700CDEF6E /* CardResultView.swift */; };
 		12A56FDB2838955800CDEF6E /* CardResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A56FDA2838955800CDEF6E /* CardResult.swift */; };
 		12B38ADA2831DD1C00D0E921 /* Array+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B38AD92831DD1C00D0E921 /* Array+extensions.swift */; };
+		12C4A3272845CF5100518172 /* HotKeyword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C4A3262845CF5100518172 /* HotKeyword.swift */; };
+		12C4A3292845D0E600518172 /* DreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C4A3282845D0E600518172 /* DreamService.swift */; };
 		12D775DB28024B8C00CD0CFD /* Rswift in Frameworks */ = {isa = PBXBuildFile; productRef = 12D775DA28024B8C00CD0CFD /* Rswift */; };
 		12D7D3CD281E91EA00B83DDE /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D7D3CC281E91EA00B83DDE /* UserService.swift */; };
 		12E6EE352828CEFF00504CE3 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E6EE342828CEFF00504CE3 /* SearchView.swift */; };
@@ -184,6 +187,7 @@
 		124DBC7A2829EB9B005C3ED4 /* SegmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentView.swift; sourceTree = "<group>"; };
 		124DBC7D282A1213005C3ED4 /* Diary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diary.swift; sourceTree = "<group>"; };
 		124DBC7F282A18F9005C3ED4 /* Date+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+extensions.swift"; sourceTree = "<group>"; };
+		1253F59C2845C34600273DE8 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		12590E8A282C8DEF000FB712 /* BottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheet.swift; sourceTree = "<group>"; };
 		125F84AB280D122500279C42 /* AlertSingleButtonCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertSingleButtonCore.swift; sourceTree = "<group>"; };
 		125F84AD280D123D00279C42 /* AlertDoubleButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertDoubleButtonView.swift; sourceTree = "<group>"; };
@@ -231,6 +235,8 @@
 		12A56FD8283893A700CDEF6E /* CardResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardResultView.swift; sourceTree = "<group>"; };
 		12A56FDA2838955800CDEF6E /* CardResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardResult.swift; sourceTree = "<group>"; };
 		12B38AD92831DD1C00D0E921 /* Array+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+extensions.swift"; sourceTree = "<group>"; };
+		12C4A3262845CF5100518172 /* HotKeyword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotKeyword.swift; sourceTree = "<group>"; };
+		12C4A3282845D0E600518172 /* DreamService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamService.swift; sourceTree = "<group>"; };
 		12D7D3CC281E91EA00B83DDE /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		12E6EE342828CEFF00504CE3 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		12E6EE362828CF0500504CE3 /* SearchCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCore.swift; sourceTree = "<group>"; };
@@ -495,6 +501,7 @@
 				1292B188282495030050A10D /* SignUpService.swift */,
 				1292B19428249D0F0050A10D /* DropoutService.swift */,
 				12A026D2283393B300665CAF /* UserDreamListService.swift */,
+				12C4A3282845D0E600518172 /* DreamService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -681,6 +688,7 @@
 		12A2244E27F7E0D500617C10 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				1253F59C2845C34600273DE8 /* LaunchScreen.storyboard */,
 				12A2244A27F7DFED00617C10 /* AppDelegate.swift */,
 				12A2244C27F7E04A00617C10 /* SceneDelegate.swift */,
 				12A2244F27F7E0F000617C10 /* AppView.swift */,
@@ -830,6 +838,7 @@
 				123FED292833689700F62663 /* UserDream.swift */,
 				123FED2B28336A4200F62663 /* Category.swift */,
 				7736245B283CF48300EE72F6 /* Makers.swift */,
+				12C4A3262845CF5100518172 /* HotKeyword.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -920,6 +929,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1219757A28163A4200089BED /* Pretendard-SemiBold.ttf in Resources */,
+				1253F59D2845C34600273DE8 /* LaunchScreen.storyboard in Resources */,
 				1219757928163A4200089BED /* Pretendard-Medium.ttf in Resources */,
 				126EF43027F2AC2400102FA9 /* Preview Assets.xcassets in Resources */,
 				1219757828163A4200089BED /* Pretendard-Regular.ttf in Resources */,
@@ -1013,6 +1023,7 @@
 				12B38ADA2831DD1C00D0E921 /* Array+extensions.swift in Sources */,
 				123EE0832804536800D34B93 /* BackButton.swift in Sources */,
 				1291296F27F815460017E087 /* SharedState.swift in Sources */,
+				12C4A3292845D0E600518172 /* DreamService.swift in Sources */,
 				123EE0802804533C00D34B93 /* MSNavigationBar.swift in Sources */,
 				123EE091280453E300D34B93 /* AppInfoView.swift in Sources */,
 				7779D724281C07C900683C1F /* DreamInfo.swift in Sources */,
@@ -1085,6 +1096,7 @@
 				124DBC80282A18F9005C3ED4 /* Date+extensions.swift in Sources */,
 				12A026D92833993300665CAF /* SaveDreamRequestDto.swift in Sources */,
 				1292B18E282498510050A10D /* SignUpUserRequestDto.swift in Sources */,
+				12C4A3272845CF5100518172 /* HotKeyword.swift in Sources */,
 				12A2244D27F7E04A00617C10 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1226,6 +1238,7 @@
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "\"귀하의 데이터는 개인화 광고를 제공하기 위해 사용됩니다.\"";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -1262,6 +1275,7 @@
 				INFOPLIST_KEY_NSUserTrackingUsageDescription = "\"귀하의 데이터는 개인화 광고를 제공하기 위해 사용됩니다.\"";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

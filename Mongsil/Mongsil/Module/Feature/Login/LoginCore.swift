@@ -29,20 +29,23 @@ struct LoginEnvironment {
   var kakaoLoginService: KakaoLoginService
   var userService: UserService
   var signUpService: SignUpService
+  var mainQueue: AnySchedulerOf<DispatchQueue>
 
   init(
     kakaoLoginService: KakaoLoginService,
     userService: UserService,
-    signUpService: SignUpService
+    signUpService: SignUpService,
+    mainQueue: AnySchedulerOf<DispatchQueue>
   ) {
     self.kakaoLoginService = kakaoLoginService
     self.userService = userService
     self.signUpService = signUpService
+    self.mainQueue = mainQueue
   }
 }
 
 let loginReducer = Reducer<WithSharedState<LoginState>, LoginAction, LoginEnvironment> {
-  state, action, env in
+  _, action, env in
   switch action {
   case .backButtonTapped:
     return .none
@@ -59,12 +62,7 @@ let loginReducer = Reducer<WithSharedState<LoginState>, LoginAction, LoginEnviro
           let email = userInfo["email"] ?? ""
           return Effect.concatenate([
             Effect(value: .searchUser(nickName, email)),
-            Effect(value: .setLoginInfo(
-              true,
-              true,
-              nickName,
-              email
-            ))
+            Effect(value: .setLoginInfo(true, true, nickName, email))
           ])
         }
       })
@@ -119,6 +117,8 @@ let loginReducer = Reducer<WithSharedState<LoginState>, LoginAction, LoginEnviro
       email: email,
       appleUserID: appleUserID
     )
+    .delay(for: .milliseconds(100), scheduler: env.mainQueue)
+    .eraseToEffect()
     .map({ _ -> LoginAction in
       return .loginCompleted
     })
@@ -131,7 +131,6 @@ let loginReducer = Reducer<WithSharedState<LoginState>, LoginAction, LoginEnviro
     return .none
 
   case let .setUserID(userID):
-    state.shared.userID = userID
     return .none
   }
 }

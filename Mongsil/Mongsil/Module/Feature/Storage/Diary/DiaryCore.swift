@@ -65,7 +65,7 @@ Reducer.combine([
       return .none
 
     case .cardResult(.modifyDiaryButtonTapped):
-      // 기록하기 편집 화면 이동 필요
+      // MARK: - 기록하기 편집 화면 이동 필요
       return Effect(value: .backButtonTapped)
 
     case .cardResult(.removeDiaryButtonTapped):
@@ -79,14 +79,14 @@ Reducer.combine([
       )
 
     case .cardResult(.moveDream):
-      // 꿈카드 결과 화면 이동 필요
+      // MARK: - 꿈카드 결과 화면 이동 필요
       return Effect(value: .backButtonTapped)
 
     case .cardResult:
       return .none
 
     case .requestDeleteDiaryAlertModal(.primaryButtonTapped):
-      // 꿈 일기 삭제 API 호출 필요
+      // MARK: - 꿈 일기 삭제 API 호출 필요
       state.local.requestDeleteDiaryAlertModal = nil
       return Effect(value: .backButtonTapped)
 

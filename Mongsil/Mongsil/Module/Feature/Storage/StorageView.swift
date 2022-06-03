@@ -2,7 +2,7 @@
 //  StorageView.swift
 //  Mongsil
 //
-//  Created by 이승후 on 2022/04/08.
+//  Created by Chanwoo Cho on 2022/04/08.
 //
 
 import SwiftUI
@@ -386,7 +386,8 @@ private struct DreamListView: View {
   var body: some View {
     GeometryReader { geometry in
       WithViewStore(store.scope(state: \.local.userDreamList)) { userDreamListViewStore in
-        if let userDreamList = userDreamListViewStore.state {
+        if let userDreamList = userDreamListViewStore.state,
+           userDreamList.isNotEmpty {
           ScrollView {
             let columns: [GridItem] = [
               GridItem(.fixed((geometry.width / 2) - 24.5)),
@@ -525,9 +526,13 @@ private struct EmptyDiaryOrDreamView: View {
     VStack {
       Spacer()
         .frame(height: 200)
-      Text(description)
-        .font(.body2)
-        .foregroundColor(.gray6)
+      HStack {
+        Spacer()
+        Text(description)
+          .font(.body2)
+          .foregroundColor(.gray6)
+        Spacer()
+      }
     }
   }
 }

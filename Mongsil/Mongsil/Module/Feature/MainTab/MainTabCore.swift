@@ -69,6 +69,7 @@ struct MainTabEnvironment {
   var signUpService: SignUpService
   var userDreamListService: UserDreamListService
   var dropoutService: DropoutService
+  var dreamService: DreamService
 
   init(
     mainQueue: AnySchedulerOf<DispatchQueue>,
@@ -76,7 +77,8 @@ struct MainTabEnvironment {
     userService: UserService,
     signUpService: SignUpService,
     userDreamListService: UserDreamListService,
-    dropoutService: DropoutService
+    dropoutService: DropoutService,
+    dreamService: DreamService
   ) {
     self.mainQueue = mainQueue
     self.kakaoLoginService = kakaoLoginService
@@ -84,6 +86,7 @@ struct MainTabEnvironment {
     self.signUpService = signUpService
     self.userDreamListService = userDreamListService
     self.dropoutService = dropoutService
+    self.dreamService = dreamService
   }
 }
 
@@ -107,8 +110,10 @@ Reducer.combine([
     .pullback(
       state: \.home,
       action: /MainTabAction.home,
-      environment: { _ in
-        HomeEnvironment()
+      environment: {
+        HomeEnvironment(
+          dreamService: $0.dreamService
+        )
       }
     ) as Reducer<WithSharedState<MainTabState>, MainTabAction, MainTabEnvironment>,
   recordReducer
@@ -140,7 +145,8 @@ Reducer.combine([
         LoginEnvironment(
           kakaoLoginService: $0.kakaoLoginService,
           userService: $0.userService,
-          signUpService: $0.signUpService
+          signUpService: $0.signUpService,
+          mainQueue: $0.mainQueue
         )
       }
     ) as Reducer<WithSharedState<MainTabState>, MainTabAction, MainTabEnvironment>,

@@ -137,8 +137,7 @@ Reducer.combine([
     case .noop:
       return .none
 
-    case let .setUserID(id):
-      state.shared.userID = id
+    case let .setUserID(userID):
       return .none
     }
   }

@@ -22,6 +22,8 @@ enum AppAction {
   case checkHasKakaoToken
   case checkHasAppleToken
   case setIsLogined(Bool)
+  case searchUserID
+  case setUserID(String?)
   case presentToast(String, Bool = true)
   case hideToast
   case noop
@@ -39,6 +41,7 @@ struct AppEnvironment {
   var signUpService: SignUpService
   var userDreamListService: UserDreamListService
   var dropoutService: DropoutService
+  var dreamService: DreamService
 
   init(
     mainQueue: AnySchedulerOf<DispatchQueue>,
@@ -48,7 +51,8 @@ struct AppEnvironment {
     userService: UserService,
     signUpService: SignUpService,
     userDreamListService: UserDreamListService,
-    dropoutService: DropoutService
+    dropoutService: DropoutService,
+    dreamService: DreamService
   ) {
     self.mainQueue = mainQueue
     self.appTrackingService = appTrackingService
@@ -58,6 +62,7 @@ struct AppEnvironment {
     self.signUpService = signUpService
     self.userDreamListService = userDreamListService
     self.dropoutService = dropoutService
+    self.dreamService = dreamService
   }
 }
 
@@ -72,7 +77,8 @@ let appReducer = Reducer.combine([
         userService: $0.userService,
         signUpService: $0.signUpService,
         userDreamListService: $0.userDreamListService,
-        dropoutService: $0.dropoutService
+        dropoutService: $0.dropoutService,
+        dreamService: $0.dreamService
       )
     }
   ) as Reducer<WithSharedState<AppState>, AppAction, AppEnvironment>,
@@ -84,7 +90,8 @@ let appReducer = Reducer.combine([
     case .onAppear:
       return Effect.merge([
         Effect(value: .checkDisplayAppTrackingAlert),
-        Effect(value: .checkIsLogined)
+        Effect(value: .checkIsLogined),
+        Effect(value: .searchUserID)
       ])
 
     case .checkDisplayAppTrackingAlert:
@@ -119,10 +126,10 @@ let appReducer = Reducer.combine([
         .catchToEffect()
         .flatMapLatest({ result -> Effect<AppAction, Never> in
           switch result {
-          case .failure:
-            return Effect(value: .presentToast("카카오 로그인 연동 이력을 가져오는데 실패했습니다."))
           case let .success(hasKakaoToken):
             return Effect(value: .setIsLogined(hasKakaoToken))
+          case .failure:
+            return Effect(value: .presentToast("카카오 로그인 연동 이력을 가져오는데 실패했습니다."))
           }
         })
         .eraseToEffect()
@@ -136,6 +143,37 @@ let appReducer = Reducer.combine([
 
     case let .setIsLogined(isLogined):
       UserDefaults.standard.set(isLogined, forKey: "isLogined")
+      return .none
+
+    case .searchUserID:
+      let isKakao = UserDefaults.standard.bool(forKey: "isKakao")
+      var email = isKakao
+      ? UserDefaults.standard.string(forKey: "kakaoEmail") ?? ""
+      : UserDefaults.standard.string(forKey: "appleEmail") ?? ""
+      if email.isEmpty {
+        return .none
+      }
+
+      return env.userService.searchUserID(with: email)
+        .catchToEffect()
+        .map({ result in
+          switch result {
+          case let .success(response):
+            if response.checkValue {
+              guard let userID = response.userID else {
+                return AppAction.presentToast("회원 ID가 없습니다.")
+              }
+              return AppAction.setUserID(userID)
+            } else {
+              return .noop
+            }
+          case let .failure(error):
+            return AppAction.presentToast("회원 조회에 실패하였습니다.")
+          }
+        })
+
+    case let .setUserID(userID):
+      state.shared.userID = userID
       return .none
 
     case let .presentToast(toastText, isBottomPosition):
@@ -156,10 +194,16 @@ let appReducer = Reducer.combine([
     case let .mainTab(.login(.presentToast(text))):
       return Effect(value: .presentToast(text))
 
+    case let .mainTab(.login(.setUserID(userID))):
+      return Effect(value: .setUserID(userID))
+
     case let .mainTab(.record(.presentToast(text))):
       return Effect(value: .presentToast(text))
 
     case let .mainTab(.storage(.presentToast(text))):
+      return Effect(value: .presentToast(text))
+
+    case let .mainTab(.storage(.dream(.presentToast(text)))):
       return Effect(value: .presentToast(text))
 
     case .mainTab(.storage(.setting(.profile(.logoutAlertModal(.primaryButtonTapped))))):
@@ -171,6 +215,9 @@ let appReducer = Reducer.combine([
       } else {
         return Effect(value: .presentToast("회원 탈퇴에 실패했습니다. 다시 시도해주세요."))
       }
+
+    case let .mainTab(.storage(.setting(.profile(.setUserID(userID))))):
+      return Effect(value: .setUserID(userID))
 
     case .mainTab:
       return .none
