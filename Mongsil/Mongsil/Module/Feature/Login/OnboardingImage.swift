@@ -15,11 +15,13 @@ public enum OnboardingImage: CaseIterable, Identifiable {
   var image: Image {
     switch self {
     case .first:
-      return R.CustomImage.cancelIcon.image
+      return R.CustomImage.firstdOnboardingImage.image.resizable()
+
     case .second:
-      return R.CustomImage.settingIcon.image
+      return R.CustomImage.secondOnboardingImage.image.resizable()
+
     case .third:
-      return R.CustomImage.searchIcon.image
+      return R.CustomImage.thirdOnboardingImage.image.resizable()
     }
   }
 

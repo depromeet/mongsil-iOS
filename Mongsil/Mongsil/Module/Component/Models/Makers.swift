@@ -108,7 +108,7 @@ extension Makers {
     position: "Designer",
     firstImageStr: "🎨",
     secondImageStr: "🐭",
-    makersURL: URL(string: "https://github.com/MoSonLee")!
+    makersURL: URL(string: "https://www.behance.net/402zzang/moodboards")!
   )
   public static let makers9 = Makers(
     name: "이영희",
