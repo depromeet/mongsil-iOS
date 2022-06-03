@@ -584,10 +584,8 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 26 images.
+  /// This `R.image` struct is generated, and contains static references to 28 images.
   struct image {
-    /// Image `AppleLoginButton`.
-    static let appleLoginButton = Rswift.ImageResource(bundle: R.hostingBundle, name: "AppleLoginButton")
     /// Image `ArrowDownIcon`.
     static let arrowDownIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "ArrowDownIcon")
     /// Image `ArrowLeftIcon`.
@@ -610,6 +608,8 @@ struct R: Rswift.Validatable {
     static let checkIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "CheckIcon")
     /// Image `FilterIcon`.
     static let filterIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "FilterIcon")
+    /// Image `FirstOnboardingImage`.
+    static let firstOnboardingImage = Rswift.ImageResource(bundle: R.hostingBundle, name: "FirstOnboardingImage")
     /// Image `HomeActiveIcon`.
     static let homeActiveIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "HomeActiveIcon")
     /// Image `HomeDisabledIcon`.
@@ -628,6 +628,8 @@ struct R: Rswift.Validatable {
     static let resultBackgroundImage = Rswift.ImageResource(bundle: R.hostingBundle, name: "ResultBackgroundImage")
     /// Image `SearchIcon`.
     static let searchIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "SearchIcon")
+    /// Image `SecondOnboardingImage`.
+    static let secondOnboardingImage = Rswift.ImageResource(bundle: R.hostingBundle, name: "SecondOnboardingImage")
     /// Image `SettingIcon`.
     static let settingIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "SettingIcon")
     /// Image `ShareIcon`.
@@ -638,13 +640,8 @@ struct R: Rswift.Validatable {
     static let storageActiveIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "StorageActiveIcon")
     /// Image `StorageDisabledIcon`.
     static let storageDisabledIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "StorageDisabledIcon")
-
-    #if os(iOS) || os(tvOS)
-    /// `UIImage(named: "AppleLoginButton", bundle: ..., traitCollection: ...)`
-    static func appleLoginButton(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.appleLoginButton, compatibleWith: traitCollection)
-    }
-    #endif
+    /// Image `ThirdOnboardingImage`.
+    static let thirdOnboardingImage = Rswift.ImageResource(bundle: R.hostingBundle, name: "ThirdOnboardingImage")
 
     #if os(iOS) || os(tvOS)
     /// `UIImage(named: "ArrowDownIcon", bundle: ..., traitCollection: ...)`
@@ -724,6 +721,13 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "FirstOnboardingImage", bundle: ..., traitCollection: ...)`
+    static func firstOnboardingImage(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.firstOnboardingImage, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
     /// `UIImage(named: "HomeActiveIcon", bundle: ..., traitCollection: ...)`
     static func homeActiveIcon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.homeActiveIcon, compatibleWith: traitCollection)
@@ -787,6 +791,13 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "SecondOnboardingImage", bundle: ..., traitCollection: ...)`
+    static func secondOnboardingImage(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.secondOnboardingImage, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
     /// `UIImage(named: "SettingIcon", bundle: ..., traitCollection: ...)`
     static func settingIcon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.settingIcon, compatibleWith: traitCollection)
@@ -818,6 +829,13 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "StorageDisabledIcon", bundle: ..., traitCollection: ...)`
     static func storageDisabledIcon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.storageDisabledIcon, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "ThirdOnboardingImage", bundle: ..., traitCollection: ...)`
+    static func thirdOnboardingImage(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.thirdOnboardingImage, compatibleWith: traitCollection)
     }
     #endif
 

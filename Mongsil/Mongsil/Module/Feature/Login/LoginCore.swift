@@ -22,7 +22,6 @@ enum LoginAction: ToastPresentableAction {
   case setUserID(String)
   case setLoginInfo(Bool, Bool, String, String, String? = nil)
   case loginCompleted
-  case noop
   case presentToast(String)
 }
 
@@ -61,7 +60,6 @@ let loginReducer = Reducer<WithSharedState<LoginState>, LoginAction, LoginEnviro
         case let .success(userInfo):
           let nickName = userInfo["name"] ?? ""
           let email = userInfo["email"] ?? ""
-
           return Effect.concatenate([
             Effect(value: .searchUser(nickName, email)),
             Effect(value: .setLoginInfo(true, true, nickName, email))
@@ -128,9 +126,6 @@ let loginReducer = Reducer<WithSharedState<LoginState>, LoginAction, LoginEnviro
 
   case .loginCompleted:
     return Effect(value: .presentToast("로그인을 완료했어요!"))
-
-  case .noop:
-    return .none
 
   case .presentToast:
     return .none
