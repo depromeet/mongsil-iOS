@@ -10,19 +10,25 @@ import ComposableArchitecture
 
 struct DiaryState: Equatable {
   var userDiary: Diary
+  var isSingleKeyword: Bool {
+    userDiary.keywords.count < 2
+  }
 
   // Child State
   var cardResult: CardResultState = .init()
   var requestDeleteDiaryAlertModal: AlertDoubleButtonState?
+  var moveDreamAlertModal: AlertDoubleButtonState?
 
   init(
     userDiary: Diary,
     cardResult: CardResultState = .init(),
-    requestDeleteDiaryAlertModal: AlertDoubleButtonState? = nil
+    requestDeleteDiaryAlertModal: AlertDoubleButtonState? = nil,
+    moveDreamAlertModal: AlertDoubleButtonState? = nil
   ) {
     self.userDiary = userDiary
     self.cardResult = cardResult
     self.requestDeleteDiaryAlertModal = requestDeleteDiaryAlertModal
+    self.moveDreamAlertModal = moveDreamAlertModal
   }
 }
 
@@ -32,6 +38,7 @@ enum DiaryAction {
   // Child Action
   case cardResult(CardResultAction)
   case requestDeleteDiaryAlertModal(AlertDoubleButtonAction)
+  case moveDreamAlertModal(AlertDoubleButtonAction)
 }
 
 struct DiaryEnvironment {
@@ -49,6 +56,15 @@ Reducer.combine([
       }
     )
   as Reducer<WithSharedState<DiaryState>, DiaryAction, DiaryEnvironment>,
+  alertDoubleButtonReducer
+    .optional()
+    .pullback(
+      state: \.local.moveDreamAlertModal,
+      action: /DiaryAction.moveDreamAlertModal,
+      environment: { _ in
+        AlertDoubleButtonEnvironment()
+      }
+    ) as Reducer<WithSharedState<DiaryState>, DiaryAction, DiaryEnvironment>,
   cardResultReducer
     .pullback(
       state: \.cardResult,
@@ -79,8 +95,19 @@ Reducer.combine([
       )
 
     case .cardResult(.moveDream):
-      // MARK: - 꿈카드 결과 화면 이동 필요
-      return Effect(value: .backButtonTapped)
+      if state.local.isSingleKeyword {
+        // MARK: - 키워드를 통한 꿈카드 결과 화면 이동 구현 필요
+        return Effect(value: .backButtonTapped)
+      }
+      return setAlertModal(
+        state: &state.local.moveDreamAlertModal,
+        titleText: "어떤 키워드로 검색할까요?",
+        bodyText: "두 키워드 중 하나로 검색할 수 있어요.",
+        secondaryButtonTitle: state.local.userDiary.keywords.first ?? "",
+        secondaryButtonHierachy: .primary,
+        primaryButtonTitle: state.local.userDiary.keywords[safe: 1] ?? "",
+        primaryButtonHierachy: .primary
+      )
 
     case .cardResult:
       return .none
@@ -96,6 +123,19 @@ Reducer.combine([
 
     case .requestDeleteDiaryAlertModal:
       return .none
+
+    case .moveDreamAlertModal(.primaryButtonTapped):
+      // MARK: - 얼럿 우측 선택 키워드를 통한 꿈카드 결과 화면 이동 구현 필요
+      state.local.moveDreamAlertModal = nil
+      return Effect(value: .backButtonTapped)
+
+    case .moveDreamAlertModal(.secondaryButtonTapped):
+      // MARK: - 얼럿 좌측 선택 키워드를 통한 꿈카드 결과 화면 이동 구현 필요
+      state.local.moveDreamAlertModal = nil
+      return Effect(value: .backButtonTapped)
+
+    case .moveDreamAlertModal:
+      return .none
     }
   }
 ])
@@ -105,6 +145,7 @@ private func setAlertModal(
   titleText: String? = nil,
   bodyText: String,
   secondaryButtonTitle: String,
+  secondaryButtonHierachy: AlertButton.Hierarchy = .secondary,
   primaryButtonTitle: String,
   primaryButtonHierachy: AlertButton.Hierarchy = .primary
 ) -> Effect<DiaryAction, Never> {
@@ -112,6 +153,7 @@ private func setAlertModal(
     title: titleText,
     body: bodyText,
     secondaryButtonTitle: secondaryButtonTitle,
+    secondaryButtonHierachy: secondaryButtonHierachy,
     primaryButtonTitle: primaryButtonTitle,
     primaryButtonHierachy: primaryButtonHierachy
   )
