@@ -27,7 +27,7 @@ struct DiaryView: View {
         recordDate: userDiaryViewStore.state.date,
         imageURLs: userDiaryViewStore.state.images,
         title: userDiaryViewStore.state.title,
-        keywords: ["호랑이", "달아나다"],
+        keywords: userDiaryViewStore.state.keywords,
         description: userDiaryViewStore.state.description,
         cardResult: .diary,
         backButtonAction: { ViewStore(store).send(.backButtonTapped) }
@@ -37,6 +37,12 @@ struct DiaryView: View {
       store: store.scope(
         state: \.local.requestDeleteDiaryAlertModal,
         action: DiaryAction.requestDeleteDiaryAlertModal
+      )
+    )
+    .alertDoubleButton(
+      store: store.scope(
+        state: \.local.moveDreamAlertModal,
+        action: DiaryAction.moveDreamAlertModal
       )
     )
   }

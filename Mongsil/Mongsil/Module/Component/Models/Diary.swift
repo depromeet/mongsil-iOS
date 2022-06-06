@@ -12,21 +12,24 @@ public struct Diary: Codable, Equatable, Hashable {
   public let description: String
   public let date: String
   public var images: [String]
+  public var keywords: [String]
 
   public enum CodingKeys: String, CodingKey {
-    case title, description, date, images
+    case title, description, date, images, keywords
   }
 
   public init(
     title: String,
     description: String,
     date: String,
-    images: [String]
+    images: [String],
+    keywords: [String]
   ) {
     self.title = title
     self.description = description
     self.date = date
     self.images = images
+    self.keywords = keywords
   }
 
   public init(from decoder: Decoder) throws {
@@ -36,6 +39,7 @@ public struct Diary: Codable, Equatable, Hashable {
     self.description = try container.decode(String.self, forKey: .description)
     self.date = try container.decode(String.self, forKey: .date)
     self.images = try container.decode([String].self, forKey: .images)
+    self.keywords = try container.decode([String].self, forKey: .keywords)
   }
 
   public func encode(to encoder: Encoder) throws {
@@ -44,6 +48,7 @@ public struct Diary: Codable, Equatable, Hashable {
     try container.encode(description, forKey: .description)
     try container.encode(date, forKey: .date)
     try container.encode(images, forKey: .images)
+    try container.encode(keywords, forKey: .keywords)
   }
 }
 
@@ -65,7 +70,8 @@ extension Diary {
       images: [
         "https://user-images.githubusercontent.com/72292617/169724165-75c12342-83fb-4673-a2d9-460f9a14104d.png",
         "https://user-images.githubusercontent.com/72292617/169724245-232f119e-6312-41f3-9f63-98b4957a4ec4.png"
-      ]
+      ],
+      keywords: ["호랑이", "달아나다"]
     )
     public static let diary2 = Diary(
       title: "돼지가 돈다발을 들고 오는 꿈",
@@ -74,7 +80,8 @@ extension Diary {
       images: [
         "https://user-images.githubusercontent.com/72292617/169724165-75c12342-83fb-4673-a2d9-460f9a14104d.png",
         "https://user-images.githubusercontent.com/72292617/169724245-232f119e-6312-41f3-9f63-98b4957a4ec4.png"
-      ]
+      ],
+      keywords: ["돼지", "돈다발"]
     )
     public static let diary3 = Diary(
       title: "귀신에게 쫓기는 꿈",
@@ -83,7 +90,8 @@ extension Diary {
       images: [
         "https://user-images.githubusercontent.com/72292617/169724165-75c12342-83fb-4673-a2d9-460f9a14104d.png",
         "https://user-images.githubusercontent.com/72292617/169724245-232f119e-6312-41f3-9f63-98b4957a4ec4.png"
-      ]
+      ],
+      keywords: ["귀신", "쫓기다"]
     )
     public static let diary4 = Diary(
       title: "다리가 잘리는 꿈",
@@ -92,7 +100,8 @@ extension Diary {
       images: [
         "https://user-images.githubusercontent.com/72292617/169724165-75c12342-83fb-4673-a2d9-460f9a14104d.png",
         "https://user-images.githubusercontent.com/72292617/169724245-232f119e-6312-41f3-9f63-98b4957a4ec4.png"
-      ]
+      ],
+      keywords: ["다리"]
     )
     public static let diary5 = Diary(
       title: "로또에 당첨되는 꿈",
@@ -100,7 +109,8 @@ extension Diary {
       date: convertDateToString(Date()),
       images: [
         "https://user-images.githubusercontent.com/72292617/169724165-75c12342-83fb-4673-a2d9-460f9a14104d.png"
-      ]
+      ],
+      keywords: ["로또"]
     )
     public static let diary6 = Diary(
       title: "절벽에서 뛰어내리는 꿈",
@@ -108,7 +118,8 @@ extension Diary {
       date: "2022.04.10",
       images: [
         "https://user-images.githubusercontent.com/72292617/169724165-75c12342-83fb-4673-a2d9-460f9a14104d.png"
-      ]
+      ],
+      keywords: ["절벽"]
     )
   }
 }

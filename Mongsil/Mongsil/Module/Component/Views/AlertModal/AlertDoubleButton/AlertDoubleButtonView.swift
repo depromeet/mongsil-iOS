@@ -125,11 +125,13 @@ private struct SecondaryButtonView: View {
 
   var body: some View {
     WithViewStore(store.scope(state: \.secondaryButtonTitle)) { secondaryButtonTitleViewStore in
-      AlertButton(
-        title: secondaryButtonTitleViewStore.state,
-        hierarchy: .secondary
-      ) {
-        ViewStore(store).send(.secondaryButtonTapped)
+      WithViewStore(store.scope(state: \.secondaryButtonHierachy)) { secondaryButtonHierachyViewStore in
+        AlertButton(
+          title: secondaryButtonTitleViewStore.state,
+          hierarchy: secondaryButtonHierachyViewStore.state
+        ) {
+          ViewStore(store).send(.secondaryButtonTapped)
+        }
       }
     }
   }

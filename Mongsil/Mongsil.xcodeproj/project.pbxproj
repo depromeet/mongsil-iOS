@@ -68,6 +68,7 @@
 		126E471028220181008D1554 /* AppleLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126E470F28220181008D1554 /* AppleLoginService.swift */; };
 		126EF42D27F2AC2400102FA9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 126EF42C27F2AC2400102FA9 /* Assets.xcassets */; };
 		126EF43027F2AC2400102FA9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 126EF42F27F2AC2400102FA9 /* Preview Assets.xcassets */; };
+		1276A238284DA5B2007C4485 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1276A237284DA5B2007C4485 /* SearchBar.swift */; };
 		127EBD78280A65960011C556 /* UINavigationController+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EBD77280A65960011C556 /* UINavigationController+extensions.swift */; };
 		1287FDC128288A23004B55A9 /* Pretendard-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1287FDC028288A23004B55A9 /* Pretendard-Light.ttf */; };
 		1291296527F812D80017E087 /* Effect+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1291296427F812D80017E087 /* Effect+extensions.swift */; };
@@ -199,6 +200,7 @@
 		126EF42527F2AC2400102FA9 /* Mongsil.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mongsil.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		126EF42C27F2AC2400102FA9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		126EF42F27F2AC2400102FA9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		1276A237284DA5B2007C4485 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		127EBD77280A65960011C556 /* UINavigationController+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+extensions.swift"; sourceTree = "<group>"; };
 		1287FDC028288A23004B55A9 /* Pretendard-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Light.ttf"; sourceTree = "<group>"; };
 		1291296427F812D80017E087 /* Effect+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Effect+extensions.swift"; sourceTree = "<group>"; };
@@ -594,6 +596,14 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		1276A239284DA5B5007C4485 /* SearchBar */ = {
+			isa = PBXGroup;
+			children = (
+				1276A237284DA5B2007C4485 /* SearchBar.swift */,
+			);
+			path = SearchBar;
+			sourceTree = "<group>";
+		};
 		1291296327F8129C0017E087 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -634,6 +644,7 @@
 				12590E89282C8DDA000FB712 /* BottomSheet */,
 				12A56FD72838938100CDEF6E /* CardResultView */,
 				120BF4392839435C00FB8677 /* ActivityView */,
+				1276A239284DA5B5007C4485 /* SearchBar */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1062,6 +1073,7 @@
 				12D7D3CD281E91EA00B83DDE /* UserService.swift in Sources */,
 				12590E8B282C8DEF000FB712 /* BottomSheet.swift in Sources */,
 				12952A61280250A300C89DD7 /* Font+extensions.swift in Sources */,
+				1276A238284DA5B2007C4485 /* SearchBar.swift in Sources */,
 				1214C0E3280E7A37002D2C4C /* LoginView.swift in Sources */,
 				12A56FDB2838955800CDEF6E /* CardResult.swift in Sources */,
 				124DBC7E282A1213005C3ED4 /* Diary.swift in Sources */,

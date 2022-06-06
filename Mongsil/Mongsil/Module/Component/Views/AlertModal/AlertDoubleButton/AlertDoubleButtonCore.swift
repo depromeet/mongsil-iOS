@@ -13,6 +13,7 @@ public struct AlertDoubleButtonState: Equatable {
   public var title: String?
   public var body: String
   public var secondaryButtonTitle: String
+  public var secondaryButtonHierachy: AlertButton.Hierarchy = .secondary
   public var primaryButtonTitle: String
   public var primaryButtonHierachy: AlertButton.Hierarchy = .primary
 
@@ -20,12 +21,14 @@ public struct AlertDoubleButtonState: Equatable {
     title: String? = nil,
     body: String,
     secondaryButtonTitle: String = "취소",
+    secondaryButtonHierachy: AlertButton.Hierarchy = .secondary,
     primaryButtonTitle: String = "확인",
     primaryButtonHierachy: AlertButton.Hierarchy = .primary
   ) {
     self.title = title
     self.body = body
     self.secondaryButtonTitle = secondaryButtonTitle
+    self.secondaryButtonHierachy = secondaryButtonHierachy
     self.primaryButtonTitle = primaryButtonTitle
     self.primaryButtonHierachy = primaryButtonHierachy
   }
