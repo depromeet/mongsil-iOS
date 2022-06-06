@@ -57,6 +57,8 @@ private struct SeachBarView: View {
         .padding(.leading, 16)
       Spacer()
       R.CustomImage.searchIcon.image
+        .renderingMode(.template)
+        .foregroundColor(.gray6)
         .padding(.trailing, 16)
     }
     .frame(height: 48)
