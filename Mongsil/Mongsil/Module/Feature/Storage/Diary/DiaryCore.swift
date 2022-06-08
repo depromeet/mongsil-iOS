@@ -11,7 +11,13 @@ import ComposableArchitecture
 struct DiaryState: Equatable {
   var userDiary: Diary
   var isSingleKeyword: Bool {
-    userDiary.keywords.count < 2
+    userDiary.categoryList.count < 2
+  }
+  var categoryImages: [String] {
+    userDiary.categoryList.map({ $0.image })
+  }
+  var categoryKeywords: [String] {
+    userDiary.categoryList.map({ $0.name })
   }
 
   // Child State
@@ -103,9 +109,9 @@ Reducer.combine([
         state: &state.local.moveDreamAlertModal,
         titleText: "어떤 키워드로 검색할까요?",
         bodyText: "두 키워드 중 하나로 검색할 수 있어요.",
-        secondaryButtonTitle: state.local.userDiary.keywords.first ?? "",
+        secondaryButtonTitle: state.local.categoryKeywords.first ?? "",
         secondaryButtonHierachy: .primary,
-        primaryButtonTitle: state.local.userDiary.keywords[safe: 1] ?? "",
+        primaryButtonTitle: state.local.categoryKeywords[safe: 1] ?? "",
         primaryButtonHierachy: .primary
       )
 
