@@ -106,6 +106,10 @@
 		12B38ADA2831DD1C00D0E921 /* Array+extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B38AD92831DD1C00D0E921 /* Array+extensions.swift */; };
 		12C4A3272845CF5100518172 /* HotKeyword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C4A3262845CF5100518172 /* HotKeyword.swift */; };
 		12C4A3292845D0E600518172 /* DreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C4A3282845D0E600518172 /* DreamService.swift */; };
+		12C4F4E328506E9B00FCECE3 /* EditDiaryRequestDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C4F4E228506E9B00FCECE3 /* EditDiaryRequestDto.swift */; };
+		12C4F4E528506F6500FCECE3 /* DeleteDiaryRequestDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C4F4E428506F6500FCECE3 /* DeleteDiaryRequestDto.swift */; };
+		12C4F4E728506F9D00FCECE3 /* GetDiaryListRequestDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C4F4E628506F9D00FCECE3 /* GetDiaryListRequestDto.swift */; };
+		12C4F4E928506FCA00FCECE3 /* SaveDiaryRequestDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C4F4E828506FCA00FCECE3 /* SaveDiaryRequestDto.swift */; };
 		12D775DB28024B8C00CD0CFD /* Rswift in Frameworks */ = {isa = PBXBuildFile; productRef = 12D775DA28024B8C00CD0CFD /* Rswift */; };
 		12D7D3CD281E91EA00B83DDE /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D7D3CC281E91EA00B83DDE /* UserService.swift */; };
 		12E6EE352828CEFF00504CE3 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E6EE342828CEFF00504CE3 /* SearchView.swift */; };
@@ -239,6 +243,10 @@
 		12B38AD92831DD1C00D0E921 /* Array+extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+extensions.swift"; sourceTree = "<group>"; };
 		12C4A3262845CF5100518172 /* HotKeyword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotKeyword.swift; sourceTree = "<group>"; };
 		12C4A3282845D0E600518172 /* DreamService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DreamService.swift; sourceTree = "<group>"; };
+		12C4F4E228506E9B00FCECE3 /* EditDiaryRequestDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDiaryRequestDto.swift; sourceTree = "<group>"; };
+		12C4F4E428506F6500FCECE3 /* DeleteDiaryRequestDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteDiaryRequestDto.swift; sourceTree = "<group>"; };
+		12C4F4E628506F9D00FCECE3 /* GetDiaryListRequestDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetDiaryListRequestDto.swift; sourceTree = "<group>"; };
+		12C4F4E828506FCA00FCECE3 /* SaveDiaryRequestDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveDiaryRequestDto.swift; sourceTree = "<group>"; };
 		12D7D3CC281E91EA00B83DDE /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		12E6EE342828CEFF00504CE3 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		12E6EE362828CF0500504CE3 /* SearchCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCore.swift; sourceTree = "<group>"; };
@@ -684,6 +692,7 @@
 				12A026D0283391E800665CAF /* UserDreamListRequestDto.swift */,
 				12A026D62833976400665CAF /* UserDreamListIDRequestDto.swift */,
 				12A026D82833993300665CAF /* SaveDreamRequestDto.swift */,
+				12C4F4EA28506FE900FCECE3 /* DiaryDto */,
 			);
 			path = RequestDto;
 			sourceTree = "<group>";
@@ -763,6 +772,17 @@
 				12A56FDA2838955800CDEF6E /* CardResult.swift */,
 			);
 			path = CardResultView;
+			sourceTree = "<group>";
+		};
+		12C4F4EA28506FE900FCECE3 /* DiaryDto */ = {
+			isa = PBXGroup;
+			children = (
+				12C4F4E228506E9B00FCECE3 /* EditDiaryRequestDto.swift */,
+				12C4F4E428506F6500FCECE3 /* DeleteDiaryRequestDto.swift */,
+				12C4F4E628506F9D00FCECE3 /* GetDiaryListRequestDto.swift */,
+				12C4F4E828506FCA00FCECE3 /* SaveDiaryRequestDto.swift */,
+			);
+			path = DiaryDto;
 			sourceTree = "<group>";
 		};
 		12E6EE382828CF0900504CE3 /* Search */ = {
@@ -999,6 +1019,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				12C4F4E728506F9D00FCECE3 /* GetDiaryListRequestDto.swift in Sources */,
 				120BF43B2839437000FB8677 /* ActivityView.swift in Sources */,
 				773AE2B028072421006861FC /* StorageCore.swift in Sources */,
 				1292B1852824938D0050A10D /* CheckUserDto.swift in Sources */,
@@ -1011,6 +1032,7 @@
 				1292B187282494760050A10D /* SignUpUserDto.swift in Sources */,
 				771D12382844956800DFEF8C /* String+extensions.swift in Sources */,
 				126E471028220181008D1554 /* AppleLoginService.swift in Sources */,
+				12C4F4E328506E9B00FCECE3 /* EditDiaryRequestDto.swift in Sources */,
 				12A2245827F7E77700617C10 /* HomeCore.swift in Sources */,
 				12E6EE372828CF0500504CE3 /* SearchCore.swift in Sources */,
 				1291296D27F814CD0017E087 /* ForEachWithIndex.swift in Sources */,
@@ -1056,6 +1078,7 @@
 				12E6EE352828CEFF00504CE3 /* SearchView.swift in Sources */,
 				7779D71A281ADE2F00683C1F /* Dream.swift in Sources */,
 				123EE08A280453B300D34B93 /* SettingCore.swift in Sources */,
+				12C4F4E528506F6500FCECE3 /* DeleteDiaryRequestDto.swift in Sources */,
 				123EE09728045B3600D34B93 /* ListButtonItemWithText.swift in Sources */,
 				12083C97281636700020E20E /* Toast.swift in Sources */,
 				775632712837E30B00B2B51F /* MakersView.swift in Sources */,
@@ -1072,6 +1095,7 @@
 				125F84AC280D122500279C42 /* AlertSingleButtonCore.swift in Sources */,
 				12D7D3CD281E91EA00B83DDE /* UserService.swift in Sources */,
 				12590E8B282C8DEF000FB712 /* BottomSheet.swift in Sources */,
+				12C4F4E928506FCA00FCECE3 /* SaveDiaryRequestDto.swift in Sources */,
 				12952A61280250A300C89DD7 /* Font+extensions.swift in Sources */,
 				1276A238284DA5B2007C4485 /* SearchBar.swift in Sources */,
 				1214C0E3280E7A37002D2C4C /* LoginView.swift in Sources */,
