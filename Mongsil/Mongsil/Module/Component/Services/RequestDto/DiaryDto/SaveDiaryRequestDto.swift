@@ -26,4 +26,3 @@ public struct SaveDiaryRequestDto: Encodable {
     try container.encode(categories, forKey: .categories)
   }
 }
-
