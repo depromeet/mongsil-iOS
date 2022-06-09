@@ -18,6 +18,8 @@ public enum URLHost: CustomStringConvertible {
   case selectDream
   case dreamSearch
   case hotKeyword
+  case diary
+  case diaryList
 
   public var description: String {
     switch self {
@@ -45,6 +47,10 @@ public enum URLHost: CustomStringConvertible {
       return "/api/dream/search"
     case .hotKeyword:
       return "/api/dream/popularity"
+    case .diary:
+      return "/user-card"
+    case .diaryList:
+      return "/user-card/list"
     }
   }
 }

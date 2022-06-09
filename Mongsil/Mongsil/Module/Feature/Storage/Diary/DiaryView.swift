@@ -22,16 +22,20 @@ struct DiaryView: View {
 
   var body: some View {
     WithViewStore(store.scope(state: \.local.userDiary)) { userDiaryViewStore in
-      CardResultView(
-        store: cardResultStore,
-        recordDate: userDiaryViewStore.state.date,
-        imageURLs: userDiaryViewStore.state.images,
-        title: userDiaryViewStore.state.title,
-        keywords: userDiaryViewStore.state.keywords,
-        description: userDiaryViewStore.state.description,
-        cardResult: .diary,
-        backButtonAction: { ViewStore(store).send(.backButtonTapped) }
-      )
+      WithViewStore(store.scope(state: \.local.categoryImages)) { categoryImagesViewStore in
+        WithViewStore(store.scope(state: \.local.categoryKeywords)) { categoryKeywordsViewStore in
+          CardResultView(
+            store: cardResultStore,
+            recordDate: userDiaryViewStore.state.date,
+            imageURLs: categoryImagesViewStore.state,
+            title: userDiaryViewStore.state.title,
+            keywords: categoryKeywordsViewStore.state,
+            description: userDiaryViewStore.state.description,
+            cardResult: .diary,
+            backButtonAction: { ViewStore(store).send(.backButtonTapped) }
+          )
+        }
+      }
     }
     .alertDoubleButton(
       store: store.scope(
