@@ -868,11 +868,11 @@
 				7779D723281C07C900683C1F /* DreamInfo.swift */,
 				7779D71B281ADE3600683C1F /* User.swift */,
 				124DBC7D282A1213005C3ED4 /* Diary.swift */,
-				12A026D4283395C400665CAF /* UserDreamList.swift */,
+				12C4A3262845CF5100518172 /* HotKeyword.swift */,
 				123FED292833689700F62663 /* UserDream.swift */,
+				12A026D4283395C400665CAF /* UserDreamList.swift */,
 				123FED2B28336A4200F62663 /* Category.swift */,
 				7736245B283CF48300EE72F6 /* Makers.swift */,
-				12C4A3262845CF5100518172 /* HotKeyword.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";

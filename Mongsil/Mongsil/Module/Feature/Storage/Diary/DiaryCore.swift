@@ -40,6 +40,8 @@ struct DiaryState: Equatable {
 
 enum DiaryAction {
   case backButtonTapped
+  case setDeleteDiaryList
+  case setDreamPushed
 
   // Child Action
   case cardResult(CardResultAction)
@@ -48,6 +50,11 @@ enum DiaryAction {
 }
 
 struct DiaryEnvironment {
+  var diaryListService: DiaryService
+
+  init(diaryListService: DiaryService) {
+    self.diaryListService = diaryListService
+  }
 }
 
 let diaryReducer: Reducer<WithSharedState<DiaryState>, DiaryAction, DiaryEnvironment> =
@@ -86,8 +93,11 @@ Reducer.combine([
     case .backButtonTapped:
       return .none
 
+    case .setDeleteDiaryList:
+      return .none
+
     case .cardResult(.modifyDiaryButtonTapped):
-      // MARK: - 기록하기 편집 화면 이동 필요
+      // MARK: - 기록하기 편집 화면 이동 필요 
       return Effect(value: .backButtonTapped)
 
     case .cardResult(.removeDiaryButtonTapped):
@@ -102,8 +112,8 @@ Reducer.combine([
 
     case .cardResult(.moveDream):
       if state.local.isSingleKeyword {
-        // MARK: - 키워드를 통한 꿈카드 결과 화면 이동 구현 필요
-        return Effect(value: .backButtonTapped)
+        // MARK: - 키워드를 통한 꿈카드 결과 화면 이동 구현 필요 -> 완료
+        return Effect(value: .setDreamPushed)
       }
       return setAlertModal(
         state: &state.local.moveDreamAlertModal,
@@ -119,9 +129,9 @@ Reducer.combine([
       return .none
 
     case .requestDeleteDiaryAlertModal(.primaryButtonTapped):
-      // MARK: - 꿈 일기 삭제 API 호출 필요
+      // MARK: - 꿈 일기 삭제 API 호출 필요 -> 완료
       state.local.requestDeleteDiaryAlertModal = nil
-      return Effect(value: .backButtonTapped)
+      return Effect(value: .setDeleteDiaryList)
 
     case .requestDeleteDiaryAlertModal(.secondaryButtonTapped):
       state.local.requestDeleteDiaryAlertModal = nil
@@ -131,16 +141,19 @@ Reducer.combine([
       return .none
 
     case .moveDreamAlertModal(.primaryButtonTapped):
-      // MARK: - 얼럿 우측 선택 키워드를 통한 꿈카드 결과 화면 이동 구현 필요
+      // MARK: - 얼럿 우측 선택 키워드를 통한 꿈카드 결과 화면 이동 구현 필요 -> 완료
       state.local.moveDreamAlertModal = nil
-      return Effect(value: .backButtonTapped)
+      return Effect(value: .setDreamPushed)
 
     case .moveDreamAlertModal(.secondaryButtonTapped):
-      // MARK: - 얼럿 좌측 선택 키워드를 통한 꿈카드 결과 화면 이동 구현 필요
+      // MARK: - 얼럿 좌측 선택 키워드를 통한 꿈카드 결과 화면 이동 구현 필요 -> 완료
       state.local.moveDreamAlertModal = nil
-      return Effect(value: .backButtonTapped)
+      return Effect(value: .setDreamPushed)
 
     case .moveDreamAlertModal:
+      return .none
+
+    case .setDreamPushed:
       return .none
     }
   }

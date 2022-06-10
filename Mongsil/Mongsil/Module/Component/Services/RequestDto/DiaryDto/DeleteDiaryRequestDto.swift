@@ -8,7 +8,7 @@
 import Foundation
 
 public struct DeleteDiaryRequestDto: Encodable {
-  public var cardID: String
+  public var cardID: [String]
 
   enum CodingKeys: String, CodingKey {
     case cardID = "cardId"

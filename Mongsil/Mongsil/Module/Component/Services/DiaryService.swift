@@ -81,7 +81,7 @@ public class DiaryService {
     .eraseToAnyPublisher()
   }
 
-  public func deleteDiary(cardID: String) -> AnyPublisher<Unit, Error> {
+  public func deleteDiary(cardID: [String]) -> AnyPublisher<Unit, Error> {
     let url = "http://3.34.46.139:80\(URLHost.diary)"
     let body = DeleteDiaryRequestDto(cardID: cardID)
 
@@ -295,7 +295,7 @@ public enum DiaryServiceErrorFactory: ErrorFactory {
   public static func deleteDiaryFailed(
     url: String,
     statusCode: Int? = nil,
-    cardID: String,
+    cardID: [String],
     underlying: Error? = nil
   ) -> NSError {
     return NSError(

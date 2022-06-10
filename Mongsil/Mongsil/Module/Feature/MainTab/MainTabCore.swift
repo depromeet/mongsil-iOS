@@ -70,6 +70,7 @@ struct MainTabEnvironment {
   var userDreamListService: UserDreamListService
   var dropoutService: DropoutService
   var dreamService: DreamService
+  var diaryService: DiaryService
 
   init(
     mainQueue: AnySchedulerOf<DispatchQueue>,
@@ -78,7 +79,8 @@ struct MainTabEnvironment {
     signUpService: SignUpService,
     userDreamListService: UserDreamListService,
     dropoutService: DropoutService,
-    dreamService: DreamService
+    dreamService: DreamService,
+    diaryService: DiaryService
   ) {
     self.mainQueue = mainQueue
     self.kakaoLoginService = kakaoLoginService
@@ -87,6 +89,7 @@ struct MainTabEnvironment {
     self.userDreamListService = userDreamListService
     self.dropoutService = dropoutService
     self.dreamService = dreamService
+    self.diaryService = diaryService
   }
 }
 
@@ -132,7 +135,8 @@ Reducer.combine([
       environment: {
         StorageEnvironment(
           userDreamListService: $0.userDreamListService,
-          dropoutService: $0.dropoutService
+          dropoutService: $0.dropoutService,
+          diaryService: $0.diaryService
         )
       }
     ) as Reducer<WithSharedState<MainTabState>, MainTabAction, MainTabEnvironment>,

@@ -42,6 +42,7 @@ struct AppEnvironment {
   var userDreamListService: UserDreamListService
   var dropoutService: DropoutService
   var dreamService: DreamService
+  var diaryService: DiaryService
 
   init(
     mainQueue: AnySchedulerOf<DispatchQueue>,
@@ -52,7 +53,8 @@ struct AppEnvironment {
     signUpService: SignUpService,
     userDreamListService: UserDreamListService,
     dropoutService: DropoutService,
-    dreamService: DreamService
+    dreamService: DreamService,
+    diaryService: DiaryService
   ) {
     self.mainQueue = mainQueue
     self.appTrackingService = appTrackingService
@@ -63,6 +65,7 @@ struct AppEnvironment {
     self.userDreamListService = userDreamListService
     self.dropoutService = dropoutService
     self.dreamService = dreamService
+    self.diaryService = diaryService
   }
 }
 
@@ -78,7 +81,8 @@ let appReducer = Reducer.combine([
         signUpService: $0.signUpService,
         userDreamListService: $0.userDreamListService,
         dropoutService: $0.dropoutService,
-        dreamService: $0.dreamService
+        dreamService: $0.dreamService,
+        diaryService: $0.diaryService
       )
     }
   ) as Reducer<WithSharedState<AppState>, AppAction, AppEnvironment>,
@@ -214,6 +218,9 @@ let appReducer = Reducer.combine([
         Effect(value: .setUserID(userID)),
         Effect(value: .mainTab(.tabTapped(.home)))
       ])
+
+    case .mainTab(.storage(.dream(.requestSaveDreamAlertModal(.secondaryButtonTapped)))):
+      return Effect(value: .mainTab(.tabTapped(.storage)))
 
     case .mainTab:
       return .none
