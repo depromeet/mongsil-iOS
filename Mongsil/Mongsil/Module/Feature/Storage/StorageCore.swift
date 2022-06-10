@@ -125,6 +125,7 @@ enum StorageAction: ToastPresentableAction {
   case dream(DreamAction)
   case deleteCardAlertModal(AlertDoubleButtonAction)
 }
+
 struct StorageEnvironment {
   var userDreamListService: UserDreamListService
   var dropoutService: DropoutService
