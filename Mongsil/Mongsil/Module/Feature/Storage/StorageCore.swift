@@ -98,7 +98,7 @@ extension StorageState {
 enum StorageAction: ToastPresentableAction {
   case onAppear
   case setUserDreamList([UserDream])
-  case setUserDiaryList(Diary)
+  case setUserDiaryList([Diary])
   case setSettingPushed(Bool)
   case setDiaryPushed(Bool, Diary? = nil)
   case setDreamPushed(Bool, UserDream? = nil)
@@ -199,7 +199,7 @@ Reducer.combine([
       return .none
 
     case let .setUserDiaryList(diaryList):
-      state.local.diaryList = [diaryList]
+      state.local.diaryList = diaryList
       return .none
 
     case let .setSettingPushed(pushed):
@@ -403,11 +403,11 @@ private func setUserName(state: inout WithSharedState<StorageState>) -> Effect<S
   return .none
 }
 
-private func setDiaryList(
+ private func setDiaryList(
   // MARK: - 추후 유저가 저장한 꿈일기에 대해 받아오는 API 및 로직 필요 -> 완료
   state: inout WithSharedState<StorageState>,
   env: StorageEnvironment
-) -> Effect<StorageAction, Never> {
+ ) -> Effect<StorageAction, Never> {
   guard let userID = state.shared.userID else {
     return .none
   }
@@ -422,7 +422,12 @@ private func setDiaryList(
         return StorageAction.noop
       }
     })
-}
+ }
+// private func setDiaryList(state: inout WithSharedState<StorageState>, env: StorageEnvironment) -> Effect<StorageAction, Never> {
+//  // MARK: - 추후 유저가 저장한 꿈일기에 대해 받아오는 API 및 로직 필요
+//  state.local.diaryList = Diary.Stub.diaryList
+//  return .none
+// }
 
 private func setDreamList(
   state: inout WithSharedState<StorageState>,
@@ -457,6 +462,7 @@ private func deleteDiaryList(
   // MARK: - 추후 꿈일기 삭제 API 및 로직 필요 -> 완료
   let deleteDiaryID = state.local.deleteDiaryList
     .map({ $0.id })
+
   return env.diaryService.deleteDiary(cardID: deleteDiaryID)
     .catchToEffect()
     .map({ result in

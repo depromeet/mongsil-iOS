@@ -8,7 +8,7 @@
 import Foundation
 
 public struct EditDiaryRequestDto: Encodable {
-  public var cardID: String
+  public var cardID: [String]
   public var title: String
   public var description: String
   public var categories: [String]

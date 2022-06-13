@@ -41,7 +41,7 @@ struct DiaryState: Equatable {
 enum DiaryAction {
   case backButtonTapped
   case setDeleteDiaryList
-  case setDreamPushed
+  case setDreamPushed(Bool, UserDream? = nil)
 
   // Child Action
   case cardResult(CardResultAction)
@@ -97,7 +97,7 @@ Reducer.combine([
       return .none
 
     case .cardResult(.modifyDiaryButtonTapped):
-      // MARK: - 기록하기 편집 화면 이동 필요 
+      // MARK: - 기록하기 편집 화면 이동 필요
       return Effect(value: .backButtonTapped)
 
     case .cardResult(.removeDiaryButtonTapped):
@@ -113,7 +113,7 @@ Reducer.combine([
     case .cardResult(.moveDream):
       if state.local.isSingleKeyword {
         // MARK: - 키워드를 통한 꿈카드 결과 화면 이동 구현 필요 -> 완료
-        return Effect(value: .setDreamPushed)
+        return Effect(value: .setDreamPushed(true))
       }
       return setAlertModal(
         state: &state.local.moveDreamAlertModal,
@@ -143,12 +143,12 @@ Reducer.combine([
     case .moveDreamAlertModal(.primaryButtonTapped):
       // MARK: - 얼럿 우측 선택 키워드를 통한 꿈카드 결과 화면 이동 구현 필요 -> 완료
       state.local.moveDreamAlertModal = nil
-      return Effect(value: .setDreamPushed)
+      return Effect(value: .setDreamPushed(true))
 
     case .moveDreamAlertModal(.secondaryButtonTapped):
       // MARK: - 얼럿 좌측 선택 키워드를 통한 꿈카드 결과 화면 이동 구현 필요 -> 완료
       state.local.moveDreamAlertModal = nil
-      return Effect(value: .setDreamPushed)
+      return Effect(value: .setDreamPushed(true))
 
     case .moveDreamAlertModal:
       return .none
