@@ -403,11 +403,11 @@ private func setUserName(state: inout WithSharedState<StorageState>) -> Effect<S
   return .none
 }
 
- private func setDiaryList(
+private func setDiaryList(
   // MARK: - 추후 유저가 저장한 꿈일기에 대해 받아오는 API 및 로직 필요 -> 완료
   state: inout WithSharedState<StorageState>,
   env: StorageEnvironment
- ) -> Effect<StorageAction, Never> {
+) -> Effect<StorageAction, Never> {
   guard let userID = state.shared.userID else {
     return .none
   }
@@ -422,12 +422,7 @@ private func setUserName(state: inout WithSharedState<StorageState>) -> Effect<S
         return StorageAction.noop
       }
     })
- }
-// private func setDiaryList(state: inout WithSharedState<StorageState>, env: StorageEnvironment) -> Effect<StorageAction, Never> {
-//  // MARK: - 추후 유저가 저장한 꿈일기에 대해 받아오는 API 및 로직 필요
-//  state.local.diaryList = Diary.Stub.diaryList
-//  return .none
-// }
+}
 
 private func setDreamList(
   state: inout WithSharedState<StorageState>,
