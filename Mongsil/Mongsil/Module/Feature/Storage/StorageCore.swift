@@ -417,7 +417,7 @@ private func setDiaryList(
     .map({ result in
       switch result {
       case let .success(response):
-        return StorageAction.setUserDiaryList(response)
+        return StorageAction.setUserDiaryList(response.cardList)
       case .failure:
         return StorageAction.noop
       }

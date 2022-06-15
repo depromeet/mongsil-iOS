@@ -243,7 +243,8 @@ private struct DiaryListView: View {
   }
 
   var body: some View {
-    WithViewStore(store.scope(state: \.local.diaryListWithDate)) { diaryListViewStore in
+    WithViewStore(store.scope(state: \.local.diaryList)) { diaryListViewStore in
+//    WithViewStore(store.scope(state: \.local.diaryListWithDate)) { diaryListViewStore in
       if let diaryList = diaryListViewStore.state,
          diaryList.isNotEmpty {
         ScrollView {

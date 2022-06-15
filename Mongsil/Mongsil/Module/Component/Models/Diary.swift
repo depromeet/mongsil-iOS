@@ -45,6 +45,7 @@ public struct Diary: Codable, Equatable, Hashable {
 
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
+
     try container.encode(id, forKey: .id)
     try container.encode(title, forKey: .title)
     try container.encode(description, forKey: .description)
@@ -53,7 +54,7 @@ public struct Diary: Codable, Equatable, Hashable {
   }
 }
 
-extension Diary {
+ extension Diary {
   public enum Stub {
     public static let diaryList = [
       diary1,
@@ -107,4 +108,4 @@ extension Diary {
       categoryList: [Category.Stub.category4]
     )
   }
-}
+ }

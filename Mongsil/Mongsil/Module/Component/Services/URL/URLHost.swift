@@ -48,9 +48,9 @@ public enum URLHost: CustomStringConvertible {
     case .hotKeyword:
       return "/api/dream/popularity"
     case .diary:
-      return "/diary-card"
+      return "/dream-card"
     case .diaryList:
-      return "/diary-card/list"
+      return "/dream-card/list"
     }
   }
 }

@@ -129,7 +129,7 @@ public class DiaryService {
     .eraseToAnyPublisher()
   }
 
-  public func getDiaryList(userID: String) -> AnyPublisher<[Diary], Error> {
+  public func getDiaryList(userID: String) -> AnyPublisher<DiaryList, Error> {
     let url = "http://3.34.46.139:80\(URLHost.diaryList)"
     let body = GetDiaryListRequestDto(userID: userID)
 
@@ -141,11 +141,11 @@ public class DiaryService {
     )
     .validate(statusCode: 200..<300)
     .publishData()
-    .tryMap({ dataResponse -> CommonResponseDto.ExistData<[Diary]> in
+    .tryMap({ dataResponse -> CommonResponseDto.ExistData<DiaryList> in
       switch dataResponse.result {
       case let .success(data):
         do {
-          return try JSONDecoder().decode(CommonResponseDto.ExistData<[Diary]>.self, from: data)
+          return try JSONDecoder().decode(CommonResponseDto.ExistData<DiaryList>.self, from: data)
         } catch {
           throw ErrorFactory.decodeFailed(
             url: url,
@@ -161,7 +161,7 @@ public class DiaryService {
         )
       }
     })
-    .tryMap({ response -> CommonResponseDto.ExistData<[Diary]> in
+    .tryMap({ response -> CommonResponseDto.ExistData<DiaryList> in
       if response.statusCode == 200 {
         return response
       } else {
