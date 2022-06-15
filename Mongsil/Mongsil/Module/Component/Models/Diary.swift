@@ -54,7 +54,7 @@ public struct Diary: Codable, Equatable, Hashable {
   }
 }
 
- extension Diary {
+extension Diary {
   public enum Stub {
     public static let diaryList = [
       diary1,
@@ -108,4 +108,4 @@ public struct Diary: Codable, Equatable, Hashable {
       categoryList: [Category.Stub.category4]
     )
   }
- }
+}

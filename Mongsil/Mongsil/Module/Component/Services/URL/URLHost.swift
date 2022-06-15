@@ -48,8 +48,10 @@ public enum URLHost: CustomStringConvertible {
     case .hotKeyword:
       return "/api/dream/popularity"
     case .diary:
+      //서버측에서 diary-card로 수정 후 수정 예정
       return "/dream-card"
     case .diaryList:
+      //서버측에서 diary-card/list로 수정 후 수정 예정
       return "/dream-card/list"
     }
   }
