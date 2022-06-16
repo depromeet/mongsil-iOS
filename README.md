@@ -1,6 +1,5 @@
 ## 👋 여러분께 몽실을 소개합니다!   
-<img src="https://user-images.githubusercontent.com/72292617/173782809-0c6cf1db-f763-493c-b526-852614e58a36.png" width=400 height=400> <img src="https://user-images.githubusercontent.com/72292617/173787675-7127ad8d-b65c-4c79-a7f8-f1b47ffa8aca.png">   
-
+<img src="https://user-images.githubusercontent.com/72292617/173782809-0c6cf1db-f763-493c-b526-852614e58a36.png" width=400 height=400> <img src="https://user-images.githubusercontent.com/72292617/173787675-7127ad8d-b65c-4c79-a7f8-f1b47ffa8aca.png" align="top">   
 ***
 ## 🛠 Tech Stack   
 - ##### The Composable Architecture (TCA)   
@@ -34,8 +33,9 @@
 - 저장된 해몽과 꿈 일기를 언제든 펼쳐보고 수정 및 삭제도 할 수 있어요.   
 <img src="https://user-images.githubusercontent.com/72292617/174019833-29ce86e1-6df0-4e64-a24f-711d0995aef0.png" width=150><img src="https://user-images.githubusercontent.com/72292617/174019855-7b9b1723-af15-4407-849a-ca5ba9d9acde.png" width=150>   
 #### 👨‍👨‍👧‍👦 친구에게 해몽 공유하기   
-- 친구들에게 편리하게 해몽을 공유할 수 있어요.   
-<img src="https://user-images.githubusercontent.com/72292617/174020645-1df49cdb-c798-422b-bedc-e258f9dc50da.png" width=150>   
+- 친구들에게 편리하게 해몽을 공유할 수 있어요.      
+	<img src="https://user-images.githubusercontent.com/72292617/174020645-1df49cdb-c798-422b-bedc-e258f9dc50da.png" width=150>
+
 #### ✈️ 온보딩 화면   
 - 소셜 계정을 통한 로그인 시 보다 편리한 앱 사용에 도움이 될 수 있도록 온보딩을 해주고 있어요.   
 <img src="https://user-images.githubusercontent.com/72292617/174019973-cb9cca6a-aefa-4f94-8f37-84954a56925c.png" width=150><img src="https://user-images.githubusercontent.com/72292617/174019971-67165d45-0d60-4956-ab31-5d4540a5c692.png" width=150><img src="https://user-images.githubusercontent.com/72292617/174019969-312e3d09-d96e-4fd8-a058-9c68422ce679.png" width=150>   
