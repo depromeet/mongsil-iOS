@@ -18,7 +18,6 @@ public struct DiaryList: Decodable, Equatable, Hashable {
 
   public init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
-
     self.cardList = try container.decode([Diary].self, forKey: .cardList)
   }
 
