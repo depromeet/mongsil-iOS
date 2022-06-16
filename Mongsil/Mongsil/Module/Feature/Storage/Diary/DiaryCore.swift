@@ -29,7 +29,8 @@ struct DiaryState: Equatable {
     userDiary: Diary,
     cardResult: CardResultState = .init(),
     requestDeleteDiaryAlertModal: AlertDoubleButtonState? = nil,
-    moveDreamAlertModal: AlertDoubleButtonState? = nil
+    moveDreamAlertModal: AlertDoubleButtonState? = nil,
+    isCardResultPushed: Bool = true
   ) {
     self.userDiary = userDiary
     self.cardResult = cardResult
@@ -41,7 +42,7 @@ struct DiaryState: Equatable {
 enum DiaryAction {
   case backButtonTapped
   case setDeleteDiaryList
-  case setDreamPushed
+  case presentToast(String)
 
   // Child Action
   case cardResult(CardResultAction)
@@ -88,12 +89,9 @@ Reducer.combine([
     )
   as Reducer<WithSharedState<DiaryState>, DiaryAction, DiaryEnvironment>,
   Reducer<WithSharedState<DiaryState>, DiaryAction, DiaryEnvironment> {
-    state, action, _ in
+    state, action, env in
     switch action {
     case .backButtonTapped:
-      return .none
-
-    case .setDeleteDiaryList:
       return .none
 
     case .cardResult(.modifyDiaryButtonTapped):
@@ -130,8 +128,20 @@ Reducer.combine([
 
     case .requestDeleteDiaryAlertModal(.primaryButtonTapped):
       // MARK: - 꿈 일기 삭제 API 호출 필요 -> 완료
-      state.local.requestDeleteDiaryAlertModal = nil
-      return Effect(value: .setDeleteDiaryList)
+      let idList = state.local.userDiary.id
+
+      return env.diaryListService.deleteDiary(idList: [idList])
+        .catchToEffect()
+        .flatMapLatest({ result -> Effect<DiaryAction, Never> in
+          switch result {
+          case .success:
+            popToRoot()
+            return Effect(value: .setDeleteDiaryList)
+          case .failure:
+            return Effect(value: .presentToast("꿈 일기가 삭제되지 않았어요. 다시 시도해주세요."))
+          }
+        })
+        .eraseToEffect()
 
     case .requestDeleteDiaryAlertModal(.secondaryButtonTapped):
       state.local.requestDeleteDiaryAlertModal = nil
@@ -141,7 +151,6 @@ Reducer.combine([
       return .none
 
     case .moveDreamAlertModal(.primaryButtonTapped):
-
       // MARK: - 얼럿 우측 선택 키워드를 통한 꿈카드 결과 화면 이동 구현 필요
       state.local.moveDreamAlertModal = nil
       return Effect(value: .backButtonTapped)
@@ -154,7 +163,10 @@ Reducer.combine([
     case .moveDreamAlertModal:
       return .none
 
-    case .setDreamPushed:
+    case .setDeleteDiaryList:
+      return .none
+
+    case .presentToast:
       return .none
     }
   }

@@ -458,7 +458,7 @@ private func deleteDiaryList(
   let deleteDiaryID = state.local.deleteDiaryList
     .map({ $0.id })
 
-  return env.diaryService.deleteDiary(cardID: deleteDiaryID)
+  return env.diaryService.deleteDiary(idList: deleteDiaryID)
     .catchToEffect()
     .map({ result in
       switch result {

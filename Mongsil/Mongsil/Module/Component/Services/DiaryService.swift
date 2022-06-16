@@ -81,9 +81,9 @@ public class DiaryService {
     .eraseToAnyPublisher()
   }
 
-  public func deleteDiary(cardID: [String]) -> AnyPublisher<Unit, Error> {
+  public func deleteDiary(idList: [String]) -> AnyPublisher<Unit, Error> {
     let url = "http://3.34.46.139:80\(URLHost.diary)"
-    let body = DeleteDiaryRequestDto(cardID: cardID)
+    let body = DeleteDiaryRequestDto(idList: idList)
 
     return alamofireSession.request(
       url,
@@ -108,7 +108,7 @@ public class DiaryService {
       case let .failure(error):
         throw ErrorFactory.deleteDiaryFailed(
           url: url,
-          cardID: cardID,
+          idList: idList,
           underlying: error
         )
       }
@@ -120,7 +120,7 @@ public class DiaryService {
         throw ErrorFactory.deleteDiaryFailed(
           url: url,
           statusCode: response.statusCode,
-          cardID: cardID,
+          idList: idList,
           underlying: nil
         )
       }
@@ -295,7 +295,7 @@ public enum DiaryServiceErrorFactory: ErrorFactory {
   public static func deleteDiaryFailed(
     url: String,
     statusCode: Int? = nil,
-    cardID: [String],
+    idList: [String],
     underlying: Error? = nil
   ) -> NSError {
     return NSError(
@@ -305,7 +305,7 @@ public enum DiaryServiceErrorFactory: ErrorFactory {
         "identifier": String(reflecting: Code.deleteDiaryFailed),
         "url": url,
         "statusCode": statusCode as Any,
-        "cardID": cardID,
+        "idList": idList,
         NSUnderlyingErrorKey: underlying as Any
       ]
     )
