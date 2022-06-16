@@ -1,6 +1,7 @@
 ## 👋 여러분께 몽실을 소개합니다!   
-<img src="https://user-images.githubusercontent.com/72292617/173782809-0c6cf1db-f763-493c-b526-852614e58a36.png" width=400 height=400> <img src="https://user-images.githubusercontent.com/72292617/173787675-7127ad8d-b65c-4c79-a7f8-f1b47ffa8aca.png" align="top">   
-***
+<img src="https://user-images.githubusercontent.com/72292617/173782809-0c6cf1db-f763-493c-b526-852614e58a36.png" width=400 height=400><img src="https://user-images.githubusercontent.com/72292617/174030224-94ee10c6-f26d-4286-b74b-3a7039acb621.png" width=500 height=400>
+
+
 ## 🛠 Tech Stack   
 - ##### The Composable Architecture (TCA)   
   ###### 상태 관리 기반의 단방향 아키텍쳐   
