@@ -9,10 +9,14 @@ import Combine
 import ComposableArchitecture
 import SwiftUI
 
-public struct CardResultState: Equatable {
+struct CardResultState: Equatable {
   var isModifyAndDeleteSheetPresented: Bool = false
   var isShareViewPresented: Bool = false
+  var isRecordPushed: Bool = false
   var totalImage: UIImage?
+
+  // Child State
+  var record: RecordState?
 
   init(
     isModifyAndDeleteSheetPresented: Bool = false,
@@ -23,7 +27,7 @@ public struct CardResultState: Equatable {
   }
 }
 
-public enum CardResultAction {
+enum CardResultAction {
   case onAppear
   case bottomImageButtonTapped(CardResult)
   case bottomTitleButtonTapped(CardResult)
@@ -34,58 +38,87 @@ public enum CardResultAction {
   case moveDream
   case deleteDream
   case saveDream
+
+  case setRecordPushed(Bool)
+
+  // Child Action
+  case record(RecordAction)
 }
 
-public struct CardResultEnvironment {
+struct CardResultEnvironment {
+  let mainQueue: AnySchedulerOf<DispatchQueue>
+  let diaryService: DiaryService
+  let dreamService: DreamService
 }
 
-public let cardResultReducer = Reducer<WithSharedState<CardResultState>, CardResultAction, CardResultEnvironment> {
-  state, action, _ in
-  switch action {
-  case .onAppear:
-    state.local.totalImage = snapshot()
-    return .none
+let cardResultReducer = Reducer.combine([
+  recordReducer
+    .optional()
+    .pullback(
+      state: \.record,
+      action: /CardResultAction.record,
+      environment: { RecordEnvironment(mainQueue: $0.mainQueue, diaryService: $0.diaryService, dreamService: $0.dreamService) }
+    ) as Reducer<WithSharedState<CardResultState>, CardResultAction, CardResultEnvironment>,
+  Reducer<WithSharedState<CardResultState>, CardResultAction, CardResultEnvironment> {
+    state, action, _ in
+    switch action {
+    case .onAppear:
+      state.local.totalImage = snapshot()
+      return .none
 
-  case let .bottomImageButtonTapped(cardType):
-    if cardType == .diary {
-      return Effect(value: .setModifyAndDeleteSheetPresented(true))
+    case let .bottomImageButtonTapped(cardType):
+      if cardType == .diary {
+        return Effect(value: .setModifyAndDeleteSheetPresented(true))
+      }
+      return Effect(value: .setShareViewPresented(true))
+
+    case let .bottomTitleButtonTapped(cardType):
+      switch cardType {
+      case .diary:
+        return Effect(value: .moveDream)
+      case .dreamForDelete:
+        return Effect(value: .deleteDream)
+      case .dreamForSave:
+        return Effect(value: .saveDream)
+      }
+
+    case let .setModifyAndDeleteSheetPresented(presented):
+      state.local.isModifyAndDeleteSheetPresented = presented
+      return .none
+
+    case let .setShareViewPresented(presented):
+      state.local.isShareViewPresented = presented
+      return .none
+
+    case .modifyDiaryButtonTapped:
+      return Effect.merge([
+        Effect(value: .setRecordPushed(true)),
+        Effect(value: .setModifyAndDeleteSheetPresented(false))
+      ])
+
+    case .removeDiaryButtonTapped:
+      return Effect(value: .setModifyAndDeleteSheetPresented(false))
+
+    case .record(.backButtonTapped):
+      return Effect(value: .setRecordPushed(false))
+
+    case .moveDream:
+      return .none
+
+    case .deleteDream:
+      return .none
+
+    case .saveDream:
+      return .none
+
+    case .setRecordPushed:
+      return .none
+
+    case .record:
+      return .none
     }
-    return Effect(value: .setShareViewPresented(true))
-
-  case let .bottomTitleButtonTapped(cardType):
-    switch cardType {
-    case .diary:
-      return Effect(value: .moveDream)
-    case .dreamForDelete:
-      return Effect(value: .deleteDream)
-    case .dreamForSave:
-      return Effect(value: .saveDream)
-    }
-
-  case let .setModifyAndDeleteSheetPresented(presented):
-    state.local.isModifyAndDeleteSheetPresented = presented
-    return .none
-
-  case let .setShareViewPresented(presented):
-    state.local.isShareViewPresented = presented
-    return .none
-
-  case .modifyDiaryButtonTapped:
-    return Effect(value: .setModifyAndDeleteSheetPresented(false))
-
-  case .removeDiaryButtonTapped:
-    return Effect(value: .setModifyAndDeleteSheetPresented(false))
-
-  case .moveDream:
-    return .none
-
-  case .deleteDream:
-    return .none
-
-  case .saveDream:
-    return .none
   }
-}
+])
 
 private func snapshot() -> UIImage {
   var totalImage: UIImage?

@@ -127,19 +127,11 @@ enum StorageAction: ToastPresentableAction {
 }
 
 struct StorageEnvironment {
+  var mainQueue: AnySchedulerOf<DispatchQueue>
   var userDreamListService: UserDreamListService
   var dropoutService: DropoutService
   var diaryService: DiaryService
-
-  init(
-    userDreamListService: UserDreamListService,
-    dropoutService: DropoutService,
-    diaryService: DiaryService
-  ) {
-    self.userDreamListService = userDreamListService
-    self.dropoutService = dropoutService
-    self.diaryService = diaryService
-  }
+  var dreamService: DreamService
 }
 
 let storageReducer: Reducer<WithSharedState<StorageState>, StorageAction, StorageEnvironment> =
@@ -160,7 +152,7 @@ Reducer.combine([
       action: /StorageAction.diary,
       environment: {
         DiaryEnvironment(
-          diaryListService: $0.diaryService
+          mainQueue: $0.mainQueue, diaryService: $0.diaryService, dreamService: $0.dreamService, userDreamListService: $0.userDreamListService
         )
       }
     ) as Reducer<WithSharedState<StorageState>, StorageAction, StorageEnvironment>,
@@ -171,7 +163,10 @@ Reducer.combine([
       action: /StorageAction.dream,
       environment: {
         DreamEnvironment(
-          userDreamListService: $0.userDreamListService
+          mainQueue: $0.mainQueue,
+          userDreamListService: $0.userDreamListService,
+          diaryService: $0.diaryService,
+          dreamService: $0.dreamService
         )
       }
     ) as Reducer<WithSharedState<StorageState>, StorageAction, StorageEnvironment>,

@@ -115,7 +115,7 @@ Reducer.combine([
       action: /MainTabAction.home,
       environment: {
         HomeEnvironment(
-          dreamService: $0.dreamService
+          mainQueue: $0.mainQueue, dreamService: $0.dreamService, diaryService: $0.diaryService, userDreamListService: $0.userDreamListService
         )
       }
     ) as Reducer<WithSharedState<MainTabState>, MainTabAction, MainTabEnvironment>,
@@ -124,9 +124,7 @@ Reducer.combine([
     .pullback(
       state: \.record,
       action: /MainTabAction.record,
-      environment: {_ in
-        RecordEnvironment()
-      }
+      environment: { RecordEnvironment(mainQueue: $0.mainQueue, diaryService: $0.diaryService, dreamService: $0.dreamService) }
     ) as Reducer<WithSharedState<MainTabState>, MainTabAction, MainTabEnvironment>,
   storageReducer
     .pullback(
@@ -134,9 +132,11 @@ Reducer.combine([
       action: /MainTabAction.storage,
       environment: {
         StorageEnvironment(
+          mainQueue: $0.mainQueue,
           userDreamListService: $0.userDreamListService,
           dropoutService: $0.dropoutService,
-          diaryService: $0.diaryService
+          diaryService: $0.diaryService,
+          dreamService: $0.dreamService
         )
       }
     ) as Reducer<WithSharedState<MainTabState>, MainTabAction, MainTabEnvironment>,
@@ -214,11 +214,47 @@ Reducer.combine([
       state.local.isTabBarPresented = isDisplay
       return .none
 
+    case .home(.search(.searchResult(.searchResultDetail(.moveToStorage)))):
+      state.local.selectedTab = .storage
+      state.local.storage.selectedTab = .dream
+      return .none
+
+    case .home(.searchResult(.searchResultDetail(.moveToStorage))):
+      state.local.selectedTab = .storage
+      state.local.storage.selectedTab = .dream
+      return .none
+
+    case .storage(.diary(.searchResult(.searchResultDetail(.moveToStorage)))):
+      state.local.selectedTab = .storage
+      state.local.storage.selectedTab = .dream
+      return .none
+
+    case .storage(.diary(.search(.searchResult(.searchResultDetail(.moveToStorage))))):
+      state.local.selectedTab = .storage
+      state.local.storage.selectedTab = .dream
+      return .none
+
     case .home:
       return .none
 
     case .record(.backButtonTapped):
       return Effect(value: .setRecordPushed(false))
+
+    case let .record(.recordKeyword(.moveToDiaryView(diary))):
+
+      guard let diary = diary else {
+        return Effect.concatenate([
+          Effect(value: .setRecordPushed(false)),
+          Effect(value: .tabTapped(.storage)),
+          Effect(value: .storage(.presentToast("기록을 찾을 수 없습니다.")))
+        ])
+      }
+
+      return Effect.concatenate([
+        Effect(value: .setRecordPushed(false)),
+        Effect(value: .tabTapped(.storage)),
+        Effect(value: .storage(.setDiaryPushed(true, diary)))
+      ])
 
     case .record:
       return .none

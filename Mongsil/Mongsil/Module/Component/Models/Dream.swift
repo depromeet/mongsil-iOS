@@ -8,43 +8,41 @@
 import Foundation
 
 public struct Dream: Decodable, Equatable {
-  public let category: String
-  public let subcategory: [Subcategory]
+  public let id: String
+  public let title: String
+  public let description: String
+  public let categories: [Category]
+  public let image: [String]
 
   public init(
-    category: String,
-    subcategory: [Subcategory]
+    id: String,
+    title: String,
+    description: String,
+    categories: [Category],
+    image: [String]
   ) {
-    self.category = category
-    self.subcategory = subcategory
+    self.id = id
+    self.title = title
+    self.description = description
+    self.categories = categories
+    self.image = image
+  }
+
+  public enum CodingKeys: String, CodingKey {
+    case id
+    case title
+    case description
+    case categories
+    case image
   }
 
   public init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
-    category = try container.decode(String.self, forKey: .category)
-    subcategory = try container.decode([Subcategory].self, forKey: .subscategory)
-  }
 
-  public enum CodingKeys: String, CodingKey {
-    case category, subscategory
-  }
-}
-
-extension Dream {
-  public enum Stub {
-    public static let dream1 = Dream(
-      category: "동물",
-      subcategory: [
-        Subcategory.Stub.subcategory1,
-        Subcategory.Stub.subcategory2
-      ]
-    )
-    public static let dream2 = Dream(
-      category: "신체",
-      subcategory: [
-        Subcategory.Stub.subcategory3,
-        Subcategory.Stub.subcategory4
-      ]
-    )
+    self.id = try container.decode(String.self, forKey: .id)
+    self.title = try container.decode(String.self, forKey: .title)
+    self.description = try container.decode(String.self, forKey: .description)
+    self.categories = try container.decode([Category].self, forKey: .categories)
+    self.image = try container.decode([String].self, forKey: .image)
   }
 }

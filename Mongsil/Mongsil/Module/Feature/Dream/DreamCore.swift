@@ -37,8 +37,8 @@ extension DreamState {
 
     init(userDream: UserDream) {
       self.userDream = userDream
-      self.imageURLs = userDream.categoryList.map { $0.image }
-      self.keywords = userDream.categoryList.map { $0.name }
+      self.imageURLs = userDream.categories.map { $0.image }
+      self.keywords = userDream.categories.map { $0.name }
     }
   }
 }
@@ -55,11 +55,10 @@ enum DreamAction: ToastPresentableAction {
 }
 
 struct DreamEnvironment {
+  var mainQueue: AnySchedulerOf<DispatchQueue>
   var userDreamListService: UserDreamListService
-
-  init(userDreamListService: UserDreamListService) {
-    self.userDreamListService = userDreamListService
-  }
+  var diaryService: DiaryService
+  var dreamService: DreamService
 }
 
 let dreamReducer: Reducer<WithSharedState<DreamState>, DreamAction, DreamEnvironment> =
@@ -88,8 +87,8 @@ Reducer.combine([
     .pullback(
       state: \.cardResult,
       action: /DreamAction.cardResult,
-      environment: { _ in
-        CardResultEnvironment()
+      environment: {
+        CardResultEnvironment(mainQueue: $0.mainQueue, diaryService: $0.diaryService, dreamService: $0.dreamService)
       }
     )
   as Reducer<WithSharedState<DreamState>, DreamAction, DreamEnvironment>,

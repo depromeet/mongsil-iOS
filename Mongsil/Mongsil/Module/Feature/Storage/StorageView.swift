@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import NukeUI
 import ComposableArchitecture
 
 struct StorageView: View {
@@ -298,22 +299,16 @@ private struct DiaryCardView: View {
   var title: String
   var description: String
   var date: String
-  var firstImage: Image
-  var secondImage: Image
 
   init(
     store: Store<WithSharedState<StorageState>, StorageAction>,
-    diary: Diary,
-    firstImage: Image = R.CustomImage.homeDisabledIcon.image,
-    secondImage: Image = R.CustomImage.homeActiveIcon.image
+    diary: Diary
   ) {
     self.store = store
     self.diary = diary
     self.title = diary.title
     self.description = diary.description
     self.date = diary.convertedDate
-    self.firstImage = firstImage
-    self.secondImage = secondImage
   }
 
   var body: some View {
@@ -352,8 +347,19 @@ private struct DiaryCardView: View {
           }
           Spacer()
           HStack {
-            firstImage
-            secondImage
+            ForEach(diary.categories, id: \.self) { category in
+              LazyImage(url: category.image) { state in
+                if let image = state.image {
+                  image
+                    .resizingMode(.fill)
+                    .clipShape(RoundedRectangle.init(8))
+                } else {
+                  R.CustomImage.cardResultDefaultImage.image
+                    .resizable()
+                }
+              }
+              .frame(width: 36, height: 36)
+            }
           }
           Spacer()
             .frame(width: 20)
@@ -448,21 +454,15 @@ private struct DreamCardView: View {
   var dream: UserDream
   var title: String
   var description: String
-  var firstImage: Image
-  var secondImage: Image
 
   init(
     store: Store<WithSharedState<StorageState>, StorageAction>,
-    dream: UserDream,
-    firstImage: Image = R.CustomImage.homeDisabledIcon.image,
-    secondImage: Image = R.CustomImage.homeActiveIcon.image
+    dream: UserDream
   ) {
     self.store = store
     self.dream = dream
     self.title = dream.title
     self.description = dream.description
-    self.firstImage = firstImage
-    self.secondImage = secondImage
   }
 
   var body: some View {
@@ -470,8 +470,19 @@ private struct DreamCardView: View {
       WithViewStore(store.scope(state: \.local.deleteUserDreamList)) { deleteUserDreamListViewStore in
         VStack(alignment: .leading) {
           HStack(spacing: 4) {
-            firstImage
-            secondImage
+            ForEach(dream.categories, id: \.self) { category in
+              LazyImage(url: category.image) { state in
+                if let image = state.image {
+                  image
+                    .resizingMode(.fill)
+                    .clipShape(RoundedRectangle.init(8))
+                } else {
+                  R.CustomImage.cardResultDefaultImage.image
+                    .resizable()
+                }
+              }
+              .frame(width: 36, height: 36)
+            }
             Spacer()
             if displayDeleteCardHeaderViewStore.state {
               if deleteUserDreamListViewStore.state.contains(self.dream) {

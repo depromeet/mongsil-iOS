@@ -170,8 +170,8 @@ private struct CountTextView: View {
 
   var body: some View {
     WithViewStore(store.scope(state: \.local.mainText)) { mainTextViewStore in
-      let text = mainTextViewStore.state.count == 0 ? "nnnn" : "\(mainTextViewStore.state.count)"
-      Text(text + "/2000")
+      let textCount = String(format: "%04d", mainTextViewStore.state.count)
+      Text(textCount + "/2000")
         .onKeyboard($keyboardYOffset)
     }
     .frame(minWidth: 61, maxHeight: 16, alignment: .center)

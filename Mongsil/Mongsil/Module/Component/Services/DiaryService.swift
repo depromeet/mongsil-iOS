@@ -177,33 +177,84 @@ public class DiaryService {
     .eraseToAnyPublisher()
   }
 
+  public func getDiary(diaryID: String) -> AnyPublisher<Diary, Error> {
+    let url = "http://3.34.46.139:80\(URLHost.diary)/\(diaryID)"
+
+    return alamofireSession.request(
+        url,
+        method: .get,
+        encoding: JSONEncoding.default
+      )
+    .validate(statusCode: 200..<300)
+    .publishData()
+    .tryMap({ dataResponse -> CommonResponseDto.ExistData<GetDiaryResponseDto> in
+      switch dataResponse.result {
+      case let .success(data):
+        do {
+          return try JSONDecoder().decode(CommonResponseDto.ExistData<GetDiaryResponseDto>.self, from: data)
+        } catch {
+          throw ErrorFactory.decodeFailed(
+            url: url,
+            data: data,
+            underlying: error
+          )
+        }
+      case let .failure(error):
+        throw ErrorFactory.getDiaryFailed(
+          url: url,
+          underlying: error
+        )
+      }
+    })
+    .tryMap({ response -> CommonResponseDto.ExistData<GetDiaryResponseDto> in
+      if response.statusCode == 200 {
+        return response
+      } else {
+        throw ErrorFactory.getDiaryFailed(
+          url: url,
+          statusCode: response.statusCode,
+          underlying: nil
+        )
+      }
+    })
+    .compactMap { $0.data }
+    .map { $0.cardList }
+    .compactMap { $0.first }
+    .eraseToAnyPublisher()
+  }
+
   public func saveDiary(
     userID: String,
     title: String,
     description: String,
+    registerDate: Date,
     categories: [String]
-  ) -> AnyPublisher<Unit, Error> {
+  ) -> AnyPublisher<SaveDiaryResponseDto, Error> {
     let url = "http://3.34.46.139:80\(URLHost.diary)"
     let body = SaveDiaryRequestDto(
       userID: userID,
       title: title,
       description: description,
+      registerDate: registerDate,
       categories: categories
     )
+
+    let encoder = JSONParameterEncoder()
+    encoder.encoder.dateEncodingStrategy = .formatted(DateFormatter.dateFormatter)
 
     return alamofireSession.request(
       url,
       method: .post,
       parameters: body,
-      encoder: JSONParameterEncoder.default
+      encoder: encoder
     )
     .validate(statusCode: 200..<300)
     .publishData()
-    .tryMap({ dataResponse -> CommonResponseDto.NotExistData in
+    .tryMap({ dataResponse -> CommonResponseDto.ExistData<SaveDiaryResponseDto> in
       switch dataResponse.result {
       case let .success(data):
         do {
-          return try JSONDecoder().decode(CommonResponseDto.NotExistData.self, from: data)
+          return try JSONDecoder().decode(CommonResponseDto.ExistData<SaveDiaryResponseDto>.self, from: data)
         } catch {
           throw ErrorFactory.decodeFailed(
             url: url,
@@ -222,7 +273,7 @@ public class DiaryService {
         )
       }
     })
-    .tryMap({ response -> CommonResponseDto.NotExistData in
+    .tryMap({ response -> CommonResponseDto.ExistData<SaveDiaryResponseDto> in
       if response.statusCode == 200 {
         return response
       } else {
@@ -236,7 +287,7 @@ public class DiaryService {
         )
       }
     })
-    .mapTo(Unit())
+    .compactMap { $0.data }
     .eraseToAnyPublisher()
   }
 }
@@ -247,7 +298,8 @@ public enum DiaryServiceErrorFactory: ErrorFactory {
     case editDiaryFailed = 2
     case deleteDiaryFailed = 3
     case getDiaryListFailed = 4
-    case saveDiaryFailed = 5
+    case getDiaryFailed = 5
+    case saveDiaryFailed = 6
   }
 
   public static func decodeFailed(
@@ -325,6 +377,23 @@ public enum DiaryServiceErrorFactory: ErrorFactory {
         "url": url,
         "statusCode": statusCode as Any,
         "userID": userID,
+        NSUnderlyingErrorKey: underlying as Any
+      ]
+    )
+  }
+
+  public static func getDiaryFailed(
+    url: String,
+    statusCode: Int? = nil,
+    underlying: Error? = nil
+  ) -> NSError {
+    return NSError(
+      domain: domain,
+      code: Code.getDiaryFailed.rawValue,
+      userInfo: [
+        "identifier": String(reflecting: Code.getDiaryFailed),
+        "url": url,
+        "statusCode": statusCode as Any,
         NSUnderlyingErrorKey: underlying as Any
       ]
     )

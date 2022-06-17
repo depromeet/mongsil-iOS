@@ -16,31 +16,39 @@ struct RecordKeywordView: View {
   }
 
   var body: some View {
-    VStack {
-      ScrollView {
-        RecordKeywordNavigationView(store: store)
-          .overlay {
-            DateTitle(store: store)
-              .font(.subTitle)
-              .padding(.top, 10)
-              .padding(.bottom, 10)
-              .frame(minWidth: 112, minHeight: 24, alignment: .center)
-              .foregroundColor(.gray2)
+    VStack(spacing: 0) {
+      NavigationBar(store: store)
+      HeaderView(store: store)
+
+      WithViewStore(store.scope(state: \.local.isNotPreference)) { isNotPreferenceViewStore in
+        KeywordView(
+          store: store.scope(
+            state: \.local.keyword,
+            action: RecordKeywordAction.keyword
+          )
+        )
+        .disabled(isNotPreferenceViewStore.state)
+        .opacity(isNotPreferenceViewStore.state ? 0.3 : 1)
+        .apply(content: { view in
+          WithViewStore(store.scope(state: \.local.toastText)) { toastTextViewStore in
+            view.toast(
+              text: toastTextViewStore.state,
+              isBottomPosition: ViewStore(store).shared.isToastBottomPosition
+            )
           }
+        })
       }
-      VStack {
-        Text("꿈 키워드 뷰")
-        Spacer()
-      }
-      .navigationTitle("")
-      .navigationBarHidden(true)
     }
-    .selectDateSheet(store: store)
+    .navigationTitle("")
+    .navigationBarHidden(true)
     .frame(alignment: .center)
+    .onAppear { ViewStore(store).send(.onAppear) }
+
+    BottomView(store: store.scope(state: \.local.selectedCategories))
   }
 }
 
-struct RecordKeywordNavigationView: View {
+private struct NavigationBar: View {
   private let store: Store<WithSharedState<RecordKeywordState>, RecordKeywordAction>
 
   init(store: Store<WithSharedState<RecordKeywordState>, RecordKeywordAction>) {
@@ -49,22 +57,23 @@ struct RecordKeywordNavigationView: View {
 
   var body: some View {
     WithViewStore(store.scope(state: \.local.isStroeButtonAbled)) { isStroeButtonAbledViewStore in
-      MSNavigationBar(
-        backButtonImage: R.CustomImage.backIcon.image,
-        backButtonAction: {
-          ViewStore(store).send(.backButtonTapped)},
-        rightButtonText: "다음",
-        rightButtonAction: {},
-        rightButtonAbled: isStroeButtonAbledViewStore.binding(
-          get: { $0 },
-          send: RecordKeywordAction.setNextButtonAbled(true)
-        )
-      )
+      WithViewStore(store.scope(state: \.local.selectedDateToStr)) { selectedDateToStrViewStore in
+        MSNavigationBar(
+          backButtonImage: R.CustomImage.backIcon.image,
+          backButtonAction: { ViewStore(store).send(.backButtonTapped) },
+          titleText: selectedDateToStrViewStore.state, rightButtonText: "저장",
+          rightButtonAction: { ViewStore(store).send(.saveBtnTapped) },
+          rightButtonAbled: isStroeButtonAbledViewStore.binding(
+            get: { $0 },
+            send: RecordKeywordAction.setNextButtonAbled
+          )
+        ).padding(.horizontal, 20)
+      }
     }
   }
 }
 
-private struct DateTitle: View {
+private struct HeaderView: View {
   private let store: Store<WithSharedState<RecordKeywordState>, RecordKeywordAction>
 
   init(store: Store<WithSharedState<RecordKeywordState>, RecordKeywordAction>) {
@@ -72,67 +81,60 @@ private struct DateTitle: View {
   }
 
   var body: some View {
-    WithViewStore(store.scope(state: \.local.selectedDateToStr)) { selectedDateToStrViewStore in
-      HStack {
-        Button(action: { ViewStore(store).send(.navigationBarDateButtonTapped) }) {
-          Text("\(selectedDateToStrViewStore.state)")
-          R.CustomImage.arrowDownIcon.image
-        }
-        .foregroundColor(.gray2)
-        .padding(.top, 10)
-        .padding(.bottom, 10)
-        .frame(minWidth: 84, minHeight: 24, alignment: .center)
-      }
+    VStack(spacing: 8) {
+      Text("이 꿈의 키워드를 선택해 주세요")
+        .foregroundColor(.msWhite)
+        .font(.title2)
+        .frame(maxWidth: .infinity, alignment: .leading)
+      Text("두 개까지만 선택할 수 있어요!")
+        .foregroundColor(.gray6)
+        .font(.body2)
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    .padding(.top, 24)
+    .padding(.leading, 20)
+
+    WithViewStore(store.scope(state: \.local)) { viewStore in
+      RadioButton(
+        "원하는 키워드가 없어요",
+        isActive: viewStore.binding(
+          get: \.isNotPreference,
+          send: RecordKeywordAction.setIsNotPreference
+        )
+      )
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.top, 24)
+        .padding(.leading, 20)
     }
   }
 }
 
-extension View {
-  fileprivate func selectDateSheet(
-    store: Store<WithSharedState<RecordKeywordState>, RecordKeywordAction>
-  ) -> some View {
-    let viewStore = ViewStore(store.scope(state: \.local))
+private struct BottomView: View {
+  private let store: Store<[Category], RecordKeywordAction>
 
-    return self.apply(content: { view in
-      WithViewStore(store.scope(state: \.local.isSelectDateSheetPresented)) { _ in
-        view.bottomSheet(
-          title: "",
-          isPresented: viewStore.binding(
-            get: \.isSelectDateSheetPresented,
-            send: RecordKeywordAction.setSelectDateSheetPresented
-          ),
-          content: {
-            WithViewStore(store.scope(state: \.local.currentDate)) { selectedDateViewStore in
-              HStack(spacing: 0) {
-                DatePicker(
-                  "",
-                  selection: selectedDateViewStore.binding(
-                    get: { $0 },
-                    send: RecordKeywordAction.setSelectedDate
-                  ),
-                  displayedComponents: .date
-                )
-                .datePickerStyle(WheelDatePickerStyle())
-                .labelsHidden()
+  init(store: Store<[Category], RecordKeywordAction>) {
+    self.store = store
+  }
+
+  var body: some View {
+    WithViewStore(store) { viewStore in
+      if viewStore.state.isNotEmpty {
+        VStack(spacing: 0) {
+          Divider()
+            .background(Color.gray8)
+            .frame(height: 1)
+
+          HStack(spacing: 10) {
+            ForEach(viewStore.state) { category in
+              KeywordClibView(category.name) {
+                viewStore.send(.removeCategoriesButton(category))
               }
             }
-          },
-          bottomArea: {
-            Button(action: { ViewStore(store).send(.confirmDateButtonTapped) }) {
-              HStack {
-                Spacer()
-                Text("확인")
-                  .font(.button)
-                  .foregroundColor(.gray10)
-                  .padding(.vertical, 12)
-                Spacer()
-              }
-            }
-            .background(Color.gray1)
-            .cornerRadius(8)
-          }
-        )
+          }.frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.vertical, 11)
+            .padding(.horizontal, 20)
+        }
       }
-    })
+    }
   }
 }

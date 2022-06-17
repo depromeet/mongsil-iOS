@@ -126,7 +126,7 @@ Reducer.combine([
             return Effect(value: .setUserID(nil))
 
           case .failure:
-            return Effect(value: .presentToast("회원 탈퇴에 실패했습니다. 다시 시도해주세요."))
+            return Effect(value: .presentToast("회원 탈퇴에 실패했어요. 다시 시도해주세요."))
           }
         })
         .eraseToEffect()

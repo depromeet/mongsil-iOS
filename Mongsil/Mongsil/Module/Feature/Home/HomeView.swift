@@ -98,6 +98,25 @@ private struct SearchLink: View {
       )
       .isDetailLink(true)
     }
+
+    WithViewStore(store.scope(state: \.local.isSearchResultPushed)) { isSearchResultPushedViewStore in
+      NavigationLink(
+        destination: IfLetStore(
+          store.scope(
+            state: \.searchResult,
+            action: HomeAction.searchResult
+          ),
+          then: SearchResultView.init(store: )
+        ),
+        isActive: isSearchResultPushedViewStore.binding(
+          send: HomeAction.setSearchResultPushed
+        ),
+        label: {
+          EmptyView()
+        }
+      )
+      .isDetailLink(true)
+    }
   }
 }
 

@@ -11,16 +11,21 @@ import ComposableArchitecture
 struct DiaryState: Equatable {
   var userDiary: Diary
   var isSingleKeyword: Bool {
-    userDiary.categoryList.count < 2
+    userDiary.categories.count < 2
   }
   var categoryImages: [String] {
-    userDiary.categoryList.map({ $0.image })
+    userDiary.categories.map({ $0.image })
   }
   var categoryKeywords: [String] {
-    userDiary.categoryList.map({ $0.name })
+    userDiary.categories.map({ $0.name })
   }
 
+  var isSearchPushed: Bool = false
+  var isSearchResultPushed: Bool = false
+
   // Child State
+  var search: SearchState?
+  var searchResult: SearchResultState?
   var cardResult: CardResultState = .init()
   var requestDeleteDiaryAlertModal: AlertDoubleButtonState?
   var moveDreamAlertModal: AlertDoubleButtonState?
@@ -42,22 +47,44 @@ enum DiaryAction: ToastPresentableAction {
   case backButtonTapped
   case presentToast(String)
 
+  case setSearchPushed(Bool)
+  case setSearchResultPushed(Bool)
+
   // Child Action
+  case search(SearchAction)
+  case searchResult(SearchResultAction)
   case cardResult(CardResultAction)
   case requestDeleteDiaryAlertModal(AlertDoubleButtonAction)
   case moveDreamAlertModal(AlertDoubleButtonAction)
 }
 
 struct DiaryEnvironment {
-  var diaryListService: DiaryService
-
-  init(diaryListService: DiaryService) {
-    self.diaryListService = diaryListService
-  }
+  var mainQueue: AnySchedulerOf<DispatchQueue>
+  var diaryService: DiaryService
+  var dreamService: DreamService
+  var userDreamListService: UserDreamListService
 }
 
 let diaryReducer: Reducer<WithSharedState<DiaryState>, DiaryAction, DiaryEnvironment> =
 Reducer.combine([
+  searchReducer
+    .optional()
+    .pullback(
+      state: \.search,
+      action: /DiaryAction.search,
+      environment: {
+        SearchEnvironment(mainQueue: $0.mainQueue, dreamService: $0.dreamService, diaryService: $0.diaryService, userDreamListService: $0.userDreamListService)
+      }
+    ) as Reducer<WithSharedState<DiaryState>, DiaryAction, DiaryEnvironment>,
+  searchResultReducer
+    .optional()
+    .pullback(
+      state: \.searchResult,
+      action: /DiaryAction.searchResult,
+      environment: {
+        SearchResultEnvironment(mainQueue: $0.mainQueue, dreamService: $0.dreamService, diaryService: $0.diaryService, userDreamListService: $0.userDreamListService)
+      }
+    ) as Reducer<WithSharedState<DiaryState>, DiaryAction, DiaryEnvironment>,
   alertDoubleButtonReducer
     .optional()
     .pullback(
@@ -81,8 +108,8 @@ Reducer.combine([
     .pullback(
       state: \.cardResult,
       action: /DiaryAction.cardResult,
-      environment: { _ in
-        CardResultEnvironment()
+      environment: {
+        CardResultEnvironment(mainQueue: $0.mainQueue, diaryService: $0.diaryService, dreamService: $0.dreamService)
       }
     )
   as Reducer<WithSharedState<DiaryState>, DiaryAction, DiaryEnvironment>,
@@ -92,12 +119,22 @@ Reducer.combine([
     case .backButtonTapped:
       return .none
 
-    case .presentToast:
+    case let .setSearchPushed(pushed):
+      state.local.isSearchPushed = pushed
+      if pushed {
+        state.local.search = .init()
+      }
       return .none
 
-    case .cardResult(.modifyDiaryButtonTapped):
-      // MARK: - 기록하기 편집 화면 이동 필요
-      return Effect(value: .backButtonTapped)
+    case let .setSearchResultPushed(pushed):
+      state.local.isSearchResultPushed = pushed
+      if pushed {
+        state.local.searchResult = .init()
+      }
+      return .none
+
+    case .presentToast:
+      return .none
 
     case .cardResult(.removeDiaryButtonTapped):
       return setAlertModal(
@@ -110,9 +147,16 @@ Reducer.combine([
       )
 
     case .cardResult(.moveDream):
+
+      guard let keyword = state.local.categoryKeywords.first else {
+        return Effect(value: .setSearchPushed(true))
+      }
+
       if state.local.isSingleKeyword {
-        // MARK: - 키워드를 통한 꿈카드 결과 화면 이동 구현 필요
-        return Effect(value: .backButtonTapped)
+        return Effect.concatenate([
+          Effect(value: .setSearchResultPushed(true)),
+          Effect(value: .searchResult(.search(keyword)))
+        ])
       }
       return setAlertModal(
         state: &state.local.moveDreamAlertModal,
@@ -124,13 +168,33 @@ Reducer.combine([
         primaryButtonHierachy: .primary
       )
 
+    case let .cardResult(.record(.recordKeyword(.moveToDiaryView(diary)))):
+      guard let diary = diary else {
+        return Effect.merge([
+          Effect(value: .cardResult(.setRecordPushed(false))),
+          Effect(value: .presentToast("기록을 찾을 수 없습니다."))
+        ])
+      }
+
+      state.local.userDiary = diary
+
+      return Effect(value: .cardResult(.setRecordPushed(false)))
+
+    case let .cardResult(.setRecordPushed(isRecordPushed)):
+      state.local.cardResult.isRecordPushed = isRecordPushed
+      if isRecordPushed {
+        state.local.cardResult.record = .init(editTarget: state.local.userDiary)
+      }
+      return .none
+
     case .cardResult:
       return .none
 
     case .requestDeleteDiaryAlertModal(.primaryButtonTapped):
       let idList = state.local.userDiary.id
       state.local.requestDeleteDiaryAlertModal = nil
-      return env.diaryListService.deleteDiary(idList: [idList])
+
+      return env.diaryService.deleteDiary(idList: [idList])
         .catchToEffect()
         .flatMapLatest({ result -> Effect<DiaryAction, Never> in
           switch result {
@@ -152,14 +216,32 @@ Reducer.combine([
       return .none
 
     case .moveDreamAlertModal(.primaryButtonTapped):
-      // MARK: - 얼럿 우측 선택 키워드를 통한 꿈카드 결과 화면 이동 구현 필요
       state.local.moveDreamAlertModal = nil
-      return Effect(value: .backButtonTapped)
+      guard let keyword = state.local.categoryKeywords.last else { return .none }
+      return Effect.concatenate([
+        Effect(value: .setSearchResultPushed(true)),
+        Effect(value: .searchResult(.search(keyword)))
+      ])
 
     case .moveDreamAlertModal(.secondaryButtonTapped):
-      // MARK: - 얼럿 좌측 선택 키워드를 통한 꿈카드 결과 화면 이동 구현 필요
       state.local.moveDreamAlertModal = nil
-      return Effect(value: .backButtonTapped)
+      guard let keyword = state.local.categoryKeywords.first else { return .none }
+      return Effect.concatenate([
+        Effect(value: .setSearchResultPushed(true)),
+        Effect(value: .searchResult(.search(keyword)))
+      ])
+
+    case .searchResult(.backButtonTapped):
+      return Effect(value: .setSearchResultPushed(false))
+
+    case .search(.backButtonTapped):
+      return Effect(value: .setSearchPushed(false))
+
+    case .search:
+      return .none
+
+    case .searchResult:
+      return .none
 
     case .moveDreamAlertModal:
       return .none

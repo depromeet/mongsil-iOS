@@ -55,17 +55,17 @@ private struct SegmentTab: View {
 
   var body: some View {
     Button(action: action) {
-      VStack {
+      VStack(spacing: 0) {
         Text(title)
           .font(.button)
           .foregroundColor(selected ? .gray2 : .gray8)
+          .frame(maxWidth: .infinity, maxHeight: .infinity)
+
         if selected {
-          Divider()
-            .background(Color.gray3)
-            .frame(height: 1)
+          Rectangle().frame(height: 1).foregroundColor(.gray3)
         }
-      }
+      }.frame(maxWidth: .infinity, maxHeight: 44)
     }
-    .frame(maxWidth: .infinity, maxHeight: 44)
+
   }
 }
