@@ -31,12 +31,6 @@ public func convertMonthDateToString(_ date: Date) -> String {
   return dateFormatter.string(from: date)
 }
 
-public func convertDayDateToString(_ date: Date) -> String {
-  let dateFormatter = DateFormatter()
-  dateFormatter.dateFormat = "dd"
-  return dateFormatter.string(from: date)
-}
-
 public func convertDateFormatter(date: String) -> String {
 
   let dateFormatter = DateFormatter()
