@@ -243,8 +243,7 @@ private struct DiaryListView: View {
   }
 
   var body: some View {
-    WithViewStore(store.scope(state: \.local.diaryList)) { diaryListViewStore in
-//    WithViewStore(store.scope(state: \.local.diaryListWithDate)) { diaryListViewStore in
+    WithViewStore(store.scope(state: \.local.diaryListWithDate)) { diaryListViewStore in
       if let diaryList = diaryListViewStore.state,
          diaryList.isNotEmpty {
         ScrollView {
@@ -298,7 +297,7 @@ private struct DiaryCardView: View {
   var diary: Diary
   var title: String
   var description: String
-  var date: String
+  var convertedDate: String
   var firstImage: Image
   var secondImage: Image
 
@@ -312,7 +311,7 @@ private struct DiaryCardView: View {
     self.diary = diary
     self.title = diary.title
     self.description = diary.description
-    self.date = diary.date
+    self.convertedDate = diary.convertedDate
     self.firstImage = firstImage
     self.secondImage = secondImage
   }
@@ -345,7 +344,7 @@ private struct DiaryCardView: View {
               .foregroundColor(.gray3)
               .lineLimit(1)
               .padding(.bottom, 10)
-            Text(date)
+            Text(convertedDate)
               .font(.caption1)
               .foregroundColor(.gray6)
             Spacer()

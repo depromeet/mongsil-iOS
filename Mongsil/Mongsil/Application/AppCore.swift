@@ -207,6 +207,9 @@ let appReducer = Reducer.combine([
     case let .mainTab(.storage(.presentToast(text))):
       return Effect(value: .presentToast(text))
 
+    case let .mainTab(.storage(.diary(.presentToast(text)))):
+      return Effect(value: .presentToast(text))
+
     case let .mainTab(.storage(.dream(.presentToast(text)))):
       return Effect(value: .presentToast(text))
 

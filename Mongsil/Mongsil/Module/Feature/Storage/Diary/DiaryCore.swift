@@ -29,8 +29,7 @@ struct DiaryState: Equatable {
     userDiary: Diary,
     cardResult: CardResultState = .init(),
     requestDeleteDiaryAlertModal: AlertDoubleButtonState? = nil,
-    moveDreamAlertModal: AlertDoubleButtonState? = nil,
-    isCardResultPushed: Bool = true
+    moveDreamAlertModal: AlertDoubleButtonState? = nil
   ) {
     self.userDiary = userDiary
     self.cardResult = cardResult
@@ -39,9 +38,9 @@ struct DiaryState: Equatable {
   }
 }
 
-enum DiaryAction {
+enum DiaryAction: ToastPresentableAction {
   case backButtonTapped
-  case setDeleteDiaryList
+  case deleteDiaryList
   case presentToast(String)
 
   // Child Action
@@ -94,6 +93,9 @@ Reducer.combine([
     case .backButtonTapped:
       return .none
 
+    case .presentToast:
+      return .none
+
     case .cardResult(.modifyDiaryButtonTapped):
       // MARK: - 기록하기 편집 화면 이동 필요
       return Effect(value: .backButtonTapped)
@@ -127,16 +129,14 @@ Reducer.combine([
       return .none
 
     case .requestDeleteDiaryAlertModal(.primaryButtonTapped):
-      // MARK: - 꿈 일기 삭제 API 호출 필요 -> 완료
       let idList = state.local.userDiary.id
-
+      popToRoot()
       return env.diaryListService.deleteDiary(idList: [idList])
         .catchToEffect()
         .flatMapLatest({ result -> Effect<DiaryAction, Never> in
           switch result {
           case .success:
-            popToRoot()
-            return Effect(value: .setDeleteDiaryList)
+            return Effect(value: .deleteDiaryList)
           case .failure:
             return Effect(value: .presentToast("꿈 일기가 삭제되지 않았어요. 다시 시도해주세요."))
           }
@@ -163,10 +163,7 @@ Reducer.combine([
     case .moveDreamAlertModal:
       return .none
 
-    case .setDeleteDiaryList:
-      return .none
-
-    case .presentToast:
+    case .deleteDiaryList:
       return .none
     }
   }

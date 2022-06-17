@@ -5,10 +5,14 @@
 //  Created by 이승후 on 2022/06/16.
 //
 
-import SwiftUI
+import Foundation
 
-public struct DiaryList: Decodable, Equatable, Hashable {
+public struct DiaryList: Decodable {
   public let cardList: [Diary]
+
+  public enum CodingKeys: String, CodingKey {
+    case cardList
+  }
 
   public init(
     cardList: [Diary]
@@ -19,9 +23,5 @@ public struct DiaryList: Decodable, Equatable, Hashable {
   public init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
     self.cardList = try container.decode([Diary].self, forKey: .cardList)
-  }
-
-  public enum CodingKeys: String, CodingKey {
-    case cardList
   }
 }

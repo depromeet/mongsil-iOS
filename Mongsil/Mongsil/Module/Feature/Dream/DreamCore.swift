@@ -170,7 +170,6 @@ Reducer.combine([
       return .none
 
     case .requestSaveDreamAlertModal(.secondaryButtonTapped):
-      // MARK: - 추후 꿈 카드 검색 후 저장 시 보관함 가기 로직 구현 (AppAction에서 필요) -> 완료
       state.local.requestSaveDreamAlertModal = nil
       return .none
 

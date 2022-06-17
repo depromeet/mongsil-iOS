@@ -19,7 +19,7 @@ public class DiaryService {
   }
 
   public func editDiary(
-    cardID: [String],
+    cardID: String,
     title: String,
     description: String,
     categories: [String]
@@ -270,7 +270,7 @@ public enum DiaryServiceErrorFactory: ErrorFactory {
   public static func editDiaryFailed(
     url: String,
     statusCode: Int? = nil,
-    cardID: [String],
+    cardID: String,
     title: String,
     description: String,
     categories: [String],

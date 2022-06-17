@@ -21,7 +21,7 @@ struct StorageState: Equatable {
   public var diaryList: [Diary]?
   public var diaryListWithDate: [Diary] {
     diaryList?.filter {
-      $0.date.contains(self.selectedDateToStr)
+      $0.convertedDate.contains(self.selectedDateToStr)
     } ?? []
   }
   public var userDreamList: [UserDream]?
@@ -160,7 +160,8 @@ Reducer.combine([
       action: /StorageAction.diary,
       environment: {
         DiaryEnvironment(
-          diaryListService: $0.diaryService )
+          diaryListService: $0.diaryService
+        )
       }
     ) as Reducer<WithSharedState<StorageState>, StorageAction, StorageEnvironment>,
   dreamReducer
@@ -375,6 +376,7 @@ Reducer.combine([
       if state.local.selectedTab == .diary {
         return Effect.concatenate([
           deleteDiaryList(state: &state, env: env),
+          setDiaryCount(state: &state),
           Effect(value: .setDisplayDeleteCardHeader(false))
         ])
       } else {
@@ -404,7 +406,6 @@ private func setUserName(state: inout WithSharedState<StorageState>) -> Effect<S
 }
 
 private func setDiaryList(
-  // MARK: - 추후 유저가 저장한 꿈일기에 대해 받아오는 API 및 로직 필요 -> 완료
   state: inout WithSharedState<StorageState>,
   env: StorageEnvironment
 ) -> Effect<StorageAction, Never> {
@@ -455,10 +456,10 @@ private func deleteDiaryList(
   env: StorageEnvironment
 ) -> Effect<StorageAction, Never> {
   // MARK: - 추후 꿈일기 삭제 API 및 로직 필요 -> 완료
-  let deleteDiaryID = state.local.deleteDiaryList
+  let deleteDiaryIDList = state.local.deleteDiaryList
     .map({ $0.id })
 
-  return env.diaryService.deleteDiary(idList: deleteDiaryID)
+  return env.diaryService.deleteDiary(idList: deleteDiaryIDList)
     .catchToEffect()
     .map({ result in
       switch result {
@@ -476,7 +477,6 @@ private func deleteDreamList(
 ) -> Effect<StorageAction, Never> {
   let deleteUserDreamListID = state.local.deleteUserDreamList
     .map({ $0.id })
-
   return env.userDreamListService.deleteUserDreamList(dreamIDs: deleteUserDreamListID)
     .catchToEffect()
     .map({ result in
