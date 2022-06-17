@@ -191,8 +191,7 @@ Reducer.combine([
       return Effect.concatenate([
         setUserName(state: &state),
         setDreamList(state: &state, env: env),
-        setDiaryList(state: &state, env: env),
-        setDiaryCount(state: &state)
+        setDiaryList(state: &state, env: env)
       ])
 
     case let .setUserDreamList(userDreamList):
@@ -201,7 +200,7 @@ Reducer.combine([
 
     case let .setUserDiaryList(diaryList):
       state.local.diaryList = diaryList
-      return .none
+      return setDiaryCount(state: &state)
 
     case let .setSettingPushed(pushed):
       state.local.isSettingPushed = pushed
@@ -289,7 +288,7 @@ Reducer.combine([
         state.local.deleteUserDreamList.removeAll()
       }
       state.local.displayDeleteCardHeader = display
-      return .none
+      return setDiaryCount(state: &state)
 
     case let .completeButtonTapped(tab):
       switch tab {
@@ -446,8 +445,8 @@ private func setDreamList(
 }
 
 private func setDiaryCount(state: inout WithSharedState<StorageState>) -> Effect<StorageAction, Never> {
-  let diaryCount = state.local.diaryList?.count
-  state.local.diaryCount = diaryCount ?? 0
+  let diaryCount = state.local.diaryListWithDate.count
+  state.local.diaryCount = diaryCount
   return .none
 }
 
