@@ -11,7 +11,7 @@ public struct DeleteDiaryRequestDto: Encodable {
   public var idList: [String]
 
   enum CodingKeys: String, CodingKey {
-    case idList = "idList"
+    case idList
   }
 
   public func encode(to encoder: Encoder) throws {

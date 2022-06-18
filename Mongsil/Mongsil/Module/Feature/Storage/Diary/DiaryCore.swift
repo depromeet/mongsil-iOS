@@ -40,7 +40,6 @@ struct DiaryState: Equatable {
 
 enum DiaryAction: ToastPresentableAction {
   case backButtonTapped
-  case deleteDiaryList
   case presentToast(String)
 
   // Child Action
@@ -130,13 +129,15 @@ Reducer.combine([
 
     case .requestDeleteDiaryAlertModal(.primaryButtonTapped):
       let idList = state.local.userDiary.id
-      popToRoot()
+      state.local.requestDeleteDiaryAlertModal = nil
       return env.diaryListService.deleteDiary(idList: [idList])
         .catchToEffect()
         .flatMapLatest({ result -> Effect<DiaryAction, Never> in
           switch result {
           case .success:
-            return Effect(value: .deleteDiaryList)
+            popToRoot()
+            return .none
+
           case .failure:
             return Effect(value: .presentToast("꿈 일기가 삭제되지 않았어요. 다시 시도해주세요."))
           }
@@ -161,9 +162,6 @@ Reducer.combine([
       return Effect(value: .backButtonTapped)
 
     case .moveDreamAlertModal:
-      return .none
-
-    case .deleteDiaryList:
       return .none
     }
   }

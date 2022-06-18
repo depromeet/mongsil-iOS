@@ -31,12 +31,11 @@ public func convertMonthDateToString(_ date: Date) -> String {
   return dateFormatter.string(from: date)
 }
 
-public func convertDateFormatter(date: String) -> String {
-
+public func convertDateFormatter(_ date: String) -> String {
   let dateFormatter = DateFormatter()
   dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-  dateFormatter.timeZone = NSTimeZone(name: "KST") as TimeZone?
   dateFormatter.locale = Locale(identifier: "ko_KR")
+
   let convertedDate = dateFormatter.date(from: date)
 
   guard dateFormatter.date(from: date) != nil else {
@@ -44,7 +43,7 @@ public func convertDateFormatter(date: String) -> String {
     return ""
   }
   dateFormatter.dateFormat = "yyyy.MM.dd"
-  dateFormatter.timeZone = NSTimeZone(name: "KST") as TimeZone?
-  let timeStamp = dateFormatter.string(from: convertedDate!)
-  return timeStamp
+  let convertedCurrentDate = dateFormatter.string(from: convertedDate!)
+
+  return convertedCurrentDate
 }

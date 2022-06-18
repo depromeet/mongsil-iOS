@@ -454,7 +454,6 @@ private func deleteDiaryList(
   state: inout WithSharedState<StorageState>,
   env: StorageEnvironment
 ) -> Effect<StorageAction, Never> {
-  // MARK: - 추후 꿈일기 삭제 API 및 로직 필요 -> 완료
   let deleteDiaryIDList = state.local.deleteDiaryList
     .map({ $0.id })
 

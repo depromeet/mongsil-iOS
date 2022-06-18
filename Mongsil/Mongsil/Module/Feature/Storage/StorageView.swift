@@ -297,7 +297,7 @@ private struct DiaryCardView: View {
   var diary: Diary
   var title: String
   var description: String
-  var convertedDate: String
+  var date: String
   var firstImage: Image
   var secondImage: Image
 
@@ -311,7 +311,7 @@ private struct DiaryCardView: View {
     self.diary = diary
     self.title = diary.title
     self.description = diary.description
-    self.convertedDate = diary.convertedDate
+    self.date = diary.convertedDate
     self.firstImage = firstImage
     self.secondImage = secondImage
   }
@@ -344,7 +344,7 @@ private struct DiaryCardView: View {
               .foregroundColor(.gray3)
               .lineLimit(1)
               .padding(.bottom, 10)
-            Text(convertedDate)
+            Text(date)
               .font(.caption1)
               .foregroundColor(.gray6)
             Spacer()
