@@ -109,4 +109,4 @@ public struct Diary: Codable, Equatable, Hashable {
       categoryList: [Category.Stub.category4]
     )
   }
- }
+}
