@@ -55,7 +55,7 @@ public struct Diary: Codable, Equatable, Hashable {
   }
 }
 
- extension Diary {
+extension Diary {
   public enum Stub {
     public static let diaryList = [
       diary1,
