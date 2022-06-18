@@ -26,7 +26,7 @@ struct DiaryView: View {
         WithViewStore(store.scope(state: \.local.categoryKeywords)) { categoryKeywordsViewStore in
           CardResultView(
             store: cardResultStore,
-            recordDate: userDiaryViewStore.state.date,
+            recordDate: userDiaryViewStore.state.convertedDate,
             imageURLs: categoryImagesViewStore.state,
             title: userDiaryViewStore.state.title,
             keywords: categoryKeywordsViewStore.state,

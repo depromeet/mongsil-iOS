@@ -8,14 +8,14 @@
 import Foundation
 
 public struct DeleteDiaryRequestDto: Encodable {
-  public var cardID: String
+  public var idList: [String]
 
   enum CodingKeys: String, CodingKey {
-    case cardID = "cardId"
+    case idList
   }
 
   public func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: CodingKeys.self)
-    try container.encode(cardID, forKey: .cardID)
+    try container.encode(idList, forKey: .idList)
   }
 }

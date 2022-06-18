@@ -134,6 +134,7 @@
 		773E29352831279C009A0A37 /* RecordKeywordCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 773E29342831279C009A0A37 /* RecordKeywordCore.swift */; };
 		775632712837E30B00B2B51F /* MakersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775632702837E30B00B2B51F /* MakersView.swift */; };
 		775632732837E32100B2B51F /* MakersCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775632722837E32100B2B51F /* MakersCore.swift */; };
+		77670E17285A2C530080C619 /* DiaryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77670E16285A2C530080C619 /* DiaryList.swift */; };
 		7779D71A281ADE2F00683C1F /* Dream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7779D719281ADE2F00683C1F /* Dream.swift */; };
 		7779D71C281ADE3600683C1F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7779D71B281ADE3600683C1F /* User.swift */; };
 		7779D722281C07BF00683C1F /* Subcategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7779D721281C07BF00683C1F /* Subcategory.swift */; };
@@ -266,6 +267,7 @@
 		773E29342831279C009A0A37 /* RecordKeywordCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordKeywordCore.swift; sourceTree = "<group>"; };
 		775632702837E30B00B2B51F /* MakersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakersView.swift; sourceTree = "<group>"; };
 		775632722837E32100B2B51F /* MakersCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakersCore.swift; sourceTree = "<group>"; };
+		77670E16285A2C530080C619 /* DiaryList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryList.swift; sourceTree = "<group>"; };
 		7779D719281ADE2F00683C1F /* Dream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dream.swift; sourceTree = "<group>"; };
 		7779D71B281ADE3600683C1F /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		7779D721281C07BF00683C1F /* Subcategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subcategory.swift; sourceTree = "<group>"; };
@@ -868,11 +870,12 @@
 				7779D723281C07C900683C1F /* DreamInfo.swift */,
 				7779D71B281ADE3600683C1F /* User.swift */,
 				124DBC7D282A1213005C3ED4 /* Diary.swift */,
-				12A026D4283395C400665CAF /* UserDreamList.swift */,
+				77670E16285A2C530080C619 /* DiaryList.swift */,
+				12C4A3262845CF5100518172 /* HotKeyword.swift */,
 				123FED292833689700F62663 /* UserDream.swift */,
+				12A026D4283395C400665CAF /* UserDreamList.swift */,
 				123FED2B28336A4200F62663 /* Category.swift */,
 				7736245B283CF48300EE72F6 /* Makers.swift */,
-				12C4A3262845CF5100518172 /* HotKeyword.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1113,6 +1116,7 @@
 				123FED2A2833689700F62663 /* UserDream.swift in Sources */,
 				7779D722281C07BF00683C1F /* Subcategory.swift in Sources */,
 				F03FF6CB28099B7900E83570 /* KakaoLoginService.swift in Sources */,
+				77670E17285A2C530080C619 /* DiaryList.swift in Sources */,
 				123E29BE2839E4B0001CE7AA /* Collections+extensions.swift in Sources */,
 				123DD5662802889D0020440E /* Image+Generated.swift in Sources */,
 				1292B189282495030050A10D /* SignUpService.swift in Sources */,

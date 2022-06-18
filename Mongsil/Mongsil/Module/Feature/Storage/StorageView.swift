@@ -311,7 +311,7 @@ private struct DiaryCardView: View {
     self.diary = diary
     self.title = diary.title
     self.description = diary.description
-    self.date = diary.date
+    self.date = diary.convertedDate
     self.firstImage = firstImage
     self.secondImage = secondImage
   }

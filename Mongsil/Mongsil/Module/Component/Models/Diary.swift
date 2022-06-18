@@ -11,7 +11,10 @@ public struct Diary: Codable, Equatable, Hashable {
   public let id: String
   public let title: String
   public let description: String
-  public let date: String
+  private let date: String
+  public var convertedDate: String {
+    return convertDateFormatter(date)
+  }
   public let categoryList: [Category]
 
   public enum CodingKeys: String, CodingKey {
@@ -35,7 +38,6 @@ public struct Diary: Codable, Equatable, Hashable {
 
   public init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
-
     self.id = try container.decode(String.self, forKey: .id)
     self.title = try container.decode(String.self, forKey: .title)
     self.description = try container.decode(String.self, forKey: .description)

@@ -26,15 +26,15 @@ public enum URLHost: CustomStringConvertible {
     case .healthCheck:
       return "/test"
     case .checkUser:
-      return "/user/checkUser"
+      return "/user/check"
     case .signUp:
-      return "/user/signUp"
+      return "/user"
     case .dropout:
-      return "/user/dropout"
+      return "/user"
     case .dreamList:
-      return "/user/dreamList"
+      return "/user/dream-list"
     case .saveDream:
-      return "/user/saveDream"
+      return "/user/dream"
     case .dreamFilter:
       return "/api/dream/filter"
     case .dreamFilterCount:
@@ -48,9 +48,9 @@ public enum URLHost: CustomStringConvertible {
     case .hotKeyword:
       return "/api/dream/popularity"
     case .diary:
-      return "/user-card"
+      return "/diary"
     case .diaryList:
-      return "/user-card/list"
+      return "/diary/list"
     }
   }
 }
