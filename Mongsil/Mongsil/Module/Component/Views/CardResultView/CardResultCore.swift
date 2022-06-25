@@ -63,7 +63,6 @@ let cardResultReducer = Reducer.combine([
     state, action, _ in
     switch action {
     case .onAppear:
-      state.local.totalImage = snapshot()
       return .none
 
     case let .bottomImageButtonTapped(cardType):
@@ -87,6 +86,7 @@ let cardResultReducer = Reducer.combine([
       return .none
 
     case let .setShareViewPresented(presented):
+      state.local.totalImage = snapshot()
       state.local.isShareViewPresented = presented
       return .none
 
