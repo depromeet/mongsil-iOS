@@ -168,9 +168,6 @@ private func requestKakaoLogout() {
 }
 
 private func requestAppleLogout() {
-  UserDefaults.standard.removeObject(forKey: "appleName")
-  UserDefaults.standard.removeObject(forKey: "appleEmail")
-  UserDefaults.standard.removeObject(forKey: "appleUserID")
   UserDefaults.standard.removeObject(forKey: "isKakao")
 }
 

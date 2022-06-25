@@ -117,12 +117,25 @@ private struct AppleLoginButtonView: View {
         switch result {
         case .success(let authorization):
           if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
-            let nickName = appleIDCredential.fullName?.nickname
+            let givenName = appleIDCredential.fullName?.givenName
+            let familyName = appleIDCredential.fullName?.familyName
+            let name = (familyName ?? "") + (givenName ?? "")
             let email = appleIDCredential.email
             let userID = appleIDCredential.user
+
+            var userName: String {
+              return name == "" ?
+              UserDefaults.standard.string(forKey: "appleName") ?? ""
+              : name
+            }
+            var userEmail: String {
+              return email == nil ?
+              UserDefaults.standard.string(forKey: "appleEmail") ?? ""
+              : email!
+            }
             ViewStore(store).send(.appleLoginCompleted(
-              nickName ?? "",
-              email ?? "",
+              userName,
+              userEmail,
               userID
             ))
           }
