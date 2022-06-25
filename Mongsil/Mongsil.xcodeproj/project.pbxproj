@@ -21,7 +21,6 @@
 		121B87832838CD510056B717 /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = 121B87822838CD510056B717 /* NukeUI */; };
 		121B87862838CD730056B717 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = 121B87852838CD730056B717 /* Nuke */; };
 		122236F028024DF1009D5C66 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122236EF28024DF1009D5C66 /* R.generated.swift */; };
-		12273EF027F91076007624C1 /* AppTrackingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12273EEF27F91076007624C1 /* AppTrackingService.swift */; };
 		1229909428026001009BF616 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1229909328026001009BF616 /* Assets.xcassets */; };
 		122CD138283932AD009DB832 /* CardResultCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122CD137283932AD009DB832 /* CardResultCore.swift */; };
 		122E1074282B9B7E0034DF37 /* DiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122E1073282B9B7E0034DF37 /* DiaryView.swift */; };
@@ -193,7 +192,6 @@
 		1219757628163A4200089BED /* Pretendard-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.ttf"; sourceTree = "<group>"; };
 		1219757728163A4200089BED /* Pretendard-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.ttf"; sourceTree = "<group>"; };
 		122236EF28024DF1009D5C66 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = R.generated.swift; path = generated/R.generated.swift; sourceTree = SOURCE_ROOT; };
-		12273EEF27F91076007624C1 /* AppTrackingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTrackingService.swift; sourceTree = "<group>"; };
 		1229909328026001009BF616 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		122CD137283932AD009DB832 /* CardResultCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardResultCore.swift; sourceTree = "<group>"; };
 		122E1073282B9B7E0034DF37 /* DiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryView.swift; sourceTree = "<group>"; };
@@ -580,7 +578,6 @@
 				1292B183282491F60050A10D /* ResponseDto */,
 				F03FF6CA28099B7900E83570 /* KakaoLoginService.swift */,
 				126E470F28220181008D1554 /* AppleLoginService.swift */,
-				12273EEF27F91076007624C1 /* AppTrackingService.swift */,
 				12D7D3CC281E91EA00B83DDE /* UserService.swift */,
 				1292B188282495030050A10D /* SignUpService.swift */,
 				1292B19428249D0F0050A10D /* DropoutService.swift */,
@@ -1253,7 +1250,6 @@
 				1292B192282499ED0050A10D /* ErrorFactory.swift in Sources */,
 				123EE093280453EA00D34B93 /* AppInfoCore.swift in Sources */,
 				123EE0A528045F8300D34B93 /* OpenSourceCore.swift in Sources */,
-				12273EF027F91076007624C1 /* AppTrackingService.swift in Sources */,
 				120BBCAE28025CE800AD44B5 /* UIColor+extensions.swift in Sources */,
 				125F84B9280D151800279C42 /* LoadingIndicator.swift in Sources */,
 				125F84AE280D123D00279C42 /* AlertDoubleButtonView.swift in Sources */,
@@ -1509,7 +1505,6 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Mongsil/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "몽실";
-				INFOPLIST_KEY_NSUserTrackingUsageDescription = "\"귀하의 데이터는 개인화 광고를 제공하기 위해 사용됩니다.\"";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -1546,7 +1541,6 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Mongsil/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "몽실";
-				INFOPLIST_KEY_NSUserTrackingUsageDescription = "\"귀하의 데이터는 개인화 광고를 제공하기 위해 사용됩니다.\"";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;

@@ -19,7 +19,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     reducer: appReducer,
     environment: AppEnvironment.init(
       mainQueue: DispatchQueue.main.eraseToAnyScheduler(),
-      appTrackingService: .init(),
       kakaoLoginService: .init(),
       appleLoginService: .init(defaults: .standard),
       userService: .init(

@@ -9,15 +9,11 @@ import Combine
 import ComposableArchitecture
 
 struct AppState: Equatable {
-  var shouldDisplayRequestAppTrackingAlert: Bool = false
   var mainTab: MainTabState = .init()
 }
 
 enum AppAction {
   case onAppear
-  case checkDisplayAppTrackingAlert
-  case setShouldDisplayRequestAppTrackingAlert(Bool)
-  case displayRequestAppTrackingAlert
   case checkIsLogined
   case checkHasKakaoToken
   case checkHasAppleToken
@@ -34,7 +30,6 @@ enum AppAction {
 
 struct AppEnvironment {
   var mainQueue: AnySchedulerOf<DispatchQueue>
-  var appTrackingService: AppTrackingService
   var kakaoLoginService: KakaoLoginService
   var appleLoginService: AppleLoginService
   var userService: UserService
@@ -46,7 +41,6 @@ struct AppEnvironment {
 
   init(
     mainQueue: AnySchedulerOf<DispatchQueue>,
-    appTrackingService: AppTrackingService,
     kakaoLoginService: KakaoLoginService,
     appleLoginService: AppleLoginService,
     userService: UserService,
@@ -57,7 +51,6 @@ struct AppEnvironment {
     diaryService: DiaryService
   ) {
     self.mainQueue = mainQueue
-    self.appTrackingService = appTrackingService
     self.kakaoLoginService = kakaoLoginService
     self.appleLoginService = appleLoginService
     self.userService = userService
@@ -93,26 +86,9 @@ let appReducer = Reducer.combine([
     switch action {
     case .onAppear:
       return Effect.merge([
-        Effect(value: .checkDisplayAppTrackingAlert),
         Effect(value: .checkIsLogined),
         Effect(value: .searchUserID)
       ])
-
-    case .checkDisplayAppTrackingAlert:
-      return env.appTrackingService.getTrackingAuthorizationStatus()
-        .map({ status -> AppAction in
-          return .setShouldDisplayRequestAppTrackingAlert(status)
-        })
-        .delay(for: .milliseconds(100), scheduler: env.mainQueue)
-        .eraseToEffect()
-
-    case let .setShouldDisplayRequestAppTrackingAlert(status):
-      state.local.shouldDisplayRequestAppTrackingAlert = status
-      return .none
-
-    case .displayRequestAppTrackingAlert:
-      return env.appTrackingService.requestAppTrackingAuthorization()
-        .fireAndForget()
 
     case .checkIsLogined:
       let isKakao = UserDefaults.standard.bool(forKey: "isKakao")

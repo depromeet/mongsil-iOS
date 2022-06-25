@@ -10,7 +10,6 @@ import SwiftUI
 
 struct AppView: View {
   private let store: Store<WithSharedState<AppState>, AppAction>
-  private let shouldDisplayRequestAppTrackingAlertViewStore: ViewStore<Bool, AppAction>
   private let colorScheme: ColorScheme
 
   init(
@@ -18,9 +17,6 @@ struct AppView: View {
     colorScheme: ColorScheme
   ) {
     self.store = store
-    self.shouldDisplayRequestAppTrackingAlertViewStore = ViewStore(
-      store.scope(state: \.local.shouldDisplayRequestAppTrackingAlert)
-    )
     self.colorScheme = colorScheme
   }
   var body: some View {
@@ -34,14 +30,6 @@ struct AppView: View {
               state: { $0.mainTab },
               action: AppAction.mainTab
             )
-          )
-          .onReceive(
-            shouldDisplayRequestAppTrackingAlertViewStore.publisher,
-            perform: { display in
-              if display {
-                ViewStore(store).send(.displayRequestAppTrackingAlert)
-              }
-            }
           )
         }
         .onAppear(perform: { ViewStore(store).send(.onAppear) })
