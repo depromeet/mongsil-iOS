@@ -130,7 +130,7 @@ private struct VersionInfoView: View {
           .font(.body2)
           .foregroundColor(.gray2)
         Spacer()
-        Text("1.0")
+        Text("1.1")
           .font(.body2)
           .foregroundColor(.gray6)
       }
