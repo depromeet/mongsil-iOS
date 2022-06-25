@@ -1,5 +1,10 @@
 ## 👋 여러분께 몽실을 소개합니다!   
-<img src="https://user-images.githubusercontent.com/72292617/173782809-0c6cf1db-f763-493c-b526-852614e58a36.png" width=400 height=400><img src="https://user-images.githubusercontent.com/72292617/174030224-94ee10c6-f26d-4286-b74b-3a7039acb621.png" width=400 height=400>
+<img src="https://user-images.githubusercontent.com/72292617/173782809-0c6cf1db-f763-493c-b526-852614e58a36.png" width=400 height=400>
+  <b>몽실 👉🏻 흐릿했던 꿈을 선명하게</b>
+  >궁금한 해몽을 검색하고 꿈 일기를 작성할 수 있고 친구들과 공유까지 할 수 있는 다재다능한 서비스  
+
+  <b>세상에 나온 날 👉🏻 2022년 7월 1일</b>
+  <b>몽실의 엄마 아빠들 👉🏻 Depromeet 11th 벽력일삼⚡️</b>
 
 
 ## 🛠 Tech Stack   
