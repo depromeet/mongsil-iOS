@@ -51,8 +51,7 @@ struct R: Rswift.Validatable {
     // Note: key might not exist in chosen language (in that case, key will be shown)
     for language in languages {
       if let lproj = hostingBundle.url(forResource: language, withExtension: "lproj"),
-         let lbundle = Bundle(url: lproj)
-      {
+         let lbundle = Bundle(url: lproj) {
         let strings = lbundle.url(forResource: tableName, withExtension: "strings")
         let stringsdict = lbundle.url(forResource: tableName, withExtension: "stringsdict")
 
@@ -138,14 +137,14 @@ struct R: Rswift.Validatable {
     static let msBlue = Rswift.ColorResource(bundle: R.hostingBundle, name: "MSBlue")
     /// Color `MSGreen`.
     static let msGreen = Rswift.ColorResource(bundle: R.hostingBundle, name: "MSGreen")
+    /// Color `MSRed`.
+    static let msRed = Rswift.ColorResource(bundle: R.hostingBundle, name: "MSRed")
     /// Color `MSTabBar`.
     static let msTabBar = Rswift.ColorResource(bundle: R.hostingBundle, name: "MSTabBar")
     /// Color `MSWhite`.
     static let msWhite = Rswift.ColorResource(bundle: R.hostingBundle, name: "MSWhite")
     /// Color `MSYellow`.
     static let msYellow = Rswift.ColorResource(bundle: R.hostingBundle, name: "MSYellow")
-    /// Color `MsRed`.
-    static let msRed = Rswift.ColorResource(bundle: R.hostingBundle, name: "MsRed")
     /// Color `StorageBackground`.
     static let storageBackground = Rswift.ColorResource(bundle: R.hostingBundle, name: "StorageBackground")
 
@@ -285,6 +284,15 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
+    /// `UIColor(named: "MSRed", bundle: ..., traitCollection: ...)`
+    @available(tvOS 11.0, *)
+    @available(iOS 11.0, *)
+    static func msRed(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
+      return UIKit.UIColor(resource: R.color.msRed, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
     /// `UIColor(named: "MSTabBar", bundle: ..., traitCollection: ...)`
     @available(tvOS 11.0, *)
     @available(iOS 11.0, *)
@@ -308,15 +316,6 @@ struct R: Rswift.Validatable {
     @available(iOS 11.0, *)
     static func msYellow(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
       return UIKit.UIColor(resource: R.color.msYellow, compatibleWith: traitCollection)
-    }
-    #endif
-
-    #if os(iOS) || os(tvOS)
-    /// `UIColor(named: "MsRed", bundle: ..., traitCollection: ...)`
-    @available(tvOS 11.0, *)
-    @available(iOS 11.0, *)
-    static func msRed(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIColor? {
-      return UIKit.UIColor(resource: R.color.msRed, compatibleWith: traitCollection)
     }
     #endif
 
@@ -450,6 +449,14 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(watchOS)
+    /// `UIColor(named: "MSRed", bundle: ..., traitCollection: ...)`
+    @available(watchOSApplicationExtension 4.0, *)
+    static func msRed(_: Void = ()) -> UIKit.UIColor? {
+      return UIKit.UIColor(named: R.color.msRed.name)
+    }
+    #endif
+
+    #if os(watchOS)
     /// `UIColor(named: "MSTabBar", bundle: ..., traitCollection: ...)`
     @available(watchOSApplicationExtension 4.0, *)
     static func msTabBar(_: Void = ()) -> UIKit.UIColor? {
@@ -470,14 +477,6 @@ struct R: Rswift.Validatable {
     @available(watchOSApplicationExtension 4.0, *)
     static func msYellow(_: Void = ()) -> UIKit.UIColor? {
       return UIKit.UIColor(named: R.color.msYellow.name)
-    }
-    #endif
-
-    #if os(watchOS)
-    /// `UIColor(named: "MsRed", bundle: ..., traitCollection: ...)`
-    @available(watchOSApplicationExtension 4.0, *)
-    static func msRed(_: Void = ()) -> UIKit.UIColor? {
-      return UIKit.UIColor(named: R.color.msRed.name)
     }
     #endif
 
@@ -575,10 +574,10 @@ struct R: Rswift.Validatable {
     }
 
     static func validate() throws {
-      if R.font.pretendardLight(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Pretendard-Light' could not be loaded, is 'Pretendard-Light.ttf' added to the UIAppFonts array in this targets Info.plist?") }
-      if R.font.pretendardMedium(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Pretendard-Medium' could not be loaded, is 'Pretendard-Medium.ttf' added to the UIAppFonts array in this targets Info.plist?") }
-      if R.font.pretendardRegular(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Pretendard-Regular' could not be loaded, is 'Pretendard-Regular.ttf' added to the UIAppFonts array in this targets Info.plist?") }
-      if R.font.pretendardSemiBold(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Pretendard-SemiBold' could not be loaded, is 'Pretendard-SemiBold.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.pretendardLight(size: 42) == nil { throw Rswift.ValidationError(description: "[R.swift] Font 'Pretendard-Light' could not be loaded, is 'Pretendard-Light.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.pretendardMedium(size: 42) == nil { throw Rswift.ValidationError(description: "[R.swift] Font 'Pretendard-Medium' could not be loaded, is 'Pretendard-Medium.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.pretendardRegular(size: 42) == nil { throw Rswift.ValidationError(description: "[R.swift] Font 'Pretendard-Regular' could not be loaded, is 'Pretendard-Regular.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.pretendardSemiBold(size: 42) == nil { throw Rswift.ValidationError(description: "[R.swift] Font 'Pretendard-SemiBold' could not be loaded, is 'Pretendard-SemiBold.ttf' added to the UIAppFonts array in this targets Info.plist?") }
     }
 
     fileprivate init() {}
