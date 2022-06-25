@@ -270,7 +270,6 @@ private struct ResultTitleView: View {
       Text(title)
         .font(.title3)
         .foregroundColor(.gray2)
-        .lineLimit(1)
       Spacer()
     }
   }
