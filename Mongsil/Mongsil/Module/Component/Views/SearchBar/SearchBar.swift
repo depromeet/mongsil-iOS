@@ -9,23 +9,20 @@ import SwiftUI
 
 public struct SearchBar: View {
   @Binding public var text: String
-  @Binding public var isSearched: Bool
-  @Binding public var isTextInputed: Bool
+  public var isSearched: Bool
   public var backbuttonAction: () -> Void = {}
   public var removeButtonAction: () -> Void = {}
   public var searchButtonAction: () -> Void = {}
 
   public init(
     text: Binding<String> = .constant(""),
-    isSearched: Binding<Bool> = .constant(false),
-    isTextInputed: Binding<Bool> = .constant(false),
+    isSearched: Bool,
     backbuttonAction: @escaping () -> Void = {},
     removeButtonAction: @escaping () -> Void = {},
     searchButtonAction: @escaping () -> Void = {}
   ) {
     self._text = text
-    self._isSearched = isSearched
-    self._isTextInputed = isTextInputed
+    self.isSearched = isSearched
     self.backbuttonAction = backbuttonAction
     self.removeButtonAction = removeButtonAction
     self.searchButtonAction = searchButtonAction
@@ -42,6 +39,8 @@ public struct SearchBar: View {
         Spacer()
           .frame(width: 8)
         TextField("", text: $text)
+          .submitLabel(.search)
+          .onSubmit { searchButtonAction() }
           .foregroundColor(.gray2)
           .placeholder(
             when: text.isEmpty,
@@ -52,7 +51,7 @@ public struct SearchBar: View {
           )
           .font(.caption1)
           .frame(maxWidth: .infinity)
-        if isTextInputed {
+        if text.isNotEmpty {
           Button(action: removeButtonAction) {
             R.CustomImage.cancelSmallIcon.image
           }

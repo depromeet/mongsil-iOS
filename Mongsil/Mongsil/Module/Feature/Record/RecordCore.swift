@@ -9,14 +9,17 @@ import ComposableArchitecture
 
 struct RecordState: Equatable {
   public var isRecordKeywordPushed: Bool = false
-  public var titleText: String = ""
-  public var mainText: String = ""
+
+  public var titleText: String
+  public var mainText: String
+  public var editTarget: Diary?
+
   public var currentDate: Date = Date()
   public var selectedDateToStr: String {
     convertDateToString(currentDate)
   }
   public var isSelectDateSheetPresented: Bool = false
-  public var isNextButtonAbled: Bool = false
+  public var isNextButtonAbled: Bool
 
   // Child State
   public var recordKeyword: RecordKeywordState?
@@ -24,10 +27,16 @@ struct RecordState: Equatable {
 
   init(
     cancelRecordAlertModal: AlertDoubleButtonState? = nil,
-    recordKeyword: RecordKeywordState? = nil
+    recordKeyword: RecordKeywordState? = nil,
+    editTarget: Diary? = nil
   ) {
     self.cancelRecordAlertModal = cancelRecordAlertModal
     self.recordKeyword = recordKeyword
+
+    self.titleText = editTarget?.title ?? ""
+    self.mainText = editTarget?.description ?? ""
+    self.editTarget = editTarget
+    self.isNextButtonAbled = titleText.isNotEmpty && mainText.isNotEmpty
   }
 }
 
@@ -50,6 +59,9 @@ enum RecordAction: ToastPresentableAction {
 }
 
 struct RecordEnvironment {
+  var mainQueue: AnySchedulerOf<DispatchQueue>
+  let diaryService: DiaryService
+  let dreamService: DreamService
 }
 
 let recordReducer:
@@ -70,8 +82,8 @@ Reducer.combine([
     .pullback(
       state: \.recordKeyword,
       action: /RecordAction.recordKeyword,
-      environment: { _ in
-        RecordKeywordEnvironment()
+      environment: {
+        RecordKeywordEnvironment(mainQueue: $0.mainQueue, dreamService: $0.dreamService, diaryService: $0.diaryService)
       }
     ) as Reducer<WithSharedState<RecordState>, RecordAction, RecordEnvironment>,
   Reducer<WithSharedState<RecordState>, RecordAction, RecordEnvironment> {
@@ -84,10 +96,11 @@ Reducer.combine([
       if state.local.mainText.count == 0 && state.local.titleText.count == 0 {
         return Effect(value: .backButtonTapped)
       } else {
+        let recordType = (state.local.editTarget == nil) ? "작성" : "수정"
         return setAlertModal(
           state: &state.local.cancelRecordAlertModal,
-          titleText: "작성을 취소할까요?",
-          bodyText: "작성 중인 내용은 저장되지 않아요.",
+          titleText: "\(recordType)을 취소할까요?",
+          bodyText: "\(recordType) 중인 내용은 저장되지 않아요.",
           secondaryButtonTitle: "아니요",
           primaryButtonTitle: "취소하기",
           primaryButtonHierachy: .warning
@@ -115,7 +128,7 @@ Reducer.combine([
     case let .setRecordKeywordPushed(pushed):
       state.local.isRecordKeywordPushed = pushed
       if pushed {
-        state.local.recordKeyword = .init()
+        state.local.recordKeyword = .init(titleText: state.local.titleText, mainText: state.local.mainText, currentDate: state.local.currentDate, editTarget: state.local.editTarget)
       }
       return .none
 

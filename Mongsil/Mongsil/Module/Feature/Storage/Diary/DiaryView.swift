@@ -21,6 +21,9 @@ struct DiaryView: View {
   }
 
   var body: some View {
+    SearchResultLinkView(store: store)
+    SearchLinkView(store: store)
+
     WithViewStore(store.scope(state: \.local.userDiary)) { userDiaryViewStore in
       WithViewStore(store.scope(state: \.local.categoryImages)) { categoryImagesViewStore in
         WithViewStore(store.scope(state: \.local.categoryKeywords)) { categoryKeywordsViewStore in
@@ -49,5 +52,63 @@ struct DiaryView: View {
         action: DiaryAction.moveDreamAlertModal
       )
     )
+  }
+}
+
+private struct SearchResultLinkView: View {
+  private let store: Store<WithSharedState<DiaryState>, DiaryAction>
+
+  init(store: Store<WithSharedState<DiaryState>, DiaryAction>) {
+    self.store = store
+  }
+
+  var body: some View {
+    WithViewStore(store.scope(state: \.local.isSearchResultPushed)) { isSearchResultPushedViewStore in
+      NavigationLink(
+        destination: IfLetStore(
+          store.scope(
+            state: \.searchResult,
+            action: DiaryAction.searchResult
+          ),
+          then: SearchResultView.init(store:)
+        ),
+        isActive: isSearchResultPushedViewStore.binding(
+          send: DiaryAction.setSearchResultPushed
+        ),
+        label: {
+          EmptyView()
+        }
+      )
+      .isDetailLink(true)
+    }
+  }
+}
+
+private struct SearchLinkView: View {
+  private let store: Store<WithSharedState<DiaryState>, DiaryAction>
+
+  init(store: Store<WithSharedState<DiaryState>, DiaryAction>) {
+    self.store = store
+  }
+
+  var body: some View {
+    WithViewStore(store.scope(state: \.local.isSearchPushed)) { isSearchPushedViewStore in
+      NavigationLink(
+        destination: IfLetStore(
+          store.scope(
+            state: \.search,
+            action: DiaryAction.search
+          ),
+          then: SearchView.init(store:)
+        ),
+        isActive: isSearchPushedViewStore.binding(
+          send: DiaryAction.setSearchPushed
+        ),
+        label: {
+          EmptyView()
+        }
+      )
+      .isDetailLink(true)
+    }
   }
 }

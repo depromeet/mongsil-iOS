@@ -27,6 +27,6 @@ extension UIFont {
   public static var body = UIFont(name: regular, size: 16)!
   public static var body2 = UIFont(name: regular, size: 15)!
   public static var button = UIFont(name: medium, size: 15)!
-  public static var caption1 = UIFont(name: regular, size: 13)!
-  public static var caption2 = UIFont(name: regular, size: 12)!
+  public static var caption1 = UIFont(name: medium, size: 13)!
+  public static var caption2 = UIFont(name: medium, size: 12)!
 }

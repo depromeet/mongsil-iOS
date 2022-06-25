@@ -213,6 +213,48 @@ let appReducer = Reducer.combine([
     case let .mainTab(.storage(.dream(.presentToast(text)))):
       return Effect(value: .presentToast(text))
 
+    case let .mainTab(.storage(.diary(.cardResult(.record(.presentToast(text)))))):
+      return Effect(value: .presentToast(text))
+
+    case let .mainTab(.storage(.diary(.cardResult(.record(.recordKeyword(.presentToast(text))))))):
+      return Effect(value: .presentToast(text))
+
+    case let .mainTab(.record(.recordKeyword(.keyword(.verbKeyword(.presentToast(text)))))):
+      return Effect(value: .presentToast(text))
+
+    case let .mainTab(.record(.recordKeyword(.keyword(.nounKeyword(.presentToast(text)))))):
+      return Effect(value: .presentToast(text))
+
+    case let .mainTab(.home(.search(.presentToast(text)))):
+      return Effect(value: .presentToast(text))
+
+    case let .mainTab(.home(.search(.searchResult(.presentToast(text))))):
+      return Effect(value: .presentToast(text))
+
+    case let .mainTab(.home(.search(.searchResult(.searchResultDetail(.presentToast(text)))))):
+      return Effect(value: .presentToast(text))
+
+    case let .mainTab(.home(.searchResult(.presentToast(text)))):
+      return Effect(value: .presentToast(text))
+
+    case let .mainTab(.home(.searchResult(.searchResultDetail(.presentToast(text))))):
+      return Effect(value: .presentToast(text))
+
+    case let .mainTab(.storage(.diary(.searchResult(.presentToast(text))))):
+      return Effect(value: .presentToast(text))
+
+    case let .mainTab(.storage(.diary(.searchResult(.searchResultDetail(.presentToast(text)))))):
+      return Effect(value: .presentToast(text))
+
+    case let .mainTab(.storage(.diary(.search(.presentToast(text))))):
+      return Effect(value: .presentToast(text))
+
+    case let .mainTab(.storage(.diary(.search(.searchResult(.presentToast(text)))))):
+      return Effect(value: .presentToast(text))
+
+    case let .mainTab(.storage(.diary(.search(.searchResult(.searchResultDetail(.presentToast(text))))))):
+      return Effect(value: .presentToast(text))
+
     case .mainTab(.storage(.setting(.profile(.logoutAlertModal(.primaryButtonTapped))))):
       return Effect(value: .mainTab(.tabTapped(.home)))
 

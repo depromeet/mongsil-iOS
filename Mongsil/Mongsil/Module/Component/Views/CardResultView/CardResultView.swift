@@ -9,7 +9,7 @@ import ComposableArchitecture
 import SwiftUI
 import NukeUI
 
-public struct CardResultView: View {
+struct CardResultView: View {
   public let store: Store<WithSharedState<CardResultState>, CardResultAction>
   public var recordDate: String = ""
   public var imageURLs: [String] = []
@@ -22,7 +22,7 @@ public struct CardResultView: View {
   public var cardResult: CardResult
   public var backButtonAction: () -> Void = {}
 
-  public init(
+  init(
     store: Store<WithSharedState<CardResultState>, CardResultAction>,
     recordDate: String = "",
     imageURLs: [String] = [],
@@ -101,6 +101,36 @@ public struct CardResultView: View {
         image: totalImageViewStore.state
       )
     }
+    RecordLink(store: store)
+  }
+}
+
+private struct RecordLink: View {
+  private let store: Store<WithSharedState<CardResultState>, CardResultAction>
+
+  init(store: Store<WithSharedState<CardResultState>, CardResultAction>) {
+    self.store = store
+  }
+
+  var body: some View {
+    WithViewStore(store.scope(state: \.local.isRecordPushed)) { isRecordPushedViewStore in
+      NavigationLink(
+        destination: IfLetStore(
+          store.scope(
+            state: \.record,
+            action: CardResultAction.record
+          ),
+          then: RecordView.init(store:)
+        ),
+        isActive: isRecordPushedViewStore.binding(
+          send: CardResultAction.setRecordPushed
+        ),
+        label: {
+          EmptyView()
+        }
+      )
+      .isDetailLink(true)
+    }
   }
 }
 
@@ -115,7 +145,7 @@ private struct SingleCardImageView: View {
 
   var body: some View {
     HStack(spacing: 0) {
-      LazyImage(source: imageURL) { state in
+      LazyImage(url: imageURL) { state in
         if let image = state.image {
           image
             .resizingMode(.fill)
@@ -143,7 +173,7 @@ private struct MultipleCardImageView: View {
 
   var body: some View {
     HStack(spacing: 0) {
-      LazyImage(source: firstImageURL) { state in
+      LazyImage(url: firstImageURL) { state in
         if let image = state.image {
           image
             .resizingMode(.fill)
@@ -155,7 +185,7 @@ private struct MultipleCardImageView: View {
       }
       Spacer()
         .frame(width: 16)
-      LazyImage(source: secondImageURL) { state in
+      LazyImage(url: secondImageURL) { state in
         if let image = state.image {
           image
             .resizingMode(.fill)
@@ -240,7 +270,6 @@ private struct ResultTitleView: View {
       Text(title)
         .font(.title3)
         .foregroundColor(.gray2)
-        .lineLimit(1)
       Spacer()
     }
   }

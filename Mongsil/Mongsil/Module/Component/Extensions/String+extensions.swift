@@ -23,4 +23,8 @@ extension String {
 
     return image ?? UIImage()
   }
+
+  public func decodeURL() -> String {
+    return self.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+  }
 }

@@ -47,10 +47,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     if let windowScene = scene as? UIWindowScene {
       let window = UIWindow(windowScene: windowScene)
       window.rootViewController = UIHostingController(
-        rootView: AppView(
+        rootView:
+        AppView(
           store: appStore,
           colorScheme: .dark
         )
+
+//        SearchResultView(store: .init(
+//            initialState: WithSharedState<SearchResultState>(local: .init(), shared: .init()),
+//            reducer: searchResultReducer,
+//            environment: .init(dreamService: .init(alamofireSession: .default)))
+//          ).preferredColorScheme(.dark)
       )
       self.window = window
       window.makeKeyAndVisible()

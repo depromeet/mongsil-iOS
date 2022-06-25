@@ -13,8 +13,7 @@ public enum URLHost: CustomStringConvertible {
   case dreamList
   case saveDream
   case dreamFilter
-  case dreamFilterCount
-  case dreamFilterResult
+  case dreamSearchCount
   case selectDream
   case dreamSearch
   case hotKeyword
@@ -37,14 +36,12 @@ public enum URLHost: CustomStringConvertible {
       return "/user/dream"
     case .dreamFilter:
       return "/api/dream/filter"
-    case .dreamFilterCount:
-      return "/api/dream/filter/count"
-    case .dreamFilterResult:
-      return "/api/dream/filter/result"
+    case .dreamSearchCount:
+      return "/api/dream/search/count"
     case .selectDream:
       return "/api/dream/result"
     case .dreamSearch:
-      return "/api/dream/search"
+      return "/api/dream/search/result"
     case .hotKeyword:
       return "/api/dream/popularity"
     case .diary:

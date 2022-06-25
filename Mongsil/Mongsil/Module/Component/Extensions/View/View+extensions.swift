@@ -169,3 +169,9 @@ public struct AdaptsToKeyboard: ViewModifier {
     }
   }
 }
+
+extension GridItem.Size {
+  public static func adaptivee(_ size: CGFloat) -> Self {
+    return .adaptive(minimum: 100)
+  }
+}

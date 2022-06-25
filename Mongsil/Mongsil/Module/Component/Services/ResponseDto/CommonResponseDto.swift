@@ -19,7 +19,7 @@ public enum CommonResponseDto {
       let container = try decoder.container(keyedBy: CodingKeys.self)
       self.statusCode = try container.decode(Int.self, forKey: .statusCode)
       self.message = try container.decode(String.self, forKey: .message)
-      self.data = try container.decode(T?.self, forKey: .data)
+      self.data = try container.decodeIfPresent(T.self, forKey: .data)
     }
   }
 

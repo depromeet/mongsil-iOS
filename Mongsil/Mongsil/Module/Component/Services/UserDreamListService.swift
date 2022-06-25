@@ -34,7 +34,9 @@ public class UserDreamListService {
       switch dataResponse.result {
       case let .success(data):
         do {
-          return try JSONDecoder().decode(CommonResponseDto.ExistData<UserDreamList>.self, from: data)
+          let decoder = JSONDecoder()
+          decoder.dateDecodingStrategy = .formatted(DateFormatter.iso8601Full)
+          return try decoder.decode(CommonResponseDto.ExistData<UserDreamList>.self, from: data)
         } catch {
           throw ErrorFactory.decodeFailed(
             url: url,
