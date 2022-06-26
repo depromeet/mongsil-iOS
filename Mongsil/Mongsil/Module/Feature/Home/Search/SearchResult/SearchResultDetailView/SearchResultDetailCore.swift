@@ -191,6 +191,9 @@ Reducer.combine([
       state.local.requestLoginAlertModal = nil
       return .none
 
+    case .login(.backButtonTapped):
+      return Effect(value: .setLoginPushed(false))
+
     case .login(.loginCompleted):
       return Effect(value: .setLoginPushed(false))
 
