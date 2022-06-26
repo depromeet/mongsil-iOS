@@ -64,6 +64,9 @@ enum SearchResultAction: ToastPresentableAction {
 
 struct SearchResultEnvironment {
   let mainQueue: AnySchedulerOf<DispatchQueue>
+  var kakaoLoginService: KakaoLoginService
+  var userService: UserService
+  var signUpService: SignUpService
   let dreamService: DreamService
   let diaryService: DiaryService
   let userDreamListService: UserDreamListService
@@ -74,7 +77,15 @@ let searchResultReducer = Reducer.combine([
     state: \.searchResultDetail,
     action: /SearchResultAction.searchResultDetail,
     environment: {
-      SearchResultDetailEnvironment(mainQueue: $0.mainQueue, diaryService: $0.diaryService, dreamService: $0.dreamService, userDreamListService: $0.userDreamListService)
+      SearchResultDetailEnvironment(
+        mainQueue: $0.mainQueue,
+        kakaoLoginService: $0.kakaoLoginService,
+        userService: $0.userService,
+        signUpService: $0.signUpService,
+        diaryService: $0.diaryService,
+        dreamService: $0.dreamService,
+        userDreamListService: $0.userDreamListService
+      )
     }
   ) as Reducer<WithSharedState<SearchResultState>, SearchResultAction, SearchResultEnvironment>,
   keywordReducer.pullback(

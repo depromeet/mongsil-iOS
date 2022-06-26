@@ -60,6 +60,9 @@ enum DiaryAction: ToastPresentableAction {
 
 struct DiaryEnvironment {
   var mainQueue: AnySchedulerOf<DispatchQueue>
+  var kakaoLoginService: KakaoLoginService
+  var userService: UserService
+  var signUpService: SignUpService
   var diaryService: DiaryService
   var dreamService: DreamService
   var userDreamListService: UserDreamListService
@@ -73,7 +76,15 @@ Reducer.combine([
       state: \.search,
       action: /DiaryAction.search,
       environment: {
-        SearchEnvironment(mainQueue: $0.mainQueue, dreamService: $0.dreamService, diaryService: $0.diaryService, userDreamListService: $0.userDreamListService)
+        SearchEnvironment(
+          mainQueue: $0.mainQueue,
+          kakaoLoginService: $0.kakaoLoginService,
+          userService: $0.userService,
+          signUpService: $0.signUpService,
+          dreamService: $0.dreamService,
+          diaryService: $0.diaryService,
+          userDreamListService: $0.userDreamListService
+        )
       }
     ) as Reducer<WithSharedState<DiaryState>, DiaryAction, DiaryEnvironment>,
   searchResultReducer
@@ -82,7 +93,15 @@ Reducer.combine([
       state: \.searchResult,
       action: /DiaryAction.searchResult,
       environment: {
-        SearchResultEnvironment(mainQueue: $0.mainQueue, dreamService: $0.dreamService, diaryService: $0.diaryService, userDreamListService: $0.userDreamListService)
+        SearchResultEnvironment(
+          mainQueue: $0.mainQueue,
+          kakaoLoginService: $0.kakaoLoginService,
+          userService: $0.userService,
+          signUpService: $0.signUpService,
+          dreamService: $0.dreamService,
+          diaryService: $0.diaryService,
+          userDreamListService: $0.userDreamListService
+        )
       }
     ) as Reducer<WithSharedState<DiaryState>, DiaryAction, DiaryEnvironment>,
   alertDoubleButtonReducer

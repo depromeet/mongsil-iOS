@@ -210,11 +210,23 @@ let appReducer = Reducer.combine([
     case let .mainTab(.home(.search(.searchResult(.searchResultDetail(.presentToast(text)))))):
       return Effect(value: .presentToast(text))
 
+    case let .mainTab(.home(.search(.searchResult(.searchResultDetail(.login(.presentToast(text))))))):
+      return Effect(value: .presentToast(text))
+
+    case let .mainTab(.home(.search(.searchResult(.searchResultDetail(.login(.setUserID(userID))))))):
+      return Effect(value: .setUserID(userID))
+
     case let .mainTab(.home(.searchResult(.presentToast(text)))):
       return Effect(value: .presentToast(text))
 
     case let .mainTab(.home(.searchResult(.searchResultDetail(.presentToast(text))))):
       return Effect(value: .presentToast(text))
+
+    case let .mainTab(.home(.searchResult(.searchResultDetail(.login(.presentToast(text)))))):
+      return Effect(value: .presentToast(text))
+
+    case let .mainTab(.home(.searchResult(.searchResultDetail(.login(.setUserID(userID)))))):
+      return Effect(value: .setUserID(userID))
 
     case let .mainTab(.storage(.diary(.searchResult(.presentToast(text))))):
       return Effect(value: .presentToast(text))

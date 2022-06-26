@@ -40,6 +40,9 @@ enum HomeAction {
 
 struct HomeEnvironment {
   let mainQueue: AnySchedulerOf<DispatchQueue>
+  var kakaoLoginService: KakaoLoginService
+  var userService: UserService
+  var signUpService: SignUpService
   let dreamService: DreamService
   let diaryService: DiaryService
   let userDreamListService: UserDreamListService
@@ -53,14 +56,30 @@ Reducer.combine([
       state: \.search,
       action: /HomeAction.search,
       environment: {
-        SearchEnvironment(mainQueue: $0.mainQueue, dreamService: $0.dreamService, diaryService: $0.diaryService, userDreamListService: $0.userDreamListService)
+        SearchEnvironment(
+          mainQueue: $0.mainQueue,
+          kakaoLoginService: $0.kakaoLoginService,
+          userService: $0.userService,
+          signUpService: $0.signUpService,
+          dreamService: $0.dreamService,
+          diaryService: $0.diaryService,
+          userDreamListService: $0.userDreamListService
+        )
       }
     ) as Reducer<WithSharedState<HomeState>, HomeAction, HomeEnvironment>,
   searchResultReducer.optional().pullback(
     state: \.searchResult,
     action: /HomeAction.searchResult,
     environment: {
-      SearchResultEnvironment(mainQueue: $0.mainQueue, dreamService: $0.dreamService, diaryService: $0.diaryService, userDreamListService: $0.userDreamListService)
+      SearchResultEnvironment(
+        mainQueue: $0.mainQueue,
+        kakaoLoginService: $0.kakaoLoginService,
+        userService: $0.userService,
+        signUpService: $0.signUpService,
+        dreamService: $0.dreamService,
+        diaryService: $0.diaryService,
+        userDreamListService: $0.userDreamListService
+      )
     }
   ) as Reducer<WithSharedState<HomeState>, HomeAction, HomeEnvironment>,
   Reducer<WithSharedState<HomeState>, HomeAction, HomeEnvironment> {

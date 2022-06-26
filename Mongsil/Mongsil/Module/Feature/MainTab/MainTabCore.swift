@@ -115,7 +115,13 @@ Reducer.combine([
       action: /MainTabAction.home,
       environment: {
         HomeEnvironment(
-          mainQueue: $0.mainQueue, dreamService: $0.dreamService, diaryService: $0.diaryService, userDreamListService: $0.userDreamListService
+          mainQueue: $0.mainQueue,
+          kakaoLoginService: $0.kakaoLoginService,
+          userService: $0.userService,
+          signUpService: $0.signUpService,
+          dreamService: $0.dreamService,
+          diaryService: $0.diaryService,
+          userDreamListService: $0.userDreamListService
         )
       }
     ) as Reducer<WithSharedState<MainTabState>, MainTabAction, MainTabEnvironment>,
@@ -133,6 +139,9 @@ Reducer.combine([
       environment: {
         StorageEnvironment(
           mainQueue: $0.mainQueue,
+          kakaoLoginService: $0.kakaoLoginService,
+          userService: $0.userService,
+          signUpService: $0.signUpService,
           userDreamListService: $0.userDreamListService,
           dropoutService: $0.dropoutService,
           diaryService: $0.diaryService,

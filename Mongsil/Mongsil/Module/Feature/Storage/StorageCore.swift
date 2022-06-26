@@ -128,6 +128,9 @@ enum StorageAction: ToastPresentableAction {
 
 struct StorageEnvironment {
   var mainQueue: AnySchedulerOf<DispatchQueue>
+  var kakaoLoginService: KakaoLoginService
+  var userService: UserService
+  var signUpService: SignUpService
   var userDreamListService: UserDreamListService
   var dropoutService: DropoutService
   var diaryService: DiaryService
@@ -152,7 +155,13 @@ Reducer.combine([
       action: /StorageAction.diary,
       environment: {
         DiaryEnvironment(
-          mainQueue: $0.mainQueue, diaryService: $0.diaryService, dreamService: $0.dreamService, userDreamListService: $0.userDreamListService
+          mainQueue: $0.mainQueue,
+          kakaoLoginService: $0.kakaoLoginService,
+          userService: $0.userService,
+          signUpService: $0.signUpService,
+          diaryService: $0.diaryService,
+          dreamService: $0.dreamService,
+          userDreamListService: $0.userDreamListService
         )
       }
     ) as Reducer<WithSharedState<StorageState>, StorageAction, StorageEnvironment>,
