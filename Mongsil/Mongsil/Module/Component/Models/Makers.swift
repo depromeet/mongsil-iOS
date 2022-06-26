@@ -59,7 +59,7 @@ extension Makers {
     position: "PM",
     firstImageStr: "💡",
     secondImageStr: "🐷",
-    makersURL: URL(string: "https://github.com/jonghopark95")!
+    makersURL: URL(string: "https://github.com/pumpkiinbell")!
   )
   public static let makers2 = Makers(
     name: "이건웅",
