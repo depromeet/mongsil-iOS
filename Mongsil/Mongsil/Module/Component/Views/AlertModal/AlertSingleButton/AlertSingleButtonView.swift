@@ -17,30 +17,28 @@ public struct AlertSingleButtonView: View {
   }
 
   public var body: some View {
-    GeometryReader { _ in
-      VStack {
-        Spacer()
-        VStack(alignment: .center) {
-          TitleView(store: store)
-          BodyView(store: store)
-          Spacer().height(40)
-          PrimaryButtonView(store: store)
-        }
-        .padding(16)
-        .frame(maxWidth: .infinity)
-        .border(Color.gray11)
-        .cornerRadius(8)
-        .background(
-          Color.gray8
-            .cornerRadius(8)
-            .shadow(color: Color.black.opacity(0.3), x: 8, y: 8, blur: 8, spread: 2)
-        )
-        Spacer()
+    VStack {
+      Spacer()
+      VStack(alignment: .center) {
+        TitleView(store: store)
+        BodyView(store: store)
+        Spacer().height(40)
+        PrimaryButtonView(store: store)
       }
-      .padding(32)
-      .frame(maxWidth: .infinity, maxHeight: .infinity)
-      .background(Color.black.opacity(0.75))
+      .padding(16)
+      .frame(maxWidth: .infinity)
+      .border(Color.gray11)
+      .cornerRadius(8)
+      .background(
+        Color.gray8
+          .cornerRadius(8)
+          .shadow(color: Color.black.opacity(0.3), x: 8, y: 8, blur: 8, spread: 2)
+      )
+      Spacer()
     }
+    .padding(32)
+    .frame(maxWidth: .infinity, maxHeight: .infinity)
+    .background(Color.black.opacity(0.75))
   }
 }
 

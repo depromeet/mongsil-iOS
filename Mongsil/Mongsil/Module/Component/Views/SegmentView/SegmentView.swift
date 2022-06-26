@@ -24,27 +24,25 @@ public struct SegmentView<Selection>: View where Selection: Hashable & Identifia
   }
 
   public var body: some View {
-    GeometryReader { _ in
-      VStack(spacing: 0) {
-        HStack(spacing: 0) {
-          ForEach(
-            views.keys.sorted(),
-            content: { key in
-              if let title = title[key] {
-                SegmentTab(
-                  title: title,
-                  selected: selection == key,
-                  action: { selection = key }
-                )
-              }
+    VStack(spacing: 0) {
+      HStack(spacing: 0) {
+        ForEach(
+          views.keys.sorted(),
+          content: { key in
+            if let title = title[key] {
+              SegmentTab(
+                title: title,
+                selected: selection == key,
+                action: { selection = key }
+              )
             }
-          )
-        }
-
-        views[selection]
+          }
+        )
       }
-      .ignoresSafeArea(.container, edges: .all)
+
+      views[selection]
     }
+    .ignoresSafeArea(.container, edges: .all)
   }
 }
 

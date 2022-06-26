@@ -17,41 +17,39 @@ public struct AlertDoubleButtonView: View {
   }
 
   public var body: some View {
-    GeometryReader { _ in
-      VStack {
-        Spacer()
-        VStack(alignment: .center, spacing: 0) {
-          VStack {
-            TitleView(store: store)
-            BodyView(store: store)
-          }
-          .padding(.horizontal, 16)
-          .padding(.vertical, 24)
+    VStack {
+      Spacer()
+      VStack(alignment: .center, spacing: 0) {
+        VStack {
+          TitleView(store: store)
+          BodyView(store: store)
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 24)
+        Divider()
+          .background(Color.gray7)
+          .frame(height: 1)
+        HStack(spacing: 0) {
+          SecondaryButtonView(store: store)
           Divider()
             .background(Color.gray7)
-            .frame(height: 1)
-          HStack(spacing: 0) {
-            SecondaryButtonView(store: store)
-            Divider()
-              .background(Color.gray7)
-              .frame(height: 56)
-            PrimaryButtonView(store: store)
-          }
+            .frame(height: 56)
+          PrimaryButtonView(store: store)
         }
-        .frame(maxWidth: .infinity)
-        .border(Color.gray9)
-        .cornerRadius(8)
-        .background(
-          Color.gray9
-            .cornerRadius(8)
-            .shadow(color: Color.black.opacity(0.3), x: 8, y: 8, blur: 8, spread: 2)
-        )
-        Spacer()
       }
-      .padding(.horizontal, 48)
-      .frame(maxWidth: .infinity, maxHeight: .infinity)
-      .background(Color.black.opacity(0.75))
+      .frame(maxWidth: .infinity)
+      .border(Color.gray9)
+      .cornerRadius(8)
+      .background(
+        Color.gray9
+          .cornerRadius(8)
+          .shadow(color: Color.black.opacity(0.3), x: 8, y: 8, blur: 8, spread: 2)
+      )
+      Spacer()
     }
+    .padding(.horizontal, 48)
+    .frame(maxWidth: .infinity, maxHeight: .infinity)
+    .background(Color.black.opacity(0.75))
   }
 }
 
