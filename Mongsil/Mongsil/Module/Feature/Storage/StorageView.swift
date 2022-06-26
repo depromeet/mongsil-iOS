@@ -288,6 +288,7 @@ private struct DiaryListView: View {
         DiaryLinkView(store: store)
       } else {
         EmptyDiaryOrDreamView(description: "아직 기록된 꿈일기가 없어요.")
+          .padding(.bottom, 90)
       }
     }
   }
@@ -442,9 +443,9 @@ private struct DreamListView: View {
           DreamLinkView(store: store)
         } else {
           EmptyDiaryOrDreamView(description: "아직 저장된 해몽이 없어요.")
+            .padding(.bottom, 90)
         }
       }
-      .padding(.top, 15)
     }
   }
 }
@@ -536,7 +537,6 @@ private struct EmptyDiaryOrDreamView: View {
   var body: some View {
     VStack {
       Spacer()
-        .frame(height: 200)
       HStack {
         Spacer()
         Text(description)
@@ -544,6 +544,7 @@ private struct EmptyDiaryOrDreamView: View {
           .foregroundColor(.gray6)
         Spacer()
       }
+      Spacer()
     }
   }
 }
