@@ -228,13 +228,10 @@ private struct CardDescriptionView: View {
       HStack(spacing: 0) {
         Spacer()
           .frame(width: 20)
-        if let firstKeyword = keywords.first {
-          ResultKeywordBadgeView(keyword: firstKeyword)
-        }
-        if keywords.first != keywords.last {
-          if let secondKeyword = keywords.last {
-            ResultKeywordBadgeView(keyword: secondKeyword)
-              .padding(.leading, 8)
+
+        HStack(spacing: 8) {
+          ForEach(keywords, id: \.self) { keyword in
+            ResultKeywordBadgeView(keyword: keyword)
           }
         }
         Spacer()
