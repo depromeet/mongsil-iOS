@@ -150,6 +150,7 @@ private struct MainTextView: View {
         ))
         .foregroundColor(.gray3)
         .font(.body2)
+        .lineSpacing(10)
         .opacity(mainTextViewStore.state.isEmpty ? 0.25 : 1)
         .onTapGesture {
           hideKeyboard()

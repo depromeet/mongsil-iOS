@@ -269,6 +269,7 @@ private struct ResultTitleView: View {
     HStack(spacing: 0) {
       Text(title)
         .font(.title3)
+        .lineSpacing(4)
         .foregroundColor(.gray2)
       Spacer()
     }
@@ -304,6 +305,7 @@ private struct ResultDescriptionView: View {
     VStack(spacing: 0) {
       Text(description)
         .font(.body2)
+        .lineSpacing(10)
         .foregroundColor(.gray3)
         .multilineTextAlignment(.leading)
         .frame(maxWidth: .infinity, alignment: .leading)

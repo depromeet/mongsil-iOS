@@ -51,8 +51,7 @@ struct R: Rswift.Validatable {
     // Note: key might not exist in chosen language (in that case, key will be shown)
     for language in languages {
       if let lproj = hostingBundle.url(forResource: language, withExtension: "lproj"),
-         let lbundle = Bundle(url: lproj)
-      {
+         let lbundle = Bundle(url: lproj) {
         let strings = lbundle.url(forResource: tableName, withExtension: "strings")
         let stringsdict = lbundle.url(forResource: tableName, withExtension: "stringsdict")
 
@@ -575,10 +574,10 @@ struct R: Rswift.Validatable {
     }
 
     static func validate() throws {
-      if R.font.pretendardLight(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Pretendard-Light' could not be loaded, is 'Pretendard-Light.ttf' added to the UIAppFonts array in this targets Info.plist?") }
-      if R.font.pretendardMedium(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Pretendard-Medium' could not be loaded, is 'Pretendard-Medium.ttf' added to the UIAppFonts array in this targets Info.plist?") }
-      if R.font.pretendardRegular(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Pretendard-Regular' could not be loaded, is 'Pretendard-Regular.ttf' added to the UIAppFonts array in this targets Info.plist?") }
-      if R.font.pretendardSemiBold(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Pretendard-SemiBold' could not be loaded, is 'Pretendard-SemiBold.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.pretendardLight(size: 42) == nil { throw Rswift.ValidationError(description: "[R.swift] Font 'Pretendard-Light' could not be loaded, is 'Pretendard-Light.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.pretendardMedium(size: 42) == nil { throw Rswift.ValidationError(description: "[R.swift] Font 'Pretendard-Medium' could not be loaded, is 'Pretendard-Medium.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.pretendardRegular(size: 42) == nil { throw Rswift.ValidationError(description: "[R.swift] Font 'Pretendard-Regular' could not be loaded, is 'Pretendard-Regular.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.pretendardSemiBold(size: 42) == nil { throw Rswift.ValidationError(description: "[R.swift] Font 'Pretendard-SemiBold' could not be loaded, is 'Pretendard-SemiBold.ttf' added to the UIAppFonts array in this targets Info.plist?") }
     }
 
     fileprivate init() {}

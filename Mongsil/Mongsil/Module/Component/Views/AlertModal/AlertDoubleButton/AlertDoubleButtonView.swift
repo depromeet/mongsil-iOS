@@ -31,12 +31,12 @@ public struct AlertDoubleButtonView: View {
             .frame(height: 1)
           HStack(spacing: 0) {
             SecondaryButtonView(store: store)
-              .frame(width: (geometry.width - 120) / 2 )
+//              .frame(width: (geometry.width - 120) / 2 )
             Divider()
               .background(Color.gray7)
               .frame(height: 56)
             PrimaryButtonView(store: store)
-              .frame(width: (geometry.width - 120) / 2 )
+//              .frame(width: (geometry.width - 120) / 2 )
           }
         }
         .frame(maxWidth: .infinity)
