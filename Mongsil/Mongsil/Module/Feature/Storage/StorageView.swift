@@ -535,8 +535,11 @@ private struct EmptyDiaryOrDreamView: View {
   }
 
   var body: some View {
-    VStack {
+    VStack(spacing: 35) {
       Spacer()
+      R.CustomImage.storageEmptyIcon.image
+        .frame(width: 90, height: 90)
+
       HStack {
         Spacer()
         Text(description)

@@ -45,6 +45,7 @@ extension R {
     public static let nonCheckIcon = ImageAsset(name: "NonCheckIcon")
     public static let checkIcon = ImageAsset(name: "CheckIcon")
     public static let cardResultDefaultImage = ImageAsset(name: "CardResultDefaultImage")
+    public static let storageEmptyIcon = ImageAsset(name: "StorageEmptyIcon")
   }
 }
 
