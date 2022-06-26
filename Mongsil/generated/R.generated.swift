@@ -583,7 +583,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.image` struct is generated, and contains static references to 28 images.
+  /// This `R.image` struct is generated, and contains static references to 29 images.
   struct image {
     /// Image `ArrowDownIcon`.
     static let arrowDownIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "ArrowDownIcon")
@@ -639,6 +639,8 @@ struct R: Rswift.Validatable {
     static let storageActiveIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "StorageActiveIcon")
     /// Image `StorageDisabledIcon`.
     static let storageDisabledIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "StorageDisabledIcon")
+    /// Image `StorageEmptyIcon`.
+    static let storageEmptyIcon = Rswift.ImageResource(bundle: R.hostingBundle, name: "StorageEmptyIcon")
     /// Image `ThirdOnboardingImage`.
     static let thirdOnboardingImage = Rswift.ImageResource(bundle: R.hostingBundle, name: "ThirdOnboardingImage")
 
@@ -828,6 +830,13 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "StorageDisabledIcon", bundle: ..., traitCollection: ...)`
     static func storageDisabledIcon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.storageDisabledIcon, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "StorageEmptyIcon", bundle: ..., traitCollection: ...)`
+    static func storageEmptyIcon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.storageEmptyIcon, compatibleWith: traitCollection)
     }
     #endif
 
