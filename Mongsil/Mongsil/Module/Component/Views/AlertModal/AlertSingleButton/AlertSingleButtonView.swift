@@ -17,8 +17,9 @@ public struct AlertSingleButtonView: View {
   }
 
   public var body: some View {
-    GeometryReader { geometry in
+    GeometryReader { _ in
       VStack {
+        Spacer()
         VStack(alignment: .center) {
           TitleView(store: store)
           BodyView(store: store)
@@ -34,8 +35,6 @@ public struct AlertSingleButtonView: View {
             .cornerRadius(8)
             .shadow(color: Color.black.opacity(0.3), x: 8, y: 8, blur: 8, spread: 2)
         )
-        .offset(y: geometry.size.height / 4.5)
-
         Spacer()
       }
       .padding(32)

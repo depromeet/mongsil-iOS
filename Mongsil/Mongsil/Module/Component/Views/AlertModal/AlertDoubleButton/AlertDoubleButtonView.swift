@@ -17,8 +17,9 @@ public struct AlertDoubleButtonView: View {
   }
 
   public var body: some View {
-    GeometryReader { geometry in
+    GeometryReader { _ in
       VStack {
+        Spacer()
         VStack(alignment: .center, spacing: 0) {
           VStack {
             TitleView(store: store)
@@ -31,12 +32,10 @@ public struct AlertDoubleButtonView: View {
             .frame(height: 1)
           HStack(spacing: 0) {
             SecondaryButtonView(store: store)
-//              .frame(width: (geometry.width - 120) / 2 )
             Divider()
               .background(Color.gray7)
               .frame(height: 56)
             PrimaryButtonView(store: store)
-//              .frame(width: (geometry.width - 120) / 2 )
           }
         }
         .frame(maxWidth: .infinity)
@@ -47,8 +46,6 @@ public struct AlertDoubleButtonView: View {
             .cornerRadius(8)
             .shadow(color: Color.black.opacity(0.3), x: 8, y: 8, blur: 8, spread: 2)
         )
-        .offset(y: geometry.size.height / 4.5)
-
         Spacer()
       }
       .padding(.horizontal, 48)
