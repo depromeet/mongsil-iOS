@@ -173,7 +173,7 @@ Reducer.combine([
           primaryButtonHierachy: .primary
         )
       case .failure:
-        return Effect(value: .presentToast("‘해몽이 저장되지 않았어요. 다시 시도해주세요."))
+        return Effect(value: .presentToast("이미 저장된 해몽입니다."))
       }
 
     case .saveSuccessAlertModal(.secondaryButtonTapped):
