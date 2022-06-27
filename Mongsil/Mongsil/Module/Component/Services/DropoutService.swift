@@ -8,7 +8,6 @@
 import Alamofire
 import Combine
 import CombineExt
-import KakaoSDKUser
 
 public class DropoutService {
   public typealias ErrorFactory = DropoutServiceErrorFactory
@@ -35,13 +34,6 @@ public class DropoutService {
       switch dataResponse.result {
       case let .success(data):
         do {
-          UserApi.shared.unlink {(error) in
-            if let error = error {
-              print(error)
-            } else {
-              print("token deleted")
-            }
-          }
           return try JSONDecoder().decode(CommonResponseDto.NotExistData.self, from: data)
         } catch {
           throw ErrorFactory.decodeFailed(

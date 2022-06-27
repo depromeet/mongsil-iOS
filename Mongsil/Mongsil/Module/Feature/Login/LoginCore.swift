@@ -7,6 +7,7 @@
 
 import Combine
 import ComposableArchitecture
+import KakaoSDKUser
 
 struct LoginState: Equatable {
   var onboardingImage = OnboardingImage.allCases
@@ -120,7 +121,15 @@ let loginReducer = Reducer<WithSharedState<LoginState>, LoginAction, LoginEnviro
     .delay(for: .milliseconds(100), scheduler: env.mainQueue)
     .eraseToEffect()
     .map({ _ -> LoginAction in
-      return .loginCompleted
+      if email != "" {
+        return .loginCompleted
+      }
+      UserApi.shared.unlink {(error) in
+        if let error = error {
+          print(error)
+        }
+      }
+      return .presentToast("이메일 동의를 해주셔야 정상적으로 기능 사용이 가능합니다! 이메일 정보 제공에 동의해주세요!")
     })
     .eraseToEffect()
 
