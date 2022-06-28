@@ -11,6 +11,13 @@ import ComposableArchitecture
 struct SettingState: Equatable {
   public var isProfilePushed: Bool = false
   public var isAppInfoPushed: Bool = false
+  public var appVersion: String? {
+    guard let dictionary = Bundle.main.infoDictionary,
+          let version = dictionary["CFBundleShortVersionString"] as? String else { return nil }
+
+    let appVersion: String = "\(version)"
+    return appVersion
+  }
 
   // Child State
   public var profile: ProfileState?
