@@ -177,6 +177,7 @@ private struct MultipleCardImageView: View {
         if let image = state.image {
           image
             .resizingMode(.fill)
+            .scaledToFit()
             .clipShape(RoundedRectangle.init(8))
         } else {
           R.CustomImage.cardResultDefaultImage.image
@@ -189,6 +190,7 @@ private struct MultipleCardImageView: View {
         if let image = state.image {
           image
             .resizingMode(.fill)
+            .scaledToFit()
             .clipShape(RoundedRectangle.init(8))
         } else {
           R.CustomImage.cardResultDefaultImage.image
