@@ -99,6 +99,7 @@ let loginReducer = Reducer<WithSharedState<LoginState>, LoginAction, LoginEnviro
 
   case let .signUpUser(name, email):
     return env.signUpService.singUp(name: name, with: email)
+      .delay(for: .milliseconds(50), scheduler: env.mainQueue)
       .catchToEffect()
       .map({ result in
         switch result {
@@ -118,7 +119,7 @@ let loginReducer = Reducer<WithSharedState<LoginState>, LoginAction, LoginEnviro
       email: email,
       appleUserID: appleUserID
     )
-    .delay(for: .milliseconds(100), scheduler: env.mainQueue)
+    .delay(for: .milliseconds(300), scheduler: env.mainQueue)
     .eraseToEffect()
     .map({ _ -> LoginAction in
       if email != "" {
@@ -129,7 +130,7 @@ let loginReducer = Reducer<WithSharedState<LoginState>, LoginAction, LoginEnviro
           print(error)
         }
       }
-      return .presentToast("이메일 동의를 해주셔야 정상적으로 기능 사용이 가능합니다! 이메일 정보 제공에 동의해주세요!")
+      return .presentToast("이메일 동의를 해주셔야 정상적으로 기능 사용이 가능합니다. 이메일 정보 제공에 동의해주세요!")
     })
     .eraseToEffect()
 
