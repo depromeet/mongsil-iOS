@@ -97,7 +97,7 @@ let loginReducer = Reducer<WithSharedState<LoginState>, LoginAction, LoginEnviro
       })
 
   case let .signUpUser(name, email):
-    return env.signUpService.singUp(name: name, with: email)
+    return env.signUpService.signUp(name: name, with: email)
       .catchToEffect()
       .map({ result in
         switch result {
