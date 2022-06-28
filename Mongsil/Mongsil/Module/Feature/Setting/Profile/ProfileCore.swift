@@ -139,6 +139,12 @@ Reducer.combine([
 
     case let .setUserID(userID):
       return .none
+
+    case .logoutAlertModal(.closeButtonTapped):
+      return .none
+
+    case .withdrawAlertModal(.closeButtonTapped):
+      return .none
     }
   }
 ])

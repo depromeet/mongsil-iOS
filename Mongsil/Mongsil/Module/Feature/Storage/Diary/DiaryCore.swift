@@ -184,7 +184,8 @@ Reducer.combine([
         secondaryButtonTitle: state.local.categoryKeywords.first ?? "",
         secondaryButtonHierachy: .primary,
         primaryButtonTitle: state.local.categoryKeywords[safe: 1] ?? "",
-        primaryButtonHierachy: .primary
+        primaryButtonHierachy: .primary,
+        isExistCloseButton: true
       )
 
     case let .cardResult(.record(.recordKeyword(.moveToDiaryView(diary)))):
@@ -250,6 +251,10 @@ Reducer.combine([
         Effect(value: .searchResult(.search(keyword)))
       ])
 
+    case .moveDreamAlertModal(.closeButtonTapped):
+      state.local.moveDreamAlertModal = nil
+      return .none
+
     case .searchResult(.backButtonTapped):
       return Effect(value: .setSearchResultPushed(false))
 
@@ -275,7 +280,8 @@ private func setAlertModal(
   secondaryButtonTitle: String,
   secondaryButtonHierachy: AlertButton.Hierarchy = .secondary,
   primaryButtonTitle: String,
-  primaryButtonHierachy: AlertButton.Hierarchy = .primary
+  primaryButtonHierachy: AlertButton.Hierarchy = .primary,
+  isExistCloseButton: Bool = false
 ) -> Effect<DiaryAction, Never> {
   state = .init(
     title: titleText,
@@ -283,7 +289,8 @@ private func setAlertModal(
     secondaryButtonTitle: secondaryButtonTitle,
     secondaryButtonHierachy: secondaryButtonHierachy,
     primaryButtonTitle: primaryButtonTitle,
-    primaryButtonHierachy: primaryButtonHierachy
+    primaryButtonHierachy: primaryButtonHierachy,
+    isExistCloseButton: isExistCloseButton
   )
   return .none
 }

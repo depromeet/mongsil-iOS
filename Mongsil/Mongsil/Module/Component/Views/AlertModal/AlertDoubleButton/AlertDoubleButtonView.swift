@@ -21,6 +21,11 @@ public struct AlertDoubleButtonView: View {
       Spacer()
       VStack(alignment: .center, spacing: 0) {
         VStack {
+          WithViewStore(store.scope(state: \.isExistCloseButton)) { isExistCloseButtonViewStore in
+            if isExistCloseButtonViewStore.state {
+              CloseButtonView(store: store)
+            }
+          }
           TitleView(store: store)
           BodyView(store: store)
         }
@@ -50,6 +55,25 @@ public struct AlertDoubleButtonView: View {
     .padding(.horizontal, 48)
     .frame(maxWidth: .infinity, maxHeight: .infinity)
     .background(Color.black.opacity(0.75))
+  }
+}
+
+private struct CloseButtonView: View {
+  private let store: Store<AlertDoubleButtonState, AlertDoubleButtonAction>
+
+  init(store: Store<AlertDoubleButtonState, AlertDoubleButtonAction>) {
+    self.store = store
+  }
+
+  var body: some View {
+    HStack {
+      Spacer()
+      Button(
+        action: { ViewStore(store).send(.closeButtonTapped) },
+        label: { R.CustomImage.cancelIcon.image }
+      )
+      .padding(.trailing, 5)
+    }
   }
 }
 

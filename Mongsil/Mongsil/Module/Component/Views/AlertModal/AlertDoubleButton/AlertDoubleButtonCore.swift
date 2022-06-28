@@ -16,6 +16,7 @@ public struct AlertDoubleButtonState: Equatable {
   public var secondaryButtonHierachy: AlertButton.Hierarchy = .secondary
   public var primaryButtonTitle: String
   public var primaryButtonHierachy: AlertButton.Hierarchy = .primary
+  public var isExistCloseButton: Bool = false
 
   public init(
     title: String? = nil,
@@ -23,7 +24,8 @@ public struct AlertDoubleButtonState: Equatable {
     secondaryButtonTitle: String = "취소",
     secondaryButtonHierachy: AlertButton.Hierarchy = .secondary,
     primaryButtonTitle: String = "확인",
-    primaryButtonHierachy: AlertButton.Hierarchy = .primary
+    primaryButtonHierachy: AlertButton.Hierarchy = .primary,
+    isExistCloseButton: Bool = false
   ) {
     self.title = title
     self.body = body
@@ -31,12 +33,14 @@ public struct AlertDoubleButtonState: Equatable {
     self.secondaryButtonHierachy = secondaryButtonHierachy
     self.primaryButtonTitle = primaryButtonTitle
     self.primaryButtonHierachy = primaryButtonHierachy
+    self.isExistCloseButton = isExistCloseButton
   }
 }
 
 public enum AlertDoubleButtonAction: Equatable {
   case secondaryButtonTapped
   case primaryButtonTapped
+  case closeButtonTapped
 }
 
 public struct AlertDoubleButtonEnvironment {
@@ -51,6 +55,9 @@ public let alertDoubleButtonReducer = Reducer.combine([
       return .none
 
     case .primaryButtonTapped:
+      return .none
+
+    case .closeButtonTapped:
       return .none
     }
   }

@@ -172,6 +172,9 @@ Reducer.combine([
     case .cancelRecordAlertModal(.primaryButtonTapped):
       state.local.cancelRecordAlertModal = nil
       return Effect(value: .backButtonTapped)
+
+    case .cancelRecordAlertModal(.closeButtonTapped):
+      return .none
     }
   }
 ])
