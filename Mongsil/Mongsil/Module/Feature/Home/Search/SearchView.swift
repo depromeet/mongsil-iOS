@@ -33,6 +33,9 @@ struct SearchView: View {
       .onAppear {
         ViewStore(store).send(.onAppear)
       }
+      .onTapGesture {
+        hideKeyboard()
+      }
   }
 }
 
@@ -53,7 +56,10 @@ private struct MSNavigationView: View {
         isSearched: false,
         backbuttonAction: { ViewStore(store).send(.backButtonTapped) },
         removeButtonAction: { ViewStore(store).send(.removeButtonTapped) },
-        searchButtonAction: { ViewStore(store).send(.searchButtonTapped) }
+        searchButtonAction: {
+          hideKeyboard()
+          ViewStore(store).send(.searchButtonTapped)
+        }
       )
         .padding(.horizontal, 20)
         .padding(.vertical, 4)

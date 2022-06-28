@@ -27,6 +27,7 @@ struct NounKeywordListItem: View {
             categoryCount: nounViewStore.state.categories.count,
             isActive: isActiveViewStore.state,
             tappedAction: {
+              hideKeyboard()
               ViewStore(store).send(.tappedView)
             }
           )
@@ -60,6 +61,9 @@ private struct NounCategoryListView: View {
         content: CategoryListItemView.init(store:)
       ).padding(.vertical, 16)
         .padding(.horizontal, 20)
+        .onTapGesture {
+          hideKeyboard()
+        }
     }
   }
 }
