@@ -122,6 +122,13 @@ Reducer.combine([
         .flatMapLatest({ result -> Effect<ProfileAction, Never> in
           switch result {
           case .success:
+            UserApi.shared.unlink {(error) in
+              if let error = error {
+                print(error)
+              } else {
+                print("token deleted")
+              }
+            }
             UserDefaults.standard.removeObject(forKey: "isLogined")
             return Effect(value: .setUserID(nil))
 
