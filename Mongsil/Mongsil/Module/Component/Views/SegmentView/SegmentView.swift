@@ -33,7 +33,9 @@ public struct SegmentView<Selection>: View where Selection: Hashable & Identifia
               SegmentTab(
                 title: title,
                 selected: selection == key,
-                action: { selection = key }
+                action: { selection = key
+                  hideKeyboard()
+                }
               )
             }
           }
@@ -64,6 +66,5 @@ private struct SegmentTab: View {
         }
       }.frame(maxWidth: .infinity, maxHeight: 44)
     }
-
   }
 }

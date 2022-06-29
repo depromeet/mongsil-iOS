@@ -33,6 +33,9 @@ struct SearchResultView: View {
           }
         }
       }
+      .onTapGesture {
+        hideKeyboard()
+      }
       .navigationTitle("")
       .navigationBarHidden(true)
       .selectFilterSheet(
@@ -62,7 +65,10 @@ private struct MSNavigationView: View {
         isSearched: viewStore.state.local.isSearched,
         backbuttonAction: { ViewStore(store).send(.backButtonTapped) },
         removeButtonAction: { ViewStore(store).send(.removeButtonTapped) },
-        searchButtonAction: { ViewStore(store).send(.searchButtonTapped) }
+        searchButtonAction: {
+          hideKeyboard()
+          ViewStore(store).send(.searchButtonTapped)
+        }
       )
         .padding(.horizontal, 20)
         .padding(.vertical, 4)
@@ -92,6 +98,9 @@ private struct NotExistSearchResult: View {
       )
     }
     .onAppear { ViewStore(store).send(.fetchKeyword) }
+    .onTapGesture {
+      hideKeyboard()
+    }
   }
 
   var header: some View {
@@ -183,6 +192,12 @@ private struct ExistSearchResult: View {
           Spacer()
         }
       }
+      .simultaneousGesture(
+        DragGesture()
+          .onChanged { _ in
+            hideKeyboard()
+          }
+      )
     }
   }
 
@@ -196,7 +211,10 @@ private struct ExistSearchResult: View {
   var filterButton: some View {
     HStack(spacing: 8) {
       WithViewStore(store.scope(state: \.local.selectFilterSheet.isAppliedCategories)) { isAppliedCategoriesViewStore in
-        Button(action: { ViewStore(store).send(.filterButtonTapped) }) {
+        Button(action: {
+          hideKeyboard()
+          ViewStore(store).send(.filterButtonTapped)
+        }) {
           R.CustomImage.filterIcon.image
             .padding(.vertical, 4)
             .padding(.horizontal, 6)

@@ -130,9 +130,11 @@ private struct VersionInfoView: View {
           .font(.body2)
           .foregroundColor(.gray2)
         Spacer()
-        Text("1.1")
-          .font(.body2)
-          .foregroundColor(.gray6)
+        WithViewStore(store.scope(state: \.local.appVersion)) { appVersionViewStore in
+          Text(appVersionViewStore.state ?? "")
+            .font(.body2)
+            .foregroundColor(.gray6)
+        }
       }
     }
   }

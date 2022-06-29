@@ -18,7 +18,7 @@ public class SignUpService {
     self.alamofireSession = alamofireSession
   }
 
-  public func singUp(name: String, with email: String) -> AnyPublisher<SignUpUserResponseDto, Error> {
+  public func signUp(name: String, with email: String) -> AnyPublisher<SignUpUserResponseDto, Error> {
     let url = "http://3.34.46.139:80\(URLHost.signUp)"
     let body = SignUpUserRequestDto(userEmail: email, userName: name)
 

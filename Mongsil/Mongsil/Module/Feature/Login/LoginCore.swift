@@ -98,7 +98,7 @@ let loginReducer = Reducer<WithSharedState<LoginState>, LoginAction, LoginEnviro
       })
 
   case let .signUpUser(name, email):
-    return env.signUpService.singUp(name: name, with: email)
+    return env.signUpService.signUp(name: name, with: email)
       .delay(for: .milliseconds(300), scheduler: env.mainQueue)
       .catchToEffect()
       .map({ result in

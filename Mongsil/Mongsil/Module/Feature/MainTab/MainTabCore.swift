@@ -15,6 +15,7 @@ struct MainTabState: Equatable {
   public var selectedTab: Tab = .home
   public var isRecordButtonTapped: Bool = true
   public var isTabBarPresented: Bool = true
+  public var isExistStorageTapped: Bool = false
 
   // Child State
   public var home: HomeState = .init()
@@ -32,7 +33,8 @@ struct MainTabState: Equatable {
     storage: StorageState = .init(),
     login: LoginState? = nil,
     isRecordButtonTapped: Bool = true,
-    isTabBarPresented: Bool = true
+    isTabBarPresented: Bool = true,
+    isExistStorageTapped: Bool = false
   ) {
     self.isRecordPushed = isRecordPushed
     self.isLoginPushed = isLoginPushed
@@ -44,6 +46,7 @@ struct MainTabState: Equatable {
     self.login = login
     self.isRecordButtonTapped = isRecordButtonTapped
     self.isTabBarPresented = isTabBarPresented
+    self.isExistStorageTapped = isExistStorageTapped
   }
 }
 
@@ -216,6 +219,9 @@ Reducer.combine([
           primaryButtonTitle: "로그인하기"
         )
       }
+      if tab == .storage && !state.local.isExistStorageTapped {
+        state.local.isExistStorageTapped = true
+      }
       state.local.selectedTab = tab
       return .none
 
@@ -250,7 +256,6 @@ Reducer.combine([
       return Effect(value: .setRecordPushed(false))
 
     case let .record(.recordKeyword(.moveToDiaryView(diary))):
-
       guard let diary = diary else {
         return Effect.concatenate([
           Effect(value: .setRecordPushed(false)),
@@ -259,10 +264,20 @@ Reducer.combine([
         ])
       }
 
+      if state.local.isExistStorageTapped {
+        return Effect.concatenate([
+          Effect(value: .setRecordPushed(false)),
+          Effect(value: .tabTapped(.storage)),
+          Effect(value: .storage(.setDiaryPushed(true, diary)))
+        ])
+      }
+
       return Effect.concatenate([
         Effect(value: .setRecordPushed(false)),
         Effect(value: .tabTapped(.storage)),
         Effect(value: .storage(.setDiaryPushed(true, diary)))
+          .delay(for: 1, scheduler: env.mainQueue)
+          .eraseToEffect()
       ])
 
     case .record:
