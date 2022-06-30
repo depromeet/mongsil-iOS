@@ -284,7 +284,10 @@ Reducer.combine([
       if state.local.tempMonth != "" {
         state.local.selectedMonth = state.local.tempMonth
       }
-      return Effect(value: .setSelectDateSheetPresented(false))
+      return Effect.merge([
+        Effect(value: .setSelectDateSheetPresented(false)),
+        setDiaryCount(state: &state)
+      ])
 
     case let .setDisplayDeleteCardHeader(display):
       if !display {
