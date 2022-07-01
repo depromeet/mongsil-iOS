@@ -166,7 +166,7 @@ Reducer.combine([
         return setSaveSuccessAlertModal(
           state: &state.local.saveSuccessAlertModal,
           titleText: "해몽을 저장했어요!",
-          bodyText: "저장된 해몽은 언제든지 보관함에서\n꺼내볼 수 잇어요.",
+          bodyText: "저장된 해몽은 언제든지 보관함에서\n꺼내볼 수 있어요.",
           secondaryButtonTitle: "보관함 가기",
           secondaryButtonHierachy: .secondary,
           primaryButtonTitle: "닫기",
