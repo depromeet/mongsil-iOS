@@ -22,7 +22,11 @@ struct VerbKeywordListItem: View {
       WithViewStore(store.scope(state: \.verb)) { verbViewStore in
         VerbKeywordItem(name: verbViewStore.state.name, categoryCount: verbViewStore.state.categories.count)
       }
-      VerbCategoryListView(store: store)
+      HStack(alignment: .center, spacing: 0) {
+        Spacer()
+        VerbCategoryListView(store: store)
+        Spacer()
+      }
       Rectangle().frame(height: 1).foregroundColor(.gray9)
     }
   }
@@ -47,7 +51,6 @@ private struct VerbCategoryListView: View {
         content: CategoryListItemView.init(store:)
       )
       .padding(.vertical, 16)
-      .padding(.horizontal, 20)
     }
   }
 }

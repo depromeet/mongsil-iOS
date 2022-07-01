@@ -34,7 +34,11 @@ struct NounKeywordListItem: View {
         }
         Rectangle().frame(height: 1).foregroundColor(.gray9)
         if isActiveViewStore.state {
-          NounCategoryListView(store: store)
+          HStack(alignment: .center, spacing: 0) {
+            Spacer()
+            NounCategoryListView(store: store)
+            Spacer()
+          }
           Rectangle().frame(height: 1).foregroundColor(.gray9)
         }
       }
@@ -60,7 +64,6 @@ private struct NounCategoryListView: View {
         horizontalSpacing: 8,
         content: CategoryListItemView.init(store:)
       ).padding(.vertical, 16)
-        .padding(.horizontal, 20)
         .onTapGesture {
           hideKeyboard()
         }
