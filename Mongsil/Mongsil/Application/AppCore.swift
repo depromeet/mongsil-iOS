@@ -192,9 +192,6 @@ let appReducer = Reducer.combine([
     case let .mainTab(.storage(.diary(.cardResult(.record(.presentToast(text)))))):
       return Effect(value: .presentToast(text))
 
-    case let .mainTab(.storage(.diary(.cardResult(.record(.recordKeyword(.presentToast(text))))))):
-      return Effect(value: .presentToast(text))
-
     case let .mainTab(.record(.recordKeyword(.keyword(.verbKeyword(.presentToast(text)))))):
       return Effect(value: .presentToast(text))
 
