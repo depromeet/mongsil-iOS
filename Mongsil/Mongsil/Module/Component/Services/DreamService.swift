@@ -19,7 +19,7 @@ public class DreamService {
   }
 
   public func getDreamFilter() -> AnyPublisher<DreamFilterResponseDto, Error> {
-    let url = "http://3.34.46.139:80\(URLHost.dreamFilter)"
+    let url = "http://3.39.22.137\(URLHost.dreamFilter)"
 
     return alamofireSession
       .request(
@@ -62,7 +62,7 @@ public class DreamService {
   }
 
   public func getHotKeywords() -> AnyPublisher<HotKeyword, Error> {
-    let url = "http://3.34.46.139:80\(URLHost.hotKeyword)"
+    let url = "http://3.39.22.137\(URLHost.hotKeyword)"
 
     return alamofireSession
       .request(
@@ -105,7 +105,7 @@ public class DreamService {
   }
 
   public func getSearchResult(keyword: String, categories: [String]) -> AnyPublisher<[SearchResult], Error> {
-    let url = "http://3.34.46.139:80\(URLHost.dreamSearch)?word=\(keyword)&categories=\(categories.joined(separator: ","))".decodeURL()
+    let url = "http://3.39.22.137\(URLHost.dreamSearch)?word=\(keyword)&categories=\(categories.joined(separator: ","))".decodeURL()
 
     return alamofireSession
       .request(
@@ -147,7 +147,7 @@ public class DreamService {
   }
 
   public func getSearchResultCount(keyword: String, categories: [String]) -> AnyPublisher<Int, Error> {
-    let url = "http://3.34.46.139:80\(URLHost.dreamSearchCount)?word=\(keyword)&categories=\(categories.joined(separator: ","))".decodeURL()
+    let url = "http://3.39.22.137\(URLHost.dreamSearchCount)?word=\(keyword)&categories=\(categories.joined(separator: ","))".decodeURL()
 
     return alamofireSession
       .request(
@@ -189,7 +189,7 @@ public class DreamService {
   }
 
   public func getSearchResultDetail(id: String) -> AnyPublisher<Dream, Error> {
-    let url = "http://3.34.46.139:80\(URLHost.selectDream)/\(id)".decodeURL()
+    let url = "http://3.39.22.137\(URLHost.selectDream)/\(id)".decodeURL()
 
     return alamofireSession
       .request(

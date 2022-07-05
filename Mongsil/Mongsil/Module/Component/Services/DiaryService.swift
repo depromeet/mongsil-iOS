@@ -24,7 +24,7 @@ public class DiaryService {
     description: String,
     categories: [String]
   ) -> AnyPublisher<Unit, Error> {
-    let url = "http://3.34.46.139:80\(URLHost.diary)"
+    let url = "http://3.39.22.137\(URLHost.diary)"
     let body = EditDiaryRequestDto(
       cardID: cardID,
       title: title,
@@ -82,7 +82,7 @@ public class DiaryService {
   }
 
   public func deleteDiary(idList: [String]) -> AnyPublisher<Unit, Error> {
-    let url = "http://3.34.46.139:80\(URLHost.diary)"
+    let url = "http://3.39.22.137\(URLHost.diary)"
     let body = DeleteDiaryRequestDto(idList: idList)
 
     return alamofireSession.request(
@@ -130,7 +130,7 @@ public class DiaryService {
   }
 
   public func getDiaryList(userID: String) -> AnyPublisher<DiaryList, Error> {
-    let url = "http://3.34.46.139:80\(URLHost.diaryList)"
+    let url = "http://3.39.22.137\(URLHost.diaryList)"
     let body = GetDiaryListRequestDto(userID: userID)
 
     return alamofireSession.request(
@@ -178,7 +178,7 @@ public class DiaryService {
   }
 
   public func getDiary(diaryID: String) -> AnyPublisher<Diary, Error> {
-    let url = "http://3.34.46.139:80\(URLHost.diary)/\(diaryID)"
+    let url = "http://3.39.22.137\(URLHost.diary)/\(diaryID)"
 
     return alamofireSession.request(
         url,
@@ -230,7 +230,7 @@ public class DiaryService {
     registerDate: Date,
     categories: [String]
   ) -> AnyPublisher<SaveDiaryResponseDto, Error> {
-    let url = "http://3.34.46.139:80\(URLHost.diary)"
+    let url = "http://3.39.22.137\(URLHost.diary)"
     let body = SaveDiaryRequestDto(
       userID: userID,
       title: title,

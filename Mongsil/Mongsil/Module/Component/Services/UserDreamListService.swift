@@ -19,7 +19,7 @@ public class UserDreamListService {
   }
 
   public func getUserDreamList(userID: String) -> AnyPublisher<UserDreamList, Error> {
-    let url = "http://3.34.46.139:80\(URLHost.dreamList)"
+    let url = "http://3.39.22.137\(URLHost.dreamList)"
     let body = UserDreamListRequestDto(userID: userID)
 
     return alamofireSession.request(
@@ -69,7 +69,7 @@ public class UserDreamListService {
   }
 
   public func deleteUserDreamList(dreamIDs: [String]) -> AnyPublisher<Unit, Error> {
-    let url = "http://3.34.46.139:80\(URLHost.dreamList)"
+    let url = "http://3.39.22.137\(URLHost.dreamList)"
     let body = UserDreamListIDRequestDto(dreamIDList: dreamIDs)
 
     return alamofireSession.request(
@@ -120,7 +120,7 @@ public class UserDreamListService {
     userID: String,
     dreamID: String
   ) -> AnyPublisher<Unit, Error> {
-    let url = "http://3.34.46.139:80\(URLHost.saveDream)"
+    let url = "http://3.39.22.137\(URLHost.saveDream)"
     let body = SaveDreamRequestDto(
       userID: userID,
       dreamID: dreamID

@@ -19,7 +19,7 @@ public class DropoutService {
   }
 
   public func dropout(id: String) -> AnyPublisher<Unit, Error> {
-    let url = "http://3.34.46.139:80\(URLHost.dropout)"
+    let url = "http://3.39.22.137\(URLHost.dropout)"
     let body = DropoutRequestDto(userID: id)
 
     return alamofireSession.request(
