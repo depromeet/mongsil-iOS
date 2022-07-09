@@ -20,16 +20,22 @@ struct SearchResultView: View {
     GeometryReader { geometry in
       VStack(spacing: 0) {
         MSNavigationView(store: store)
-        WithViewStore(store.scope(state: \.local.isExitSearchResult)) { isExitSearchResultViewStore in
-          WithViewStore(store.scope(state: \.local.isSearched)) { isSearchedViewStore in
-            switch (isExitSearchResultViewStore.state, isSearchedViewStore.state) {
-              case (_, false):
-                Spacer()
-              case (true, _):
-                ExistSearchResult(store: store)
-              case (false, _):
-                NotExistSearchResult(store: store)
+        WithViewStore(store.scope(state: \.local.isSearchCompleted)) { isSearchCompletedViewStore in
+          if isSearchCompletedViewStore.state {
+            WithViewStore(store.scope(state: \.local.isExitSearchResult)) { isExitSearchResultViewStore in
+              WithViewStore(store.scope(state: \.local.isSearched)) { isSearchedViewStore in
+                switch (isExitSearchResultViewStore.state, isSearchedViewStore.state) {
+                case (_, false):
+                  Spacer()
+                case (true, _):
+                  ExistSearchResult(store: store)
+                case (false, _):
+                  NotExistSearchResult(store: store)
+                }
+              }
             }
+          } else {
+            LoadingView()
           }
         }
       }
@@ -300,6 +306,17 @@ private struct SearchResultItem: View {
         }
         .frame(width: 36, height: 36)
       }
+    }
+  }
+}
+
+private struct LoadingView: View {
+  var body: some View {
+    VStack {
+      Spacer()
+      LottieView(animation: "loading")
+        .frame(width: 300, height: 300)
+      Spacer()
     }
   }
 }

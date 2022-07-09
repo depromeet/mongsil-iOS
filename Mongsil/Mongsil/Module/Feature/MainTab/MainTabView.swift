@@ -2,7 +2,7 @@
 //  MainTabView.swift
 //  Mongsil
 //
-//  Created by 이승후 on 2022/04/10.
+//  Created by Chanwoo Cho on 2022/04/10.
 //
 
 import SwiftUI

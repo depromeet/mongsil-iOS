@@ -2,7 +2,7 @@
 //  RecordView.swift
 //  Mongsil
 //
-//  Created by 이승후 on 2022/04/08.
+//  Created by Chanwoo Cho on 2022/04/08.
 //
 
 import SwiftUI

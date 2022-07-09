@@ -25,6 +25,7 @@ struct SearchResultState: Equatable {
     self.searchResult.isNotEmpty
   }
   var isSearchResultDetailPushed: Bool = false
+  var isSearchCompleted: Bool = false
 
   // Child State
   public var searchResultDetail: SearchResultDetailState?
@@ -53,6 +54,7 @@ enum SearchResultAction: ToastPresentableAction {
   case setSearchResult([SearchResult])
 
   case setSearchResultDetailPushed(Bool, SearchResult? = nil)
+  case setIsSearchCompleted(Bool)
 
   // Child Action
   case searchResultDetail(SearchResultDetailAction)
@@ -150,7 +152,10 @@ let searchResultReducer = Reducer.combine([
       return Effect(value: .searchTextFieldChanged(""))
 
     case .searchButtonTapped:
-      return Effect(value: .search(state.local.searchKeyword))
+      return Effect.concatenate([
+        Effect(value: .setIsSearchCompleted(false)),
+        Effect(value: .search(state.local.searchKeyword))
+      ])
 
     case .filterButtonTapped:
       return Effect(value: .selectFilterSheet(.setFilterSheetPresented(true)))
@@ -183,7 +188,7 @@ let searchResultReducer = Reducer.combine([
 
     case let .setSearchResult(searchResult):
       state.local.searchResult = searchResult
-      return .none
+      return Effect(value: .setIsSearchCompleted(true))
 
     case let .setSearchResultDetailPushed(pushed, searchResult):
       state.local.isSearchResultDetailPushed = pushed
@@ -193,6 +198,10 @@ let searchResultReducer = Reducer.combine([
       if pushed {
         state.local.searchResultDetail = .init(searchResult: searchResult)
       }
+      return .none
+
+    case let .setIsSearchCompleted(isSearchCompleted):
+      state.local.isSearchCompleted = isSearchCompleted
       return .none
 
     case let .keyword(.nounKeyword(.nounKeywordListItem(_, .categoryListItem(_, .tappedView(category))))):

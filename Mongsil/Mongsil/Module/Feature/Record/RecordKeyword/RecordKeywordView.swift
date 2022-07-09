@@ -2,7 +2,7 @@
 //  RecordKeywordView.swift
 //  Mongsil
 //
-//  Created by 이승후 on 2022/05/15.
+//  Created by Chanwoo Cho on 2022/05/15.
 //
 
 import SwiftUI
