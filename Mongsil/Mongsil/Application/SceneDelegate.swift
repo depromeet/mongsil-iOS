@@ -51,12 +51,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
           store: appStore,
           colorScheme: .dark
         )
-
-//        SearchResultView(store: .init(
-//            initialState: WithSharedState<SearchResultState>(local: .init(), shared: .init()),
-//            reducer: searchResultReducer,
-//            environment: .init(dreamService: .init(alamofireSession: .default)))
-//          ).preferredColorScheme(.dark)
       )
       self.window = window
       window.makeKeyAndVisible()
